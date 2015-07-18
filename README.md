@@ -13,5 +13,6 @@ A pesar de ser una base de datos Open Source, tiene versiones comerciales (basta
 * MySQL Workbench
 * MySQL Proxy
 * http://dev.mysql.com/downloads/mysql/
-Instalador Windows de todas las herramientas:
+
+### Instalador Windows de todas las herramientas:
 http://dev.mysql.com/downloads/windows/installer/5.6.html
