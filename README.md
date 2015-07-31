@@ -19,3 +19,7 @@ http://dev.mysql.com/downloads/windows/installer/5.6.html
 
 ## Conectando Node.js y MySQL
 https://codeforgeek.com/2015/01/nodejs-mysql-tutorial/
+
+## Tutorial sobre Node.js
+https://www.youtube.com/watch?v=EY9uY1rxazk&list=PL6gx4Cwl9DGBMdkKFn3HasZnnAqVjzHn_&index=18
+
