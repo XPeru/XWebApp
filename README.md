@@ -16,3 +16,6 @@ A pesar de ser una base de datos Open Source, tiene versiones comerciales (basta
 
 ### Instalador Windows de todas las herramientas:
 http://dev.mysql.com/downloads/windows/installer/5.6.html
+
+## Conectando Node.js y MySQL
+https://codeforgeek.com/2015/01/nodejs-mysql-tutorial/
