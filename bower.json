@@ -1,0 +1,28 @@
+{
+  "name": "Eduardo",
+  "version": "0.0.0",
+  "homepage": "https://github.com/Xperu/XWebApp",
+  "authors": [
+    "Eduardo <eduardopaucar1@gmail.com>"
+  ],
+  "description": "Web Application",
+  "main": "index.html",
+  "keywords": [
+    "X",
+    "WebApp"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "angular": "~1.4.7",
+    "angular-ui-router": "~0.2.15",
+    "angular-route": "~1.4.7"
+  }
+}
