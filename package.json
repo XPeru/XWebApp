@@ -1,8 +1,10 @@
 {
-	"name": "node-mysql",
-	"version": "0.0.1",
-	"dependencies": {
-		"express": "^4.10.6",
-		"mysql": "2.5.4"
-	}
+  "name": "node-mysql",
+  "version": "0.0.1",
+  "dependencies": {
+    "connect": "^3.4.0",
+    "express": "^4.10.6",
+    "mysql": "2.5.4",
+    "serve-static": "^1.10.0"
+  }
 }

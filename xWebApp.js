@@ -1,4 +1,10 @@
-angular.module('xWebApp', [])
+angular.module('xWebApp', [
+	'NavBar',
+	'Home',
+	'ngRoute',
+	'ui.router'
+])
+
 	.controller('TodoListController', function() {
 		var todoList = this;
 		todoList.todos = [
@@ -26,4 +32,26 @@ angular.module('xWebApp', [])
 				if (!todo.done) todoList.todos.push(todo); 
 			});
 		};
-	});
+	})
+
+	.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+		$stateProvider
+			.state('home', {
+				url: '/home',
+				controller: 'homeController',
+				templateUrl: 'modules/Home/home.html',
+				hideMenus: true,
+				data: {},
+				reloadOnSearch: false
+			})
+			.state('nav', {
+				url: '/nav',
+				controller: 'navBarController',
+				templateUrl: 'modules/NavBar/nav.html',
+				hideMenus: true,
+				data: {},
+				reloadOnSearch: false
+			});
+
+		$urlRouterProvider.otherwise('home');
+	}]);

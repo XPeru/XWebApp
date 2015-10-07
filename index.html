@@ -1,33 +1,22 @@
 <!doctype html>
 <html ng-app="xWebApp">
-	<head>
-		<script src="bower_components/angular/angular.js"></script>
-		<script src="xWebApp.js"></script>
-		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="main.css">
-	</head>
-	<body>
-		<div>
-      		<label>Name:</label>
-      		<input type="text" ng-model="yourName" placeholder="Enter a name here">
-      		<hr>
-      		<h1>Hello {{yourName}}!</h1>
-    	</div>
-    	<hr>
-    	<h2>Todo</h2>
-    	<div ng-controller="TodoListController as todoList">
-    		<span>{{todoList.remaining()}} of {{todoList.todos.length}} remaining</span>
-    		[ <a href="" ng-click="todoList.archive()">archive</a> ]
-    		<ul class="unstyled">
-    			<li ng-repeat="todo in todoList.todos">
-    				<input type="checkbox" ng-model="todo.done">
-    				<span class="done-{{todo.done}}">{{todo.text}}</span>
-    			</li>
-    		</ul>
-    		<form ng-submit="todoList.addTodo()">
-    			<input type="text" ng-model="todoList.todoText" size="30" placeholder="add new todo here">
-    			<input class="btn-primary" type="submit" value="add">
-    		</form>
-    	</div>
-	</body>
+<head>
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <head lang="en">
+    <title>XWebApplication</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div ui-view></div>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="xWebApp.js"></script>
+    <!--Home module-->
+    <script src="modules/Home/home.js"></script>
+    <!--NavBar module-->
+    <script src="modules/NavBar/nav.js"></script>
+</body>
 </html>

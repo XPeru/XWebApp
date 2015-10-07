@@ -2,3 +2,33 @@
 	text-decoration: line-through;
 	color: red;
 }
+
+.headerXWebApp {
+    background-color: #202347;
+}
+
+.homepage {
+	background-color: #202347;
+	color: #FFFFFF;
+	font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+}
+
+.homepage h1 {
+	font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+	font-size: 36px;
+	font-style: normal;
+	font-variant: small-caps;
+}
+
+.list_home {
+	font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+	text-align: center;
+}
+
+.list_home a {
+	padding-top: 10%;
+	background-color: #202347;
+	padding-bottom: 10%;
+	color: #FFFFFF;
+
+}
