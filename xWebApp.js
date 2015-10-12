@@ -1,6 +1,8 @@
 angular.module('xWebApp', [
 	'NavBar',
 	'Home',
+	'UserList',
+	// 'services',
 	'ngRoute',
 	'ui.router'
 ])
@@ -35,7 +37,16 @@ angular.module('xWebApp', [
 	})
 
 	.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+		
 		$stateProvider
+			.state('nav', {
+				url: '/nav',
+				controller: 'navBarController',
+				templateUrl: 'modules/NavBar/nav.html',
+				hideMenus: true,
+				data: {},
+				reloadOnSearch: false
+			})
 			.state('home', {
 				url: '/home',
 				controller: 'homeController',
@@ -44,14 +55,15 @@ angular.module('xWebApp', [
 				data: {},
 				reloadOnSearch: false
 			})
-			.state('nav', {
-				url: '/nav',
-				controller: 'navBarController',
-				templateUrl: 'modules/NavBar/nav.html',
+			.state('userlist', {
+				url: '/userlist',
+				controller: 'userListController',
+				templateUrl: 'modules/UserList/userlist.html',
 				hideMenus: true,
 				data: {},
 				reloadOnSearch: false
 			});
 
 		$urlRouterProvider.otherwise('home');
+	
 	}]);

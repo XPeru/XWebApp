@@ -11,7 +11,8 @@ angular.module('NavBar', [])
 				restrict: 'E',
 				templateUrl: 'modules/NavBar/nav.html',
 				scope: {
-					home: '@'
+					home: '@',
+					userlist: '@'
 				}
 			};
 	});	
