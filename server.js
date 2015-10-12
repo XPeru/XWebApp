@@ -1,23 +1,55 @@
-var connect = require('connect');
-var serveStatic = require('serve-static');
-connect().use(serveStatic(__dirname)).listen(8070);
+var express = require("express");
+var mysql   = require("mysql");
+var bodyParser  = require("body-parser");
+var md5 = require('MD5');
+var rest = require("./rest.js");
+var app  = express();
 
-// var mysql      = require('mysql');
-// var connection = mysql.createConnection({
-//   host     : 'localhost',
-//   port	   : 3306,
-//   user     : 'root',
-//   password : 'root',
-//   database : 'test'
-// });
+function REST(){
+    var self = this;
+    self.connectMysql();
+}
 
-// connection.connect();
+REST.prototype.connectMysql = function() {
+    var self = this;
+    var pool = mysql.createPool({
+        connectionLimit : 100,
+        host     : 'localhost',
+        port	 :  3306,
+        user     : 'root',
+        password : 'root',
+        database : 'testdb',
+        debug    :  false
+    });
+    pool.getConnection(function(err,connection){
+        if(err) {
+          self.stop(err);
+        } else {
+          self.configureExpress(connection);
+        }
+    });
+};
 
-// connection.query('SELECT * from ORDERS_APP', function(err, rows, fields) {
-//   if (!err)
-//     console.log('The solution is: ', rows);
-//   else
-//     console.log('Error while performing Query.');
-// });
+REST.prototype.configureExpress = function(connection) {
+    var self = this;
+    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(bodyParser.json());
+    var router = express.Router();
+    app.use('/api', router);
+    app.use(express.static(__dirname));
+    var rest_router = new rest(router,connection,md5);
+    self.startServer();
+};
 
-// connection.end();
+REST.prototype.startServer = function() {
+    app.listen(8070,function(){
+   		console.log("All right ! I am alive at Port 8070.");
+    });
+};
+
+REST.prototype.stop = function(err) {
+    console.log("ISSUE WITH MYSQL \n" + err);
+    process.exit(1);
+};
+
+new REST();
