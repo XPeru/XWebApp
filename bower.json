@@ -24,7 +24,8 @@
     "angular": "~1.4.7",
     "angular-ui-router": "~0.2.15",
     "angular-route": "~1.4.7",
-    "angular-resource": "~1.4.7"
+    "angular-resource": "~1.4.7",
+    "angular-bootstrap": "~0.14.1"
   },
   "resolutions": {
     "webcomponentsjs": "^0.6.0"

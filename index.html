@@ -1,7 +1,7 @@
 <!doctype html>
 <html ng-app="xWebApp">
 <head>
-    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="main.css">
     <head lang="en">
         <title>XWebApplication</title>
@@ -11,10 +11,16 @@
     </head>
     <body>
         <div ui-view></div>
+
         <script src="bower_components/angular/angular.js"></script>
         <script src="bower_components/angular-route/angular-route.js"></script>
         <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
         <script src="bower_components/angular-resource/angular-resource.js"></script>
+        <!--contains js code for bootstrap animations-->
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <!--UI Boostrap library -> bower install angular-bootstrap  -->
+        <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
         <script src="xWebApp.js"></script>
         <!-- <script src="services.js"></script> -->
         <!--NavBar module-->

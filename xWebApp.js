@@ -4,7 +4,8 @@ angular.module('xWebApp', [
 	'UserList',
 	// 'services',
 	'ngRoute',
-	'ui.router'
+	'ui.router',
+	'ui.bootstrap'
 ])
 
 	.controller('TodoListController', function() {
@@ -31,7 +32,7 @@ angular.module('xWebApp', [
 			var oldTodos = todoList.todos;
 			todoList.todos = [];
 			angular.forEach(oldTodos, function(todo) {
-				if (!todo.done) todoList.todos.push(todo); 
+				if (!todo.done) todoList.todos.push(todo);
 			});
 		};
 	})
