@@ -25,7 +25,8 @@
     "angular-ui-router": "~0.2.15",
     "angular-route": "~1.4.7",
     "angular-resource": "~1.4.7",
-    "angular-bootstrap": "~0.14.1"
+    "angular-bootstrap": "~0.14.1",
+    "ng-table": "~0.8.3"
   },
   "resolutions": {
     "webcomponentsjs": "^0.6.0"

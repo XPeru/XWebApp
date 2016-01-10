@@ -1,47 +1,76 @@
 var userList = angular.module('UserList', ['ui.bootstrap']);
 
-// .controller('userListController', ['$scope', 'UsersFactory', 'UserFactory', '$location', '$http',
-//function ($scope, UsersFactory, UserFactory, $location, $http) {
-userList.controller('userListController', ['$scope', '$location', '$http', '$modal',
-	function($scope, $location, $http, $modal) {
-		$scope.items = ['item1', 'item2', 'item3'];
-		
-		// callback for ng-click 'editUser':
-		// $scope.editUser = function (userId) {
-		//     $location.path('/user-detail/' + userId);
-		// };
+userList.controller('userListController', ['$scope', '$location', '$http', '$modal', '$timeout', 'UserServicesFactory', 'NgTableParams',
+	function($scope, $location, $http, $modal, $timeout, UserServicesFactory, NgTableParams) {
 
-		// callback for ng-click 'deleteUser':
-		$scope.deleteUser = function(userEmail) {
-			UserFactory.delete({
-				user_email: userEmail
-			});
-			$scope.users = UsersFactory.query();
-		};
-		$http.delete('/api/userlist').then(function(result) {
-			$scope.users = result.data.Users;
+		$scope.usersData = [{}];
+		$scope.modal_user_not_finished = true;
+		$scope.usersTable = new NgTableParams({
+			page: 1,
+			count: 10
+		}, {
+			total: 0,
+			counts: [],
+			getData: function(params) {
+				if ($scope.usersData.length == 1 || $scope.modal_user_not_finished) {
+						$scope.callGetAllUsers();
+					} else {
+						params.total($scope.usersData.length);
+
+						/*return $scope.usersData.slice(
+							(params.page() - 1) * params.count(),
+							params.page() * params.count()
+							);*/
+						console.info($scope.usersData);
+						return $scope.usersData;
+					}
+					$scope.modal_user_not_finished = false;
+			}
+			
 		});
-		// $scope.deleteUser = function (userEmail) {
-		//     UserFactory.delete({ user_email: userEmail });
-		//     $scope.users = UsersFactory.query();
-		// };
 
-		// callback for ng-click 'createUser':
-		$scope.createNewUser = function() {
+		$scope.callGetAllUsers = function() {
+			UserServicesFactory.getAllUsers(function(response) {
+					$timeout(function() {
+						$scope.usersData = response;
+						$scope.usersTable.reload();
+					}, 200);
+			});
+		};
+
+		$scope.openModalUser = function(selected_modal, selected_user) {
 			var modalInstance = $modal.open({
-				templateUrl: 'modules/UserList/modal.html',
-				controller: 'ModalInstanceCtrl',
-				resolve: {
-					items: function() {
-						return $scope.items;
+				templateUrl: function() {
+					var template;
+					switch(selected_modal) {
+						case "create":
+							template = 'modules/UserList/modalCreationUser.html';
+							break;
+						case "edit":
+							template = 'modules/UserList/modalEditionUser.html';
+							break;
+						case "delete":
+							template = 'modules/UserList/modalDeleteUser.html';
+							break;
+					}
+					return template;
+				},
+				controller: 'ModalUser',
+				resolve : {
+					selected_user : function() {
+						return selected_user;
 					}
 				}
 			});
 
-			modalInstance.result.then(function(selectedItem) {
-				$scope.selected = selectedItem;
+			modalInstance.result.then(function() {
+				$scope.modal_user_not_finished = true;
+				//$scope.is_rec_selected = false;
+				$scope.usersTable.reload();
+				
 			}, function() {
-				//$log.info('Modal dismissed at: ' + new Date());
+				$scope.modal_user_not_finished = true;
+				$scope.usersTable.reload();
 			});
 		};
 
@@ -51,16 +80,24 @@ userList.controller('userListController', ['$scope', '$location', '$http', '$mod
 	}
 ]);
 
-userList.controller('ModalInstanceCtrl',  function($scope, $modalInstance, items) {
+userList.controller('ModalUser',  function($scope, $http, $timeout, $modalInstance, selected_user) {
 	console.info("controlador modal");
-	console.info(items);
-    $scope.items = items;
-    $scope.selected = {
-      item: $scope.items[0]
+	$scope.selected_user = selected_user;
+
+
+    $scope.editUser = function (selected_user) {
+		console.info("editing user");
     };
 
-    $scope.ok = function () {
-      $modalInstance.close($scope.selected.item);
+    $scope.createUser = function (user_created) {
+		console.info("creating user");
+		console.info(user_created);
+
+		$http.post('/api/users', user_created).then(function(response) {
+			$timeout(function() {
+				$modalInstance.close();
+			}, 200);
+		}, user_created);
     };
 
     $scope.cancel = function () {

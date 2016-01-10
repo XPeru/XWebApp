@@ -1,8 +1,9 @@
 angular.module('xWebApp', [
+	'ngTable',
 	'NavBar',
 	'Home',
 	'UserList',
-	// 'services',
+	'userServices',
 	'ngRoute',
 	'ui.router',
 	'ui.bootstrap'
