@@ -1,3 +1,4 @@
+
 angular.module('xWebApp', [
 	'ngTable',
 	'NavBar',
