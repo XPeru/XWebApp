@@ -1,7 +1,7 @@
 var userList = angular.module('UserList', ['ui.bootstrap']);
-
-userList.controller('userListController', ['$scope', '$location', '$http', '$modal', '$timeout', 'UserServicesFactory', 'NgTableParams',
-	function($scope, $location, $http, $modal, $timeout, UserServicesFactory, NgTableParams) {
+//el orden de las variables tiene que ser el mismo en la declaracion de estas, y dentro de la funcion que define al controlador
+userList.controller('userListController', ['$scope', '$location', '$http', '$uibModal', '$timeout', 'UserServicesFactory', 'NgTableParams',
+	function($scope, $location, $http, $uibModal, $timeout, UserServicesFactory, NgTableParams) {
 
 		$scope.usersData = [{}];
 		$scope.modal_user_not_finished = true;
@@ -39,7 +39,7 @@ userList.controller('userListController', ['$scope', '$location', '$http', '$mod
 		};
 
 		$scope.openModalUser = function(selected_modal, selected_user) {
-			var modalInstance = $modal.open({
+			var modalInstance = $uibModal.open({
 				templateUrl: function() {
 					var template;
 					switch(selected_modal) {
@@ -70,23 +70,28 @@ userList.controller('userListController', ['$scope', '$location', '$http', '$mod
 				
 			}, function() {
 				$scope.modal_user_not_finished = true;
-				$scope.usersTable.reload();
+				//$scope.usersTable.reload();
 			});
 		};
-
+/*
 		$http.get('/api/userlist').then(function(result) {
 			$scope.users = result.data.Users;
-		});
+		});*/
 	}
 ]);
 
-userList.controller('ModalUser',  function($scope, $http, $timeout, $modalInstance, selected_user) {
+userList.controller('ModalUser',  function($scope, $http, $timeout, $uibModalInstance, selected_user) {
 	console.info("controlador modal");
 	$scope.selected_user = selected_user;
+	console.info("este es el usuario");
+	console.info(selected_user);
 
 
-    $scope.editUser = function (selected_user) {
+
+    $scope.editUser = function (editUser) {
 		console.info("editing user");
+		console.info(editUser);
+	//	console.info($scope.selected_user);
     };
 
     $scope.createUser = function (user_created) {
@@ -95,12 +100,12 @@ userList.controller('ModalUser',  function($scope, $http, $timeout, $modalInstan
 
 		$http.post('/api/users', user_created).then(function(response) {
 			$timeout(function() {
-				$modalInstance.close();
+				$uibModalInstance.close();
 			}, 200);
 		}, user_created);
     };
 
     $scope.cancel = function () {
-      $modalInstance.dismiss('cancel');
+      $uibModalInstance.dismiss('cancel');
     };
 });
