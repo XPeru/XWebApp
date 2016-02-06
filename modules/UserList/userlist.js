@@ -21,7 +21,6 @@ userList.controller('userListController', ['$scope', '$location', '$http', '$uib
 							(params.page() - 1) * params.count(),
 							params.page() * params.count()
 							);*/
-						console.info($scope.usersData);
 						return $scope.usersData;
 					}
 					$scope.modal_user_not_finished = false;
@@ -73,32 +72,34 @@ userList.controller('userListController', ['$scope', '$location', '$http', '$uib
 				//$scope.usersTable.reload();
 			});
 		};
-/*
-		$http.get('/api/userlist').then(function(result) {
-			$scope.users = result.data.Users;
-		});*/
+
 	}
 ]);
 
-userList.controller('ModalUser',  function($scope, $http, $timeout, $uibModalInstance, selected_user) {
-	console.info("controlador modal");
+userList.controller('ModalUser',  function($scope, $http, $timeout, $uibModalInstance, selected_user, UserServicesFactory) {
+	//TODO comprobar si esto es realmente necesario o no
 	$scope.selected_user = selected_user;
-	console.info("este es el usuario");
-	console.info(selected_user);
 
+	$scope.deleteUser = function(user_to_delete) {
+		console.info("deleting user");
+		console.info(user_to_delete);
+		UserServicesFactory.deleteUser(function(response) {
+			$timeout(function() {
+				$uibModalInstance.close();
+			}, 200);
+		}, user_to_delete);
+	};
 
-
-    $scope.editUser = function (editUser) {
-		console.info("editing user");
-		console.info(editUser);
-	//	console.info($scope.selected_user);
+    $scope.updateUser = function (updated_user) {
+		UserServicesFactory.updateUser(function(response) {
+			$timeout(function() {
+				$uibModalInstance.close();
+			}, 200);
+		}, updated_user);
     };
 
     $scope.createUser = function (user_created) {
-		console.info("creating user");
-		console.info(user_created);
-
-		$http.post('/api/users', user_created).then(function(response) {
+		UserServicesFactory.createUser(function(response) {
 			$timeout(function() {
 				$uibModalInstance.close();
 			}, 200);
