@@ -26,7 +26,8 @@
     "angular-route": "~1.4.7",
     "angular-resource": "~1.4.7",
     "angular-bootstrap": "~0.14.1",
-    "ng-table": "~0.8.3"
+    "ng-table": "~0.8.3",
+    "Hover": "~2.0.2"
   },
   "resolutions": {
     "webcomponentsjs": "^0.6.0"
