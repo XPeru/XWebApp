@@ -8,21 +8,21 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema testdb
+-- Schema testdb2
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema testdb
+-- Schema testdb2
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `testdb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
-USE `testdb` ;
+CREATE SCHEMA IF NOT EXISTS `testdb2` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+USE `testdb2` ;
 
 -- -----------------------------------------------------
--- Table `testdb`.`TBL_ING`
+-- Table `testdb2`.`TBL_ING`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `testdb`.`TBL_ING` ;
+DROP TABLE IF EXISTS `testdb2`.`TBL_ING` ;
 
-CREATE TABLE IF NOT EXISTS `testdb`.`TBL_ING` (
+CREATE TABLE IF NOT EXISTS `testdb2`.`TBL_ING` (
   `ING_SEQ` INT NOT NULL AUTO_INCREMENT COMMENT 'Secuencia de Ingreso',
   `ID_ING` VARCHAR(20) NOT NULL COMMENT 'ID de Ingreso',
   `ACT_FLG` CHAR(1) NULL DEFAULT '1' COMMENT 'Flag de Actividad',
@@ -35,11 +35,11 @@ COMMENT = 'Tabla de Ingresos';
 
 
 -- -----------------------------------------------------
--- Table `testdb`.`TBL_SAL`
+-- Table `testdb2`.`TBL_SAL`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `testdb`.`TBL_SAL` ;
+DROP TABLE IF EXISTS `testdb2`.`TBL_SAL` ;
 
-CREATE TABLE IF NOT EXISTS `testdb`.`TBL_SAL` (
+CREATE TABLE IF NOT EXISTS `testdb2`.`TBL_SAL` (
   `SAL_SEQ` INT NOT NULL AUTO_INCREMENT COMMENT 'Secuencia de Salida',
   `ID_SAL` VARCHAR(20) NOT NULL COMMENT 'ID de Salida',
   `ORD` VARCHAR(20) NULL COMMENT 'Orden',
@@ -53,11 +53,11 @@ COMMENT = 'Tabla de Salidas';
 
 
 -- -----------------------------------------------------
--- Table `testdb`.`TBL_ART`
+-- Table `testdb2`.`TBL_ART`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `testdb`.`TBL_ART` ;
+DROP TABLE IF EXISTS `testdb2`.`TBL_ART` ;
 
-CREATE TABLE IF NOT EXISTS `testdb`.`TBL_ART` (
+CREATE TABLE IF NOT EXISTS `testdb2`.`TBL_ART` (
   `ART_SEQ` INT NOT NULL AUTO_INCREMENT COMMENT 'Secuencia de Artículo',
   `ID_ART` VARCHAR(20) NOT NULL COMMENT 'ID de Artículo',
   `DESC` NVARCHAR(100) NULL COMMENT 'Descripción',
@@ -74,11 +74,11 @@ COMMENT = 'Tabla de Artículos';
 
 
 -- -----------------------------------------------------
--- Table `testdb`.`TBL_ING_DET`
+-- Table `testdb2`.`TBL_ING_DET`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `testdb`.`TBL_ING_DET` ;
+DROP TABLE IF EXISTS `testdb2`.`TBL_ING_DET` ;
 
-CREATE TABLE IF NOT EXISTS `testdb`.`TBL_ING_DET` (
+CREATE TABLE IF NOT EXISTS `testdb2`.`TBL_ING_DET` (
   `ING_DET_SEQ` INT NOT NULL AUTO_INCREMENT COMMENT 'Secuencia de Ingreso Detallado',
   `ING_SEQ` INT NOT NULL COMMENT 'Secuencia de Ingreso',
   `ID_ART` VARCHAR(20) NOT NULL COMMENT 'ID de Artículo',
@@ -92,12 +92,12 @@ CREATE TABLE IF NOT EXISTS `testdb`.`TBL_ING_DET` (
   INDEX `fk_TBL_ING_DET_TBL_ART1_idx` (`ID_ART` ASC)  COMMENT '',
   CONSTRAINT `fk_TBL_ING_DET_TBL_ING1`
     FOREIGN KEY (`ING_SEQ`)
-    REFERENCES `testdb`.`TBL_ING` (`ING_SEQ`)
+    REFERENCES `testdb2`.`TBL_ING` (`ING_SEQ`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_TBL_ING_DET_TBL_ART1`
     FOREIGN KEY (`ID_ART`)
-    REFERENCES `testdb`.`TBL_ART` (`ID_ART`)
+    REFERENCES `testdb2`.`TBL_ART` (`ID_ART`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -105,11 +105,11 @@ COMMENT = 'Tabla de Detalles de Ingreso';
 
 
 -- -----------------------------------------------------
--- Table `testdb`.`TBL_SAL_DET`
+-- Table `testdb2`.`TBL_SAL_DET`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `testdb`.`TBL_SAL_DET` ;
+DROP TABLE IF EXISTS `testdb2`.`TBL_SAL_DET` ;
 
-CREATE TABLE IF NOT EXISTS `testdb`.`TBL_SAL_DET` (
+CREATE TABLE IF NOT EXISTS `testdb2`.`TBL_SAL_DET` (
   `SAL_DET_SEQ` INT NOT NULL AUTO_INCREMENT COMMENT 'Secuencia de Salida Detallada',
   `SAL_SEQ` INT NOT NULL COMMENT 'Secuencia de Salida',
   `ID_ART` VARCHAR(20) NOT NULL COMMENT 'ID de Artículo',
@@ -122,12 +122,12 @@ CREATE TABLE IF NOT EXISTS `testdb`.`TBL_SAL_DET` (
   INDEX `fk_TBL_SAL_DET_TBL_ART1_idx` (`ID_ART` ASC)  COMMENT '',
   CONSTRAINT `fk_TBL_SAL_DET_TBL_SAL1`
     FOREIGN KEY (`SAL_SEQ`)
-    REFERENCES `testdb`.`TBL_SAL` (`SAL_SEQ`)
+    REFERENCES `testdb2`.`TBL_SAL` (`SAL_SEQ`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_TBL_SAL_DET_TBL_ART1`
     FOREIGN KEY (`ID_ART`)
-    REFERENCES `testdb`.`TBL_ART` (`ID_ART`)
+    REFERENCES `testdb2`.`TBL_ART` (`ID_ART`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -135,11 +135,11 @@ COMMENT = 'Tabla de Detalles de Salida';
 
 
 -- -----------------------------------------------------
--- Table `testdb`.`TBL_ALM`
+-- Table `testdb2`.`TBL_ALM`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `testdb`.`TBL_ALM` ;
+DROP TABLE IF EXISTS `testdb2`.`TBL_ALM` ;
 
-CREATE TABLE IF NOT EXISTS `testdb`.`TBL_ALM` (
+CREATE TABLE IF NOT EXISTS `testdb2`.`TBL_ALM` (
   `ALM_SEQ` INT NOT NULL AUTO_INCREMENT COMMENT 'Secuencia de Almacén',
   `ID_ALM` VARCHAR(20) NOT NULL COMMENT 'ID de Almacén',
   `ACT_FLG` CHAR(1) NULL DEFAULT 1 COMMENT 'Flag de Actividad',
@@ -151,11 +151,11 @@ COMMENT = 'Tabla de Almacenes';
 
 
 -- -----------------------------------------------------
--- Table `testdb`.`TBL_ALM_DET`
+-- Table `testdb2`.`TBL_ALM_DET`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `testdb`.`TBL_ALM_DET` ;
+DROP TABLE IF EXISTS `testdb2`.`TBL_ALM_DET` ;
 
-CREATE TABLE IF NOT EXISTS `testdb`.`TBL_ALM_DET` (
+CREATE TABLE IF NOT EXISTS `testdb2`.`TBL_ALM_DET` (
   `ALM_DET_SEQ` INT NOT NULL AUTO_INCREMENT COMMENT 'Secuencia de Almacén Detallado',
   `ALM_SEQ` INT NOT NULL COMMENT 'Secuencia de Almacén',
   `ID_ART` VARCHAR(20) NOT NULL COMMENT 'ID de Artículo',
@@ -168,12 +168,12 @@ CREATE TABLE IF NOT EXISTS `testdb`.`TBL_ALM_DET` (
   INDEX `fk_TBL_ALM_DET_TBL_ART1_idx` (`ID_ART` ASC)  COMMENT '',
   CONSTRAINT `fk_TBL_ALM_DET_TBL_ALM1`
     FOREIGN KEY (`ALM_SEQ`)
-    REFERENCES `testdb`.`TBL_ALM` (`ALM_SEQ`)
+    REFERENCES `testdb2`.`TBL_ALM` (`ALM_SEQ`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_TBL_ALM_DET_TBL_ART1`
     FOREIGN KEY (`ID_ART`)
-    REFERENCES `testdb`.`TBL_ART` (`ID_ART`)
+    REFERENCES `testdb2`.`TBL_ART` (`ID_ART`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
