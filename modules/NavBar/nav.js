@@ -1,7 +1,7 @@
 angular.module('NavBar', [])
 	
 	.controller('navBarController', ['$scope', '$rootScope', function ($scope, $rootScope) {
-		console.info('Navigation Bar');
+		//console.info('Navigation Bar');
 	}])
 
 	.directive('xwebappNavBar',
@@ -12,7 +12,8 @@ angular.module('NavBar', [])
 				templateUrl: 'modules/NavBar/nav.html',
 				scope: {
 					home: '@',
-					userlist: '@'
+					userlist: '@',
+					articulos: '@'
 				}
 			};
 	});	

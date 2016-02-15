@@ -4,6 +4,7 @@ angular.module('xWebApp', [
 	'NavBar',
 	'Home',
 	'UserList',
+	'Articulos',
 	'userServices',
 	'ngRoute',
 	'ui.router',
@@ -62,6 +63,14 @@ angular.module('xWebApp', [
 				url: '/userlist',
 				controller: 'userListController',
 				templateUrl: 'modules/UserList/userlist.html',
+				hideMenus: true,
+				data: {},
+				reloadOnSearch: false
+			})
+			.state('articulos', {
+				url: '/articulos',
+				controller: 'articulosController',
+				templateUrl: 'modules/Articulos/articulos.html',
 				hideMenus: true,
 				data: {},
 				reloadOnSearch: false
