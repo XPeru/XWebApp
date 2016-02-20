@@ -11,7 +11,7 @@ var md5 = require('MD5');
 // The rest.js contains all the routes for the server, it should be composed by many others files
 // One file per application service
 var rest = require("./rest.js");
-
+var restArticulos = require("./modules/Articulos/dao/articulosDAO.js");
 // We execute the express
 var app = express();
 
@@ -53,6 +53,7 @@ REST.prototype.configureExpress = function(connection) {
     app.use(express.static(__dirname));
     // Adding all the routes to our server
     var rest_router = new rest(router, connection, md5);
+    var rest_articulos = new restArticulos(router, connection, md5);
     self.startServer();
 };
 

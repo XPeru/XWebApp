@@ -6,6 +6,7 @@ angular.module('xWebApp', [
 	'UserList',
 	'Articulos',
 	'userServices',
+	'articulosServices',
 	'ngRoute',
 	'ui.router',
 	'ui.bootstrap'

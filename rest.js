@@ -102,6 +102,7 @@ REST_ROUTER.prototype.handleRoutes = function(router, connection, md5) {
         var query = "DELETE from ?? WHERE ??=?";
         var table = ["user_login","user_email", req.params.user_email];
         query = mysql.format(query, table);
+        console.info(query);
         connection.query(query, function(err, rows) {
             if (err) {
                 res.json({

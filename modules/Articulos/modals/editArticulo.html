@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <h3 class="modal-title">Editando articulo</h3>
+</div>
+<div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="descripcion_art">Descripcion</label>
+        <input type="text" class="form-control" id="descripcion_art" ng-model="selected_articulo.DESC" placeholder="{{selected_articulo.DESC}}">
+      </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="editArticulo(selected_articulo)">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>

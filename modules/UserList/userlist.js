@@ -12,7 +12,7 @@ userList.controller('userListController', ['$scope', '$location', '$http', '$uib
 			total: 0,
 			counts: [],
 			getData: function(params) {
-				if ($scope.usersData.length == 1 || $scope.modal_user_not_finished) {
+				if ($scope.modal_user_not_finished) {
 						$scope.callGetAllUsers();
 					} else {
 						params.total($scope.usersData.length);
@@ -64,12 +64,10 @@ userList.controller('userListController', ['$scope', '$location', '$http', '$uib
 
 			modalInstance.result.then(function() {
 				$scope.modal_user_not_finished = true;
-				//$scope.is_rec_selected = false;
 				$scope.usersTable.reload();
 				
 			}, function() {
 				$scope.modal_user_not_finished = true;
-				//$scope.usersTable.reload();
 			});
 		};
 
