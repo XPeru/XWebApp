@@ -3,6 +3,10 @@ var articulos = angular.module('Articulos', ['ui.bootstrap']);
 articulos.controller('articulosController', ['$scope', '$location', '$http', '$uibModal', '$timeout',
 	'ArticulosServicesFactory', 'NgTableParams',
 	function($scope, $location, $http, $uibModal, $timeout, ArticulosServicesFactory, NgTableParams) {
+		$scope.idSelectedArticulo = null;
+		$scope.setSelected = function(idSelectedArticulo) {
+			$scope.idSelectedArticulo = idSelectedArticulo;
+		};
 		$scope.articulosData = [{}];
 		$scope.modal_not_finished = true;
 		$scope.articulosTable = new NgTableParams({

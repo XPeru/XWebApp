@@ -13,7 +13,8 @@ angular.module('NavBar', [])
 				scope: {
 					home: '@',
 					userlist: '@',
-					articulos: '@'
+					articulos: '@',
+					almacenes: '@'
 				}
 			};
-	});	
+		});

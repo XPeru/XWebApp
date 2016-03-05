@@ -3,6 +3,10 @@ var almacenes = angular.module('Almacenes', ['ui.bootstrap']);
 almacenes.controller('almacenesController', ['$scope', '$location', '$http', '$uibModal', '$timeout',
 	'AlmacenesServicesFactory', 'NgTableParams',
 	function($scope, $location, $http, $uibModal, $timeout, AlmacenesServicesFactory, NgTableParams) {
+		$scope.idSelectedAlmacen = null;
+		$scope.setSelected = function(idSelectedAlmacen) {
+			$scope.idSelectedAlmacen = idSelectedAlmacen;
+		};
 		$scope.almacenesData = [{}];
 		$scope.modal_not_finished = true;
 		$scope.almacenesTable = new NgTableParams({
