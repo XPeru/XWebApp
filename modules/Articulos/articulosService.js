@@ -25,7 +25,7 @@ articulosServices.factory('ArticulosServicesFactory', function($http) {
 			});
 	};
 	service.deleteArticulo = function(callback, articulo_deleted) {
-		$http.delete(urlBase + '/deleteArticulo'+ '/' + articulo_deleted.ID_ART)
+		$http.delete(urlBase + '/deleteArticulo'+ '/' + articulo_deleted.ART_SEQ)
 			.success(function(response) {
 				callback(response);
 			});
