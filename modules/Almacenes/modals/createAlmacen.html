@@ -1,0 +1,31 @@
+<div class="modal-header">
+    <h3 class="modal-title">Nuevo almacen</h3>
+</div>
+<div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="id_alm">ID</label>
+        <input type="text" class="form-control" id="id_alm" ng-model="almacen_created.ID_ALM" placeholder="ID">
+      </div>
+      <!-- <div class="form-group">
+        <label for="descripcion_art">Descripcion</label>
+        <input type="text" class="form-control" id="descripcion_art" ng-model="almacen_created.DESC" placeholder="Descripcion">
+      </div>
+      <div class="form-group">
+        <label for="uni_art">Unidad</label>
+        <input type="text" class="form-control" id="uni_art" ng-model="almacen_created.CANT_MED">
+      </div>
+      <div class="form-group">
+        <label for="valor_art">Valor de reposicion</label>
+        <input type="text" class="form-control" id="valor_art" ng-model="almacen_created.VAL_REP">
+      </div>
+      <div class="form-group">
+        <label for="precio_art">Precio unitario</label>
+        <input type="text" class="form-control" id="precio_art" ng-model="almacen_created.PR_UNIT">
+      </div> -->
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="createAlmacen(almacen_created)">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>

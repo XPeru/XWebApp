@@ -12,6 +12,7 @@ var md5 = require('MD5');
 // One file per application service
 var rest = require("./rest.js");
 var restArticulos = require("./DAO/articulosDAO.js");
+var restAlmacenes = require("./DAO/almacenesDAO.js");
 // We execute the express
 var app = express();
 
@@ -54,6 +55,7 @@ REST.prototype.configureExpress = function(connection) {
     // Adding all the routes to our server
     var rest_router = new rest(router, connection, md5);
     var rest_articulos = new restArticulos(router, connection, md5);
+    var rest_almacenes = new restAlmacenes(router, connection, md5);
     self.startServer();
 };
 

@@ -38,8 +38,8 @@
             <td>{{articulo.CANT_MED}}</td>
             <td>{{articulo.VAL_REP}}</td>
             <td>{{articulo.PR_UNIT}}</td>
-            <td>{{articulo.CRT_TIM}}</td>
-            <td>{{articulo.UPD_TIM}}</td>
+            <td>{{articulo.CRT_TIM|date:'medium'}}</td>
+            <td>{{articulo.UPD_TIM|date:'medium'}}</td>
             <td><a ng-click="openModal('edit', articulo)" class="btn btn-small btn-primary">Editar</a></td>
             <td><a ng-click="openModal('delete', articulo)" class="btn btn-small btn-danger">Borrar</a></td>
         </tr>

@@ -1,12 +1,12 @@
 var mysql = require("mysql");
 
-function ingresoDAO(router, connection, md5) {
+function ingresosDAO(router, connection, md5) {
 	var self = this;
 	self.handleRoutes(router, connection, md5);
-	console.info("ingresoDAO added successfuly");
+	console.info("ingresosDAO added successfuly");
 }
 
-ingresoDAO.prototype.handleRoutes = function(router, connection, md5) {
+ingresosDAO.prototype.handleRoutes = function(router, connection, md5) {
 	router.post("/ingresoArt", function(req, res) {
 		var query = "INSERT INTO ??(??) VALUES (?)";
 		var table =["tbl_ing", "ID_ING", req.body.ID_ING];
@@ -57,4 +57,4 @@ ingresoDAO.prototype.handleRoutes = function(router, connection, md5) {
 };
 
 
-module.exports = ingresoDAO;
+module.exports = ingresosDAO;

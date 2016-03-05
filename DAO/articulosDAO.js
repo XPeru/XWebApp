@@ -53,7 +53,7 @@ ArticulosDAO.prototype.handleRoutes = function(router, connection, md5) {
     });
 
     router.put("/articulo", function(req, res) {
-        var query = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
+        var query = "UPDATE ?? SET ?? = ?, UPD_TIM = CURRENT_TIMESTAMP WHERE ?? = ?";
         var table = ["TBL_ART", "DESC", req.body.DESC, "ART_SEQ", req.body.ART_SEQ];
         query = mysql.format(query, table);
         connection.query(query, function(err, rows) {
