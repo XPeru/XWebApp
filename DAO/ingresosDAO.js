@@ -57,6 +57,33 @@ ingresosDAO.prototype.handleRoutes = function(router, connection, md5) {
 
 		});
 	});
+
+	router.get("/ingresos", function(req, res) {
+		console.info("ingresosDAO");
+        console.info("http request get /ingresos");
+		var query = "SELECT * FROM ?? WHERE ACT_FLG = '1'";
+		var table = ["tbl_ing_det"];
+
+		query = mysql.format(query, table);
+
+		connection.query(query, function(err, rows) {
+			if(err) {
+				console.info('Error executing MySQL query:' + query);
+                res.json({
+                    "Error": true,
+                    "Message": "Error executing MySQL query"
+                });
+			} else {
+				console.info('Success MySQL query:' + query);
+                res.json({
+                    "Error": false,
+                    "Message": "Success",
+                    "Ingresos": rows
+                });
+			}
+
+		});
+	});
 };
 
 

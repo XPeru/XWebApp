@@ -14,7 +14,9 @@ angular.module('NavBar', [])
 					home: '@',
 					userlist: '@',
 					articulos: '@',
-					almacenes: '@'
+					almacenes: '@',
+					ingresos: '@',
+					salidas: '@'
 				}
 			};
 		});

@@ -6,9 +6,11 @@ angular.module('xWebApp', [
 	'UserList',
 	'Articulos',
 	'Almacenes',
+	'Ingresos',
 	'userServices',
 	'articulosServices',
 	'almacenesServices',
+	'ingresosService',
 	'ngRoute',
 	'ui.router',
 	'ui.bootstrap'
@@ -82,6 +84,14 @@ angular.module('xWebApp', [
 				url: '/almacenes',
 				controller: 'almacenesController',
 				templateUrl: 'modules/Almacenes/almacenes.html',
+				hideMenus: true,
+				data: {},
+				reloadOnSearch: false
+			})
+			.state('ingresos', {
+				url: '/ingresos',
+				controller: 'ingresosController',
+				templateUrl: 'modules/Ingresos/ingresos.html',
 				hideMenus: true,
 				data: {},
 				reloadOnSearch: false

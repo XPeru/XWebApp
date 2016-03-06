@@ -1,6 +1,6 @@
-var ingresoService = angular.module('ingresoService', ['ngResource']);
+var ingresosService = angular.module('ingresosService', ['ngResource']);
 
-ingresoService.factory('IngresoServiceFactory', function($http) {
+ingresosService.factory('IngresosServiceFactory', function($http) {
 	var service = {};
 	var urlBase = '/api';
 
@@ -18,6 +18,12 @@ ingresoService.factory('IngresoServiceFactory', function($http) {
 			.success(function(response) {
 				callback(response);
 			});
+	};
+
+	service.getAllIngresos = function(callback) {
+		$http.get(urlBase + '/ingresos').success(function(response) {
+			callback(response);
+		});
 	};
 
 
