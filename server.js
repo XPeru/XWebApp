@@ -13,6 +13,7 @@ var md5 = require('MD5');
 var rest = require("./rest.js");
 var restArticulos = require("./DAO/articulosDAO.js");
 var restAlmacenes = require("./DAO/almacenesDAO.js");
+var restIngresos = require("./DAO/ingresosDAO.js");
 // We execute the express
 var app = express();
 
@@ -56,6 +57,7 @@ REST.prototype.configureExpress = function(connection) {
     var rest_router = new rest(router, connection, md5);
     var rest_articulos = new restArticulos(router, connection, md5);
     var rest_almacenes = new restAlmacenes(router, connection, md5);
+    var rest_ingresos = new restIngresos(router, connection, md5);
     self.startServer();
 };
 

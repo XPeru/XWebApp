@@ -3,23 +3,25 @@ var mysql = require("mysql");
 function almacenesDAO(router, connection, md5) {
 	var self = this;
 	self.handleRoutes(router, connection, md5);
-	console.info("almacenesDAO added successfuly");
+	console.info("almacenesDAO agregado correctamente");
 }
 
 almacenesDAO.prototype.handleRoutes = function(router, connection, md5) {
 	router.get("/almacenesList", function(req, res) {
+        console.info("almacenesDAO");
+        console.info("http request get /almacenesList");
 		var query = "SELECT * FROM ?? WHERE ACT_FLG = '1'";
 		var table = ["TBL_ALM"];
 		query = mysql.format(query, table);
 		connection.query(query, function(err, rows) {
 			if (err) {
-                console.info('ERROR');
+                console.info('Error executing MySQL query:' + query);
                 res.json({
                     "Error": true,
                     "Message": "Error executing MySQL query"
                 });
             } else {
-                console.info('no hay error');
+                console.info('Success MySQL query:' + query);
                 res.json({
                     "Error": false,
                     "Message": "Success",
@@ -30,21 +32,20 @@ almacenesDAO.prototype.handleRoutes = function(router, connection, md5) {
 	});
 
     router.post("/almacen", function(req, res) {
+        console.info("almacenesDAO");
+        console.info("http request post /almacen");
         var query = "INSERT INTO ??(??) VALUES (?)";
-        console.info("----------insert----------------------");
-        console.info(req.body);
         var table = ["TBL_ALM", "ID_ALM", req.body.ID_ALM];
         query = mysql.format(query, table);
-        console.info(query);
         connection.query(query, function(err, rows) {
             if (err) {
-                console.info('ERROR');
+                console.info('Error executing MySQL query:' + query);
                 res.json({
                     "Error": true,
                     "Message": "Error executing MySQL query"
                 });
             } else {
-                console.info('no hay error');
+                console.info('Success MySQL query:' + query);
                 res.json({
                     "Error": false,
                     "Message": "Articulo Added !"
@@ -54,45 +55,49 @@ almacenesDAO.prototype.handleRoutes = function(router, connection, md5) {
     });
 
     router.put("/almacen", function(req, res) {
-     var query = "UPDATE ?? SET ?? = ?, UPD_TIM = CURRENT_TIMESTAMP WHERE ?? = ?";
-     var table =["TBL_ALM", "ID_ALM", req.body.ID_ALM, "ALM_SEQ", req.body.ALM_SEQ];
-     query = mysql.format(query, table);
-     connection.query(query, function(err, rows) {
-         if (err) {
-                console.info('ERROR');
+        console.info("almacenesDAO");
+        console.info("http request put /almacen");
+        var query = "UPDATE ?? SET ?? = ?, UPD_TIM = CURRENT_TIMESTAMP WHERE ?? = ?";
+        var table = ["TBL_ALM", "ID_ALM", req.body.ID_ALM, "ALM_SEQ", req.body.ALM_SEQ];
+        query = mysql.format(query, table);
+        connection.query(query, function(err, rows) {
+            if (err) {
+                console.info('Error executing MySQL query:' + query);
                 res.json({
                     "Error": true,
                     "Message": "Error executing MySQL query"
                 });
             } else {
-                console.info('no hay error');
+                console.info('Success MySQL query:' + query);
                 res.json({
                     "Error": false,
                     "Message": "Almacen detalle updated !"
                 });
             }
-     });
+        });
     });
 
     router.delete("/deleteAlmacen/:alm_seq", function(req, res) {
-     var query = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
-     var table = ["TBL_ALM","ACT_FLG", '0', "ALM_SEQ", req.params.alm_seq];
-     query = mysql.format(query, table);
-     connection.query(query, function(err, rows) {
-         if (err) {
-                console.info('ERROR');
+        console.info("almacenesDAO");
+        console.info("http request delete /deleteAlmacen");
+        var query = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
+        var table = ["TBL_ALM", "ACT_FLG", '0', "ALM_SEQ", req.params.alm_seq];
+        query = mysql.format(query, table);
+        connection.query(query, function(err, rows) {
+            if (err) {
+                console.info('Error executing MySQL query:' + query);
                 res.json({
                     "Error": true,
                     "Message": "Error executing MySQL query"
                 });
             } else {
-                console.info('no hay error');
+                console.info('Success MySQL query:' + query);
                 res.json({
                     "Error": false,
                     "Message": "Almacen deleted: " + req.params.art_seq
                 });
             }
-     });
+        });
     });
 };
 
