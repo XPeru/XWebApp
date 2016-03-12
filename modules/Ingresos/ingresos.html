@@ -1,49 +1,54 @@
 <xwebapp-nav-bar ingresos=1></xwebapp-nav-bar>
-<div class="col-md-12">
-    <table ng-table="ingresosTable" class="table">
-        <thead>
-        <tr>
-            <th style="max-width: 50px">Id</th>
-            <th style="max-width: 50px">Id Articulo</th>
-            <th style="max-width: 200px">Descripcion articulo</th>
-            <th style="max-width: 70px">Almacen</th>
-			<th style="max-width: 70px">Cantidad</th>
-			<th style="max-width: 70px">Fecha de creacion</th>
-			<th style="max-width: 70px">Fecha de ultima edicion</th>
-            <th style="max-width: 20px"></th>
-            <th style="max-width: 20px"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="ingreso in $data.Ingresos" 
-        	ng-click="setSelected(ingreso.ING_DET_SEQ)"
-            ng-class="{selected: ingreso.ING_DET_SEQ === idSelectedIngreso}">
-            <td style="max-width: 50px">{{ingreso.ING_SEQ}}</td>
-            <td style="max-width: 50px">{{ingreso.ID_ART}}</td>
-            <td style="max-width: 200px">{{ingreso.DESC}}</td>
-            <td style="max-width: 70px">{{ingreso.ID_ALM}}</td>
-            <td style="max-width: 70px">{{ingreso.CANT}}</td>
-            <td style="max-width: 70px">{{ingreso.CRT_TIM|date:'medium'}}</td>
-            <td style="max-width: 70px">{{ingreso.UPD_TIM|date:'medium'}}</td>
-            <td style="max-width: 20px">
-                <button ng-if="ingreso.ING_DET_SEQ === idSelectedIngreso"
-                    ng-click="openModal('edit', ingreso)"
-                    class="btn btn-small btn-primary">
-                    <i class="glyphicon glyphicon-pencil"></i>
-                </button>
-            </td>
-            <td style="max-width: 20px">
-                <button ng-if="ingreso.ING_DET_SEQ === idSelectedIngreso"
-                    ng-click="openModal('delete', ingreso)"
-                    class="btn btn-small btn-danger">
-                    <i class="glyphicon glyphicon-remove"></i>
-                </button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <button ng-click="openModal('create', null)"
+<div class="container">
+    <div class="row">
+        <table ng-table="ingresosTable" class="table">
+            <thead>
+            <tr>
+                <th style="max-width: 50px">Id</th>
+                <th style="max-width: 50px">Id Articulo</th>
+                <th style="max-width: 200px">Descripcion articulo</th>
+                <th style="max-width: 70px">Almacen</th>
+    			<th style="max-width: 70px">Cantidad</th>
+    			<th style="max-width: 70px">Fecha de creacion</th>
+    			<th style="max-width: 70px">Fecha de ultima edicion</th>
+                <th style="max-width: 20px"></th>
+                <th style="max-width: 20px"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="ingreso in $data.Ingresos" 
+            	ng-click="setSelected(ingreso.ING_DET_SEQ)"
+                ng-class="{selected: ingreso.ING_DET_SEQ === idSelectedIngreso}">
+                <td style="max-width: 50px">{{ingreso.ING_SEQ}}</td>
+                <td style="max-width: 50px">{{ingreso.ID_ART}}</td>
+                <td style="max-width: 200px">{{ingreso.DESC}}</td>
+                <td style="max-width: 70px">{{ingreso.ID_ALM}}</td>
+                <td style="max-width: 70px">{{ingreso.CANT}}</td>
+                <td style="max-width: 70px">{{ingreso.CRT_TIM|date:'medium'}}</td>
+                <td style="max-width: 70px">{{ingreso.UPD_TIM|date:'medium'}}</td>
+                <td style="max-width: 20px">
+                    <button ng-if="ingreso.ING_DET_SEQ === idSelectedIngreso"
+                        ng-click="openModal('edit', ingreso)"
+                        class="btn btn-small btn-primary">
+                        <i class="glyphicon glyphicon-pencil"></i>
+                    </button>
+                </td>
+                <td style="max-width: 20px">
+                    <button ng-if="ingreso.ING_DET_SEQ === idSelectedIngreso"
+                        ng-click="openModal('delete', ingreso)"
+                        class="btn btn-small btn-danger">
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <button ng-click="openModal('create', null)"
             class="btn btn-small hvr-fade">
         Crear ingreso <span><i class="glyphicon glyphicon-plus"></i></span>
-    </button>
+        </button>
+    </div>
+    
 </div>
