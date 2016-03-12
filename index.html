@@ -2,20 +2,68 @@
 <html ng-app="xWebApp">
 
     <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <!--bootstrap tiene un segundo archivo css que sirve para animaciones 3D-->
+    <!--
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap-theme.css">
+    
+    -->
     <!--https://github.com/IanLunn/Hover/#using-fontawesome-with-icon-effects-->
     <!--bower install Hover-->
     <!--Este repository contiene animaciones css3 para iconos y botones-->
     <link rel="stylesheet" type="text/css" href="bower_components/Hover/css/hover.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+
     <link rel="stylesheet" type="text/css" href="modules/NavBar/nav.css">
+    
     <head lang="en">
         <title>XWebApplication</title>
         <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <!-- <base href="/"> -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
-    <body class="col-md-12">
+    <body>
+        
+        <!--class="col-md-12"-->
         <div ui-view></div>
+        <footer class="headerXWebApp">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 footer-column">
+                        <h4>Contactanos en:</h4>
+                        <address>
+                          <strong>AunNoSabemos, Inc.</strong><br>
+                          1 rue Rivoli<br>
+                          75001 Paris - France<br>
+                          <abbr title="Phone">P:</abbr> (123) 456-7890
+                        </address>
+
+                        <address>
+                          <strong>Autor</strong><br>
+                          <a href="mailto:#">first.last@example.com</a>
+                        </address>
+                    </div>
+                    <div class="col-md-4 footer-column">
+                        <h4></h4>
+                    </div>
+                    <div class="col-md-4 footer-column">
+                        <h4>Siguenos en:</h4>
+                        <a href="#">
+                            <img src="/media/facebook-icon.svg" alt="Facebook icon" width="48" height="48">
+                        </a>
+                        <a href="#">
+                            <img src="/media/twitter-icon.svg" alt="Twitter icon" width="48" height="48">
+                        </a>
+                        <a href="#">
+                            <img src="/media/vimeo-icon.svg" alt="Vimeo icon" width="48" height="48">
+                        </a>
+                        <a href="#">
+                            <img src="/media/instagram-icon.svg" alt="Instagram icon" width="48" height="48">
+                        </a>
+                    </div>
+                </div>
+            </div> 
+        </footer>
         <script src="bower_components/angular/angular.js"></script>
         <script src="bower_components/angular-route/angular-route.js"></script>
         <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>

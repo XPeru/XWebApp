@@ -1,61 +1,66 @@
 <xwebapp-nav-bar articulos=1></xwebapp-nav-bar>
-
-<div class="col-md-12">
-    <!--
-    <div id="custom-search-input">
-        <div class="input-group col-md-12">
-            <input type="text" class="form-control input-lg" placeholder="Buscar" />
-                <span class="input-group-btn">
-                    <button class="btn btn-info btn-lg" type="button">
-                                <i class="glyphicon glyphicon-search"></i>
-                    </button>
-                </span>
+<div class="container">
+    <div class="row">
+        <div class="table-responsive">
+            <!--
+            <div id="custom-search-input">
+                <div class="input-group col-md-12">
+                    <input type="text" class="form-control input-lg" placeholder="Buscar" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-info btn-lg" type="button">
+                                        <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </span>
+                </div>
+            </div>
+            -->
+            <table ng-table="articulosTable" class="table">
+                <thead>
+                <tr>
+                    <th style="max-width: 50px">Id</th>
+                    <th style="max-width: 200px">Descripcion</th>
+                    <th style="max-width: 70px">Unidad</th>
+                    <th style="max-width: 70px">Valor de reposicion</th>
+                    <th style="max-width: 70px">Precio unitario</th>
+                    <th style="max-width: 70px">Fecha de creacion</th>
+                    <th style="max-width: 70px">Fecha de ultima edicion</th>
+                    <th style="max-width: 20px"></th>
+                    <th style="max-width: 20px"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="articulo in $data.Articulos" ng-click="setSelected(articulo.ID_ART)"
+                    ng-class="{selected: articulo.ID_ART === idSelectedArticulo}">
+                    <td style="max-width: 50px">{{articulo.ID_ART}}</td>
+                    <td style="max-width: 200px">{{articulo.DESC}}</td>
+                    <td style="max-width: 70px">{{articulo.CANT_MED}}</td>
+                    <td style="max-width: 70px">{{articulo.VAL_REP}}</td>
+                    <td style="max-width: 70px">{{articulo.PR_UNIT}}</td>
+                    <td style="max-width: 70px">{{articulo.CRT_TIM|date:'medium'}}</td>
+                    <td style="max-width: 70px">{{articulo.UPD_TIM|date:'medium'}}</td>
+                    <td style="width:20px">
+                        <button ng-if="articulo.ID_ART === idSelectedArticulo"
+                            ng-click="openModal('edit', articulo)"
+                            class="btn btn-small btn-primary">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                        </button>
+                    </td>
+                    <td style="width:20px">
+                        <button ng-if="articulo.ID_ART === idSelectedArticulo"
+                            ng-click="openModal('delete', articulo)"
+                            class="btn btn-small btn-danger">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
-    -->
-    <table ng-table="articulosTable" class="table">
-        <thead>
-        <tr>
-            <th style="max-width: 50px">Id</th>
-            <th style="max-width: 200px">Descripcion</th>
-            <th style="max-width: 70px">Unidad</th>
-            <th style="max-width: 70px">Valor de reposicion</th>
-			<th style="max-width: 70px">Precio unitario</th>
-			<th style="max-width: 70px">Fecha de creacion</th>
-			<th style="max-width: 70px">Fecha de ultima edicion</th>
-            <th style="max-width: 20px"></th>
-            <th style="max-width: 20px"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="articulo in $data.Articulos" ng-click="setSelected(articulo.ID_ART)"
-            ng-class="{selected: articulo.ID_ART === idSelectedArticulo}">
-            <td style="max-width: 50px">{{articulo.ID_ART}}</td>
-            <td style="max-width: 200px">{{articulo.DESC}}</td>
-            <td style="max-width: 70px">{{articulo.CANT_MED}}</td>
-            <td style="max-width: 70px">{{articulo.VAL_REP}}</td>
-            <td style="max-width: 70px">{{articulo.PR_UNIT}}</td>
-            <td style="max-width: 70px">{{articulo.CRT_TIM|date:'medium'}}</td>
-            <td style="max-width: 70px">{{articulo.UPD_TIM|date:'medium'}}</td>
-            <td style="max-width: 20px">
-                <button ng-if="articulo.ID_ART === idSelectedArticulo"
-                    ng-click="openModal('edit', articulo)"
-                    class="btn btn-small btn-primary">
-                    <i class="glyphicon glyphicon-pencil"></i>
-                </button>
-            </td>
-            <td style="max-width: 20px">
-                <button ng-if="articulo.ID_ART === idSelectedArticulo"
-                    ng-click="openModal('delete', articulo)"
-                    class="btn btn-small btn-danger">
-                    <i class="glyphicon glyphicon-remove"></i>
-                </button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <button ng-click="openModal('create', null)"
-            class="btn btn-small hvr-fade">
-        Crear articulo <span><i class="glyphicon glyphicon-plus"></i></span>
-    </button>
+    <div class="row">
+        <button ng-click="openModal('create', null)"
+                class="btn btn-small hvr-fade">
+            Crear articulo <span><i class="glyphicon glyphicon-plus"></i></span>
+        </button>
+    </div>
 </div>
