@@ -12,7 +12,7 @@ angular.module('NavBar', [])
 				templateUrl: 'modules/NavBar/nav.html',
 				scope: {
 					home: '@',
-					userlist: '@',
+					usuarios: '@',
 					articulos: '@',
 					almacenes: '@',
 					ingresos: '@',

@@ -1,6 +1,6 @@
-var almacenesServices = angular.module('almacenesServices', ['ngResource']);
+var almacenesService = angular.module('almacenesService', ['ngResource']);
 
-almacenesServices.factory('AlmacenesServicesFactory', function($http) {
+almacenesService.factory('AlmacenesServiceFactory', function($http) {
 	var service = {};
 	var urlBase = '/api';
 

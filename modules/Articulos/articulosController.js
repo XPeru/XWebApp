@@ -1,8 +1,8 @@
 var articulos = angular.module('Articulos', ['ui.bootstrap']);
 
 articulos.controller('articulosController', ['$scope', '$location', '$http', '$uibModal', '$timeout',
-	'ArticulosServicesFactory', 'NgTableParams',
-	function($scope, $location, $http, $uibModal, $timeout, ArticulosServicesFactory, NgTableParams) {
+	'ArticulosServiceFactory', 'NgTableParams',
+	function($scope, $location, $http, $uibModal, $timeout, ArticulosServiceFactory, NgTableParams) {
 		$scope.idSelectedArticulo = null;
 		$scope.setSelected = function(idSelectedArticulo) {
 			$scope.idSelectedArticulo = idSelectedArticulo;
@@ -28,7 +28,7 @@ articulos.controller('articulosController', ['$scope', '$location', '$http', '$u
 		});
 
 		$scope.callGetAllArticulos = function() {
-			ArticulosServicesFactory.getAllArticulos(function(response) {
+			ArticulosServiceFactory.getAllArticulos(function(response) {
 					$timeout(function() {
 						$scope.articulosData = response;
 						$scope.articulosTable.reload();
@@ -71,11 +71,11 @@ articulos.controller('articulosController', ['$scope', '$location', '$http', '$u
 		};
 }]);
 
-articulos.controller('ModalArticulo', function($scope, $http, $timeout, $uibModalInstance, selected_articulo, ArticulosServicesFactory) {
+articulos.controller('ModalArticulo', function($scope, $http, $timeout, $uibModalInstance, selected_articulo, ArticulosServiceFactory) {
 	$scope.selected_articulo = selected_articulo;
 
 	$scope.deleteArticulo = function(articulo_deleted) {
-		ArticulosServicesFactory.deleteArticulo(function(response) {
+		ArticulosServiceFactory.deleteArticulo(function(response) {
 			$timeout(function() {
 				$uibModalInstance.close();
 			}, 200);
@@ -83,7 +83,7 @@ articulos.controller('ModalArticulo', function($scope, $http, $timeout, $uibModa
 	};
 
     $scope.editArticulo = function (articulo_edited) {
-		ArticulosServicesFactory.editArticulo(function(response) {
+		ArticulosServiceFactory.editArticulo(function(response) {
 			$timeout(function() {
 				$uibModalInstance.close();
 			}, 200);
@@ -91,7 +91,7 @@ articulos.controller('ModalArticulo', function($scope, $http, $timeout, $uibModa
     };
 
     $scope.createArticulo = function (articulo_created) {
-		ArticulosServicesFactory.createArticulo(function(response) {
+		ArticulosServiceFactory.createArticulo(function(response) {
 			$timeout(function() {
 				$uibModalInstance.close();
 			}, 200);

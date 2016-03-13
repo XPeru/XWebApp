@@ -10,7 +10,7 @@ var favicon = require("serve-favicon");
 var md5 = require('MD5');
 // The rest.js contains all the routes for the server, it should be composed by many others files
 // One file per application service
-var rest = require("./rest.js");
+var restUsuarios = require("./DAO/usuariosDAO.js");
 var restArticulos = require("./DAO/articulosDAO.js");
 var restAlmacenes = require("./DAO/almacenesDAO.js");
 var restIngresos = require("./DAO/ingresosDAO.js");
@@ -45,7 +45,7 @@ REST.prototype.connectMysql = function() {
 
 REST.prototype.configureExpress = function(connection) {
     var self = this;
-    app.use(favicon(__dirname + '/favicon.ico'));
+    app.use(favicon(__dirname + '/media/favicon.ico'));
     app.use(bodyParser.urlencoded({extended: true}));
     app.use(bodyParser.json());
     var router = express.Router();
@@ -54,7 +54,7 @@ REST.prototype.configureExpress = function(connection) {
     // the __dirname directory becames "public"
     app.use(express.static(__dirname));
     // Adding all the routes to our server
-    var rest_router = new rest(router, connection, md5);
+    var rest_usuarios = new restUsuarios(router, connection, md5);
     var rest_articulos = new restArticulos(router, connection, md5);
     var rest_almacenes = new restAlmacenes(router, connection, md5);
     var rest_ingresos = new restIngresos(router, connection, md5);

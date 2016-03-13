@@ -1,6 +1,6 @@
-var userServices = angular.module('userServices', ['ngResource']);
+var usuariosService = angular.module('usuariosService', ['ngResource']);
 
-userServices.factory('UserServicesFactory', function($http) {
+usuariosService.factory('UsuariosServiceFactory', function($http) {
 	var service = {};
 	var urlBase = '/api';
 

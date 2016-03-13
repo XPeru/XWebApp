@@ -1,8 +1,8 @@
 var almacenes = angular.module('Almacenes', ['ui.bootstrap']);
 
 almacenes.controller('almacenesController', ['$scope', '$location', '$http', '$uibModal', '$timeout',
-	'AlmacenesServicesFactory', 'NgTableParams',
-	function($scope, $location, $http, $uibModal, $timeout, AlmacenesServicesFactory, NgTableParams) {
+	'AlmacenesServiceFactory', 'NgTableParams',
+	function($scope, $location, $http, $uibModal, $timeout, AlmacenesServiceFactory, NgTableParams) {
 		$scope.idSelectedAlmacen = null;
 		$scope.setSelected = function(idSelectedAlmacen) {
 			$scope.idSelectedAlmacen = idSelectedAlmacen;
@@ -28,7 +28,7 @@ almacenes.controller('almacenesController', ['$scope', '$location', '$http', '$u
 		});
 
 		$scope.callGetAllAlmacenes = function() {
-			AlmacenesServicesFactory.getAllAlmacenes(function(response) {
+			AlmacenesServiceFactory.getAllAlmacenes(function(response) {
 					$timeout(function() {
 						$scope.almacenesData = response;
 						$scope.almacenesTable.reload();
@@ -71,11 +71,11 @@ almacenes.controller('almacenesController', ['$scope', '$location', '$http', '$u
 		};
 }]);
 
-almacenes.controller('ModalAlmacen', function($scope, $http, $timeout, $uibModalInstance, selected_almacen, AlmacenesServicesFactory) {
+almacenes.controller('ModalAlmacen', function($scope, $http, $timeout, $uibModalInstance, selected_almacen, AlmacenesServiceFactory) {
 	$scope.selected_almacen = selected_almacen;
 
 	$scope.deleteAlmacen = function(almacen_deleted) {
-		AlmacenesServicesFactory.deleteAlmacen(function(response) {
+		AlmacenesServiceFactory.deleteAlmacen(function(response) {
 			$timeout(function() {
 				$uibModalInstance.close();
 			}, 200);
@@ -83,7 +83,7 @@ almacenes.controller('ModalAlmacen', function($scope, $http, $timeout, $uibModal
 	};
 
     $scope.editAlmacen = function (almacen_edited) {
-		AlmacenesServicesFactory.editAlmacen(function(response) {
+		AlmacenesServiceFactory.editAlmacen(function(response) {
 			$timeout(function() {
 				$uibModalInstance.close();
 			}, 200);
@@ -91,7 +91,7 @@ almacenes.controller('ModalAlmacen', function($scope, $http, $timeout, $uibModal
     };
 
     $scope.createAlmacen = function (almacen_created) {
-		AlmacenesServicesFactory.createAlmacen(function(response) {
+		AlmacenesServiceFactory.createAlmacen(function(response) {
 			$timeout(function() {
 				$uibModalInstance.close();
 			}, 200);

@@ -1,6 +1,6 @@
 var mysql = require("mysql");
 
-function REST_ROUTER(router, connection, md5) {
+function usuariosDAO(router, connection, md5) {
     var self = this;
     self.handleRoutes(router, connection, md5);
 }
@@ -8,7 +8,7 @@ function REST_ROUTER(router, connection, md5) {
 //al JSON con la informacion enviada desde el servicio
 //si se trata de una sql request get o delete, la informacion esta contenida en un solo
 //argumento, el url, ver detalles mas abajo
-REST_ROUTER.prototype.handleRoutes = function(router, connection, md5) {
+usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
     router.get("/", function(req, res) {
         res.json({
             "Message": "Hello World !"
@@ -119,4 +119,4 @@ REST_ROUTER.prototype.handleRoutes = function(router, connection, md5) {
     });
 };
 
-module.exports = REST_ROUTER;
+module.exports = usuariosDAO;

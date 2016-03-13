@@ -1,6 +1,6 @@
-var articulosServices = angular.module('articulosServices', ['ngResource']);
+var articulosService = angular.module('articulosService', ['ngResource']);
 
-articulosServices.factory('ArticulosServicesFactory', function($http) {
+articulosService.factory('ArticulosServiceFactory', function($http) {
 	var service = {};
 	var urlBase = '/api';
 

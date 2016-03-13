@@ -1,7 +1,8 @@
-var userList = angular.module('UserList', ['ui.bootstrap']);
+var usuarios = angular.module('Usuarios', ['ui.bootstrap']);
 //el orden de las variables tiene que ser el mismo en la declaracion de estas, y dentro de la funcion que define al controlador
-userList.controller('userListController', ['$scope', '$location', '$http', '$uibModal', '$timeout', 'UserServicesFactory', 'NgTableParams',
-	function($scope, $location, $http, $uibModal, $timeout, UserServicesFactory, NgTableParams) {
+usuarios.controller('usuariosController', ['$scope', '$location', '$http', '$uibModal', '$timeout',
+											'UsuariosServiceFactory', 'NgTableParams',
+	function($scope, $location, $http, $uibModal, $timeout, UsuariosServiceFactory, NgTableParams) {
 
 		$scope.usersData = [{}];
 		$scope.modal_user_not_finished = true;
@@ -29,7 +30,7 @@ userList.controller('userListController', ['$scope', '$location', '$http', '$uib
 		});
 
 		$scope.callGetAllUsers = function() {
-			UserServicesFactory.getAllUsers(function(response) {
+			UsuariosServiceFactory.getAllUsers(function(response) {
 					$timeout(function() {
 						$scope.usersData = response;
 						$scope.usersTable.reload();
@@ -43,13 +44,13 @@ userList.controller('userListController', ['$scope', '$location', '$http', '$uib
 					var template;
 					switch(selected_modal) {
 						case "create":
-							template = 'modules/UserList/modalCreationUser.html';
+							template = 'modules/Usuarios/modals/createUsuario.html';
 							break;
 						case "edit":
-							template = 'modules/UserList/modalEditionUser.html';
+							template = 'modules/Usuarios/modals/editUsuario.html';
 							break;
 						case "delete":
-							template = 'modules/UserList/modalDeleteUser.html';
+							template = 'modules/Usuarios/modals/deleteUsuario.html';
 							break;
 					}
 					return template;
@@ -74,14 +75,12 @@ userList.controller('userListController', ['$scope', '$location', '$http', '$uib
 	}
 ]);
 
-userList.controller('ModalUser',  function($scope, $http, $timeout, $uibModalInstance, selected_user, UserServicesFactory) {
+usuarios.controller('ModalUser',  function($scope, $http, $timeout, $uibModalInstance, selected_user, UsuariosServiceFactory) {
 	//TODO comprobar si esto es realmente necesario o no
 	$scope.selected_user = selected_user;
 
 	$scope.deleteUser = function(user_to_delete) {
-		console.info("deleting user");
-		console.info(user_to_delete);
-		UserServicesFactory.deleteUser(function(response) {
+		UsuariosServiceFactory.deleteUser(function(response) {
 			$timeout(function() {
 				$uibModalInstance.close();
 			}, 200);
@@ -89,7 +88,7 @@ userList.controller('ModalUser',  function($scope, $http, $timeout, $uibModalIns
 	};
 
     $scope.updateUser = function (updated_user) {
-		UserServicesFactory.updateUser(function(response) {
+		UsuariosServiceFactory.updateUser(function(response) {
 			$timeout(function() {
 				$uibModalInstance.close();
 			}, 200);
@@ -97,7 +96,7 @@ userList.controller('ModalUser',  function($scope, $http, $timeout, $uibModalIns
     };
 
     $scope.createUser = function (user_created) {
-		UserServicesFactory.createUser(function(response) {
+		UsuariosServiceFactory.createUser(function(response) {
 			$timeout(function() {
 				$uibModalInstance.close();
 			}, 200);
