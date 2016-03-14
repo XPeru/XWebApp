@@ -1,5 +1,5 @@
-
-angular.module('xWebApp', [
+(function () {
+	angular.module('xWebApp', [
 	'ngTable',
 	'NavBar',
 	'Home',
@@ -13,20 +13,13 @@ angular.module('xWebApp', [
 	'ingresosService',
 	'ngRoute',
 	'ui.router',
-	'ui.bootstrap'
-])
+	'ui.bootstrap'])
+	.config(config);
+    //.run(run);
 
-	.controller('TodoListController', function() {
-		var todoList = this;
-		todoList.todos = [
-			{text:'learn angular', done:true},
-			{text:'build an angular app', done:false}
-		];
+    config.$inject = ['$stateProvider', '$urlRouterProvider'];
+    function config($stateProvider, $urlRouterProvider) {
 
-	})
-
-	.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-		
 		$stateProvider
 			.state('nav', {
 				url: '/nav',
@@ -78,5 +71,25 @@ angular.module('xWebApp', [
 			});
 
 		$urlRouterProvider.otherwise('home');
-	
-	}]);
+	}
+
+	run.$inject = ['$rootScope', '$location', '$cookieStore', '$http'];
+    function run($rootScope, $location, $cookieStore, $http) {
+        // keep user logged in after page refresh
+        /*
+        $rootScope.globals = $cookieStore.get('globals') || {};
+        if ($rootScope.globals.currentUser) {
+            $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
+        }
+ 
+        $rootScope.$on('$locationChangeStart', function (event, next, current) {
+            // redirect to login page if not logged in and trying to access a restricted page
+            var restrictedPage = $.inArray($location.path(), ['/login', '/register']) === -1;
+            var loggedIn = $rootScope.globals.currentUser;
+            if (restrictedPage && !loggedIn) {
+                $location.path('/login');
+            }
+        });*/
+    }
+
+})();
