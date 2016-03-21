@@ -26,44 +26,7 @@
         
         <!--class="col-md-12"-->
         <div ui-view></div>
-        <footer class="headerXWebApp">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4 footer-column">
-                        <h4>Contactanos en:</h4>
-                        <address>
-                          <strong>AunNoSabemos, Inc.</strong><br>
-                          1 rue Rivoli<br>
-                          75001 Paris - France<br>
-                          <abbr title="Phone">P:</abbr> (123) 456-7890
-                        </address>
 
-                        <address>
-                          <strong>Autor</strong><br>
-                          <a href="mailto:#">first.last@example.com</a>
-                        </address>
-                    </div>
-                    <div class="col-md-4 footer-column">
-                        <h4></h4>
-                    </div>
-                    <div class="col-md-4 footer-column">
-                        <h4>Siguenos en:</h4>
-                        <a href="#">
-                            <img src="/media/facebook-icon.svg" alt="Facebook icon" width="48" height="48">
-                        </a>
-                        <a href="#">
-                            <img src="/media/twitter-icon.svg" alt="Twitter icon" width="48" height="48">
-                        </a>
-                        <a href="#">
-                            <img src="/media/vimeo-icon.svg" alt="Vimeo icon" width="48" height="48">
-                        </a>
-                        <a href="#">
-                            <img src="/media/instagram-icon.svg" alt="Instagram icon" width="48" height="48">
-                        </a>
-                    </div>
-                </div>
-            </div> 
-        </footer>
         <script src="bower_components/angular/angular.js"></script>
         <script src="bower_components/angular-route/angular-route.js"></script>
         <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
@@ -76,10 +39,14 @@
         <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
         <!--bower install ng-table         -->
         <script src="bower_components/ng-table/dist/ng-table.js"></script>
+        <!--bower install angular-cookies -->
+        <script src="/bower_components/angular-cookies/angular-cookies.js"></script>
         <script src="xWebApp.js"></script>
         <!-- <script src="services.js"></script> -->
         <!--NavBar module-->
         <script src="modules/NavBar/nav.js"></script>
+        <!--Footer module-->
+        <script src="modules/Footer/footer.js"></script>
         <!--Home module-->
         <script src="modules/Home/home.js"></script>
         <!--Usuarios module-->
@@ -94,6 +61,9 @@
         <!--Ingresos module-->
         <script src="modules/Ingresos/ingresosService.js"></script>
         <script src="modules/Ingresos/ingresosController.js"></script>
+        <!--Login module-->
+        <script src="modules/Login/loginController.js"></script>
+        <script src="modules/Login/loginService.js"></script>
         
     </body>
 </html>

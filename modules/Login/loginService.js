@@ -2,42 +2,24 @@
     'use strict';
  
     angular
-        .module('app')
-        .factory('AuthenticationService', AuthenticationService);
+        .module('loginService', ['ngResource'])
+        .factory('LoginServiceFactory', LoginServiceFactory);
  
-    AuthenticationService.$inject = ['$http', '$cookieStore', '$rootScope', '$timeout', 'UserService'];
-    function AuthenticationService($http, $cookieStore, $rootScope, $timeout, UserService) {
+    LoginServiceFactory.$inject = ['$http', '$cookieStore', '$rootScope', '$timeout', 'UsuariosServiceFactory'];
+    function LoginServiceFactory($http, $cookieStore, $rootScope, $timeout, UsuariosServiceFactory) {
         var service = {};
- 
+        var urlBase = '/api';
         service.Login = Login;
         service.SetCredentials = SetCredentials;
         service.ClearCredentials = ClearCredentials;
  
         return service;
  
-        function Login(username, password, callback) {
- 
-            /* Dummy authentication for testing, uses $timeout to simulate api call
-             ----------------------------------------------*/
-            $timeout(function () {
-                var response;
-                UserService.GetByUsername(username)
-                    .then(function (user) {
-                        if (user !== null && user.password === password) {
-                            response = { success: true };
-                        } else {
-                            response = { success: false, message: 'Username or password is incorrect' };
-                        }
-                        callback(response);
-                    });
-            }, 1000);
- 
-            /* Use this for real authentication
-             ----------------------------------------------*/
-            //$http.post('/api/authenticate', { username: username, password: password })
-            //    .success(function (response) {
-            //        callback(response);
-            //    });
+        function Login(email, password, callback) {
+            $http.get(urlBase + '/authentication/' + email + '/' + password)
+            .success(function(response) {
+                callback(response);
+            });
  
         }
  
@@ -62,7 +44,7 @@
         }
     }
  
-    // Base64 encoding service used by AuthenticationService
+    // Base64 encoding service used by LoginServiceFactory
     var Base64 = {
  
         keyStr: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=',

@@ -1,33 +1,35 @@
 (function () {
-    'use strict';
+    //'use strict';
  
     angular
-        .module('app')
-        .controller('LoginController', LoginController);
+        .module('Login',[])
+        .controller('loginController', loginController);
  
-    LoginController.$inject = ['$location', 'AuthenticationService', 'FlashService'];
-    function LoginController($location, AuthenticationService, FlashService) {
-        var vm = this;
+    loginController.$inject = ['$scope', '$location', 'LoginServiceFactory'];
+    function loginController($scope, $location, LoginServiceFactory) {
+        //var viewLogin = this;
+        console.info("loginController");
+        //viewLogin.login = login;
  
-        vm.login = login;
- 
-        (function initController() {
+        /*(function initController() {
             // reset login status
-            AuthenticationService.ClearCredentials();
-        })();
- 
-        function login() {
-            vm.dataLoading = true;
-            AuthenticationService.Login(vm.username, vm.password, function (response) {
-                if (response.success) {
-                    AuthenticationService.SetCredentials(vm.username, vm.password);
-                    $location.path('/');
-                } else {
-                    FlashService.Error(response.message);
-                    vm.dataLoading = false;
+            console.info("init controller");
+            LoginServiceFactory.ClearCredentials();
+        })();*/
+        LoginServiceFactory.ClearCredentials();
+        $scope.login = function (loginUser) {
+            console.info("login controller, LoginServiceFactory.Login");
+            loginUser.dataLoading = true;
+            LoginServiceFactory.Login(loginUser.username, loginUser.password, function (response) {
+                if (response.Users.length === 1) {
+                    LoginServiceFactory.SetCredentials(loginUser.username, loginUser.password);
+                    $location.path('/home');
+                } else {/*
+                    FlashService.Error(response.message);*/
+                    loginUser.dataLoading = false;
                 }
             });
-        }
+        };
     }
  
 })();

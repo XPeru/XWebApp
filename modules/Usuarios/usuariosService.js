@@ -11,6 +11,13 @@ usuariosService.factory('UsuariosServiceFactory', function($http) {
 			});
 	};
 
+	service.getUserByEmail = function(callback, email_user) {
+		$http.get(urlBase + '/users' + email_user)
+			.success(function(response) {
+				callback(response);
+			});
+	};
+
 	service.createUser = function(callback, newUser) {
 		$http.post(urlBase + '/users', newUser)
 			.success(function(response) {

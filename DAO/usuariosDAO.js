@@ -57,11 +57,11 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
         });
     });
     //el servicio llama a esta funcion usando solo un argumento
-    //aqui se define que parte del url sera user_id
+    //aqui se define que parte del url sera user_email
     //req.params contiene la informacion de las variables definidas dentro del url
-    router.get("/users/:user_id", function(req, res) {
+    router.get("/users/:user_email", function(req, res) {
         var query = "SELECT * FROM ?? WHERE ??=?";
-        var table = ["user_login", "user_id", req.params.user_id];
+        var table = ["user_login", "user_email", req.params.user_email];
         query = mysql.format(query, table);
         connection.query(query, function(err, rows) {
             if (err) {
@@ -72,6 +72,25 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
             } else {
                 res.json({
                     "Error": false,
+                    "Message": "Success",
+                    "Users": rows
+                });
+            }
+        });
+    });
+
+    router.get("/authentication/:user_email/:user_password", function(req, res) {
+        var query = "SELECT * FROM ?? WHERE ??=? AND ??=?";
+        var table = ["user_login", "user_email", req.params.user_email,
+                     "user_password", md5(req.params.user_password)];
+        query = mysql.format(query, table);
+        connection.query(query, function(err, rows) {
+            if (err) {
+                res.json({
+                    "Message": "Error executing MySQL query"
+                });
+            } else {
+                res.json({
                     "Message": "Success",
                     "Users": rows
                 });

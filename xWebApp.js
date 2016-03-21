@@ -1,6 +1,9 @@
 (function () {
 	angular.module('xWebApp', [
 	'ngTable',
+	'ngCookies',
+	'Footer',
+	'Login',
 	'NavBar',
 	'Home',
 	'Usuarios',
@@ -11,11 +14,12 @@
 	'articulosService',
 	'almacenesService',
 	'ingresosService',
+	'loginService',
 	'ngRoute',
 	'ui.router',
 	'ui.bootstrap'])
-	.config(config);
-    //.run(run);
+	.config(config)
+    .run(run);
 
     config.$inject = ['$stateProvider', '$urlRouterProvider'];
     function config($stateProvider, $urlRouterProvider) {
@@ -68,15 +72,31 @@
 				hideMenus: true,
 				data: {},
 				reloadOnSearch: false
+			})
+			.state('footer', {
+				url: '/footer',
+				controller: 'footerController',
+				templateUrl: 'modules/Footer/footer.html',
+				hideMenus: true,
+				data: {},
+				reloadOnSearch: false
+			})
+			.state('login', {
+				url: '/login',
+				controller: 'loginController',
+				templateUrl: 'modules/Login/login.html',
+				hideMenus: true,
+				data: {},
+				reloadOnSearch: false
 			});
 
-		$urlRouterProvider.otherwise('home');
+		$urlRouterProvider.otherwise('login');
 	}
 
 	run.$inject = ['$rootScope', '$location', '$cookieStore', '$http'];
     function run($rootScope, $location, $cookieStore, $http) {
         // keep user logged in after page refresh
-        /*
+        
         $rootScope.globals = $cookieStore.get('globals') || {};
         if ($rootScope.globals.currentUser) {
             $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
@@ -89,7 +109,7 @@
             if (restrictedPage && !loggedIn) {
                 $location.path('/login');
             }
-        });*/
+        });
     }
 
 })();
