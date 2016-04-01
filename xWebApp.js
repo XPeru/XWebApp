@@ -4,6 +4,7 @@
 	'ngCookies',
 	'Footer',
 	'Login',
+	'LateralBar',
 	'NavBar',
 	'Home',
 	'Usuarios',
@@ -85,6 +86,14 @@
 				url: '/login',
 				controller: 'loginController',
 				templateUrl: 'modules/Login/login.html',
+				hideMenus: true,
+				data: {},
+				reloadOnSearch: false
+			})
+			.state('lateralbar', {
+				url: '/lateralbar',
+				controller: 'lateralbarController',
+				templateUrl: 'modules/LateralBar/lateralbar.html',
 				hideMenus: true,
 				data: {},
 				reloadOnSearch: false

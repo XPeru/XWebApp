@@ -12,8 +12,14 @@
     <!--Este repository contiene animaciones css3 para iconos y botones-->
     <link rel="stylesheet" type="text/css" href="bower_components/Hover/css/hover.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
-
+    <!--
     <link rel="stylesheet" type="text/css" href="modules/NavBar/nav.css">
+    -->
+
+    <link rel="stylesheet" type="text/css" href="modules/LateralBar/lateralbar.css">
+
+    <!--bower install metisMenu-->
+    <link rel="stylesheet" type="text/css" href="bower_components/metisMenu/dist/metisMenu.min.css">
     
     <head lang="en">
         <title>XWebApplication</title>
@@ -23,8 +29,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        
-        <!--class="col-md-12"-->
         <div ui-view></div>
 
         <script src="bower_components/angular/angular.js"></script>
@@ -40,7 +44,9 @@
         <!--bower install ng-table         -->
         <script src="bower_components/ng-table/dist/ng-table.js"></script>
         <!--bower install angular-cookies -->
-        <script src="/bower_components/angular-cookies/angular-cookies.js"></script>
+        <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+         <!-- Metis Menu Plugin JavaScript -->
+        <script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
         <script src="xWebApp.js"></script>
         <!-- <script src="services.js"></script> -->
         <!--NavBar module-->
@@ -64,6 +70,7 @@
         <!--Login module-->
         <script src="modules/Login/loginController.js"></script>
         <script src="modules/Login/loginService.js"></script>
-        
+        <!--LateralBar module-->
+        <script src="modules/LateralBar/lateralbar.js"></script>
     </body>
 </html>

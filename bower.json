@@ -28,7 +28,8 @@
     "angular-bootstrap": "~0.14.1",
     "ng-table": "~0.8.3",
     "Hover": "~2.0.2",
-    "angular-cookies": "~1.5.2"
+    "angular-cookies": "~1.5.2",
+    "metisMenu": "^2.5.0"
   },
   "resolutions": {
     "webcomponentsjs": "^0.6.0"
