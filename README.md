@@ -23,3 +23,7 @@ https://codeforgeek.com/2015/01/nodejs-mysql-tutorial/
 ## Tutorial sobre Node.js
 https://www.youtube.com/watch?v=EY9uY1rxazk&list=PL6gx4Cwl9DGBMdkKFn3HasZnnAqVjzHn_&index=18
 
+## Instalacion From Scratch
+* Instalar node y npm https://docs.npmjs.com/getting-started/installing-node
+* Instalar bower http://bower.io/#install-bower
+* Instalar un mysql community server y mysql workbench
