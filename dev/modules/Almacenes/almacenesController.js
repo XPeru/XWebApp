@@ -42,13 +42,13 @@ almacenes.controller('almacenesController', ['$scope', '$location', '$http', '$u
 					var template;
 					switch(selected_modal) {
 						case "create":
-							template = 'modules/Almacenes/modals/createAlmacen.html';
+							template = 'dev/modules/Almacenes/modals/createAlmacen.html';
 							break;
 						case "edit":
-							template = 'modules/Almacenes/modals/editAlmacen.html';
+							template = 'dev/modules/Almacenes/modals/editAlmacen.html';
 							break;
 						case "delete":
-							template = 'modules/Almacenes/modals/deleteAlmacen.html';
+							template = 'dev/modules/Almacenes/modals/deleteAlmacen.html';
 							break;
 					}
 					return template;

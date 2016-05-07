@@ -44,13 +44,13 @@ usuarios.controller('usuariosController', ['$scope', '$location', '$http', '$uib
 					var template;
 					switch(selected_modal) {
 						case "create":
-							template = 'modules/Usuarios/modals/createUsuario.html';
+							template = 'dev/modules/Usuarios/modals/createUsuario.html';
 							break;
 						case "edit":
-							template = 'modules/Usuarios/modals/editUsuario.html';
+							template = 'dev/modules/Usuarios/modals/editUsuario.html';
 							break;
 						case "delete":
-							template = 'modules/Usuarios/modals/deleteUsuario.html';
+							template = 'dev/modules/Usuarios/modals/deleteUsuario.html';
 							break;
 					}
 					return template;

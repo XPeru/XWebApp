@@ -42,13 +42,13 @@ articulos.controller('articulosController', ['$scope', '$location', '$http', '$u
 					var template;
 					switch(selected_modal) {
 						case "create":
-							template = 'modules/Articulos/modals/createArticulo.html';
+							template = 'dev/modules/Articulos/modals/createArticulo.html';
 							break;
 						case "edit":
-							template = 'modules/Articulos/modals/editArticulo.html';
+							template = 'dev/modules/Articulos/modals/editArticulo.html';
 							break;
 						case "delete":
-							template = 'modules/Articulos/modals/deleteArticulo.html';
+							template = 'dev/modules/Articulos/modals/deleteArticulo.html';
 							break;
 					}
 					return template;

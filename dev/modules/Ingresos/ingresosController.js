@@ -42,13 +42,13 @@ ingresos.controller('ingresosController', ['$scope', '$location', '$http', '$uib
 					var template;
 					switch(selected_modal) {
 						case "create":
-							template = 'modules/Ingresos/modals/createIngreso.html';
+							template = 'dev/modules/Ingresos/modals/createIngreso.html';
 							break;
 						case "edit":
-							template = 'modules/Ingresos/modals/editIngreso.html';
+							template = 'dev/modules/Ingresos/modals/editIngreso.html';
 							break;
 						case "delete":
-							template = 'modules/Ingresos/modals/deleteIngreso.html';
+							template = 'dev/modules/Ingresos/modals/deleteIngreso.html';
 							break;
 					}
 					return template;

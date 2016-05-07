@@ -1,3 +1,5 @@
 angular.module('Home', [])
 
-	.controller('homeController', []);
+	.controller('homeController', ['$scope', '$rootScope', function ($scope, $rootScope) {
+
+	}]);
