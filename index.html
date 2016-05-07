@@ -1,76 +1,64 @@
 <!doctype html>
 <html ng-app="xWebApp">
-
-    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <!--https://github.com/IanLunn/Hover/#using-fontawesome-with-icon-effects-->
+    <!--bower install Hover-->
+    <!--bower install metisMenu-->
     <!--bootstrap tiene un segundo archivo css que sirve para animaciones 3D-->
     <!--
     <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap-theme.css">
+    -->
+    <!--build:css styles/main.css-->
+    <link rel="stylesheet" type="text/css" href="./bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="./bower_components/metisMenu/dist/metisMenu.min.css">
+    <link rel="stylesheet" type="text/css" href="./bower_components/Hover/css/hover.css">
+    <link rel="stylesheet" type="text/css" href="./dev/main.css">
+    <link rel="stylesheet" type="text/css" href="./dev/modules/NavBar/nav.css">
+    <link rel="stylesheet" type="text/css" href="./dev/modules/LateralBar/lateralbar.css">
+    <!--endbuild-->
     
-    -->
-    <!--https://github.com/IanLunn/Hover/#using-fontawesome-with-icon-effects-->
-    <!--bower install Hover-->
-    <!--Este repository contiene animaciones css3 para iconos y botones-->
-    <link rel="stylesheet" type="text/css" href="bower_components/Hover/css/hover.css">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    <!--
-    <link rel="stylesheet" type="text/css" href="modules/NavBar/nav.css">
-    -->
-
-    <link rel="stylesheet" type="text/css" href="modules/LateralBar/lateralbar.css">
-
-    <!--bower install metisMenu-->
-    <link rel="stylesheet" type="text/css" href="bower_components/metisMenu/dist/metisMenu.min.css">
+    
     
     <head lang="en">
         <title>XWebApplication</title>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <!-- <base href="/"> -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
         <div ui-view></div>
+        <!--build:js scripts/main.js-->
+        <script src="./bower_components/angular/angular.js"></script>
+        <script src="./bower_components/angular-route/angular-route.js"></script>
+        <script src="./bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+        <script src="./bower_components/angular-resource/angular-resource.js"></script>
+        <script src="./bower_components/jquery/dist/jquery.js"></script>
+        <script src="./bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="./bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+        <script src="./bower_components/ng-table/dist/ng-table.js"></script>
+        <script src="./bower_components/angular-cookies/angular-cookies.js"></script>
+        <script src="./bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
-        <script src="bower_components/angular/angular.js"></script>
-        <script src="bower_components/angular-route/angular-route.js"></script>
-        <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-        <script src="bower_components/angular-resource/angular-resource.js"></script>
-        <!--contains js code for bootstrap animations-->
-        <script src="bower_components/jquery/dist/jquery.js"></script>
-        <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-        <!-- <script src="bower_components/bootstrap/dist/js/collapse.js"></script> -->
+        <script src="./dev/xWebApp.js"></script>
+
+        <script src="./dev/modules/NavBar/nav.js"></script>
+        <script src="./dev/modules/Footer/footer.js"></script>
+        <script src="./dev/modules/Home/home.js"></script>
+        <script src="./dev/modules/Usuarios/usuariosService.js"></script>
+        <script src="./dev/modules/Usuarios/usuariosController.js"></script>
+        <script src="./dev/modules/Articulos/articulosService.js"></script>
+        <script src="./dev/modules/Articulos/articulosController.js"></script>
+        <script src="./dev/modules/Almacenes/almacenesService.js"></script>
+        <script src="./dev/modules/Almacenes/almacenesController.js"></script>
+        <script src="./dev/modules/Ingresos/ingresosService.js"></script>
+        <script src="./dev/modules/Ingresos/ingresosController.js"></script>
+        <script src="./dev/modules/Login/loginController.js"></script>
+        <script src="./dev/modules/Login/loginService.js"></script>
+        <script src="./dev/modules/LateralBar/lateralbar.js"></script>
+        <!-- endbuild -->
+
         <!--UI Boostrap library -> bower install angular-bootstrap  -->
-        <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
         <!--bower install ng-table         -->
-        <script src="bower_components/ng-table/dist/ng-table.js"></script>
         <!--bower install angular-cookies -->
-        <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-         <!-- Metis Menu Plugin JavaScript -->
-        <script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
-        <script src="xWebApp.js"></script>
-        <!-- <script src="services.js"></script> -->
-        <!--NavBar module-->
-        <script src="modules/NavBar/nav.js"></script>
-        <!--Footer module-->
-        <script src="modules/Footer/footer.js"></script>
-        <!--Home module-->
-        <script src="modules/Home/home.js"></script>
-        <!--Usuarios module-->
-        <script src="modules/Usuarios/usuariosService.js"></script>
-        <script src="modules/Usuarios/usuariosController.js"></script>
-        <!--Articulos module-->
-        <script src="modules/Articulos/articulosService.js"></script>
-        <script src="modules/Articulos/articulosController.js"></script>
-        <!--Almacenes module-->
-        <script src="modules/Almacenes/almacenesService.js"></script>
-        <script src="modules/Almacenes/almacenesController.js"></script>
-        <!--Ingresos module-->
-        <script src="modules/Ingresos/ingresosService.js"></script>
-        <script src="modules/Ingresos/ingresosController.js"></script>
-        <!--Login module-->
-        <script src="modules/Login/loginController.js"></script>
-        <script src="modules/Login/loginService.js"></script>
-        <!--LateralBar module-->
-        <script src="modules/LateralBar/lateralbar.js"></script>
+        <!-- Metis Menu Plugin JavaScript -->
     </body>
 </html>

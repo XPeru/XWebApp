@@ -1,5 +1,4 @@
 angular.module('Footer', [])
-	
 	.controller('footerController', ['$scope', '$rootScope', function ($scope, $rootScope) {
 
 	}])
@@ -9,7 +8,7 @@ angular.module('Footer', [])
 			return {
 				controller: 'footerController',
 				restrict: 'E',
-				templateUrl: 'modules/Footer/footer.html',
+				templateUrl: 'dev/modules/Footer/footer.html',
 				scope: {}
 			};
 		});

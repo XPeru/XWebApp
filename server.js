@@ -45,7 +45,7 @@ REST.prototype.connectMysql = function() {
 
 REST.prototype.configureExpress = function(connection) {
     var self = this;
-    app.use(favicon(__dirname + '/media/favicon.ico'));
+    app.use(favicon(__dirname + '/dev/media/favicon.ico'));
     app.use(bodyParser.urlencoded({extended: true}));
     app.use(bodyParser.json());
     var router = express.Router();
