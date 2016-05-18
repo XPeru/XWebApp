@@ -14,6 +14,7 @@ var restUsuarios = require("./DAO/usuariosDAO.js");
 var restArticulos = require("./DAO/articulosDAO.js");
 var restAlmacenes = require("./DAO/almacenesDAO.js");
 var restIngresos = require("./DAO/ingresosDAO.js");
+var restUsuariosTipo = require("./DAO/usuariosTipoDAO.js"); 
 // We execute the express
 var app = express();
 
@@ -54,10 +55,11 @@ REST.prototype.configureExpress = function(connection) {
     // the __dirname directory becames "public"
     app.use(express.static(__dirname));
     // Adding all the routes to our server
-    var rest_usuarios = new restUsuarios(router, connection, md5);
-    var rest_articulos = new restArticulos(router, connection, md5);
-    var rest_almacenes = new restAlmacenes(router, connection, md5);
-    var rest_ingresos = new restIngresos(router, connection, md5);
+    new restUsuarios(router, connection, md5);
+    new restArticulos(router, connection, md5);
+    new restAlmacenes(router, connection, md5);
+    new restIngresos(router, connection, md5);
+    new restUsuariosTipo(router, connection);
     self.startServer();
 };
 

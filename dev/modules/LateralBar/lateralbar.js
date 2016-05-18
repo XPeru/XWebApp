@@ -9,7 +9,7 @@ angular.module('LateralBar', [])
 			return {
 				controller: 'lateralbarController',
 				restrict: 'E',
-				templateUrl: 'modules/LateralBar/lateralbar.html',
+				templateUrl: 'dev/modules/LateralBar/lateralbar.html',
 				scope: {
 					
 				}

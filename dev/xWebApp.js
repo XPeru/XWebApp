@@ -74,6 +74,14 @@
 				hideMenus: true,
 				data: {},
 				reloadOnSearch: false
+			})
+			.state('usuariostipo', {
+				url: '/usuariostipo',
+				controller: 'usuariosTipoController',
+				templateUrl: 'dev/modules/UsuariosTipo/usuariosTipo.html',
+				hideMenus: true,
+				data: {},
+				reloadOnSearch: false
 			});
 
 		$urlRouterProvider.otherwise('home');
@@ -109,10 +117,12 @@
 	'NavBar',
 	'Home',
 	'Usuarios',
+	'UsuariosTipo',
 	'Articulos',
 	'Almacenes',
 	'Ingresos',
 	'usuariosService',
+	'usuariosTipoService',
 	'articulosService',
 	'almacenesService',
 	'ingresosService',

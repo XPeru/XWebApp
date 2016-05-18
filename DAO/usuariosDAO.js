@@ -18,11 +18,12 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
     router.post("/users", function(req, res) {
         //?? -> valor constante
         //? -> variable
-        var query = "INSERT INTO ??(??,??) VALUES (?,?)";
+        var query = "INSERT INTO ??(??,??,??,??) VALUES (?,?)";
         //
-        var table = ["user_login", "user_email", "user_password", req.body.user_email, md5(req.body.user_password)];
+        var table = ["USUARIO", "NOMBRE", "APELLIDOS", "EMAIL","PASSWORD", "FK_TIPO_USUARIO","CREATE_TIME","FOTO",
+                    req.body.user_email, md5(req.body.user_password)];
         query = mysql.format(query, table);
-        connection.query(query, function(err, rows) {
+        connection.query(query, function(err) {
             if (err) {
                 res.json({
                     "Error": true,
