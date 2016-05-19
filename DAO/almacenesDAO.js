@@ -1,12 +1,12 @@
 var mysql = require("mysql");
-
-function almacenesDAO(router, connection, md5) {
+var dateGenerator = require("./dateGenerator.js");
+function almacenesDAO(router, connection) {
 	var self = this;
-	self.handleRoutes(router, connection, md5);
-	console.info("almacenesDAO agregado correctamente");
+	self.handleRoutes(router, connection);
+	new dateGenerator("almacenesDAO agregado correctamente");
 }
 
-almacenesDAO.prototype.handleRoutes = function(router, connection, md5) {
+almacenesDAO.prototype.handleRoutes = function(router, connection) {
 	router.get("/almacenesList", function(req, res) {
         console.info("almacenesDAO");
         console.info("http request get /almacenesList");

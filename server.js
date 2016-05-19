@@ -56,9 +56,9 @@ REST.prototype.configureExpress = function(connection) {
     app.use(express.static(__dirname));
     // Adding all the routes to our server
     new restUsuarios(router, connection, md5);
-    new restArticulos(router, connection, md5);
-    new restAlmacenes(router, connection, md5);
-    new restIngresos(router, connection, md5);
+    new restArticulos(router, connection);
+    new restAlmacenes(router, connection);
+    new restIngresos(router, connection);
     new restUsuariosTipo(router, connection);
     self.startServer();
 };

@@ -81,7 +81,7 @@ usuariosTipo.controller('ModalUsuarioTipoController',  function($scope, $http, $
             $timeout(function() {
                 $uibModalInstance.close();
             }, 200);
-        }, tipo_usuario.id_tipo_usuario);
+        }, tipo_usuario.ID_TIPO_USUARIO);
     };
 
     $scope.updateTipoUsuario = function (tipo_usuario) {

@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <h3 class="modal-title">Editando Tipo de Usuario</h3>
+</div>
+<div class="modal-body">
+	<form>
+		<div class="form-group">
+			<label for="descripcion_tipo">Descripcion</label>
+			<input type="text" class="form-control" id="descripcion_tipo" ng-model="selected_tipo_usuario.TIPO" placeholder="{{selected_tipo_usuario.TIPO}}">
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="updateTipoUsuario(selected_tipo_usuario)">Editar</button>
+    <button class="btn btn-danger" type="button" ng-click="cancel()">Cancelar</button>
+</div>
