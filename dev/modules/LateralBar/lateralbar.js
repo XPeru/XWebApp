@@ -11,7 +11,9 @@ angular.module('LateralBar', [])
 				restrict: 'E',
 				templateUrl: 'dev/modules/LateralBar/lateralbar.html',
 				scope: {
-					
+					usuarios: '@',
+					usuariotipo: '@',
+					usuarioacceso: '@'
 				}
 			};
 		});

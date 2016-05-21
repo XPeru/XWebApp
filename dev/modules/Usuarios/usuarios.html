@@ -1,47 +1,57 @@
+<!--
 <xwebapp-nav-bar usuarios=1></xwebapp-nav-bar>
-
+-->
+<xwebapp-lateral-bar usuarios=1></xwebapp-lateral-bar>
 <div class="container">
     <div class="row">
-        <div class="table-responsive">
-            <table ng-table="usersTable" class="table">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Email</th>
-                        <th>Password</th>
-                        <th>Join Date</th>
-                        <th> </th>
-                        <th> </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="user in $data.Users">
-                        <td>{{user.user_id}}</td>
-                        <td>{{user.user_email}}</td>
-                        <td>{{user.user_password}}</td>
-                        <td>{{user.user_join_date}}</td>
-                        <td>
-                            <a ng-click="openModalUser('edit', user)" 
-                                class="btn btn-small btn-primary">
-                                Editar
-                            </a>
-                        </td>
-                        <td>
-                            <a ng-click="openModalUser('delete', user)"
-                                class="btn btn-small btn-danger">
-                                Borrar
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="col-md-2">
+            
+        </div>
+        <div class="col-md-10">
+            <div class="table-responsive">
+                <table ng-table="usersTable" class="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Email</th>
+                            <th>Password</th>
+                            <th>Join Date</th>
+                            <th> </th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="user in $data.Users">
+                            <td>{{user.user_id}}</td>
+                            <td>{{user.user_email}}</td>
+                            <td>{{user.user_password}}</td>
+                            <td>{{user.user_join_date}}</td>
+                            <td>
+                                <a ng-click="openModalUser('edit', user)" 
+                                    class="btn btn-small btn-primary">
+                                    Editar
+                                </a>
+                            </td>
+                            <td>
+                                <a ng-click="openModalUser('delete', user)"
+                                    class="btn btn-small btn-danger">
+                                    Borrar
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                 <button ng-click="openModalUser('create', null)"
+                   class="btn btn-small hvr-fade">
+                Crear usuario
+                </button>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <button ng-click="openModalUser('create', null)"
-                class="btn btn-small hvr-fade">
-            Crear usuario
-        </button>
-    </div>
 </div>
+
+<!--
 <xwebapp-footer></xwebapp-footer>
+-->

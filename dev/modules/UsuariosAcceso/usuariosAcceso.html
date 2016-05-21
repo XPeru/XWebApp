@@ -1,4 +1,4 @@
-<xwebapp-lateral-bar usuariotipo=1></xwebapp-lateral-bar>
+<xwebapp-lateral-bar></xwebapp-lateral-bar>
 <div class="container">
     <div class="row">
         <div class="col-md-2">
@@ -6,30 +6,30 @@
         </div>
         <div class="col-md-10">
             <div class="table-responsive">
-                <table ng-table="usuariosTipoTable" class="table">
+                <table ng-table="usuariosAccesoTable" class="table">
                     <thead>
                     <tr>
                         <th style="max-width: 50px">Id</th>
-                        <th style="max-width: 200px">Tipo</th>
+                        <th style="max-width: 200px">Descripcion</th>
                         <th style="max-width: 20px"></th>
                         <th style="max-width: 20px"></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="tipoUsuario in $data.TiposUsuario" ng-click="setSelected(tipoUsuario.ID_TIPO_USUARIO)"
-                        ng-class="{selected: tipoUsuario.ID_TIPO_USUARIO === idSelectedTipoUsuario}">
-                        <td style="max-width: 50px">{{tipoUsuario.ID_TIPO_USUARIO}}</td>
-                        <td style="max-width: 50px">{{tipoUsuario.TIPO}}</td>
+                    <tr ng-repeat="accesoUsuario in $data.AccesosUsuario" ng-click="setSelected(accesoUsuario.ID_ACCESO_USUARIO)"
+                        ng-class="{selected: accesoUsuario.ID_ACCESO_USUARIO === idSelectedAccesoUsuario}">
+                        <td style="max-width: 50px">{{accesoUsuario.ID_ACCESO_USUARIO}}</td>
+                        <td style="max-width: 50px">{{accesoUsuario.DESCRIPCION}}</td>
                         <td style="width:20px">
-                            <button ng-if="tipoUsuario.ID_TIPO_USUARIO === idSelectedTipoUsuario"
-                                ng-click="openModalTipoUsuario('edit', tipoUsuario)"
+                            <button ng-if="accesoUsuario.ID_ACCESO_USUARIO === idSelectedAccesoUsuario"
+                                ng-click="openModalAccesoUsuario('edit', accesoUsuario)"
                                 class="btn btn-small btn-primary">
                                 <i class="glyphicon glyphicon-pencil"></i>
                             </button>
                         </td>
                         <td style="width:20px">
-                            <button ng-if="tipoUsuario.ID_TIPO_USUARIO === idSelectedTipoUsuario"
-                                ng-click="openModalTipoUsuario('delete', tipoUsuario)"
+                            <button ng-if="accesoUsuario.ID_ACCESO_USUARIO === idSelectedAccesoUsuario"
+                                ng-click="openModalAccesoUsuario('delete', accesoUsuario)"
                                 class="btn btn-small btn-danger">
                                 <i class="glyphicon glyphicon-remove"></i>
                             </button>
@@ -39,7 +39,7 @@
                 </table>
             </div>
              <div class="row">
-                    <button ng-click="openModalTipoUsuario('create', null)"
+                    <button ng-click="openModalAccesoUsuario('create', null)"
                             class="btn btn-small hvr-fade">
                         Crear Tipo Usuario <span><i class="glyphicon glyphicon-plus"></i></span>
                     </button>

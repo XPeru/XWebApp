@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <h3 class="modal-title">Editando Acceso de Usuario</h3>
+</div>
+<div class="modal-body">
+	<form>
+		<div class="form-group">
+			<label for="descripcion_acceso">Descripcion</label>
+			<input type="text" class="form-control" id="descripcion_acceso" ng-model="selected_acceso_usuario.DESCRIPCION" placeholder="{{selected_acceso_usuario.DESCRIPCION}}">
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="updateAccesoUsuario(selected_acceso_usuario)">Editar</button>
+    <button class="btn btn-danger" type="button" ng-click="cancel()">Cancelar</button>
+</div>

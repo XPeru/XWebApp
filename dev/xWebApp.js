@@ -75,10 +75,18 @@
 				data: {},
 				reloadOnSearch: false
 			})
-			.state('usuariostipo', {
-				url: '/usuariostipo',
+			.state('usuariotipo', {
+				url: '/usuariotipo',
 				controller: 'usuariosTipoController',
 				templateUrl: 'dev/modules/UsuariosTipo/usuariosTipo.html',
+				hideMenus: true,
+				data: {},
+				reloadOnSearch: false
+			})
+			.state('usuarioacceso', {
+				url: '/usuarioacceso',
+				controller: 'usuariosAccesoController',
+				templateUrl: 'dev/modules/UsuariosAcceso/usuariosAcceso.html',
 				hideMenus: true,
 				data: {},
 				reloadOnSearch: false
@@ -118,11 +126,13 @@
 	'Home',
 	'Usuarios',
 	'UsuariosTipo',
+	'UsuariosAcceso',
 	'Articulos',
 	'Almacenes',
 	'Ingresos',
 	'usuariosService',
 	'usuariosTipoService',
+	'usuariosAccesoService',
 	'articulosService',
 	'almacenesService',
 	'ingresosService',

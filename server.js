@@ -15,6 +15,7 @@ var restArticulos = require("./DAO/articulosDAO.js");
 var restAlmacenes = require("./DAO/almacenesDAO.js");
 var restIngresos = require("./DAO/ingresosDAO.js");
 var restUsuariosTipo = require("./DAO/usuariosTipoDAO.js"); 
+var restUsuariosAcceso = require("./DAO/usuariosAccesoDAO.js");
 // We execute the express
 var app = express();
 
@@ -60,6 +61,7 @@ REST.prototype.configureExpress = function(connection) {
     new restAlmacenes(router, connection);
     new restIngresos(router, connection);
     new restUsuariosTipo(router, connection);
+    new restUsuariosAcceso(router, connection);
     self.startServer();
 };
 

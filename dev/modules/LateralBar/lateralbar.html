@@ -119,16 +119,20 @@
                     <a><i class="glyphicon glyphicon-apple" ></i> Dashboard</a>
                 </li>
                 <li>
-                    <a href="#"><i class="glyphicon glyphicon-user"></i> Usuarios<span class="glyphicon glyphicon-chevron-left"></span></a>
+                    <a>
+                        <i class="glyphicon glyphicon-user">
+                            
+                        </i> Usuarios<span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
                     <ul class="nav nav-second-level">
-                        <li>
-                            <a>Derechos de acceso</a>
+                        <li ng-class="{'active':usuarioacceso==1}">
+                            <a ui-sref="usuarioacceso" ui-sref-opts="{reload: false}">Derechos de acceso</a>
                         </li>
-                        <li>
-                            <a>Tipos de usuario</a>
+                        <li ng-class="{'active':usuariotipo==1}">
+                            <a ui-sref="usuariotipo" ui-sref-opts="{reload: false}">Tipos de usuario</a>
                         </li>
-                        <li>
-                            <a>Gestion de usuarios</a>
+                        <li ng-class="{'active':usuarios==1}">
+                            <a ui-sref="usuarios" ui-sref-opts="{reload: false}">Gestion de usuarios</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->

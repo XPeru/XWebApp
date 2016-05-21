@@ -1,20 +1,20 @@
 var mysql = require("mysql");
 var dateGenerator = require("./dateGenerator.js");
-var daoName = "usuariosTipoDAO";
-function usuariosTipoDAO(router, connection) {
+var daoName = "usuariosAccesoDAO";
+function usuariosAccesoDAO(router, connection) {
     var self = this;
     self.handleRoutes(router, connection);
     new dateGenerator(daoName + " agregado correctamente");
 }
 
 function printRequest(data) {
-	new dateGenerator(daoName + " " + data);
+    new dateGenerator(daoName + " " + data);
 }
 
 
-usuariosTipoDAO.prototype.handleRoutes = function(router, connection) {
-	var tableName = "TIPO_USUARIO";
-	var urlBase = "/tipousuario";
+usuariosAccesoDAO.prototype.handleRoutes = function(router, connection) {
+	var tableName = "ACCESO_USUARIO";
+	var urlBase = "/accesousuario";
 
 	router.get(urlBase + "list", function(req, res) {
 		printRequest(urlBase + "list" + " get");
@@ -32,17 +32,17 @@ usuariosTipoDAO.prototype.handleRoutes = function(router, connection) {
                 res.json({
                     "Error": false,
                     "Message": "Success",
-                    "TiposUsuario": rows
+                    "AccesosUsuario": rows
                 });
             }
         });
     });
 
     router.post(urlBase, function(req, res) {
-		printRequest(urlBase + " post");
+		printRequest(urlBase, " post");
         var query = "INSERT INTO ??(??) VALUES (?)";
-        var table = [tableName, "TIPO",
-                    req.body.TIPO];
+        var table = [tableName, "DESCRIPCION",
+                    req.body.DESCRIPCION];
         query = mysql.format(query, table);
         printRequest(query);
         connection.query(query, function(err) {
@@ -54,17 +54,17 @@ usuariosTipoDAO.prototype.handleRoutes = function(router, connection) {
             } else {
                 res.json({
                     "Error": false,
-                    "Message": "Tipo Usuario Agregado"
+                    "Message": "Acceso Usuario Agregado"
                 });
             }
         });
     });
 
     router.put(urlBase, function(req, res) {
-        printRequest(urlBase + " put");
+        printRequest(urlBase, " put");
         var query = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
-        var table = [tableName, "TIPO",
-                    req.body.TIPO, "ID_TIPO_USUARIO", req.body.ID_TIPO_USUARIO];
+        var table = [tableName, "DESCRIPCION",
+                    req.body.DESCRIPCION, "ID_ACCESO_USUARIO", req.body.ID_ACCESO_USUARIO];
         query = mysql.format(query, table);
         printRequest(query);
         connection.query(query, function(err) {
@@ -82,10 +82,10 @@ usuariosTipoDAO.prototype.handleRoutes = function(router, connection) {
         });
     });
 
-    router.get(urlBase + "/:id_tipo_usuario", function(req, res) {
-		printRequest(urlBase + "/:id_tipo_usuario" + " get");
+    router.get(urlBase + "/:id_acceso_usuario", function(req, res) {
+		printRequest(urlBase + "/:id_acceso_usuario", " get");
         var query = "SELECT * FROM ?? WHERE ??=?";
-        var table = [tableName, "ID_TIPO_USUARIO", req.params.id_tipo_usuario];
+        var table = [tableName, "ID_ACCESO_USUARIO", req.params.id_acceso_usuario];
         query = mysql.format(query, table);
         printRequest(query);
         connection.query(query, function(err, rows) {
@@ -98,16 +98,16 @@ usuariosTipoDAO.prototype.handleRoutes = function(router, connection) {
                 res.json({
                     "Error": false,
                     "Message": "Success",
-                    "TipoUsuario": rows
+                    "AccesoUsuario": rows
                 });
             }
         });
     });
 
-	router.delete("/tipousuario/:id_tipo_usuario", function(req, res) {
-		printRequest(urlBase + "/:id_tipo_usuario", " delete");
+	router.delete("/tipousuario/:id_acceso_usuario", function(req, res) {
+		printRequest(urlBase + "/:id_acceso_usuario", " delete");
         var query = "DELETE from ?? WHERE ??=?";
-        var table = [tableName, "ID_TIPO_USUARIO", req.params.id_tipo_usuario];
+        var table = [tableName, "ID_ACCESO_USUARIO", req.params.id_acceso_usuario];
         query = mysql.format(query, table);
         printRequest(query);
         connection.query(query, function(err) {
@@ -119,7 +119,7 @@ usuariosTipoDAO.prototype.handleRoutes = function(router, connection) {
             } else {
                 res.json({
                     "Error": false,
-                    "Message": "Deleted the user with id_tipo_usuario " + req.params.id_tipo_usuario
+                    "Message": "Deleted the user with id_acceso_usuario " + req.params.id_acceso_usuario
                 });
             }
         });
@@ -128,4 +128,4 @@ usuariosTipoDAO.prototype.handleRoutes = function(router, connection) {
 };
 
 
-module.exports = usuariosTipoDAO;
+module.exports = usuariosAccesoDAO;
