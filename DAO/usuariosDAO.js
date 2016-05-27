@@ -3,7 +3,7 @@ var dateGenerator = require("./dateGenerator.js");
 function usuariosDAO(router, connection, md5) {
     var self = this;
     self.handleRoutes(router, connection, md5);
-    new dateGenerator("usuariosDAO agregado correctamente");
+    dateGenerator.printInfo("usuariosDAO agregado correctamente");
 }
 //si se trata de una sql request de update o de insert, la variable req.body contiene
 //al JSON con la informacion enviada desde el servicio

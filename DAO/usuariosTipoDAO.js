@@ -4,16 +4,17 @@ var daoName = "usuariosTipoDAO";
 function usuariosTipoDAO(router, connection) {
     var self = this;
     self.handleRoutes(router, connection);
-    new dateGenerator(daoName + " agregado correctamente");
+    dateGenerator.printInfo(daoName + " agregado correctamente");
 }
 
 function printRequest(data) {
-	new dateGenerator(daoName + " " + data);
+	dateGenerator.printInfo(daoName + " " + data);
 }
 
 
 usuariosTipoDAO.prototype.handleRoutes = function(router, connection) {
 	var tableName = "TIPO_USUARIO";
+    var assoTableName = "ASOC_TIPO_ACCESO";
 	var urlBase = "/tipousuario";
 
 	router.get(urlBase + "list", function(req, res) {
@@ -104,7 +105,7 @@ usuariosTipoDAO.prototype.handleRoutes = function(router, connection) {
         });
     });
 
-	router.delete("/tipousuario/:id_tipo_usuario", function(req, res) {
+	router.delete(urlBase + "/:id_tipo_usuario", function(req, res) {
 		printRequest(urlBase + "/:id_tipo_usuario", " delete");
         var query = "DELETE from ?? WHERE ??=?";
         var table = [tableName, "ID_TIPO_USUARIO", req.params.id_tipo_usuario];
@@ -120,6 +121,28 @@ usuariosTipoDAO.prototype.handleRoutes = function(router, connection) {
                 res.json({
                     "Error": false,
                     "Message": "Deleted the user with id_tipo_usuario " + req.params.id_tipo_usuario
+                });
+            }
+        });
+    });
+
+    router.get(urlBase + "/assoaccesos/:id_tipo_usuario", function(req, res) {
+        printRequest(urlBase + "/assoaccesos/:id_tipo_usuario", " GET");
+        var query = "SELECT ?? FROM ?? WHERE ??=?";
+        var table = ["FK_ACCESO_USUARIO", assoTableName, "FK_TIPO_USUARIO", req.params.id_tipo_usuario];
+        query = mysql.format(query, table);
+        printRequest(query);
+        connection.query(query, function(err, rows) {
+            if (err) {
+                res.json({
+                    "Error": true,
+                    "Message": "Error executing MySQL query"
+                });
+            } else {
+                res.json({
+                    "Error": false,
+                    "Message": "Success",
+                    "Assos": rows
                 });
             }
         });

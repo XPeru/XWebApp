@@ -1,5 +1,11 @@
 var usuariosTipo = angular.module('UsuariosTipo', ['ui.bootstrap']);
-usuariosTipo.controller('usuariosTipoController', ['$scope', '$location', '$http', '$uibModal', '$timeout', 'UsuariosTipoServiceFactory', 'NgTableParams',
+usuariosTipo.controller('usuariosTipoController', ['$scope',
+                                                    '$location',
+                                                    '$http',
+                                                    '$uibModal',
+                                                    '$timeout',
+                                                    'UsuariosTipoServiceFactory',
+                                                    'NgTableParams',
     function($scope, $location, $http, $uibModal, $timeout, UsuariosTipoServiceFactory, NgTableParams) {
         $scope.usuariosTipoData = [{}];
         $scope.modal_tipo_usuario_not_finished = true;
@@ -69,6 +75,58 @@ usuariosTipo.controller('usuariosTipoController', ['$scope', '$location', '$http
             });
         };
 
+
+        $scope.assoTipoAccesoData = [{}];
+        $scope.modal_asso_tipo_acceso_not_finished = true;
+        $scope.assoTipoAccesoTable = new NgTableParams({
+            page: 1,
+            count: 10
+        }, {
+            total: 0,
+            counts: [],
+            getData: function(params) {
+                if ($scope.modal_asso_tipo_acceso_not_finished) {
+                        $scope.callGetAssosTipoAccesos();
+                    } else {
+                        params.total($scope.assoTipoAccesoData.length);
+                        return $scope.assoTipoAccesoData;
+                    }
+                    $scope.modal_asso_tipo_acceso_not_finished = false;
+            }
+            
+        });
+
+        $scope.callGetAssosTipoAccesosByIdTipoUsuario = function() {
+            UsuariosTipoServiceFactory.getAssosTipoAccesosByIdTipoUsuario(function(response) {
+                    $timeout(function() {
+                        $scope.assoTipoAccesoData = response;
+                        $scope.assoTipoAccesoTable.reload();
+                    }, 200);
+            }, $scope.idSelectedTipoUsuario);
+        };
+
+        $scope.openModalAssoTipoAcceso = function() {
+            var modalInstance = $uibModal.open({
+                templateUrl: function() {
+                    return 'dev/modules/UsuariosTipo/modals/editAssoTipoAcceso.html';
+                    
+                },
+                controller: 'ModalAssoTipoAccesoController',
+                resolve : {
+                    selected_tipo_usuario : function() {
+                        return $scope.idSelectedTipoUsuario;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function() {
+                $scope.modal_asso_tipo_acceso_not_finished = true;
+                $scope.assoTipoAccesoTable.reload();
+                
+            }, function() {
+                $scope.modal_asso_tipo_acceso_not_finished = true;
+            });
+        };
         
     }]);
 
@@ -99,6 +157,24 @@ usuariosTipo.controller('ModalUsuarioTipoController',  function($scope, $http, $
             }, 200);
         }, tipo_usuario);
     };
+
+    $scope.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
+});
+
+usuariosTipo.controller('ModalAssoTipoAccesoController',  function($scope, $http, $timeout, $uibModalInstance, selected_tipo_usuario, UsuariosTipoServiceFactory) {
+//TODO comprobar si esto es realmente necesario o no
+    $scope.selected_tipo_usuario = selected_tipo_usuario;
+
+    $scope.updateAsso = function (tipo_usuario) {
+        UsuariosTipoServiceFactory.updateTipoUsuario(function() {
+            $timeout(function() {
+                $uibModalInstance.close();
+            }, 200);
+        }, tipo_usuario);
+    };
+
 
     $scope.cancel = function () {
       $uibModalInstance.dismiss('cancel');

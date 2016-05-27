@@ -1,11 +1,7 @@
 
-function dateGenerator(text) {
-    var self = this;
-    self.printDate(text);
 
-}
 
-dateGenerator.prototype.printDate = function(text) {
+exports.printInfo = function(text) {
     var objToday = new Date(),
                 weekday = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'),
                 dayOfWeek = weekday[objToday.getDay()],
@@ -19,7 +15,6 @@ dateGenerator.prototype.printDate = function(text) {
                 curSeconds = objToday.getSeconds() < 10 ? "0" + objToday.getSeconds() : objToday.getSeconds(),
                 curMeridiem = objToday.getHours() > 12 ? "PM" : "AM";
     var today = curHour + ":" + curMinute + "." + curSeconds + curMeridiem + " " + dayOfWeek + " " + dayOfMonth + " of " + curMonth + ", " + curYear;
-    console.info(today + " " + text); 
+   return console.info(today + text);
 };
 
-module.exports = dateGenerator;

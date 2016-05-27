@@ -4,11 +4,11 @@ var daoName = "usuariosAccesoDAO";
 function usuariosAccesoDAO(router, connection) {
     var self = this;
     self.handleRoutes(router, connection);
-    new dateGenerator(daoName + " agregado correctamente");
+    dateGenerator.printInfo(daoName + " agregado correctamente");
 }
 
 function printRequest(data) {
-    new dateGenerator(daoName + " " + data);
+    dateGenerator.printInfo(daoName + " " + data);
 }
 
 

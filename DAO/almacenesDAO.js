@@ -3,7 +3,7 @@ var dateGenerator = require("./dateGenerator.js");
 function almacenesDAO(router, connection) {
 	var self = this;
 	self.handleRoutes(router, connection);
-	new dateGenerator("almacenesDAO agregado correctamente");
+	dateGenerator.printInfo("almacenesDAO agregado correctamente");
 }
 
 almacenesDAO.prototype.handleRoutes = function(router, connection) {
