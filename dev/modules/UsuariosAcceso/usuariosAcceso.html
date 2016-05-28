@@ -1,11 +1,9 @@
-<xwebapp-lateral-bar></xwebapp-lateral-bar>
+<top-bar></top-bar>
 <div class="container-fluid underheader">
     <div class="row">
-        <div class="col-md-2">
-            
-        </div>
-        <div class="col-md-10">
-            <div class="table-responsive">
+        <left-bar usuarioacceso=1></left-bar>
+        <div class="col-sm-10 col-sm-offset-3">
+            <div class="table-responsive row">
                 <table ng-table="usuariosAccesoTable" class="table">
                     <thead>
                     <tr>
@@ -38,12 +36,12 @@
                     </tbody>
                 </table>
             </div>
-             <div class="row">
-                    <button ng-click="openModalAccesoUsuario('create', null)"
-                            class="btn btn-small hvr-fade">
-                        Crear Acceso Usuario <span><i class="glyphicon glyphicon-plus"></i></span>
-                    </button>
-                </div>
+            <div class="row">
+                <button ng-click="openModalAccesoUsuario('create', null)"
+                        class="btn btn-small hvr-fade">
+                    Crear Acceso Usuario <span><i class="glyphicon glyphicon-plus"></i></span>
+                </button>
+            </div>
         </div>
         
     </div>

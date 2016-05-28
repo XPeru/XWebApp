@@ -1,14 +1,9 @@
-<!--
-<xwebapp-nav-bar usuarios=1></xwebapp-nav-bar>
--->
-<xwebapp-lateral-bar usuarios=1></xwebapp-lateral-bar>
+<top-bar></top-bar>
 <div class="container-fluid underheader">
     <div class="row">
-        <div class="col-md-2">
-            
-        </div>
-        <div class="col-md-10">
-            <div class="table-responsive">
+        <left-bar usuarios=1></left-bar>
+        <div class="col-sm-10 col-sm-offset-3">
+            <div class="table-responsive row">
                 <table ng-table="usersTable" class="table">
                     <thead>
                         <tr>

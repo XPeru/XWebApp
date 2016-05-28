@@ -123,6 +123,7 @@
 	'Login',
 	'TopBar',
 	'NavBar',
+	'LeftBar',
 	'Home',
 	'Usuarios',
 	'UsuariosTipo',
