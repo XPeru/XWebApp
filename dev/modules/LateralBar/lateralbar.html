@@ -1,12 +1,18 @@
 <nav class="navbar navbar-default navbar-inverse" role="navigation">
 
     <div class="navbar-header">
-        <button type="button" class="navbar-toggle"  data-target="#navbarToCollapse" aria-expanded="false">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarToCollapse" aria-expanded="false" aria-controls="navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#/lateralbar">Electrica Optimizacion</a>
+        <button type="button" class="navbar-toggle collapsed" aria-expanded="false" aria-controls="navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#/home">Electrica Optimizacion</a>
+
     </div>
 
     <div class="collapse navbar-collapse" id="navbarToCollapse">
@@ -100,106 +106,4 @@
 
     
 </nav>
-
-<div class="navbar-default sidebar" role="navigation">
-        <div class="sidebar-nav navbar-collapse ">
-            <ul class="nav" id="menu">
-                <li class="sidebar-search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search...">
-                        <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">
-                            <i class="glyphicon glyphicon-search"></i>
-                        </button>
-                    </span>
-                    </div>
-                    <!-- /input-group -->
-                </li>
-                <li>
-                    <a><i class="glyphicon glyphicon-apple" ></i> Dashboard</a>
-                </li>
-                <li>
-                    <a>
-                        <i class="glyphicon glyphicon-user">
-                            
-                        </i> Usuarios<span class="glyphicon glyphicon-chevron-left"></span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li ng-class="{'active':usuarioacceso==1}">
-                            <a ui-sref="usuarioacceso" ui-sref-opts="{reload: false}">Derechos de acceso</a>
-                        </li>
-                        <li ng-class="{'active':usuariotipo==1}">
-                            <a ui-sref="usuariotipo" ui-sref-opts="{reload: false}">Tipos de usuario</a>
-                        </li>
-                        <li ng-class="{'active':usuarios==1}">
-                            <a ui-sref="usuarios" ui-sref-opts="{reload: false}">Gestion de usuarios</a>
-                        </li>
-                    </ul>
-                    <!-- /.nav-second-level -->
-                </li>
-
-                <li>
-                    <a href="#"><i class="glyphicon glyphicon-wrench"></i> Almacenes<span class="glyphicon glyphicon-chevron-left"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a>Consultar</a>
-                        </li>
-                        <li>
-                            <a href="#">Gestion de almacenes <span class="glyphicon glyphicon-chevron-left"></span></a>
-                            <ul class="nav nav-third-level">
-                                <li>
-                                    <a>A</a>
-                                </li>
-                                <li>
-                                    <a>B</a>
-                                </li>
-                                <li>
-                                    <a>C</a>
-                                </li>
-                                <li>
-                                    <a>TODOS</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-third-level -->
-                        </li>
-                    </ul>
-                    <!-- /.nav-second-level -->
-                </li>
-                <li>
-                    <a href="#"><i class="glyphicon glyphicon-pencil"></i> Articulos<span class="glyphicon glyphicon-chevron-left"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a>Gestion de articulos</a>
-                        </li>
-                        
-                    </ul>
-                    <!-- /.nav-second-level -->
-                </li>
-                <li>
-                    <a href="#"><i class="glyphicon glyphicon-pencil"></i> Personas<span class="glyphicon glyphicon-chevron-left"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a>Clientes</a>
-                        </li>
-                        <li>
-                            <a>Proveedores</a>
-                        </li>
-                    </ul>
-                    <!-- /.nav-second-level -->
-                </li>
-                <li>
-                    <a href="#"><i class="glyphicon glyphicon-pencil"></i> Movimientos<span class="glyphicon glyphicon-chevron-left"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a>Ingresos</a>
-                        </li>
-                        <li>
-                            <a>Salidas</a>
-                        </li>
-                    </ul>
-                    <!-- /.nav-second-level -->
-                </li>
-            </ul>
-        </div>
-<!-- /.sidebar-collapse -->
-</div>
+<!---->
