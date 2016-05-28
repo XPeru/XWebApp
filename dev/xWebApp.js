@@ -67,10 +67,10 @@
 				data: {},
 				reloadOnSearch: false
 			})
-			.state('lateralbar', {
-				url: '/lateralbar',
-				controller: 'lateralbarController',
-				templateUrl: 'dev/modules/LateralBar/lateralbar.html',
+			.state('topbar', {
+				url: '/topbar',
+				controller: 'topbarController',
+				templateUrl: 'dev/modules/TopBar/topbar.html',
 				hideMenus: true,
 				data: {},
 				reloadOnSearch: false
@@ -121,7 +121,7 @@
 	'ngCookies',
 	'Footer',
 	'Login',
-	'LateralBar',
+	'TopBar',
 	'NavBar',
 	'Home',
 	'Usuarios',
