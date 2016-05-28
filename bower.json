@@ -29,7 +29,8 @@
     "ng-table": "~0.8.3",
     "Hover": "~2.0.2",
     "angular-cookies": "~1.5.2",
-    "metisMenu": "^2.5.0"
+    "metisMenu": "^2.5.0",
+    "components-font-awesome": "^4.6.3"
   },
   "resolutions": {
     "webcomponentsjs": "^0.6.0"
