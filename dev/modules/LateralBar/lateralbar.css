@@ -15,6 +15,16 @@
 .sidebar ul li a.active {
     background-color: #eee;
 }
+.sidebar ul li .accordion-toogle .collapsed { 
+    font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+    content: "\e114";    /* adjust as needed, taken from bootstrap.css */
+    float: right;        /* adjust as needed */  
+}
+
+.sidebar ul li .collapsed:after { 
+    content: "\e080";    /* adjust as needed, taken from bootstrap.css */
+    /*float: right;         adjust as needed   */
+}
 
 .sidebar .glyphicon-chevron-left {
     float: right;
