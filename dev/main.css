@@ -22,6 +22,10 @@
 	font-variant: small-caps;
 }
 
+.underheader {
+	margin-top: 50px; 
+}
+
 .list_home {
 	font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
 	text-align: center;
