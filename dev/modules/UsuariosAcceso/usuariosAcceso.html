@@ -2,48 +2,48 @@
 <div class="container-fluid underheader">
     <div class="row">
         <left-bar usuarioacceso=1></left-bar>
-        <div class="col-sm-10 col-sm-offset-3">
-            <div class="table-responsive row">
-                <table ng-table="usuariosAccesoTable" class="table">
-                    <thead>
-                    <tr>
-                        <th style="max-width: 50px">Id</th>
-                        <th style="max-width: 200px">Descripcion</th>
-                        <th style="max-width: 20px"></th>
-                        <th style="max-width: 20px"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="accesoUsuario in $data.AccesosUsuario" ng-click="setSelected(accesoUsuario.ID_ACCESO_USUARIO)"
-                        ng-class="{selected: accesoUsuario.ID_ACCESO_USUARIO === idSelectedAccesoUsuario}">
-                        <td style="max-width: 50px">{{accesoUsuario.ID_ACCESO_USUARIO}}</td>
-                        <td style="max-width: 50px">{{accesoUsuario.DESCRIPCION}}</td>
-                        <td style="width:20px">
-                            <button ng-if="accesoUsuario.ID_ACCESO_USUARIO === idSelectedAccesoUsuario"
-                                ng-click="openModalAccesoUsuario('edit', accesoUsuario)"
-                                class="btn btn-small btn-primary">
-                                <i class="glyphicon glyphicon-pencil"></i>
-                            </button>
-                        </td>
-                        <td style="width:20px">
-                            <button ng-if="accesoUsuario.ID_ACCESO_USUARIO === idSelectedAccesoUsuario"
-                                ng-click="openModalAccesoUsuario('delete', accesoUsuario)"
-                                class="btn btn-small btn-danger">
-                                <i class="glyphicon glyphicon-remove"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="row">
-                <button ng-click="openModalAccesoUsuario('create', null)"
-                        class="btn btn-small hvr-fade">
-                    Crear Acceso Usuario <span><i class="glyphicon glyphicon-plus"></i></span>
-                </button>
+        <div class=" col-xs-12">
+            <div class="leftmargin">
+                <div class="row ">
+                    <table ng-table="usuariosAccesoTable" class="table">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Descripcion</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="accesoUsuario in $data.AccesosUsuario" ng-click="setSelected(accesoUsuario.ID_ACCESO_USUARIO)"
+                            ng-class="{selected: accesoUsuario.ID_ACCESO_USUARIO === idSelectedAccesoUsuario}">
+                            <td style="max-width: 50px">{{accesoUsuario.ID_ACCESO_USUARIO}}</td>
+                            <td style="max-width: 50px">{{accesoUsuario.DESCRIPCION}}</td>
+                            <td style="width:20px">
+                                <button ng-if="accesoUsuario.ID_ACCESO_USUARIO === idSelectedAccesoUsuario"
+                                    ng-click="openModalAccesoUsuario('edit', accesoUsuario)"
+                                    class="btn btn-small btn-primary">
+                                    <i class="glyphicon glyphicon-pencil"></i>
+                                </button>
+                            </td>
+                            <td style="width:20px">
+                                <button ng-if="accesoUsuario.ID_ACCESO_USUARIO === idSelectedAccesoUsuario"
+                                    ng-click="openModalAccesoUsuario('delete', accesoUsuario)"
+                                    class="btn btn-small btn-danger">
+                                    <i class="glyphicon glyphicon-remove"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <button ng-click="openModalAccesoUsuario('create', null)"
+                            class="btn btn-small hvr-fade">
+                        Crear Acceso Usuario <span><i class="glyphicon glyphicon-plus"></i></span>
+                    </button>
+                </div>
             </div>
         </div>
-        
     </div>
-    
 </div>

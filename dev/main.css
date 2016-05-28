@@ -23,9 +23,22 @@
 }
 
 .underheader {
-	margin-top: 50px; 
+	margin-top: 50px;
+
 }
 
+.leftmargin {
+	margin-left: 255px;
+	margin-right: 5px;
+}
+@media (max-width: 767px) {
+	.leftmargin {
+	margin-left: 5px;
+	margin-right: 5px;
+	border-right: 1px;
+	padding-right: 1px;
+}
+}
 .list_home {
 	font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
 	text-align: center;
