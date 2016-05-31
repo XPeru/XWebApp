@@ -81,7 +81,7 @@
                                             </tr> 
                                         </thead> 
                                         <tbody> 
-                                            <tr ng-repeat="accesoUsuario in $data.AccesosUsuario | orderBy:sortType:sortReverse | filter:searchAcceso"" ng-click="setSelected(accesoUsuario.ID_ACCESO_USUARIO)"
+                                            <tr ng-repeat="accesoUsuario in $data.AccesosUsuario | orderBy:sortType:sortReverse | filter:searchAcceso" ng-click="setSelected(accesoUsuario.ID_ACCESO_USUARIO)"
                                                 ng-class="{selected: accesoUsuario.ID_ACCESO_USUARIO === idSelectedAccesoUsuario}">
                                                 <td style="max-width: 50px">{{accesoUsuario.ID_ACCESO_USUARIO}}</td>
                                                 <td style="max-width: 50px">{{accesoUsuario.DESCRIPCION}}</td>
