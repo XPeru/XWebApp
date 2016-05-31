@@ -3,6 +3,11 @@ usuariosTipo.controller('usuariosAccesoController', ['$scope', '$location', '$ht
     function($scope, $location, $http, $uibModal, $timeout, UsuariosAccesoServiceFactory, NgTableParams) {
         $scope.usuariosAccesoData = [{}];
         $scope.modal_acceso_usuario_not_finished = true;
+
+        $scope.sortType     = 'ID_ACCESO_USUARIO'; // set the default sort type
+        $scope.sortReverse  = false;  // set the default sort order
+        $scope.searchAcceso   = '';     // set the default search/filter term
+
         $scope.usuariosAccesoTable = new NgTableParams({
             page: 1,
             count: 10

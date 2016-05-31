@@ -43,31 +43,45 @@
                     </button>
                 </div>
 
+<!-- REVISA ESTA PARTE, EL ENLACE A LAS VARIABLES DEL SCOPE NO ESTA BIEN HECHO AL PARECER -->
+                <div class="alert alert-info">
+                    <p>Sort Type: {{ sortType }}</p>
+                    <p>Sort Reverse: {{ sortReverse }}</p>
+                    <p>Search Query: {{ searchAcceso }}</p>
+                </div>
 
                 <div class="row">
-                    <div class="col-sm-12 col-lg-6">
+                    <div class="col-sm-12">
                         <div class="panel panel-default">
                             <div class="panel-heading clearfix">
-                                <h3 class="panel-title">Simple Table</h3>
-                                <ul class="panel-tool-options" style="text-align: right"> 
-                                    <a data-rel="collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
-                                    <a data-rel="reload" href="#"><i class="glyphicon glyphicon-refresh"></i></a>
-                                    <a data-rel="close" href="#"><i class="glyphicon glyphicon-remove"></i></a>
-                                </ul>
+                                <h3 class="panel-title">Derechos de acceso</h3>
+                                <hr>
+                                <form>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                                            <input type="text" class="form-control" placeholder="Buscar acceso" ng-model="searchAcceso">
+                                        </div>      
+                                    </div>
+                                </form>
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
-                                    <table class="table" ng-table="usuariosAccesoTable">
+                                    <table class="table table-bordered" ng-table="usuariosAccesoTable">
                                         <thead> 
                                             <tr> 
-                                                <th>Id</th>
-                                                <th>Descripcion</th>
+                                                <th><a href="#/usuarioacceso" ng-click="sortType = 'ID_ACCESO_USUARIO'; sortReverse = !sortReverse">Id<span ng-show="sortType == 'ID_ACCESO_USUARIO' && !sortReverse" class="fa fa-caret-down"></span>
+                                                    <span ng-show="sortType == 'ID_ACCESO_USUARIO' && sortReverse" class="fa fa-caret-up"></span>
+                                                  </a></th>
+                                                <th><a href="#/usuarioacceso" ng-click="sortType = 'DESCRIPCION'; sortReverse = !sortReverse">Descripcion<span ng-show="sortType == 'DESCRIPCION' && !sortReverse" class="fa fa-caret-down"></span>
+                                                    <span ng-show="sortType == 'DESCRIPCION' && sortReverse" class="fa fa-caret-up"></span>
+                                                  </a></th>
                                                 <th></th>
                                                 <th></th>
                                             </tr> 
                                         </thead> 
                                         <tbody> 
-                                            <tr ng-repeat="accesoUsuario in $data.AccesosUsuario" ng-click="setSelected(accesoUsuario.ID_ACCESO_USUARIO)"
+                                            <tr ng-repeat="accesoUsuario in $data.AccesosUsuario | orderBy:sortType:sortReverse | filter:searchAcceso"" ng-click="setSelected(accesoUsuario.ID_ACCESO_USUARIO)"
                                                 ng-class="{selected: accesoUsuario.ID_ACCESO_USUARIO === idSelectedAccesoUsuario}">
                                                 <td style="max-width: 50px">{{accesoUsuario.ID_ACCESO_USUARIO}}</td>
                                                 <td style="max-width: 50px">{{accesoUsuario.DESCRIPCION}}</td>
@@ -92,53 +106,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-lg-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading clearfix">
-                                <h3 class="panel-title">Striped Rows</h3>
-                                <ul class="panel-tool-options" style="text-align: right"> 
-                                    <a data-rel="collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
-                                    <a data-rel="reload" href="#"><i class="glyphicon glyphicon-refresh"></i></a>
-                                    <a data-rel="close" href="#"><i class="glyphicon glyphicon-remove"></i></a>
-                                </ul>
-                            </div>
-                            <div class="panel-body">
-                                <div class="table-responsive">
-                                    <table class="table table-striped" ng-table="usuariosAccesoTable">
-                                        <thead> 
-                                            <tr> 
-                                                <th>Id</th>
-                                                <th>Descripcion</th>
-                                                <th></th>
-                                                <th></th>
-                                            </tr> 
-                                        </thead> 
-                                        <tbody> 
-                                            <tr ng-repeat="accesoUsuario in $data.AccesosUsuario" ng-click="setSelected(accesoUsuario.ID_ACCESO_USUARIO)"
-                                                ng-class="{selected: accesoUsuario.ID_ACCESO_USUARIO === idSelectedAccesoUsuario}">
-                                                <td style="max-width: 50px">{{accesoUsuario.ID_ACCESO_USUARIO}}</td>
-                                                <td style="max-width: 50px">{{accesoUsuario.DESCRIPCION}}</td>
-                                                <td style="width:20px">
-                                                    <button ng-if="accesoUsuario.ID_ACCESO_USUARIO === idSelectedAccesoUsuario"
-                                                        ng-click="openModalAccesoUsuario('edit', accesoUsuario)"
-                                                        class="btn btn-small btn-primary">
-                                                        <i class="glyphicon glyphicon-pencil"></i>
-                                                    </button>
-                                                </td>
-                                                <td style="width:20px">
-                                                    <button ng-if="accesoUsuario.ID_ACCESO_USUARIO === idSelectedAccesoUsuario"
-                                                        ng-click="openModalAccesoUsuario('delete', accesoUsuario)"
-                                                        class="btn btn-small btn-danger">
-                                                        <i class="glyphicon glyphicon-remove"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </tbody> 
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <button ng-click="openModalAccesoUsuario('create', null)"
+                            class="btn btn-small hvr-fade">
+                        Crear Acceso Usuario <span><i class="glyphicon glyphicon-plus"></i></span>
+                    </button>
                 </div>
             </div>
         </div>
