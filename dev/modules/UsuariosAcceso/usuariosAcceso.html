@@ -44,11 +44,7 @@
                 </div> -->
 
 <!-- REVISA ESTA PARTE, EL ENLACE A LAS VARIABLES DEL SCOPE NO ESTA BIEN HECHO AL PARECER -->
-                <!-- <div class="alert alert-info">
-                    <p>Sort Type: {{ sortType }}</p>
-                    <p>Sort Reverse: {{ sortReverse }}</p>
-                    <p>Search Query: {{ searchAcceso }}</p>
-                </div> -->
+ 
 
                 <div class="row">
                     <div class="col-sm-12">
@@ -70,10 +66,10 @@
                                     <table class="table table-bordered" ng-table="usuariosAccesoTable">
                                         <thead>
                                             <tr> 
-                                                <th><a href="#/usuarioacceso" ng-click="sortType = 'ID_ACCESO_USUARIO'; sortReverse = !sortReverse">Id<span ng-show="sortType == 'ID_ACCESO_USUARIO' && !sortReverse" class="fa fa-caret-down"></span>
+                                                <th><a ng-click="setType('ID_ACCESO_USUARIO')">Id<span ng-show="sortType == 'ID_ACCESO_USUARIO' && !sortReverse" class="fa fa-caret-down"></span>
                                                     <span ng-show="sortType == 'ID_ACCESO_USUARIO' && sortReverse" class="fa fa-caret-up"></span>
                                                   </a></th>
-                                                <th><a href="#/usuarioacceso" ng-click="sortType = 'DESCRIPCION'; sortReverse = !sortReverse">Descripcion<span ng-show="sortType == 'DESCRIPCION' && !sortReverse" class="fa fa-caret-down"></span>
+                                                <th><a ng-click="setType('DESCRIPCION')">Descripcion<span ng-show="sortType == 'DESCRIPCION' && !sortReverse" class="fa fa-caret-down"></span>
                                                     <span ng-show="sortType == 'DESCRIPCION' && sortReverse" class="fa fa-caret-up"></span>
                                                   </a></th>
                                                 <th></th>
@@ -92,6 +88,7 @@
                                                     <div class="input-group">
                                                         <div class="input-group-addon"><i class="fa fa-search"></i></div>
                                                         <input type="text" class="form-control" placeholder="Filter by descripcion" ng-model="search.DESCRIPCION">
+                                                        <p>Search Query: {{ search }}</p>
                                                     </div> 
                                                 </th>
                                                 <th></th>
@@ -126,6 +123,11 @@
                             class="btn btn-small hvr-fade">
                         Crear Acceso Usuario <span><i class="glyphicon glyphicon-plus"></i></span>
                     </button>
+                </div>
+                               <div class="alert alert-info">
+                    <p>Sort Type: {{ sortType }}</p>
+                    <p>Sort Reverse: {{ sortReverse }}</p>
+                    <p>Search Query: {{ search }}</p>
                 </div>
             </div>
         </div>

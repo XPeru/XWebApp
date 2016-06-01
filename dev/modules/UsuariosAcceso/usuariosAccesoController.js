@@ -6,7 +6,12 @@ usuariosTipo.controller('usuariosAccesoController', ['$scope', '$location', '$ht
 
         $scope.sortType     = 'ID_ACCESO_USUARIO'; // set the default sort type
         $scope.sortReverse  = false;  // set the default sort order
-        $scope.searchAcceso   = '';     // set the default search/filter term
+        $scope.search   = '';     // set the default search/filter term
+        $scope.setType = function(type, search) {
+            $scope.sortType = type;
+            $scope.sortReverse = !$scope.sortReverse;
+            $scope.search = search;
+        };
 
         $scope.usuariosAccesoTable = new NgTableParams({
             page: 1,
