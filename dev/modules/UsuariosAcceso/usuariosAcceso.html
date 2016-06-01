@@ -2,8 +2,8 @@
 <div class="container-fluid underheader">
     <div class="row">
         <div class="col-xs-12">
-            <div class="leftmargin">
-                <div class="row">
+            <div class="leftmargin topmargin">
+                <!-- <div class="row">
                     <table ng-table="usuariosAccesoTable" class="table">
                         <thead>
                         <tr>
@@ -41,34 +41,34 @@
                             class="btn btn-small hvr-fade">
                         Crear Acceso Usuario <span><i class="glyphicon glyphicon-plus"></i></span>
                     </button>
-                </div>
+                </div> -->
 
 <!-- REVISA ESTA PARTE, EL ENLACE A LAS VARIABLES DEL SCOPE NO ESTA BIEN HECHO AL PARECER -->
-                <div class="alert alert-info">
+                <!-- <div class="alert alert-info">
                     <p>Sort Type: {{ sortType }}</p>
                     <p>Sort Reverse: {{ sortReverse }}</p>
                     <p>Search Query: {{ searchAcceso }}</p>
-                </div>
+                </div> -->
 
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="panel panel-default">
                             <div class="panel-heading clearfix">
                                 <h3 class="panel-title">Derechos de acceso</h3>
-                                <hr>
+                                <!-- <hr>
                                 <form>
                                     <div class="form-group">
                                         <div class="input-group">
                                             <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                                            <input type="text" class="form-control" placeholder="Buscar acceso" ng-model="searchAcceso">
+                                            <input type="text" class="form-control" placeholder="Buscar acceso" ng-model="search.ID_ACCESO_USUARIO">
                                         </div>      
                                     </div>
-                                </form>
+                                </form> -->
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered" ng-table="usuariosAccesoTable">
-                                        <thead> 
+                                        <thead>
                                             <tr> 
                                                 <th><a href="#/usuarioacceso" ng-click="sortType = 'ID_ACCESO_USUARIO'; sortReverse = !sortReverse">Id<span ng-show="sortType == 'ID_ACCESO_USUARIO' && !sortReverse" class="fa fa-caret-down"></span>
                                                     <span ng-show="sortType == 'ID_ACCESO_USUARIO' && sortReverse" class="fa fa-caret-up"></span>
@@ -78,10 +78,26 @@
                                                   </a></th>
                                                 <th></th>
                                                 <th></th>
-                                            </tr> 
+                                            </tr>
                                         </thead> 
-                                        <tbody> 
-                                            <tr ng-repeat="accesoUsuario in $data.AccesosUsuario | orderBy:sortType:sortReverse | filter:searchAcceso" ng-click="setSelected(accesoUsuario.ID_ACCESO_USUARIO)"
+                                        <tbody>
+                                            <tr> 
+                                                <th>
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                                                        <input type="text" class="form-control" placeholder="Filter by Id" ng-model="search.ID_ACCESO_USUARIO">
+                                                    </div> 
+                                                </th>
+                                                <th>
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                                                        <input type="text" class="form-control" placeholder="Filter by descripcion" ng-model="search.DESCRIPCION">
+                                                    </div> 
+                                                </th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr> 
+                                            <tr ng-repeat="accesoUsuario in $data.AccesosUsuario | orderBy:sortType:sortReverse | filter:search" ng-click="setSelected(accesoUsuario.ID_ACCESO_USUARIO)"
                                                 ng-class="{selected: accesoUsuario.ID_ACCESO_USUARIO === idSelectedAccesoUsuario}">
                                                 <td style="max-width: 50px">{{accesoUsuario.ID_ACCESO_USUARIO}}</td>
                                                 <td style="max-width: 50px">{{accesoUsuario.DESCRIPCION}}</td>
