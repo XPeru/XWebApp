@@ -46,5 +46,12 @@ usuariosTipoService.factory('UsuariosTipoServiceFactory', function($http) {
 			});
 	};
 
+	service.getPDF = function(callback) {
+		$http.get(urlBase + 'topdf')
+			.success(function(response) {
+				callback(response);
+			});
+	};
+
 	return service;
 });

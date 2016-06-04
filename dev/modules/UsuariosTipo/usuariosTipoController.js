@@ -1,12 +1,13 @@
 var usuariosTipo = angular.module('UsuariosTipo', ['ui.bootstrap']);
 usuariosTipo.controller('usuariosTipoController', ['$scope',
+                                                    '$window',
                                                     '$location',
                                                     '$http',
                                                     '$uibModal',
                                                     '$timeout',
                                                     'UsuariosTipoServiceFactory',
                                                     'NgTableParams',
-    function($scope, $location, $http, $uibModal, $timeout, UsuariosTipoServiceFactory, NgTableParams) {
+    function($scope, $window, $location, $http, $uibModal, $timeout, UsuariosTipoServiceFactory, NgTableParams) {
         $scope.usuariosTipoData = [{}];
         $scope.modal_tipo_usuario_not_finished = true;
         $scope.usuariosTipoTable = new NgTableParams({
@@ -126,6 +127,15 @@ usuariosTipo.controller('usuariosTipoController', ['$scope',
             }, function() {
                 $scope.modal_asso_tipo_acceso_not_finished = true;
             });
+        };
+
+        $scope.watchPDF = function() {
+            UsuariosTipoServiceFactory.getPDF(function(response) {
+                    $timeout(function() {
+                        $window.open(response.dataR);
+                    }, 200);
+            });
+           // $window.open("aaa.pdf");
         };
         
     }]);
