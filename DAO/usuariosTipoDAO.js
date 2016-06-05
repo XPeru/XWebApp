@@ -161,21 +161,27 @@ usuariosTipoDAO.prototype.handleRoutes = function(router, connection) {
            .text('Here is some vector graphics...', 100, 80);
            
         // some vector graphics
-        doc.save()
-           .moveTo(100, 150)
-           .lineTo(100, 250)
-           .lineTo(200, 250)
-           .fill("#FF3300");
+        var width_max = 612;
+        var height_max = 792;
+        var x = 30;
+        var w = width_max - 2 * x;
+        var h = height_max - 2 * x;
+        doc.save().moveTo(x, x)
+           .lineTo(x, x + h)
+           .lineTo(x + w, x + h)
+           .lineTo(x + w, x)
+           .lineTo(x, x)
+           .stroke();
            
-        doc.circle(280, 200, 50)
-           .fill("#6600FF");
+        /*doc.circle(280, 200, 50)
+           .fill("#6600FF");*/
            
         // an SVG path
-        doc.scale(0.6)
+        /*doc.scale(0.6)
            .translate(470, 130)
            .path('M 250,75 L 323,301 131,161 369,161 177,301 z')
            .fill('red', 'even-odd')
-           .restore();
+           .restore();*/
 
         doc.end();
 
