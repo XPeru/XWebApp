@@ -1,48 +1,60 @@
-<xwebapp-nav-bar almacenes=1></xwebapp-nav-bar>
-<div class="container">
+<top-bar></top-bar>
+<div class="container-fluid underheader">
     <div class="row">
-        <div class="table-responsive">
-            <table ng-table="almacenesTable" class="table" show-filter="true">
-                <thead>
-                <tr>
-                    <th>Id</th>
-        			<th>Fecha de creacion</th>
-        			<th>Fecha de ultima edicion</th>
-                    <th style="width: 20px"></th>
-                    <th style="width: 20px"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="almacen in $data.Almacenes" ng-click="setSelected(almacen.ID_ALM)"
-                    ng-class="{selected: almacen.ID_ALM === idSelectedAlmacen}">
-                    <td>{{almacen.ID_ALM}}</td>
-                    <td>{{almacen.CRT_TIM|date:'medium'}}</td>
-                    <td>{{almacen.UPD_TIM|date:'medium'}}</td>
+        <div class="col-xs-12">
+            <div class="leftmargin topmargin">
+                <div class="alert alert-info">
+                    <p>Sort Type: {{ sortType }}</p>
+                    <p>Sort Reverse: {{ sortReverse }}</p>
+                    <p>Search Query: {{ search }}</p>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading clearfix">
+                        <h3 class="panel-title">Almacenes</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table ng-table="almacenesTable" class="table" show-filter="true">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Fecha de creacion</th>
+                                    <th>Fecha de ultima edicion</th>
+                                    <th style="width: 20px"></th>
+                                    <th style="width: 20px"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="almacen in $data.Almacenes" ng-click="setSelected(almacen.ID_ALM)"
+                                    ng-class="{selected: almacen.ID_ALM === idSelectedAlmacen}">
+                                    <td>{{almacen.ID_ALM}}</td>
+                                    <td>{{almacen.CRT_TIM|date:'medium'}}</td>
+                                    <td>{{almacen.UPD_TIM|date:'medium'}}</td>
 
-                    <td style="width: 20px">
-                        <button ng-if="almacen.ID_ALM === idSelectedAlmacen"
-                            ng-click="openModal('edit', almacen)"
-                            class="btn btn-small btn-primary">
-                            <i class="glyphicon glyphicon-pencil"></i>
-                        </button>
-                    </td>
-                    <td style="width: 20px">
-                        <button ng-if="almacen.ID_ALM === idSelectedAlmacen"
-                            ng-click="openModal('delete', almacen)"
-                            class="btn btn-small btn-danger">
-                            <i class="glyphicon glyphicon-remove"></i>
-                        </button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                                    <td style="width: 20px">
+                                        <button ng-if="almacen.ID_ALM === idSelectedAlmacen"
+                                            ng-click="openModal('edit', almacen)"
+                                            class="btn btn-small btn-primary">
+                                            <i class="glyphicon glyphicon-pencil"></i>
+                                        </button>
+                                    </td>
+                                    <td style="width: 20px">
+                                        <button ng-if="almacen.ID_ALM === idSelectedAlmacen"
+                                            ng-click="openModal('delete', almacen)"
+                                            class="btn btn-small btn-danger">
+                                            <i class="glyphicon glyphicon-remove"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <button ng-click="openModal('create', null)" class="btn btn-small hvr-fade">
+                    Nuevo <span><i class="glyphicon glyphicon-plus"></i></span>
+                </button>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <button ng-click="openModal('create', null)"
-                    class="btn btn-small hvr-fade">
-             Crear almacen <span><i class="glyphicon glyphicon-plus"></i></span>
-        </button>
-    </div>
 </div>
-<xwebapp-footer></xwebapp-footer>
