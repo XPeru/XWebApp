@@ -3,14 +3,17 @@
 	width : 80%;
 	height : 200px;
 	margin : 50px;
+	font-size: 400%;
+	/*font-family: Verdana, Arial, Helvetica, sans-serif;*/
 }
 
 
 
 @media (max-width: 767px) {
 	.bigButton {
-	width : 80%;
-	height : 50px;
-	margin : 20px;
+		width : 80%;
+		height : 50px;
+		margin : 20px;
+		font-size: 100%;
 	}
 }
