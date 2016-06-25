@@ -1,0 +1,16 @@
+
+.bigButton {
+	width : 80%;
+	height : 200px;
+	margin : 50px;
+}
+
+
+
+@media (max-width: 767px) {
+	.bigButton {
+	width : 80%;
+	height : 50px;
+	margin : 20px;
+	}
+}

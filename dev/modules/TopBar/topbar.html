@@ -140,10 +140,16 @@
                             <a href="#/almacenesgestion">Gestion</a>
                         </li>
                         <li>
-                            <a href="#">Consultar<span class="fa arrow"></span></a>
+                            <a href="#/almacenes">Escoger</a>
+                        </li>
+                        <li>
+                            <a>Consultar<span class="fa arrow"></span></a>
                             <ul class="nav nav-third-level">
                                 <li ng-repeat="almacen in almacenesData.Almacenes">
                                     <a>{{almacen.CODIGO}}</a>
+                                </li>
+                                <li>
+                                    <a>TODOS</a>
                                 </li>
                             </ul>
                             <!-- /.nav-third-level -->

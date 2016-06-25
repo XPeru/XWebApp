@@ -3,7 +3,6 @@
 angular.module('TopBar', [])
 	
 	.controller('topbarController', ['$scope', '$rootScope', '$timeout', 'AlmacenesGestionServiceFactory', function ($scope, $rootScope, $timeout, AlmacenesGestionServiceFactory) {
-		// $scope.almacenesData = [{}];
 		$("#menu").metisMenu();
 		
 		$(window).bind("load resize", function() {

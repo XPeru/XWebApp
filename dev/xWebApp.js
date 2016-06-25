@@ -43,6 +43,14 @@
 				data: {},
 				reloadOnSearch: false
 			})
+			.state('almacenes', {
+				url: '/almacenes',
+				controller: 'almacenesController',
+				templateUrl: 'dev/modules/Almacenes/almacenes.html',
+				hideMenus: true,
+				data: {},
+				reloadOnSearch: false
+			})
 			.state('ingresos', {
 				url: '/ingresos',
 				controller: 'ingresosController',
@@ -129,6 +137,7 @@
 	'UsuariosTipo',
 	'UsuariosAcceso',
 	'Articulos',
+	'Almacenes',
 	'AlmacenesGestion',
 	'Ingresos',
 	'usuariosService',
