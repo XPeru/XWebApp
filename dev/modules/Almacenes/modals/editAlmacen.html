@@ -4,12 +4,16 @@
 <div class="modal-body">
     <form>
       <div class="form-group">
-        <label for="descripcion_alm">Descripcion</label>
-        <input type="text" class="form-control" id="descripcion_alm" ng-model="selected_almacen.ID_ALM" placeholder="{{selected_almacen.ID_ALM}}">
+        <label for="codigo">Codigo</label>
+        <input type="text" class="form-control" id="codigo" ng-model="selected_almacen.CODIGO" placeholder="{{selected_almacen.CODIGO}}">
+      </div>
+      <div class="form-group">
+        <label for="ubicacion">Ubicacion</label>
+        <input type="text" class="form-control" id="ubicacion" ng-model="selected_almacen.UBICACION" placeholder="{{selected_almacen.UBICACION}}">
       </div>
     </form>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="editAlmacen(selected_almacen)">OK</button>
-    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-primary" type="button" ng-click="editAlmacen(selected_almacen)">Editar</button>
+    <button class="btn btn-danger" type="button" ng-click="cancel()">Cancelar</button>
 </div>

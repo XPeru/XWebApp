@@ -1,18 +1,26 @@
 var mysql = require("mysql");
 var dateGenerator = require("./dateGenerator.js");
+var daoName = "almacenesDAO";
 function almacenesDAO(router, connection) {
 	var self = this;
 	self.handleRoutes(router, connection);
-	dateGenerator.printInfo("almacenesDAO agregado correctamente");
+	dateGenerator.printInfo(daoName + " agregado correctamente");
 }
 
+function printRequest(data) {
+    dateGenerator.printInfo(daoName + " " + data);
+}
+
+
 almacenesDAO.prototype.handleRoutes = function(router, connection) {
-	router.get("/almacenesList", function(req, res) {
-        console.info("almacenesDAO");
-        console.info("http request get /almacenesList");
-		var query = "SELECT * FROM ?? WHERE ACT_FLG = '1'";
-		var table = ["TBL_ALM"];
+    var tableName = "ALMACEN";
+    var urlBase = "/almacen";
+	router.get(urlBase + "list", function(req, res) {
+        printRequest(urlBase + "list" + " get");
+		var query = "SELECT * FROM ??";
+		var table = [tableName];
 		query = mysql.format(query, table);
+        printRequest(query);
 		connection.query(query, function(err, rows) {
 			if (err) {
                 console.info('Error executing MySQL query:' + query);
@@ -31,13 +39,13 @@ almacenesDAO.prototype.handleRoutes = function(router, connection) {
 		});
 	});
 
-    router.post("/almacen", function(req, res) {
-        console.info("almacenesDAO");
-        console.info("http request post /almacen");
-        var query = "INSERT INTO ??(??) VALUES (?)";
-        var table = ["TBL_ALM", "ID_ALM", req.body.ID_ALM];
+    router.post(urlBase, function(req, res) {
+        printRequest(urlBase + " post");
+        var query = "INSERT INTO ?? (??, ??) VALUES (?, ?)";
+        var table = [tableName, "CODIGO", "UBICACION", req.body.CODIGO, req.body.UBICACION];
         query = mysql.format(query, table);
-        connection.query(query, function(err, rows) {
+        printRequest(query);
+        connection.query(query, function(err) {
             if (err) {
                 console.info('Error executing MySQL query:' + query);
                 res.json({
@@ -54,13 +62,13 @@ almacenesDAO.prototype.handleRoutes = function(router, connection) {
         });
     });
 
-    router.put("/almacen", function(req, res) {
-        console.info("almacenesDAO");
-        console.info("http request put /almacen");
-        var query = "UPDATE ?? SET ?? = ?, UPD_TIM = CURRENT_TIMESTAMP WHERE ?? = ?";
-        var table = ["TBL_ALM", "ID_ALM", req.body.ID_ALM, "ALM_SEQ", req.body.ALM_SEQ];
+    router.put(urlBase, function(req, res) {
+        printRequest(urlBase + " put");
+        var query = "UPDATE ?? SET ?? = ?, ?? = ? WHERE ?? = ?";
+        var table = [tableName, "CODIGO", req.body.CODIGO, "UBICACION", req.body.UBICACION, "ID_ALMACEN", req.body.ID_ALMACEN];
         query = mysql.format(query, table);
-        connection.query(query, function(err, rows) {
+        printRequest(query);
+        connection.query(query, function(err) {
             if (err) {
                 console.info('Error executing MySQL query:' + query);
                 res.json({
@@ -77,13 +85,12 @@ almacenesDAO.prototype.handleRoutes = function(router, connection) {
         });
     });
 
-    router.delete("/deleteAlmacen/:alm_seq", function(req, res) {
-        console.info("almacenesDAO");
-        console.info("http request delete /deleteAlmacen");
-        var query = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
-        var table = ["TBL_ALM", "ACT_FLG", '0', "ALM_SEQ", req.params.alm_seq];
+    router.delete(urlBase + "/:id_almacen", function(req, res) {
+        printRequest(urlBase + "/:id_almacen", " delete");
+        var query = "DELETE FROM ?? WHERE ?? = ?";
+        var table = [tableName, "ID_ALMACEN", req.params.id_almacen];
         query = mysql.format(query, table);
-        connection.query(query, function(err, rows) {
+        connection.query(query, function(err) {
             if (err) {
                 console.info('Error executing MySQL query:' + query);
                 res.json({
@@ -94,7 +101,7 @@ almacenesDAO.prototype.handleRoutes = function(router, connection) {
                 console.info('Success MySQL query:' + query);
                 res.json({
                     "Error": false,
-                    "Message": "Almacen deleted: " + req.params.art_seq
+                    "Message": "Almacen deleted: " + req.params.id_almacen
                 });
             }
         });

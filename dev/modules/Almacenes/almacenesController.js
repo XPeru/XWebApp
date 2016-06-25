@@ -75,7 +75,7 @@ almacenes.controller('ModalAlmacen', function($scope, $http, $timeout, $uibModal
 	$scope.selected_almacen = selected_almacen;
 
 	$scope.deleteAlmacen = function(almacen_deleted) {
-		AlmacenesServiceFactory.deleteAlmacen(function(response) {
+		AlmacenesServiceFactory.deleteAlmacen(function() {
 			$timeout(function() {
 				$uibModalInstance.close();
 			}, 200);
@@ -83,7 +83,7 @@ almacenes.controller('ModalAlmacen', function($scope, $http, $timeout, $uibModal
 	};
 
     $scope.editAlmacen = function (almacen_edited) {
-		AlmacenesServiceFactory.editAlmacen(function(response) {
+		AlmacenesServiceFactory.editAlmacen(function() {
 			$timeout(function() {
 				$uibModalInstance.close();
 			}, 200);
@@ -91,7 +91,7 @@ almacenes.controller('ModalAlmacen', function($scope, $http, $timeout, $uibModal
     };
 
     $scope.createAlmacen = function (almacen_created) {
-		AlmacenesServiceFactory.createAlmacen(function(response) {
+		AlmacenesServiceFactory.createAlmacen(function() {
 			$timeout(function() {
 				$uibModalInstance.close();
 			}, 200);
