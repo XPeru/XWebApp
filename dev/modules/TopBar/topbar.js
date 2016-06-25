@@ -2,7 +2,7 @@
 /*global $*/
 angular.module('TopBar', [])
 	
-	.controller('topbarController', ['$scope', '$rootScope', '$timeout', 'AlmacenesServiceFactory', function ($scope, $rootScope, $timeout, AlmacenesServiceFactory) {
+	.controller('topbarController', ['$scope', '$rootScope', '$timeout', 'AlmacenesGestionServiceFactory', function ($scope, $rootScope, $timeout, AlmacenesGestionServiceFactory) {
 		// $scope.almacenesData = [{}];
 		$("#menu").metisMenu();
 		
@@ -35,7 +35,7 @@ angular.module('TopBar', [])
 		}
 
 		$scope.callGetAllAlmacenes = function() {
-			AlmacenesServiceFactory.getAllAlmacenes(function(response) {
+			AlmacenesGestionServiceFactory.getAllAlmacenes(function(response) {
 					$timeout(function() {
 						$scope.almacenesData = response;
 					}, 200);

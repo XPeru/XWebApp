@@ -35,10 +35,10 @@
 				data: {},
 				reloadOnSearch: false
 			})
-			.state('almacenes', {
-				url: '/almacenes',
-				controller: 'almacenesController',
-				templateUrl: 'dev/modules/Almacenes/almacenes.html',
+			.state('almacenesgestion', {
+				url: '/almacenesgestion',
+				controller: 'almacenesGestionController',
+				templateUrl: 'dev/modules/AlmacenesGestion/almacenesGestion.html',
 				hideMenus: true,
 				data: {},
 				reloadOnSearch: false
@@ -129,13 +129,13 @@
 	'UsuariosTipo',
 	'UsuariosAcceso',
 	'Articulos',
-	'Almacenes',
+	'AlmacenesGestion',
 	'Ingresos',
 	'usuariosService',
 	'usuariosTipoService',
 	'usuariosAccesoService',
 	'articulosService',
-	'almacenesService',
+	'almacenesGestionService',
 	'ingresosService',
 	'loginService',
 	'ngRoute',

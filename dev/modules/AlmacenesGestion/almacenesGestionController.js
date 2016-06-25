@@ -1,8 +1,8 @@
-var almacenes = angular.module('Almacenes', ['ui.bootstrap']);
+var almacenesGestion = angular.module('AlmacenesGestion', ['ui.bootstrap']);
 
-almacenes.controller('almacenesController', ['$scope', '$location', '$http', '$uibModal', '$timeout',
-	'AlmacenesServiceFactory', 'NgTableParams',
-	function($scope, $location, $http, $uibModal, $timeout, AlmacenesServiceFactory, NgTableParams) {
+almacenesGestion.controller('almacenesGestionController', ['$scope', '$location', '$http', '$uibModal', '$timeout',
+	'AlmacenesGestionServiceFactory', 'NgTableParams',
+	function($scope, $location, $http, $uibModal, $timeout, AlmacenesGestionServiceFactory, NgTableParams) {
 		$scope.idSelectedAlmacen = null;
 		$scope.setSelected = function(idSelectedAlmacen) {
 			$scope.idSelectedAlmacen = idSelectedAlmacen;
@@ -28,7 +28,7 @@ almacenes.controller('almacenesController', ['$scope', '$location', '$http', '$u
 		});
 
 		$scope.callGetAllAlmacenes = function() {
-			AlmacenesServiceFactory.getAllAlmacenes(function(response) {
+			AlmacenesGestionServiceFactory.getAllAlmacenes(function(response) {
 					$timeout(function() {
 						$scope.almacenesData = response;
 						$scope.almacenesTable.reload();
@@ -42,13 +42,13 @@ almacenes.controller('almacenesController', ['$scope', '$location', '$http', '$u
 					var template;
 					switch(selected_modal) {
 						case "create":
-							template = 'dev/modules/Almacenes/modals/createAlmacen.html';
+							template = 'dev/modules/AlmacenesGestion/modals/createAlmacen.html';
 							break;
 						case "edit":
-							template = 'dev/modules/Almacenes/modals/editAlmacen.html';
+							template = 'dev/modules/AlmacenesGestion/modals/editAlmacen.html';
 							break;
 						case "delete":
-							template = 'dev/modules/Almacenes/modals/deleteAlmacen.html';
+							template = 'dev/modules/AlmacenesGestion/modals/deleteAlmacen.html';
 							break;
 					}
 					return template;
@@ -71,11 +71,11 @@ almacenes.controller('almacenesController', ['$scope', '$location', '$http', '$u
 		};
 }]);
 
-almacenes.controller('ModalAlmacen', function($scope, $http, $timeout, $uibModalInstance, selected_almacen, AlmacenesServiceFactory) {
+almacenesGestion.controller('ModalAlmacen', function($scope, $http, $timeout, $uibModalInstance, selected_almacen, AlmacenesGestionServiceFactory) {
 	$scope.selected_almacen = selected_almacen;
 
 	$scope.deleteAlmacen = function(almacen_deleted) {
-		AlmacenesServiceFactory.deleteAlmacen(function() {
+		AlmacenesGestionServiceFactory.deleteAlmacen(function() {
 			$timeout(function() {
 				$uibModalInstance.close();
 			}, 200);
@@ -83,7 +83,7 @@ almacenes.controller('ModalAlmacen', function($scope, $http, $timeout, $uibModal
 	};
 
     $scope.editAlmacen = function (almacen_edited) {
-		AlmacenesServiceFactory.editAlmacen(function() {
+		AlmacenesGestionServiceFactory.editAlmacen(function() {
 			$timeout(function() {
 				$uibModalInstance.close();
 			}, 200);
@@ -91,7 +91,7 @@ almacenes.controller('ModalAlmacen', function($scope, $http, $timeout, $uibModal
     };
 
     $scope.createAlmacen = function (almacen_created) {
-		AlmacenesServiceFactory.createAlmacen(function() {
+		AlmacenesGestionServiceFactory.createAlmacen(function() {
 			$timeout(function() {
 				$uibModalInstance.close();
 			}, 200);
