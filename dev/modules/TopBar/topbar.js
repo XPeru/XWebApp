@@ -2,7 +2,8 @@
 /*global $*/
 angular.module('TopBar', [])
 	
-	.controller('topbarController', ['$scope', '$rootScope', function ($scope, $rootScope) {
+	.controller('topbarController', ['$scope', '$rootScope', '$timeout', 'AlmacenesServiceFactory', function ($scope, $rootScope, $timeout, AlmacenesServiceFactory) {
+		// $scope.almacenesData = [{}];
 		$("#menu").metisMenu();
 		
 		$(window).bind("load resize", function() {
@@ -32,6 +33,15 @@ angular.module('TopBar', [])
 		if (element.is('li')) {
 			element.addClass('active');
 		}
+
+		$scope.callGetAllAlmacenes = function() {
+			AlmacenesServiceFactory.getAllAlmacenes(function(response) {
+					$timeout(function() {
+						$scope.almacenesData = response;
+					}, 200);
+			});
+		};
+		$scope.callGetAllAlmacenes();
 	}])
 
 	.directive('topBar',

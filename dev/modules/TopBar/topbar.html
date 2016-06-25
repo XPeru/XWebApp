@@ -7,6 +7,9 @@
         <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="#/home">Electrica Optimizacion</a>
+        <!-- <div class="sidebar-collapse hidden-xs"> --><a class="sidebar-collapse-icon" href="#"><i class="glyphicon glyphicon-th-large"></i></a><!-- </div> -->
+          <!-- <div class="sidebar-mobile-menu visible-xs"><a data-target="#side-nav" data-toggle="collapse" class="mobile-menu-icon" href="#"><i class="iglyphicon glyphicon-th-large"></i></a></div> -->
+        
     </div>
 
 
@@ -142,17 +145,8 @@
                         <li>
                             <a href="#">Consultar<span class="fa arrow"></span></a>
                             <ul class="nav nav-third-level">
-                                <li>
-                                    <a>A</a>
-                                </li>
-                                <li>
-                                    <a>B</a>
-                                </li>
-                                <li>
-                                    <a>C</a>
-                                </li>
-                                <li>
-                                    <a>TODOS</a>
+                                <li ng-repeat="almacen in almacenesData.Almacenes">
+                                    <a>{{almacen.CODIGO}}</a>
                                 </li>
                             </ul>
                             <!-- /.nav-third-level -->
