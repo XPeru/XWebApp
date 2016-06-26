@@ -25,9 +25,15 @@ angular.module('TopBar', [])
 			}
 		});
 
-		var url = window.location;
+		var url = window.location.href;
+		console.info("this is url");
+		console.info(url);
 		var element = $('ul.nav a').filter(function() {
-			return this.href == url;
+			console.info("this is this.href");
+			console.info(this.href);
+			console.info("this is the return");
+			console.info(this.href === url);
+			return this.href === url;
 		}).addClass('active').parent().parent().addClass('in').parent();
 		if (element.is('li')) {
 			element.addClass('active');
@@ -41,6 +47,7 @@ angular.module('TopBar', [])
 			});
 		};
 		$scope.callGetAllAlmacenes();
+
 	}])
 
 	.directive('topBar',

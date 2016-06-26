@@ -146,10 +146,10 @@
                             <a>Consultar<span class="fa arrow"></span></a>
                             <ul class="nav nav-third-level">
                                 <li ng-repeat="almacen in almacenesData.Almacenes">
-                                    <a>{{almacen.CODIGO}}</a>
+                                    <a href="{{'#/almacenesdetalle/'+almacen.ID_ALMACEN+'/'+almacen.CODIGO}}">{{almacen.CODIGO}}</a>
                                 </li>
                                 <li>
-                                    <a>TODOS</a>
+                                    <a href="#/almacenesdetalle/12/X5">TODOS</a>
                                 </li>
                             </ul>
                             <!-- /.nav-third-level -->

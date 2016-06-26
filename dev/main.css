@@ -31,6 +31,12 @@
 	margin-left: 255px;
 	margin-right: 5px;
 }
+
+.searchButton {
+	width : 100%;
+	height : 60px;
+}
+
 @media (max-width: 767px) {
 	.leftmargin {
 		margin-left: 5px;

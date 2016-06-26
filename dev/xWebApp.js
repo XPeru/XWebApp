@@ -43,6 +43,14 @@
 				data: {},
 				reloadOnSearch: false
 			})
+			.state('almacenesdetalle', {
+				url: '/almacenesdetalle/:id_almacen/:codigo_almacen',
+				controller: 'almacenesDetalleController',
+				templateUrl: 'dev/modules/AlmacenesDetalle/almacenesDetalle.html',
+				hideMenus: true,
+				data: {},
+				reloadOnSearch: false
+			})
 			.state('almacenes', {
 				url: '/almacenes',
 				controller: 'almacenesController',
@@ -139,12 +147,14 @@
 	'Articulos',
 	'Almacenes',
 	'AlmacenesGestion',
+	'AlmacenesDetalle',
 	'Ingresos',
 	'usuariosService',
 	'usuariosTipoService',
 	'usuariosAccesoService',
 	'articulosService',
 	'almacenesGestionService',
+	'almacenesDetalleService',
 	'ingresosService',
 	'loginService',
 	'ngRoute',

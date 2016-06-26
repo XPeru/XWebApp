@@ -1,0 +1,54 @@
+<top-bar></top-bar>
+<div class="container-fluid underheader">
+	<div class="row">
+		<div class="col-xs-12 col-md-12">
+			<div class="leftmargin topmargin">
+				<div class="panel panel-default">
+					<div class="panel-heading clearfix">
+						<h3 class="panel-title">{{nombreAlmacen.nombre}}</h3>
+					</div>
+					<div class="panel-body">
+						<form>
+							<div class="row">
+								<div class="col-xs-6 col-md-5">
+									<div class="form-group">
+										<label for="codigoArticulo">Codigo Articulo</label>
+										<input type="text" class="form-control" id="codigoArticulo" ng-model="filtro.CODIGO" placeholder="Codigo Articulo">
+									</div>
+								</div>
+								<div class="col-xs-6 col-md-5 col-md-offset-2">
+									<div class="form-group">
+										<label for="descripcion">Descripcion</label>
+										<input type="text" class="form-control" id="descripcion" ng-model="filtro.DESCRIPCION" placeholder="Descripcion">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-4 col-md-4">
+									<div class="form-group">
+										<label for="categoria">Categoria</label>
+										<input type="text" class="form-control" id="categoria" ng-model="filtro.CATEGORIA">
+									</div>
+								</div>
+								<div class="col-xs-4 col-md-4 col-md-offset-1">
+									<div class="form-group">
+										<label for="verComo">Ver como</label>
+										<input type="text" class="form-control" id="verComo" 
+												ng-model="filtro.VER_COMO">
+									</div>
+								</div>
+								<div class="col-xs-4 col-md-2 col-md-offset-1">
+
+									<button class="btn btn-default searchButton" type="button" id="buscar">
+                                		<i class="glyphicon glyphicon-search"></i>
+                            		</button>
+									
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
