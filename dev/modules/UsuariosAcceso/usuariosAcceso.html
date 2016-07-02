@@ -1,20 +1,6 @@
-<div class="alert alert-info">
-    <p>Sort Type: {{ sortType }}</p>
-    <p>Sort Reverse: {{ sortReverse }}</p>
-    <p>Search Query: {{ search }}</p>
-</div>
 <div class="panel panel-default">
     <div class="panel-heading clearfix">
         <h3 class="panel-title">Derechos de acceso</h3>
-        <!-- <hr>
-        <form>
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                    <input type="text" class="form-control" placeholder="Buscar acceso" ng-model="search.ID_ACCESO_USUARIO">
-                </div>      
-            </div>
-        </form> -->
     </div>
     <div class="panel-body">
         <div class="table-responsive">
@@ -33,7 +19,7 @@
                 </thead> 
                 <tbody>
                     <tr ng-repeat="accesoUsuario in $data.AccesosUsuario | orderBy:sortType:sortReverse | filter:search" ng-click="setSelected(accesoUsuario.ID_ACCESO_USUARIO)"
-                        ng-class="{selected: accesoUsuario.ID_ACCESO_USUARIO === idSelectedAccesoUsuario}">
+                        ng-class="{info: accesoUsuario.ID_ACCESO_USUARIO === idSelectedAccesoUsuario}">
                         <td style="max-width: 50px">{{accesoUsuario.ID_ACCESO_USUARIO}}</td>
                         <td style="max-width: 50px">{{accesoUsuario.DESCRIPCION}}</td>
                         <td style="width:60px">

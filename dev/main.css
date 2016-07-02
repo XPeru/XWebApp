@@ -32,9 +32,6 @@
 	margin-right: 5px;
 }
 
-.searchButton {
-	right: 30%;
-}
 
 @media (max-width: 767px) {
 	.leftmargin {
@@ -59,13 +56,4 @@
 	padding-bottom: 10%;
 	color: #FFFFFF;
 
-}
-
-.selected {
-  background-color: #ecdbff;
-  
-}
-
-.bluePanel {
-	background-color: #FFFFFF;
 }

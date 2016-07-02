@@ -111,7 +111,7 @@
                     </div>
                 </li>
                 <li>
-                    <a><i class="glyphicon glyphicon-stats"></i> Dashboard</a>
+                    <a><i class="fa fa-area-chart" aria-hidden="true"></i> Dashboard</a>
                 </li>
                 <li>
                     <a>
@@ -134,7 +134,7 @@
                 </li>
 
                 <li>
-                    <a href="#"><i class="glyphicon glyphicon-th-large"></i> Almacenes<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-cubes" aria-hidden="true"></i> Almacenes<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
                             <a ui-sref="app.almacenesgestion"><i class="glyphicon glyphicon-cog"></i> Gestion</a>
@@ -143,10 +143,10 @@
                             <a ui-sref="app.almacenes"><i class="glyphicon glyphicon-pushpin"></i> Escoger</a>
                         </li>
                         <li>
-                            <a>Consultar<span class="fa arrow"></span></a>
+                            <a><i class="fa fa-search-plus" aria-hidden="true"></i> Consultar<span class="fa arrow"></span></a>
                             <ul class="nav nav-third-level">
                                 <li ng-repeat="almacen in almacenesData.Almacenes">
-                                    <a ui-sref="app.almacenesdetalle({id_almacen: almacen.ID_ALMACEN, codigo_almacen: almacen.CODIGO})">{{almacen.CODIGO}}</a>
+                                    <a ui-sref="app.almacenesdetalle({id_almacen: almacen.ID_ALMACEN, codigo_almacen: almacen.CODIGO})"><i class="fa fa-cube" aria-hidden="true"></i> {{almacen.CODIGO}}</a>
                                 </li>
                                 <li>
                                     <a ui-sref="app.almacenesdetalle({id_almacen: 15, codigo_almacen: 20})">TODOS</a>
@@ -171,10 +171,10 @@
                     <a href="#"><i class="glyphicon glyphicon-globe"></i> Personas<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a>Clientes</a>
+                            <a><i class="fa fa-blind" aria-hidden="true"></i> Clientes</a>
                         </li>
                         <li>
-                            <a>Proveedores</a>
+                            <a><i class="fa fa-industry" aria-hidden="true"></i> Proveedores</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->

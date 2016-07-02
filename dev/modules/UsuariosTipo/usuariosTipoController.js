@@ -7,7 +7,15 @@ usuariosTipo.controller('usuariosTipoController', ['$scope',
                                                     '$timeout',
                                                     'UsuariosTipoServiceFactory',
                                                     'NgTableParams',
-    function($scope, $window, $location, $http, $uibModal, $timeout, UsuariosTipoServiceFactory, NgTableParams) {
+    function ($scope, $window, $location, $http, $uibModal, $timeout, UsuariosTipoServiceFactory, NgTableParams) {
+        $scope.sortType     = 'ID_TIPO_USUARIO'; // set the default sort type
+        $scope.sortReverse  = false;  // set the default sort order
+        $scope.search   = '';     // set the default search/filter term
+        $scope.setType = function(type, search) {
+            $scope.sortType = type;
+            $scope.sortReverse = !$scope.sortReverse;
+            $scope.search = search;
+        };
         $scope.usuariosTipoData = [{}];
         $scope.modal_tipo_usuario_not_finished = true;
         $scope.usuariosTipoTable = new NgTableParams({
