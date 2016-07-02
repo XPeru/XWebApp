@@ -20,8 +20,8 @@
                 <tbody>
                     <tr ng-repeat="accesoUsuario in $data.AccesosUsuario | orderBy:sortType:sortReverse | filter:search" ng-click="setSelected(accesoUsuario.ID_ACCESO_USUARIO)"
                         ng-class="{info: accesoUsuario.ID_ACCESO_USUARIO === idSelectedAccesoUsuario}">
-                        <td style="max-width: 50px">{{accesoUsuario.ID_ACCESO_USUARIO}}</td>
-                        <td style="max-width: 50px">{{accesoUsuario.DESCRIPCION}}</td>
+                        <td style="max-width: 60px">{{accesoUsuario.ID_ACCESO_USUARIO}}</td>
+                        <td style="max-width: 60px">{{accesoUsuario.DESCRIPCION}}</td>
                         <td style="width:60px">
                             <button ng-if="accesoUsuario.ID_ACCESO_USUARIO === idSelectedAccesoUsuario"
                                 ng-click="openModalAccesoUsuario('edit', accesoUsuario)"
