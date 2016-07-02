@@ -3,30 +3,89 @@
     function config($stateProvider, $urlRouterProvider) {
 
 		$stateProvider
-			.state('nav', {
-				url: '/nav',
-				controller: 'navBarController',
-				templateUrl: 'dev/modules/NavBar/nav.html',
-				hideMenus: true,
-				data: {},
-				reloadOnSearch: false
+			.state('app', {
+				url: '/',
+				views: {
+					'topbar' : {
+						controller: 'topbarController',
+						/*controller: 'navBarController',*/
+						templateUrl: 'dev/modules/TopBar/topbar.html',
+						/*templateUrl: 'dev/modules/NavBar/nav.html',*/
+						reloadOnSearch: false
+					},
+					'content' : {
+						controller: 'homeController',
+						templateUrl: 'dev/modules/Home/home.html'
+					}
+				}
+				
+				
 			})
-			.state('home', {
-				url: '/home',
-				controller: 'homeController',
-				templateUrl: 'dev/modules/Home/home.html',
-				hideMenus: true,
-				data: {},
-				reloadOnSearch: false
+
+			.state('app.almacenes', {
+				url: 'almacenes',
+				views : {
+					'content@': {
+						controller: 'almacenesController',
+						templateUrl: 'dev/modules/Almacenes/almacenes.html'
+					}
+				}
 			})
-			.state('usuarios', {
-				url: '/usuarios',
-				controller: 'usuariosController',
-				templateUrl: 'dev/modules/Usuarios/usuarios.html',
-				hideMenus: true,
-				data: {},
-				reloadOnSearch: false
+
+			.state('app.almacenesgestion', {
+				url: 'almacenesgestion',
+				views : {
+					'content@': {
+						controller: 'almacenesGestionController',
+						templateUrl: 'dev/modules/AlmacenesGestion/almacenesGestion.html'
+					}
+				}
+				
 			})
+
+			.state('app.almacenesdetalle', {
+				url: 'almacenesdetalle/:id_almacen/:codigo_almacen',
+				views : {
+					'content@': {
+						controller: 'almacenesDetalleController',
+						templateUrl: 'dev/modules/AlmacenesDetalle/almacenesDetalle.html'
+					}
+				}
+			})
+
+			.state('app.usuarios', {
+				url: 'usuarios',
+				views : {
+					'content@': {
+						controller: 'usuariosController',
+						templateUrl: 'dev/modules/Usuarios/usuarios.html'
+					}
+				}
+			})
+
+			.state('app.usuariostipo', {
+				url: 'usuariostipo',
+				views : {
+					'content@': {
+						controller: 'usuariosTipoController',
+						templateUrl: 'dev/modules/UsuariosTipo/usuariosTipo.html'
+					}
+				}
+				
+			})
+
+			.state('app.usuariosacceso', {
+				url: 'usuariosacceso',
+				views : {
+					'content@': {
+						controller: 'usuariosAccesoController',
+						templateUrl: 'dev/modules/UsuariosAcceso/usuariosAcceso.html'
+					}
+				}
+			});
+
+			/*
+			
 			.state('articulos', {
 				url: '/articulos',
 				controller: 'articulosController',
@@ -35,30 +94,9 @@
 				data: {},
 				reloadOnSearch: false
 			})
-			.state('almacenesgestion', {
-				url: '/almacenesgestion',
-				controller: 'almacenesGestionController',
-				templateUrl: 'dev/modules/AlmacenesGestion/almacenesGestion.html',
-				hideMenus: true,
-				data: {},
-				reloadOnSearch: false
-			})
-			.state('almacenesdetalle', {
-				url: '/almacenesdetalle/:id_almacen/:codigo_almacen',
-				controller: 'almacenesDetalleController',
-				templateUrl: 'dev/modules/AlmacenesDetalle/almacenesDetalle.html',
-				hideMenus: true,
-				data: {},
-				reloadOnSearch: false
-			})
-			.state('almacenes', {
-				url: '/almacenes',
-				controller: 'almacenesController',
-				templateUrl: 'dev/modules/Almacenes/almacenes.html',
-				hideMenus: true,
-				data: {},
-				reloadOnSearch: false
-			})
+			
+			
+			
 			.state('ingresos', {
 				url: '/ingresos',
 				controller: 'ingresosController',
@@ -83,32 +121,10 @@
 				data: {},
 				reloadOnSearch: false
 			})
-			.state('topbar', {
-				url: '/topbar',
-				controller: 'topbarController',
-				templateUrl: 'dev/modules/TopBar/topbar.html',
-				hideMenus: true,
-				data: {},
-				reloadOnSearch: false
-			})
-			.state('usuariotipo', {
-				url: '/usuariotipo',
-				controller: 'usuariosTipoController',
-				templateUrl: 'dev/modules/UsuariosTipo/usuariosTipo.html',
-				hideMenus: true,
-				data: {},
-				reloadOnSearch: false
-			})
-			.state('usuarioacceso', {
-				url: '/usuarioacceso',
-				controller: 'usuariosAccesoController',
-				templateUrl: 'dev/modules/UsuariosAcceso/usuariosAcceso.html',
-				hideMenus: true,
-				data: {},
-				reloadOnSearch: false
-			});
+			
+			;*/
 
-		$urlRouterProvider.otherwise('home');
+		$urlRouterProvider.otherwise('/');
 	}
 	/*
 	

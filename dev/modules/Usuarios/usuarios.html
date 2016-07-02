@@ -1,52 +1,46 @@
-<top-bar></top-bar>
-<div class="container-fluid underheader">
-    <div class="row">
-        <!-- <left-bar usuarios=1></left-bar> -->
-        <div class="col-sm-10 col-sm-offset-3">
-            <div class="table-responsive row">
-                <table ng-table="usersTable" class="table">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Email</th>
-                            <th>Password</th>
-                            <th>Join Date</th>
-                            <th> </th>
-                            <th> </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="user in $data.Users">
-                            <td>{{user.user_id}}</td>
-                            <td>{{user.user_email}}</td>
-                            <td>{{user.user_password}}</td>
-                            <td>{{user.user_join_date}}</td>
-                            <td>
-                                <a ng-click="openModalUser('edit', user)" 
-                                    class="btn btn-small btn-primary">
-                                    Editar
-                                </a>
-                            </td>
-                            <td>
-                                <a ng-click="openModalUser('delete', user)"
-                                    class="btn btn-small btn-danger">
-                                    Borrar
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="row">
-                 <button ng-click="openModalUser('create', null)"
-                   class="btn btn-small hvr-fade">
-                Crear usuario
-                </button>
-            </div>
+<div class="panel panel-default">
+    <div class="panel-heading clearfix">
+        <h3 class="panel-title">Usuarios</h3>
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table ng-table="usersTable" class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>Join Date</th>
+                        <th> </th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="user in $data.Users">
+                        <td>{{user.user_id}}</td>
+                        <td>{{user.user_email}}</td>
+                        <td>{{user.user_password}}</td>
+                        <td>{{user.user_join_date}}</td>
+                        <td>
+                            <a ng-click="openModalUser('edit', user)" 
+                                class="btn btn-small btn-primary">
+                                Editar
+                            </a>
+                        </td>
+                        <td>
+                            <a ng-click="openModalUser('delete', user)"
+                                class="btn btn-small btn-danger">
+                                Borrar
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+<button ng-click="openModalUser('create', null)" class="btn btn-small hvr-fade">
+    Crear usuario
+</button>
 
-<!--
-<xwebapp-footer></xwebapp-footer>
--->
+

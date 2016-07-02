@@ -1,23 +1,14 @@
-<top-bar></top-bar>
-<div class="container-fluid underheader">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="leftmargin topmargin">
-					<div class="col-xs-6">
-						<div class ="row" ng-repeat="almacen in almacenesData.Almacenes" ng-if="$even">
-							<button class="btn btn-success bigButton" type="button" ng-click="openDetail()">
-								{{almacen.CODIGO}}
-			               	</button>
-						</div>
-					</div>
-					<div class="col-xs-6">
-						<div class ="row" ng-repeat="almacen in almacenesData.Almacenes" ng-if="$odd">
-							<button class="btn btn-info bigButton" type="button" ng-click="openDetail()">
-								{{almacen.CODIGO}}
-			               	</button>
-						</div>
-					</div>
-            </div>
-        </div>
-    </div>
+<div class="col-xs-6">
+	<div class ="row" ng-repeat="almacen in almacenesData.Almacenes" ng-if="$even">
+		<button class="btn btn-success bigButton" type="button" ng-click="openDetail()">
+			{{almacen.CODIGO}}
+       	</button>
+	</div>
+</div>
+<div class="col-xs-6">
+	<div class ="row" ng-repeat="almacen in almacenesData.Almacenes" ng-if="$odd">
+		<button class="btn btn-info bigButton" type="button" ng-click="openDetail()">
+			{{almacen.CODIGO}}
+       	</button>
+	</div>
 </div>

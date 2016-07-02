@@ -121,13 +121,13 @@
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="#/usuarioacceso">Derechos de acceso</a>
+                            <a ui-sref="app.usuariosacceso">Derechos de acceso</a>
                         </li>
                         <li>
-                            <a  href="#/usuariotipo">Tipos de usuario</a>
+                            <a ui-sref="app.usuariostipo">Tipos de usuario</a>
                         </li>
                         <li ng-class="{'active':usuarios==1}">
-                            <a ui-sref="usuarios" ui-sref-opts="{reload: false}">Gestion de usuarios</a>
+                            <a ui-sref="app.usuarios" ui-sref-opts="{reload: false}">Gestion de usuarios</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
@@ -137,19 +137,19 @@
                     <a href="#"><i class="glyphicon glyphicon-wrench"></i> Almacenes<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="#/almacenesgestion">Gestion</a>
+                            <a ui-sref="app.almacenesgestion">Gestion</a>
                         </li>
                         <li>
-                            <a href="#/almacenes">Escoger</a>
+                            <a ui-sref="app.almacenes">Escoger</a>
                         </li>
                         <li>
                             <a>Consultar<span class="fa arrow"></span></a>
                             <ul class="nav nav-third-level">
                                 <li ng-repeat="almacen in almacenesData.Almacenes">
-                                    <a href="{{'#/almacenesdetalle/'+almacen.ID_ALMACEN+'/'+almacen.CODIGO}}">{{almacen.CODIGO}}</a>
+                                    <a ui-sref="app.almacenesdetalle({id_almacen: almacen.ID_ALMACEN, codigo_almacen: almacen.CODIGO})">{{almacen.CODIGO}}</a>
                                 </li>
                                 <li>
-                                    <a href="#/almacenesdetalle/12/X5">TODOS</a>
+                                    <a ui-sref="app.almacenesdetalle({id_almacen: 15, codigo_almacen: 20})">TODOS</a>
                                 </li>
                             </ul>
                             <!-- /.nav-third-level -->

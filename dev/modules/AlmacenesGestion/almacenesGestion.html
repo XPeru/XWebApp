@@ -1,73 +1,65 @@
-<top-bar></top-bar>
-<div class="container-fluid underheader">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="leftmargin topmargin">
-                <div class="alert alert-info">
-                    <p>Sort Type: {{ sortType }}</p>
-                    <p>Sort Reverse: {{ sortReverse }}</p>
-                    <p>Search Query: {{ search }}</p>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading clearfix">
-                        <h3 class="panel-title">Almacenes</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="table-responsive">
-                            <table ng-table="almacenesTable" class="table" show-filter="true">
-                                <thead>
-                                <tr>
-                                    <th><a ng-click="setType('ID_ALMACEN')">Id<span ng-show="sortType == 'ID_ALMACEN' && !sortReverse" class="fa fa-caret-down"></span>
-                                            <span ng-show="sortType == 'ID_ALMACEN' && sortReverse" class="fa fa-caret-up">
-                                            </span>
-                                        </a>
-                                    </th>
-                                    <th><a ng-click="setType('CODIGO')">Codigo<span ng-show="sortType == 'CODIGO' && !sortReverse" class="fa fa-caret-down"></span>
-                                            <span ng-show="sortType == 'CODIGO' && sortReverse" class="fa fa-caret-up">
-                                            </span>
-                                        </a>
-                                    </th>
-                                    <th><a ng-click="setType('UBICACION')">Ubicacion<span ng-show="sortType == 'UBICACION' && !sortReverse" class="fa fa-caret-down"></span>
-                                            <span ng-show="sortType == 'UBICACION' && sortReverse" class="fa fa-caret-up">
-                                            </span>
-                                        </a>
-                                    </th>
-                                    <th></th>
-                                    <th></th>
 
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr ng-repeat="almacen in $data.Almacenes" ng-click="setSelected(almacen.ID_ALMACEN)"
-                                    ng-class="{selected: almacen.ID_ALMACEN === idSelectedAlmacen}">
-                                    <td>{{almacen.ID_ALMACEN}}</td>
-                                    <td>{{almacen.CODIGO}}</td>
-                                    <td>{{almacen.UBICACION}}</td>
+<div class="alert alert-info">
+    <p>Sort Type: {{ sortType }}</p>
+    <p>Sort Reverse: {{ sortReverse }}</p>
+    <p>Search Query: {{ search }}</p>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading clearfix">
+        <h3 class="panel-title">Almacenes</h3>
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table ng-table="almacenesTable" class="table" show-filter="true">
+                <thead>
+                <tr>
+                    <th><a ng-click="setType('ID_ALMACEN')">Id<span ng-show="sortType == 'ID_ALMACEN' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'ID_ALMACEN' && sortReverse" class="fa fa-caret-up">
+                            </span>
+                        </a>
+                    </th>
+                    <th><a ng-click="setType('CODIGO')">Codigo<span ng-show="sortType == 'CODIGO' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'CODIGO' && sortReverse" class="fa fa-caret-up">
+                            </span>
+                        </a>
+                    </th>
+                    <th><a ng-click="setType('UBICACION')">Ubicacion<span ng-show="sortType == 'UBICACION' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'UBICACION' && sortReverse" class="fa fa-caret-up">
+                            </span>
+                        </a>
+                    </th>
+                    <th></th>
+                    <th></th>
 
-                                    <td style="width: 60px">
-                                        <button ng-if="almacen.ID_ALMACEN === idSelectedAlmacen"
-                                            ng-click="openModal('edit', almacen)"
-                                            class="btn btn-small btn-primary">
-                                            <i class="glyphicon glyphicon-pencil"></i>
-                                        </button>
-                                    </td>
-                                    <td style="width: 60px">
-                                        <button ng-if="almacen.ID_ALMACEN === idSelectedAlmacen"
-                                            ng-click="openModal('delete', almacen)"
-                                            class="btn btn-small btn-danger">
-                                            <i class="glyphicon glyphicon-remove"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <button ng-click="openModal('create', null)" class="btn btn-small hvr-fade">
-                    Nuevo <span><i class="glyphicon glyphicon-plus"></i></span>
-                </button>
-            </div>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="almacen in $data.Almacenes" ng-click="setSelected(almacen.ID_ALMACEN)"
+                    ng-class="{selected: almacen.ID_ALMACEN === idSelectedAlmacen}">
+                    <td>{{almacen.ID_ALMACEN}}</td>
+                    <td>{{almacen.CODIGO}}</td>
+                    <td>{{almacen.UBICACION}}</td>
+
+                    <td style="width: 60px">
+                        <button ng-if="almacen.ID_ALMACEN === idSelectedAlmacen"
+                            ng-click="openModal('edit', almacen)"
+                            class="btn btn-small btn-primary">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                        </button>
+                    </td>
+                    <td style="width: 60px">
+                        <button ng-if="almacen.ID_ALMACEN === idSelectedAlmacen"
+                            ng-click="openModal('delete', almacen)"
+                            class="btn btn-small btn-danger">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+<button ng-click="openModal('create', null)" class="btn btn-small hvr-fade">
+    Nuevo <span><i class="glyphicon glyphicon-plus"></i></span>
+</button>

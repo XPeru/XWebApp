@@ -31,7 +31,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div ui-view></div>
+        <div ui-view="topbar">
+        </div>
+        <div class="container-fluid underheader">
+            <div class="row">
+                <div class="col-xs-12 col-md-12">
+                    <div class="leftmargin topmargin">
+                        <div ui-view="content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <!--build:js scripts/main.js-->
         <script src="./bower_components/angular/angular.js"></script>
         <script src="./bower_components/angular-route/angular-route.js"></script>
