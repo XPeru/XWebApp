@@ -69,8 +69,8 @@ angular.module('TopBar', [])
 				templateUrl: 'dev/modules/TopBar/topbar.html',
 				scope: {
 					usuarios: '@',
-					usuariotipo: '@',
-					usuarioacceso: '@'
+					usuariostipo: '@',
+					usuariosacceso: '@'
 				}
 			};
 		});

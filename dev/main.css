@@ -33,8 +33,7 @@
 }
 
 .searchButton {
-	width : 100%;
-	height : 60px;
+	right: 30%;
 }
 
 @media (max-width: 767px) {
@@ -65,4 +64,8 @@
 .selected {
   background-color: #ecdbff;
   
+}
+
+.bluePanel {
+	background-color: #FFFFFF;
 }
