@@ -34,7 +34,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="almacen in $data.Almacenes" ng-click="setSelected(almacen.ID_ALMACEN)"
+                <tr ng-repeat="almacen in $data.Almacenes | orderBy:sortType:sortReverse" ng-click="setSelected(almacen.ID_ALMACEN)"
                     ng-class="{selected: almacen.ID_ALMACEN === idSelectedAlmacen}">
                     <td>{{almacen.ID_ALMACEN}}</td>
                     <td>{{almacen.CODIGO}}</td>

@@ -3,6 +3,15 @@ var almacenesGestion = angular.module('AlmacenesGestion', ['ui.bootstrap']);
 almacenesGestion.controller('almacenesGestionController', ['$scope', '$location', '$http', '$uibModal', '$timeout',
 	'AlmacenesGestionServiceFactory', 'NgTableParams',
 	function($scope, $location, $http, $uibModal, $timeout, AlmacenesGestionServiceFactory, NgTableParams) {
+		$scope.sortType     = 'ID_ALMACEN'; // set the default sort type
+        $scope.sortReverse  = false;  // set the default sort order
+        $scope.search   = '';     // set the default search/filter term
+        $scope.setType = function(type, search) {
+            $scope.sortType = type;
+            $scope.sortReverse = !$scope.sortReverse;
+            $scope.search = search;
+        };
+
 		$scope.idSelectedAlmacen = null;
 		$scope.setSelected = function(idSelectedAlmacen) {
 			$scope.idSelectedAlmacen = idSelectedAlmacen;
