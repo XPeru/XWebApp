@@ -82,7 +82,21 @@
 						templateUrl: 'dev/modules/UsuariosAcceso/usuariosAcceso.html'
 					}
 				}
-			});
+			})
+
+			.state('app.articuloscategoria', {
+				url: 'articuloscategoria',
+				views : {
+					'content@': {
+						controller: 'articulosCategoriaController',
+						templateUrl: 'dev/modules/ArticulosCategoria/articulosCategoria.html'
+					}
+				}
+			})
+
+			;
+
+
 
 			/*
 			
@@ -161,6 +175,7 @@
 	'UsuariosTipo',
 	'UsuariosAcceso',
 	'Articulos',
+	'ArticulosCategoria',
 	'Almacenes',
 	'AlmacenesGestion',
 	'AlmacenesDetalle',
@@ -169,6 +184,7 @@
 	'usuariosTipoService',
 	'usuariosAccesoService',
 	'articulosService',
+	'ArticulosCategoriaService',
 	'almacenesGestionService',
 	'almacenesDetalleService',
 	'ingresosService',

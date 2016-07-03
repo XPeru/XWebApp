@@ -1,0 +1,56 @@
+<div class="panel panel-default">
+    <div class="panel-heading clearfix">
+        <h3 class="panel-title">Categorias</h3>
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table ng-table="categoriasTable" class="table" show-filter="true">
+                <thead>
+                    <tr>
+                        <th>
+                            <a ng-click="setType('ID_CATEGORIA')">
+                                Id
+                                <span ng-show="sortType == 'ID_CATEGORIA' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'ID_CATEGORIA' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th>
+                            <a ng-click="setType('DESCRIPCION')">
+                                Descripcion
+                                <span ng-show="sortType == 'DESCRIPCION' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'DESCRIPCION' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="categoria in $data.Categorias | orderBy:sortType:sortReverse" ng-click="setSelected(categoria.ID_CATEGORIA)"
+                        ng-class="{info: categoria.ID_CATEGORIA === idSelectedCategoria}">
+                        <td>{{categoria.ID_CATEGORIA}}</td>
+                        <td>{{categoria.DESCRIPCION}}</td>
+
+                        <td style="width:60px">
+                            <button ng-if="categoria.ID_CATEGORIA === idSelectedCategoria"
+                                ng-click="openModal('edit', categoria)"
+                                class="btn btn-small btn-primary">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </button>
+                        </td>
+                        <td style="width:60px">
+                            <button ng-if="categoria.ID_CATEGORIA === idSelectedCategoria"
+                                ng-click="openModal('delete', categoria)"
+                                class="btn btn-small btn-danger">
+                                <i class="glyphicon glyphicon-remove"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<button ng-click="openModal('create', null)" class="btn btn-small">
+    Nuevo <span><i class="glyphicon glyphicon-plus"></i></span>
+</button>

@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <h3 class="modal-title">Editando categoria</h3>
+</div>
+<div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="descripcion">Descripcion</label>
+        <input type="text" class="form-control" id="descripcion" ng-model="selected_categoria.DESCRIPCION" placeholder="{{selected_categoria.DESCRIPCION}}">
+      </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="editCategoria(selected_categoria)">Editar</button>
+    <button class="btn btn-danger" type="button" ng-click="cancel()">Cancelar</button>
+</div>
