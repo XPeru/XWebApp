@@ -7,31 +7,78 @@
             <table ng-table="usersTable" class="table">
                 <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Email</th>
-                        <th>Password</th>
-                        <th>Join Date</th>
-                        <th> </th>
-                        <th> </th>
+                        <th>Foto</th>
+                        <th>
+                            <a ng-click="setType('ID_USUARIO')">
+                                Id
+                                <span ng-show="sortType == 'ID_USUARIO' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'ID_USUARIO' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th>
+                            <a ng-click="setType('NOMBRE')">
+                                Nombre
+                                <span ng-show="sortType == 'NOMBRE' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'NOMBRE' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th>
+                            <a ng-click="setType('APELLIDOS')">
+                                Apellidos
+                                <span ng-show="sortType == 'APELLIDOS' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'APELLIDOS' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th>
+                            <a ng-click="setType('EMAIL')">
+                                Email
+                                <span ng-show="sortType == 'EMAIL' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'EMAIL' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th>Contrasena</th>
+                        <th>
+                                Creado
+                                <span ng-show="sortType == 'CREATE_TIME' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'CREATE_TIME' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th>
+                            <a ng-click="setType('UPDATE_TIME')">
+                                Ultima modificacion
+                                <span ng-show="sortType == 'UPDATE_TIME' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'UPDATE_TIME' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="user in $data.Users">
-                        <td>{{user.user_id}}</td>
-                        <td>{{user.user_email}}</td>
-                        <td>{{user.user_password}}</td>
-                        <td>{{user.user_join_date}}</td>
-                        <td>
-                            <a ng-click="openModalUser('edit', user)" 
+                    <tr ng-repeat="usuario in $data.Usuarios|orderBy:sortType:sortReverse"
+                        ng-click="setSelected(usuario.ID_USUARIO)"
+                        ng-class="{info: usuario.ID_USUARIO === idSelectedUsuario}">
+                        <td>{{usuario.FOTO}}</td>
+                        <td>{{usuario.ID_USUARIO}}</td>
+                        <td>{{usuario.NOMBRE}}</td>
+                        <td>{{usuario.APELLIDOS}}</td>
+                        <td>{{usuario.EMAIL}}</td>
+                        <td>{{usuario.PASSWORD}}</td>
+                        <td>{{usuario.CREATE_TIME|date:'medium'}}</td>
+                        <td>{{usuario.UPDATE_TIME|date:'medium'}}</td>
+                        <td style="width:60px">
+                            <button ng-if="usuario.ID_USUARIO === idSelectedUsuario"
+                                ng-click="openModalUsuario('edit', usuario)"
                                 class="btn btn-small btn-primary">
-                                Editar
-                            </a>
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </button>
                         </td>
-                        <td>
-                            <a ng-click="openModalUser('delete', user)"
+                        <td style="width:60px">
+                            <button ng-if="usuario.ID_USUARIO === idSelectedUsuario"
+                                ng-click="openModalUsuario('delete', usuario)"
                                 class="btn btn-small btn-danger">
-                                Borrar
-                            </a>
+                                <i class="glyphicon glyphicon-remove"></i>
+                            </button>
                         </td>
                     </tr>
                 </tbody>
@@ -39,8 +86,8 @@
         </div>
     </div>
 </div>
-<button ng-click="openModalUser('create', null)" class="btn btn-small hvr-fade">
-    Crear usuario
+<button ng-click="openModalUsuario('create', null)" class="btn btn-small">
+    Nuevo <span><i class="glyphicon glyphicon-plus"></i></span>
 </button>
 
 

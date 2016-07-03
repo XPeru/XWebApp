@@ -3,27 +3,60 @@ var dateGenerator = require("./dateGenerator.js");
 function usuariosDAO(router, connection, md5) {
     var self = this;
     self.handleRoutes(router, connection, md5);
-    dateGenerator.printInfo("usuariosDAO agregado correctamente");
+    dateGenerator.printInfo(daoName +" agregado correctamente");
+}
+
+function printRequest(data) {
+    dateGenerator.printInfo(daoName + " " + data);
 }
 //si se trata de una sql request de update o de insert, la variable req.body contiene
 //al JSON con la informacion enviada desde el servicio
 //si se trata de una sql request get o delete, la informacion esta contenida en un solo
 //argumento, el url, ver detalles mas abajo
 usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
-    router.get("/", function(req, res) {
-        res.json({
-            "Message": "Hello World !"
+    var tableName = "USUARIO";
+    var urlBase = "/usuario";
+    router.get(urlBase + "list", function(req, res) {
+        printRequest(urlBase + "list" + " get");
+        var query = "SELECT * FROM ??";
+        var table = [tableName];
+        query = mysql.format(query, table);
+        printRequest(query);
+        connection.query(query, function(err, rows) {
+            if (err) {
+                res.json({
+                    "Error": true,
+                    "Message": "Error executing MySQL query"
+                });
+            } else {
+                res.json({
+                    "Error": false,
+                    "Message": "Success",
+                    "Usuarios": rows
+                });
+            }
         });
     });
-    //user_login -> nombre de la tabla
-    router.post("/users", function(req, res) {
-        //?? -> valor constante
-        //? -> variable
-        var query = "INSERT INTO ??(??,??,??,??) VALUES (?,?)";
-        //
-        var table = ["USUARIO", "NOMBRE", "APELLIDOS", "EMAIL","PASSWORD", "FK_TIPO_USUARIO","CREATE_TIME","FOTO",
-                    req.body.user_email, md5(req.body.user_password)];
+
+    router.post(urlBase, function(req, res) {
+        printRequest(urlBase, " post");
+        var query = "INSERT INTO ?? (??, ??, ??, ??, ??, ??) VALUES (?, ?, ?, ?, ?, ?)";
+        var table = [tableName,
+                        "NOMBRE",
+                        "APELLIDOS",
+                        "EMAIL",
+                        "PASSWORD",
+                        "FK_TIPO_USUARIO",
+                        "FOTO",
+                        req.body.NOMBRE,
+                        req.body.APELLIDOS,
+                        req.body.EMAIL,
+                        md5(req.body.PASSWORD),
+                        req.body.FK_TIPO_USUARIO,
+                        req.body.FOTO
+                    ];
         query = mysql.format(query, table);
+        printRequest(query);
         connection.query(query, function(err) {
             if (err) {
                 res.json({
@@ -39,32 +72,12 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
         });
     });
 
-    router.get("/userlist", function(req, res) {
-        var query = "SELECT * FROM ??";
-        var table = ["user_login"];
-        query = mysql.format(query, table);
-        connection.query(query, function(err, rows) {
-            if (err) {
-                res.json({
-                    "Error": true,
-                    "Message": "Error executing MySQL query"
-                });
-            } else {
-                res.json({
-                    "Error": false,
-                    "Message": "Success",
-                    "Users": rows
-                });
-            }
-        });
-    });
-    //el servicio llama a esta funcion usando solo un argumento
-    //aqui se define que parte del url sera user_email
-    //req.params contiene la informacion de las variables definidas dentro del url
-    router.get("/users/:user_email", function(req, res) {
+    router.get(urlBase + "/:id_usuario", function(req, res) {
+        printRequest(urlBase + " :id_usuario" + " get");
         var query = "SELECT * FROM ?? WHERE ??=?";
-        var table = ["user_login", "user_email", req.params.user_email];
+        var table = [tableName, "ID_USUARIO", req.params.id_usuario];
         query = mysql.format(query, table);
+        printRequest(query);
         connection.query(query, function(err, rows) {
             if (err) {
                 res.json({
@@ -81,11 +94,13 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
         });
     });
 
-    router.get("/authentication/:user_email/:user_password", function(req, res) {
+    router.get("/authentication/:usuario_email/:usuario_password", function(req, res) {
+        printRequest("/authentication/:usuario_email/:usuario_password" + " get");
         var query = "SELECT * FROM ?? WHERE ??=? AND ??=?";
-        var table = ["user_login", "user_email", req.params.user_email,
-                     "user_password", md5(req.params.user_password)];
+        var table = [tableName, "EMAIL", req.params.usuario_email,
+                     "usuario_password", md5(req.params.usuario_password)];
         query = mysql.format(query, table);
+        printRequest(query);
         connection.query(query, function(err, rows) {
             if (err) {
                 res.json({
@@ -100,11 +115,13 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
         });
     });
 
-    router.put("/users", function(req, res) {
-        var query = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
-        var table = ["user_login", "user_password", md5(req.body.user_password), "user_email", req.body.user_email];
+    router.put(urlBase, function(req, res) {
+        var query = "UPDATE ?? SET ?? = ?, ??=?, ??=? WHERE ?? = ?";
+        var table = [tableName, "PASSWORD", md5(req.body.PASSWORD), "FK_TIPO_USUARIO", req.body.FK_TIPO_USUARIO, "FOTO", req.body.FOTO,
+                    "ID_USUARIO", req.body.ID_USUARIO];
         query = mysql.format(query, table);
-        connection.query(query, function(err, rows) {
+        printRequest(query);
+        connection.query(query, function(err) {
             if (err) {
                 res.json({
                     "Error": true,
@@ -113,18 +130,19 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
             } else {
                 res.json({
                     "Error": false,
-                    "Message": "Updated the password for email " + req.body.email
+                    "Message": "OK"
                 });
             }
         });
     });
     //
+    /*
     router.delete("/deleteuser/:user_email", function(req, res) {
         var query = "DELETE from ?? WHERE ??=?";
         var table = ["user_login","user_email", req.params.user_email];
         query = mysql.format(query, table);
         console.info(query);
-        connection.query(query, function(err, rows) {
+        connection.query(query, function(err) {
             if (err) {
                 res.json({
                     "Error": true,
@@ -137,7 +155,7 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
                 });
             }
         });
-    });
+    });*/
 };
 
 module.exports = usuariosDAO;

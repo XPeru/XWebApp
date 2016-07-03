@@ -2,39 +2,38 @@ var usuariosService = angular.module('usuariosService', ['ngResource']);
 
 usuariosService.factory('UsuariosServiceFactory', function($http) {
 	var service = {};
-	var urlBase = '/api';
+	var urlBase = '/api/usuario';
 
-	service.getAllUsers = function(callback) {
-		$http.get(urlBase + '/userlist')
+	service.getUsuarioList = function(callback) {
+		$http.get(urlBase + 'list')
 			.success(function(response) {
 				callback(response);
 			});
 	};
 
-	service.getUserByEmail = function(callback, email_user) {
-		$http.get(urlBase + '/users' + email_user)
+	service.getUsuarioByIdUsuario = function(callback, id_usuario) {
+		$http.get(urlBase + '/' + id_usuario)
 			.success(function(response) {
 				callback(response);
 			});
 	};
 
-	service.createUser = function(callback, newUser) {
-		$http.post(urlBase + '/users', newUser)
+	service.createUsuario = function(callback, usuario) {
+		$http.post(urlBase, usuario)
 			.success(function(response) {
 				callback(response);
 			});
 	};
 
-	service.updateUser = function(callback, updatedUser) {
-		$http.put(urlBase + '/users', updatedUser)
+	service.updateUsuario = function(callback, usuario) {
+		$http.put(urlBase, usuario)
 			.success(function(response) {
 				callback(response);
 			});
 	};
-	//en un delete http request, solo hay un argumento, el url, que se suele completar 
-	//con alguna informacion del usuario a eliminar, en este caso su email
-	service.deleteUser = function(callback, deletedUser) {
-		$http.delete(urlBase + '/deleteuser'+ '/' + deletedUser.user_email)
+
+	service.deleteUsuario = function(callback, usuario) {
+		$http.put(urlBase + 'delete', usuario)
 			.success(function(response) {
 				callback(response);
 			});

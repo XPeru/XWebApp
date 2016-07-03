@@ -3,6 +3,20 @@ var usuarios = angular.module('Usuarios', ['ui.bootstrap']);
 usuarios.controller('usuariosController', ['$scope', '$location', '$http', '$uibModal', '$timeout',
 											'UsuariosServiceFactory', 'NgTableParams',
 	function($scope, $location, $http, $uibModal, $timeout, UsuariosServiceFactory, NgTableParams) {
+		$scope.sortType     = 'ID_USUARIO'; // set the default sort type
+        $scope.sortReverse  = false;  // set the default sort order
+        $scope.search   = '';     // set the default search/filter term
+        $scope.setType = function(type, search) {
+            $scope.sortType = type;
+            $scope.sortReverse = !$scope.sortReverse;
+            $scope.search = search;
+        };
+
+        $scope.idSelectedUsuario = null;
+		$scope.setSelected = function(idSelectedUsuario) {
+			$scope.idSelectedUsuario = idSelectedUsuario;
+		};
+
 
 		$scope.usersData = [{}];
 		$scope.modal_user_not_finished = true;
@@ -14,14 +28,9 @@ usuarios.controller('usuariosController', ['$scope', '$location', '$http', '$uib
 			counts: [],
 			getData: function(params) {
 				if ($scope.modal_user_not_finished) {
-						$scope.callGetAllUsers();
+						$scope.callGetUsuarioList();
 					} else {
 						params.total($scope.usersData.length);
-
-						/*return $scope.usersData.slice(
-							(params.page() - 1) * params.count(),
-							params.page() * params.count()
-							);*/
 						return $scope.usersData;
 					}
 					$scope.modal_user_not_finished = false;
@@ -29,8 +38,8 @@ usuarios.controller('usuariosController', ['$scope', '$location', '$http', '$uib
 			
 		});
 
-		$scope.callGetAllUsers = function() {
-			UsuariosServiceFactory.getAllUsers(function(response) {
+		$scope.callGetUsuarioList = function() {
+			UsuariosServiceFactory.getUsuarioList(function(response) {
 					$timeout(function() {
 						$scope.usersData = response;
 						$scope.usersTable.reload();
@@ -38,7 +47,7 @@ usuarios.controller('usuariosController', ['$scope', '$location', '$http', '$uib
 			});
 		};
 
-		$scope.openModalUser = function(selected_modal, selected_user) {
+		$scope.openModalUsuario = function(selected_modal, selected_user) {
 			var modalInstance = $uibModal.open({
 				templateUrl: function() {
 					var template;
@@ -55,7 +64,7 @@ usuarios.controller('usuariosController', ['$scope', '$location', '$http', '$uib
 					}
 					return template;
 				},
-				controller: 'ModalUser',
+				controller: 'ModalUsuario',
 				resolve : {
 					selected_user : function() {
 						return selected_user;
@@ -75,28 +84,28 @@ usuarios.controller('usuariosController', ['$scope', '$location', '$http', '$uib
 	}
 ]);
 
-usuarios.controller('ModalUser',  function($scope, $http, $timeout, $uibModalInstance, selected_user, UsuariosServiceFactory) {
+usuarios.controller('ModalUsuario',  function ($scope, $http, $timeout, $uibModalInstance, selected_user, UsuariosServiceFactory) {
 	//TODO comprobar si esto es realmente necesario o no
 	$scope.selected_user = selected_user;
 
-	$scope.deleteUser = function(user_to_delete) {
-		UsuariosServiceFactory.deleteUser(function(response) {
+	$scope.deleteUsuario = function(user_to_delete) {
+		UsuariosServiceFactory.deleteUsuario(function() {
 			$timeout(function() {
 				$uibModalInstance.close();
 			}, 200);
 		}, user_to_delete);
 	};
 
-    $scope.updateUser = function (updated_user) {
-		UsuariosServiceFactory.updateUser(function(response) {
+    $scope.updateUsuario = function (updated_user) {
+		UsuariosServiceFactory.updateUsuario(function() {
 			$timeout(function() {
 				$uibModalInstance.close();
 			}, 200);
 		}, updated_user);
     };
 
-    $scope.createUser = function (user_created) {
-		UsuariosServiceFactory.createUser(function(response) {
+    $scope.createUsuario = function (user_created) {
+		UsuariosServiceFactory.createUsuario(function() {
 			$timeout(function() {
 				$uibModalInstance.close();
 			}, 200);
