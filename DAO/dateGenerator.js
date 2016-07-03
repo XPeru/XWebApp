@@ -15,7 +15,7 @@ exports.printInfo = function(text) {
                 curSeconds = objToday.getSeconds() < 10 ? "0" + objToday.getSeconds() : objToday.getSeconds(),
                 curMeridiem = objToday.getHours() > 12 ? "PM" : "AM";
     var today = curHour + ":" + curMinute + "." + curSeconds + curMeridiem + " " + dayOfWeek + " " + dayOfMonth + " of " + curMonth + ", " + curYear;
-   return console.info(today + text);
+   return console.info(today + " " + text);
 };
 
 

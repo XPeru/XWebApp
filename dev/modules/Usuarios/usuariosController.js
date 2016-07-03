@@ -1,8 +1,8 @@
 var usuarios = angular.module('Usuarios', ['ui.bootstrap']);
 //el orden de las variables tiene que ser el mismo en la declaracion de estas, y dentro de la funcion que define al controlador
 usuarios.controller('usuariosController', ['$scope', '$location', '$http', '$uibModal', '$timeout',
-											'UsuariosServiceFactory', 'NgTableParams',
-	function($scope, $location, $http, $uibModal, $timeout, UsuariosServiceFactory, NgTableParams) {
+											'UsuariosServiceFactory', 'NgTableParams', 'UsuariosTipoServiceFactory',
+	function($scope, $location, $http, $uibModal, $timeout, UsuariosServiceFactory, NgTableParams, UsuariosTipoServiceFactory) {
 		$scope.sortType     = 'ID_USUARIO'; // set the default sort type
         $scope.sortReverse  = false;  // set the default sort order
         $scope.search   = '';     // set the default search/filter term
@@ -17,7 +17,16 @@ usuarios.controller('usuariosController', ['$scope', '$location', '$http', '$uib
 			$scope.idSelectedUsuario = idSelectedUsuario;
 		};
 
+		$scope.callGetAllTipoUsuario = function() {
+			UsuariosTipoServiceFactory.getAllTipoUsuario(function(response) {
+				$timeout(function() {
+					$scope.tipoUsuarioList = response.TiposUsuario;
+					console.info(response);
+				}, 200);
+			});
+		};
 
+		$scope.callGetAllTipoUsuario();
 		$scope.usersData = [{}];
 		$scope.modal_user_not_finished = true;
 		$scope.usersTable = new NgTableParams({
@@ -40,12 +49,14 @@ usuarios.controller('usuariosController', ['$scope', '$location', '$http', '$uib
 
 		$scope.callGetUsuarioList = function() {
 			UsuariosServiceFactory.getUsuarioList(function(response) {
-					$timeout(function() {
-						$scope.usersData = response;
-						$scope.usersTable.reload();
-					}, 200);
+				$timeout(function() {
+					$scope.usersData = response;
+					$scope.usersTable.reload();
+				}, 200);
 			});
 		};
+
+		
 
 		$scope.openModalUsuario = function(selected_modal, selected_user) {
 			var modalInstance = $uibModal.open({
@@ -68,6 +79,9 @@ usuarios.controller('usuariosController', ['$scope', '$location', '$http', '$uib
 				resolve : {
 					selected_user : function() {
 						return selected_user;
+					},
+					tipoUsuarioList : function() {
+						return $scope.tipoUsuarioList;
 					}
 				}
 			});
@@ -84,10 +98,10 @@ usuarios.controller('usuariosController', ['$scope', '$location', '$http', '$uib
 	}
 ]);
 
-usuarios.controller('ModalUsuario',  function ($scope, $http, $timeout, $uibModalInstance, selected_user, UsuariosServiceFactory) {
+usuarios.controller('ModalUsuario',  function ($scope, $http, $timeout, $uibModalInstance, selected_user, UsuariosServiceFactory, tipoUsuarioList) {
 	//TODO comprobar si esto es realmente necesario o no
 	$scope.selected_user = selected_user;
-
+	$scope.tipoUsuarioList = tipoUsuarioList;
 	$scope.deleteUsuario = function(user_to_delete) {
 		UsuariosServiceFactory.deleteUsuario(function() {
 			$timeout(function() {
@@ -115,4 +129,21 @@ usuarios.controller('ModalUsuario',  function ($scope, $http, $timeout, $uibModa
     $scope.cancel = function () {
       $uibModalInstance.dismiss('cancel');
     };
-});
+}).directive("fileread", [function () {
+    return {
+        scope: {
+            fileread: "="
+        },
+        link: function (scope, element) {
+            element.bind("change", function (changeEvent) {
+                var reader = new FileReader();
+                reader.onload = function (loadEvent) {
+                    scope.$apply(function () {
+                        scope.fileread = loadEvent.target.result;
+                    });
+                };
+                reader.readAsDataURL(changeEvent.target.files[0]);
+            });
+        }
+    };
+}]);

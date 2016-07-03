@@ -1,6 +1,6 @@
 var mysql = require("mysql");
 var dateGenerator = require("./dateGenerator.js");
-var daoName = " usuariosDAO";
+var daoName = "usuariosDAO";
 function usuariosDAO(router, connection, md5) {
     var self = this;
     self.handleRoutes(router, connection, md5);

@@ -1,20 +1,38 @@
 <div class="modal-header">
-    <h3 class="modal-title">Nuevo Usuario</h3>
+  <h3 class="modal-title">Nuevo Usuario</h3>
 </div>
 <div class="modal-body">
-    <form>
-      <div class="form-group">
-        <label for="email_modal">Correo electronico</label>
-        <input type="email" class="form-control" id="email_modal" ng-model="user_created.user_email" placeholder="Email">
-      </div>
-      <div class="form-group">
-        <label for="password_modal">Password</label>
-        <input type="password" class="form-control" id="password_modal" ng-model="user_created.user_password" placeholder="Password">
-      </div>
-    </form>
+  <form>
+    <div class="form-group">
+      <label for="nombre">Nombre</label>
+      <input class="form-control" id="nombre" ng-model="user_created.NOMBRE" placeholder="Nombre">
+    </div>
+    <div class="form-group">
+      <label for="apellidos">Apellidos</label>
+      <input class="form-control" id="apellidos" ng-model="user_created.APELLIDOS" placeholder="Apellidos">
+    </div>
+    <div class="form-group">
+      <label for="email_modal">Correo electronico</label>
+      <input type="email" class="form-control" id="email_modal" ng-model="user_created.EMAIL" placeholder="Correo electronico">
+    </div>
+    <div class="form-group">
+      <label for="password_modal">Contrase&ntilde;a</label>
+      <input type="password" class="form-control" id="password_modal" ng-model="user_created.PASSWORD" placeholder="Contrase&ntilde;a">
+    </div>
+    <div class="form-group">
+      <label for="tipousuario">Tipo de usuario</label>
+      <select class="form-control" ng-model="user_created.FK_TIPO_USUARIO" name="obj" ng-options="obj.ID_TIPO_USUARIO as obj.TIPO for obj in tipoUsuarioList">
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="fileform">Foto</label>
+      <input type="file" id="fileform" ><!-- fileread="user_created.FOTO" -->
+      <p class="help-block">Ingrese una foto</p>
+    </div>
+  </form>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="createUser(user_created)">OK</button>
-    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+  <button class="btn btn-success" type="button" ng-click="createUsuario(user_created)"><i class="fa fa-check" aria-hidden="true"></i></button>
+  <button class="btn btn-danger" type="button" ng-click="cancel()"><i class="fa fa-times" aria-hidden="true"></i></button>
 </div>
 
