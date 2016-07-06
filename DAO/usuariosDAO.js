@@ -1,5 +1,6 @@
 var mysql = require("mysql");
 var dateGenerator = require("./dateGenerator.js");
+var multer  =   require('multer');
 var daoName = "usuariosDAO";
 function usuariosDAO(router, connection, md5) {
     var self = this;
@@ -10,6 +11,17 @@ function usuariosDAO(router, connection, md5) {
 function printRequest(data) {
     dateGenerator.printInfo(daoName + " " + data);
 }
+
+var storage = multer.diskStorage({
+  destination: function (req, file, callback) {
+    callback(null, './uploads');
+  },
+  filename: function (req, file, callback) {
+    callback(null, file.fieldname + '-' + Date.now());
+  }
+});
+var upload = multer({ storage : storage}).single('userPhoto');
+
 //si se trata de una sql request de update o de insert, la variable req.body contiene
 //al JSON con la informacion enviada desde el servicio
 //si se trata de una sql request get o delete, la informacion esta contenida en un solo
@@ -157,6 +169,14 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
             }
         });
     });*/
+    router.post('/photo',function(req,res) {
+        upload(req, res, function(err) {
+            if(err) {
+                return res.end("Error uploading file.");
+            }
+            res.end("File is uploaded");
+        });
+    });
 };
 
 module.exports = usuariosDAO;
