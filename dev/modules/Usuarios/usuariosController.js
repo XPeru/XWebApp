@@ -111,25 +111,60 @@ usuarios.controller('ModalUsuario',  function ($scope, $http, $timeout, $uibModa
 	};
 
     $scope.updateUsuario = function (updated_user) {
-		UsuariosServiceFactory.updateUsuario(function() {
+/*		UsuariosServiceFactory.updateUsuario(function() {
 			$timeout(function() {
 				$uibModalInstance.close();
 			}, 200);
-		}, updated_user);
+		}, updated_user);*/
+		UsuariosServiceFactory.uploadPhotoUsuario(updated_user.FOTO_FILE).then(function(response) {
+			updated_user.FOTO = response.data;
+			UsuariosServiceFactory.updateUsuario(updated_user).then(function(response) {
+				$uibModalInstance.close();
+				console.info(response);
+			}, function(response) {
+				console.info(response.status + " " + response.statusText);
+			});
+		}, function(response) {
+			console.info(response.status + " " + response.statusText);
+		});
     };
 
-    $scope.createUsuario = function (user_created) {
-		UsuariosServiceFactory.createUsuario(function() {
-			$timeout(function() {
+	$scope.createUsuario = function (user_created) {
+		UsuariosServiceFactory.uploadPhotoUsuario(user_created.FOTO_FILE).then(function(response) {
+			user_created.FOTO = response.data;
+			UsuariosServiceFactory.createUsuario(user_created).then(function(response) {
 				$uibModalInstance.close();
-			}, 200);
-		}, user_created);
-    };
+				console.info(response);
+			}, function(response) {
+				console.info(response.status + " " + response.statusText);
+			});
+		}, function(response) {
+			console.info(response.status + " " + response.statusText);
+		});
+	};
 
     $scope.cancel = function () {
-      $uibModalInstance.dismiss('cancel');
+		$uibModalInstance.dismiss('cancel');
     };
-}).directive("fileread", [function () {
+
+}).directive('fileModel', ['$parse', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+            
+            element.bind('change', function(){
+                scope.$apply(function(){
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
+    };
+}]);
+
+
+/*.directive("fileread", [function () {
     return {
         scope: {
             fileread: "="
@@ -147,3 +182,4 @@ usuarios.controller('ModalUsuario',  function ($scope, $http, $timeout, $uibModa
         }
     };
 }]);
+*/

@@ -18,18 +18,19 @@ usuariosService.factory('UsuariosServiceFactory', function($http) {
 			});
 	};
 
-	service.createUsuario = function(callback, usuario) {
-		$http.post(urlBase, usuario)
-			.success(function(response) {
-				callback(response);
-			});
+	service.createUsuario = function(usuario) {
+		return $http.post(urlBase, usuario);
 	};
 
-	service.updateUsuario = function(callback, usuario) {
+/*	service.updateUsuario = function(callback, usuario) {
 		$http.put(urlBase, usuario)
 			.success(function(response) {
 				callback(response);
 			});
+	};*/
+
+	service.updateUsuario = function(usuario) {
+		return $http.put(urlBase, usuario);
 	};
 
 	service.deleteUsuario = function(callback, usuario) {
@@ -39,11 +40,13 @@ usuariosService.factory('UsuariosServiceFactory', function($http) {
 			});
 	};
 
-	service.uploadPhotoUsuario = function(callback, file) {
-		$http.post(urlBase + '/photo', file)
-			.success(function(response) {
-				callback(response);
-			});
+	service.uploadPhotoUsuario = function(file) {
+		var fd = new FormData();
+		fd.append('userPhoto', file);
+		return $http.post(urlBase + 'photo', fd, {
+											transformRequest: angular.identity,
+											headers: {'Content-Type': undefined}
+											});
 	};
 
 	return service;

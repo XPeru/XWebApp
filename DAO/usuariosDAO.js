@@ -1,7 +1,13 @@
 var mysql = require("mysql");
-var dateGenerator = require("./dateGenerator.js");
 var multer  =   require('multer');
+
+var dateGenerator = require("./dateGenerator.js");
 var daoName = "usuariosDAO";
+//this path has to exist before running the server
+var pathUpload = "./dev/media/usuarios/";
+var finalNameFile;
+var completePathFile;
+var toto = "userPhoto";
 function usuariosDAO(router, connection, md5) {
     var self = this;
     self.handleRoutes(router, connection, md5);
@@ -13,14 +19,17 @@ function printRequest(data) {
 }
 
 var storage = multer.diskStorage({
+
   destination: function (req, file, callback) {
-    callback(null, './uploads');
+    callback(null, pathUpload);
   },
   filename: function (req, file, callback) {
-    callback(null, file.fieldname + '-' + Date.now());
+    finalNameFile = file.fieldname + '-' + Date.now();
+    completePathFile = pathUpload + finalNameFile;
+    callback(null, finalNameFile);
   }
 });
-var upload = multer({ storage : storage}).single('userPhoto');
+var upload = multer({ storage : storage}).single(toto);
 
 //si se trata de una sql request de update o de insert, la variable req.body contiene
 //al JSON con la informacion enviada desde el servicio
@@ -129,6 +138,7 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
     });
 
     router.put(urlBase, function(req, res) {
+        printRequest(urlBase, " put");
         var query = "UPDATE ?? SET ?? = ?, ??=?, ??=? WHERE ?? = ?";
         var table = [tableName, "PASSWORD", md5(req.body.PASSWORD), "FK_TIPO_USUARIO", req.body.FK_TIPO_USUARIO, "FOTO", req.body.FOTO,
                     "ID_USUARIO", req.body.ID_USUARIO];
@@ -150,6 +160,7 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
     });
 
     router.put(urlBase + "delete", function(req, res) {
+        printRequest(urlBase + "delete", " put");
         var query = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
         var table = [tableName, "IS_ACTIVE", !req.body.IS_ACTIVE, "ID_USUARIO", req.body.ID_USUARIO];
         query = mysql.format(query, table);
@@ -169,12 +180,14 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
         });
     });
 
-    router.post(urlBase + '/photo', function(req, res) {
+    router.post(urlBase + "photo", function(req, res) {
+        printRequest(urlBase + "photo", " post");
+        printRequest(req);
         upload(req, res, function(err) {
             if(err) {
                 return res.end("Error uploading file.");
             }
-            res.end("File is uploaded");
+            res.end(completePathFile);
         });
     });
 };
