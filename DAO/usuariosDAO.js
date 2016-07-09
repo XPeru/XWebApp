@@ -7,7 +7,7 @@ var daoName = "usuariosDAO";
 var pathUpload = "./dev/media/usuarios/";
 var finalNameFile;
 var completePathFile;
-var toto = "userPhoto";
+var nameBase = "userPhoto";
 function usuariosDAO(router, connection, md5) {
     var self = this;
     self.handleRoutes(router, connection, md5);
@@ -29,7 +29,7 @@ var storage = multer.diskStorage({
     callback(null, finalNameFile);
   }
 });
-var upload = multer({ storage : storage}).single(toto);
+var upload = multer({ storage : storage}).single(nameBase);
 
 //si se trata de una sql request de update o de insert, la variable req.body contiene
 //al JSON con la informacion enviada desde el servicio

@@ -111,11 +111,6 @@ usuarios.controller('ModalUsuario',  function ($scope, $http, $timeout, $uibModa
 	};
 
     $scope.updateUsuario = function (updated_user) {
-/*		UsuariosServiceFactory.updateUsuario(function() {
-			$timeout(function() {
-				$uibModalInstance.close();
-			}, 200);
-		}, updated_user);*/
 		UsuariosServiceFactory.uploadPhotoUsuario(updated_user.FOTO_FILE).then(function(response) {
 			updated_user.FOTO = response.data;
 			UsuariosServiceFactory.updateUsuario(updated_user).then(function(response) {
@@ -162,24 +157,3 @@ usuarios.controller('ModalUsuario',  function ($scope, $http, $timeout, $uibModa
         }
     };
 }]);
-
-
-/*.directive("fileread", [function () {
-    return {
-        scope: {
-            fileread: "="
-        },
-        link: function (scope, element) {
-            element.bind("change", function (changeEvent) {
-                var reader = new FileReader();
-                reader.onload = function (loadEvent) {
-                    scope.$apply(function () {
-                        scope.fileread = loadEvent.target.result;
-                    });
-                };
-                reader.readAsDataURL(changeEvent.target.files[0]);
-            });
-        }
-    };
-}]);
-*/
