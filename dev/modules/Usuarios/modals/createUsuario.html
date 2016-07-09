@@ -2,22 +2,28 @@
   <h3 class="modal-title">Nuevo Usuario</h3>
 </div>
 <div class="modal-body">
-  <form>
-    <div class="form-group">
+  <form  role="form" name="formCreateUsuario" ng-submit="createUsuario(user_created)" novalidate>
+    <div class="form-group" ng-class="{'has-error':formCreateUsuario.nombreF.$error.required && !formCreateUsuario.nombreF.$pristine}">
       <label for="nombre">Nombre</label>
-      <input class="form-control" id="nombre" ng-model="user_created.NOMBRE" placeholder="Nombre">
+      <input type="text" class="form-control" id="nombre" name="nombreF" ng-model="user_created.NOMBRE" placeholder="Nombre" required>
+      <span ng-show="formCreateUsuario.nombreF.$error.required && !formCreateUsuario.nombreF.$pristine" class="help-block">Su nombres es obligatorio</span>
     </div>
     <div class="form-group">
       <label for="apellidos">Apellidos</label>
-      <input class="form-control" id="apellidos" ng-model="user_created.APELLIDOS" placeholder="Apellidos">
+      <input type="text" class="form-control" id="apellidos" ng-model="user_created.APELLIDOS" placeholder="Apellidos" required>
     </div>
-    <div class="form-group">
-      <label for="email_modal">Correo electronico</label>
-      <input type="email" class="form-control" id="email_modal" ng-model="user_created.EMAIL" placeholder="Correo electronico">
+    <div class="form-group has-feedback" ng-class="{'has-error':(formCreateUsuario.emailF.$invalid || formCreateUsuario.emailF.$error.required) && !formCreateUsuario.emailF.$pristine}">
+      <label for="email" class="control-label">Correo electronico</label>
+      <input type="email" class="form-control" id="email" name="emailF" ng-model="user_created.EMAIL" placeholder="Correo electronico" required>
+      <span ng-show="formCreateUsuario.emailF.$invalid && !formCreateUsuario.emailF.$pristine"
+            class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+      <span ng-show="(formCreateUsuario.emailF.$invalid || formCreateUsuario.emailF.$error.required) && !formCreateUsuario.emailF.$pristine"
+            class="help-block">Ingrese un correo electronico valido</span>
+     
     </div>
     <div class="form-group">
       <label for="password_modal">Contrase&ntilde;a</label>
-      <input type="password" class="form-control" id="password_modal" ng-model="user_created.PASSWORD" placeholder="Contrase&ntilde;a">
+      <input type="password" class="form-control" id="password_modal" ng-model="user_created.PASSWORD" placeholder="Contrase&ntilde;a" required>
     </div>
     <div class="form-group">
       <label for="tipousuario">Tipo de usuario</label>
@@ -27,12 +33,14 @@
     <div class="form-group">
       <label for="fileform">Foto</label>
       <input type="file" id="fileform" ><!-- fileread="user_created.FOTO" -->
-      <p class="help-block">Ingrese una foto</p>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-success" ng-disabled="formCreateUsuario.$invalid">
+        <i class="fa fa-check" aria-hidden="true"></i>
+      </button>
+      <button class="btn btn-danger" type="button" ng-click="cancel()">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </button>
     </div>
   </form>
 </div>
-<div class="modal-footer">
-  <button class="btn btn-success" type="button" ng-click="createUsuario(user_created)"><i class="fa fa-check" aria-hidden="true"></i></button>
-  <button class="btn btn-danger" type="button" ng-click="cancel()"><i class="fa fa-times" aria-hidden="true"></i></button>
-</div>
-

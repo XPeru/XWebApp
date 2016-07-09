@@ -39,5 +39,12 @@ usuariosService.factory('UsuariosServiceFactory', function($http) {
 			});
 	};
 
+	service.uploadPhotoUsuario = function(callback, file) {
+		$http.post(urlBase + '/photo', file)
+			.success(function(response) {
+				callback(response);
+			});
+	};
+
 	return service;
 });

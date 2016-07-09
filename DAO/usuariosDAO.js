@@ -169,7 +169,7 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
             }
         });
     });*/
-    router.post('/photo',function(req,res) {
+    router.post(urlBase + '/photo', function(req, res) {
         upload(req, res, function(err) {
             if(err) {
                 return res.end("Error uploading file.");
