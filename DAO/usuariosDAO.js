@@ -139,9 +139,17 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 
     router.put(urlBase, function(req, res) {
         printRequest(urlBase, " put");
-        var query = "UPDATE ?? SET ?? = ?, ??=?, ??=? WHERE ?? = ?";
-        var table = [tableName, "PASSWORD", md5(req.body.PASSWORD), "FK_TIPO_USUARIO", req.body.FK_TIPO_USUARIO, "FOTO", req.body.FOTO,
-                    "ID_USUARIO", req.body.ID_USUARIO];
+        var query = "UPDATE ?? SET ?? = ?, ??=?, ??=?, ??=CURRENT_TIMESTAMP WHERE ?? = ?";
+        var table = [tableName,
+                    "PASSWORD",
+                    md5(req.body.PASSWORD),
+                    "FK_TIPO_USUARIO",
+                    req.body.FK_TIPO_USUARIO,
+                    "FOTO",
+                    req.body.FOTO,
+                    "UPDATE_TIME",
+                    "ID_USUARIO",
+                    req.body.ID_USUARIO];
         query = mysql.format(query, table);
         printRequest(query);
         connection.query(query, function(err) {
@@ -161,8 +169,13 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 
     router.put(urlBase + "delete", function(req, res) {
         printRequest(urlBase + "delete", " put");
-        var query = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
-        var table = [tableName, "IS_ACTIVE", !req.body.IS_ACTIVE, "ID_USUARIO", req.body.ID_USUARIO];
+        var query = "UPDATE ?? SET ?? = ?, ??=CURRENT_TIMESTAMP WHERE ?? = ?";
+        var table = [tableName,
+                    "IS_ACTIVE",
+                    !req.body.IS_ACTIVE,
+                    "UPDATE_TIME",
+                    "ID_USUARIO", 
+                    req.body.ID_USUARIO];
         query = mysql.format(query, table);
         printRequest(query);
         connection.query(query, function(err) {
