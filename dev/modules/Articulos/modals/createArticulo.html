@@ -1,31 +1,47 @@
 <div class="modal-header">
-    <h3 class="modal-title">Nuevo articulo</h3>
+    <h3 class="modal-title">Nuevo Articulo</h3>
 </div>
 <div class="modal-body">
-    <form>
-      <div class="form-group">
-        <label for="id_art">ID</label>
-        <input type="text" class="form-control" id="id_art" ng-model="articulo_created.ID_ART" placeholder="ID">
-      </div>
-      <div class="form-group">
-        <label for="descripcion_art">Descripcion</label>
-        <input type="text" class="form-control" id="descripcion_art" ng-model="articulo_created.DESC" placeholder="Descripcion">
-      </div>
-      <div class="form-group">
-        <label for="uni_art">Unidad</label>
-        <input type="text" class="form-control" id="uni_art" ng-model="articulo_created.CANT_MED">
-      </div>
-      <div class="form-group">
-        <label for="valor_art">Valor de reposicion</label>
-        <input type="text" class="form-control" id="valor_art" ng-model="articulo_created.VAL_REP">
-      </div>
-      <div class="form-group">
-        <label for="precio_art">Precio unitario</label>
-        <input type="text" class="form-control" id="precio_art" ng-model="articulo_created.PR_UNIT">
-      </div>
-    </form>
+  <form  role="form" name="formCreateArticulo" ng-submit="createArticulo(article_created)" novalidate>
+    <div class="form-group" ng-class="{'has-error':formCreateArticulo.codigoF.$error.required && !formCreateArticulo.codigoF.$pristine}">
+      <label for="codigo">Codigo</label>
+      <input type="text" class="form-control" id="codigo" name="codigoF" ng-model="article_created.CODIGO" placeholder="Codigo" required>
+      <span ng-show="formCreateArticulo.codigoF.$error.required && !formCreateArticulo.codigoF.$pristine" class="help-block">Codigo項目は必須です。</span>
+    </div>
+    <div class="form-group">
+      <label for="descripcion">Descripcion</label>
+      <input type="text" class="form-control" id="descripcion" ng-model="article_created.DESCRIPCION" placeholder="Descripcion" required>
+    </div>
+    <div class="form-group">
+      <label for="unidad">Unidad</label>
+      <input type="text" class="form-control" id="unidad" ng-model="article_created.UNIDAD" placeholder="Unidad" required>
+    </div>
+    <div class="form-group">
+      <label for="precio_unitario">Precio Unitario</label>
+      <input type="text" class="form-control" id="precio_unitario" ng-model="article_created.PRECIO_UNITARIO" placeholder="Precio Unitario" required>
+    </div>
+    <div class="form-group">
+      <label for="valor_reposicion">Valor de Reposicion</label>
+      <input type="text" class="form-control" id="valor_reposicion" ng-model="article_created.VALOR_REPOSICION" placeholder="Valor de Reposicion">
+    </div>
+    <div class="form-group">
+      <label for="categoria">Categoria</label>
+      <select class="form-control" ng-model="article_created.FK_CATEGORIA" name="obj" ng-options="obj.ID_CATEGORIA as obj.DESCRIPCION for obj in categoriaList">
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="fileform">Foto</label>
+      <input type="file" id="fileform" ><!-- fileread="article_created.IMAGEN" -->
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-success" ng-disabled="formCreateArticulo.$invalid">
+        <i class="fa fa-check" aria-hidden="true"></i>
+      </button>
+      <button class="btn btn-danger" type="button" ng-click="cancel()">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </button>
+    </div>
+  </form>
 </div>
-<div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="createArticulo(articulo_created)">OK</button>
-    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
-</div>
+
+

@@ -2,34 +2,50 @@ var articulosService = angular.module('articulosService', ['ngResource']);
 
 articulosService.factory('ArticulosServiceFactory', function($http) {
 	var service = {};
-	var urlBase = '/api';
+	var urlBase = '/api/articulo';
 
-	service.getAllArticulos = function(callback) {
-		$http.get(urlBase + '/articulosList')
-			.success(function(response) {
-				callback(response);
-			});
-	};
-
-	service.createArticulo = function(callback, articulo_created) {
-		$http.post(urlBase + '/articulo', articulo_created)
+	service.getArticuloList = function(callback) {
+		$http.get(urlBase + 'list')
 			.success(function(response) {
 				callback(response);
 			});
 	};
 
-	service.editArticulo = function(callback, articulo_edited) {
-		$http.put(urlBase + '/articulo', articulo_edited)
+	service.getArticuloByIdArticulo = function(callback, id_articulo) {
+		$http.get(urlBase + '/' + id_articulo)
 			.success(function(response) {
 				callback(response);
 			});
 	};
-	service.deleteArticulo = function(callback, articulo_deleted) {
-		$http.delete(urlBase + '/deleteArticulo'+ '/' + articulo_deleted.ART_SEQ)
+
+	service.createArticulo = function(callback, articulo) {
+		$http.post(urlBase, articulo)
 			.success(function(response) {
 				callback(response);
 			});
 	};
+
+	service.updateArticulo = function(callback, articulo) {
+		$http.put(urlBase, articulo)
+			.success(function(response) {
+				callback(response);
+			});
+	};
+
+	service.deleteArticulo = function(callback, articulo) {
+		$http.delete(urlBase + 'delete', articulo)
+			.success(function(response) {
+				callback(response);
+			});
+	};
+
+	service.uploadImageArticulo = function(callback, file) {
+		$http.post(urlBase + '/image', file)
+			.success(function(response) {
+				callback(response);
+			});
+	};
+
 
 	return service;
 });

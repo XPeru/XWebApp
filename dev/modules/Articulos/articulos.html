@@ -36,7 +36,20 @@
                                 <span ng-show="sortType == 'UNIDAD' && sortReverse" class="fa fa-caret-up"></span>
                             </a>
                         </th>
-                        <th>Contrasena</th>
+                        <th>
+                            <a ng-click="setType('PRECIO_UNITARIO')">
+                                Precio Unitario
+                                <span ng-show="sortType == 'PRECIO_UNITARIO' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'PRECIO_UNITARIO' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th>
+                            <a ng-click="setType('VALOR_REPOSICION')">
+                                Valor de Reposicion
+                                <span ng-show="sortType == 'VALOR_REPOSICION' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'VALOR_REPOSICION' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
                         <th>
                             <a ng-click="setType('CREATE_TIME')">
                                 Creado
@@ -56,27 +69,28 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="usuario in $data.Usuarios|orderBy:sortType:sortReverse"
-                        ng-click="setSelected(usuario.ID_ARTICULO)"
-                        ng-class="{info: usuario.ID_ARTICULO === idSelectedUsuario}">
-                        <td>{{usuario.FOTO}}</td>
-                        <td>{{usuario.ID_ARTICULO}}</td>
-                        <td>{{usuario.CODIGO}}</td>
-                        <td>{{usuario.DESCRIPCION}}</td>
-                        <td>{{usuario.UNIDAD}}</td>
-                        <td>{{usuario.PASSWORD}}</td>
-                        <td>{{usuario.CREATE_TIME|date:'medium'}}</td>
-                        <td>{{usuario.UPDATE_TIME|date:'medium'}}</td>
+                    <tr ng-repeat="articulo in $data.Articulos|orderBy:sortType:sortReverse"
+                        ng-click="setSelected(articulo.ID_ARTICULO)"
+                        ng-class="{info: articulo.ID_ARTICULO === idSelectedArticulo}">
+                        <td>{{articulo.FOTO}}</td>
+                        <td>{{articulo.ID_ARTICULO}}</td>
+                        <td>{{articulo.CODIGO}}</td>
+                        <td>{{articulo.DESCRIPCION}}</td>
+                        <td>{{articulo.UNIDAD}}</td>
+                        <td>{{articulo.PRECIO_UNITARIO}}</td>
+                        <td>{{articulo.VALOR_REPOSICION}}</td>
+                        <td>{{articulo.CREATE_TIME|date:'medium'}}</td>
+                        <td>{{articulo.UPDATE_TIME|date:'medium'}}</td>
                         <td style="width:60px">
-                            <button ng-if="usuario.ID_ARTICULO === idSelectedUsuario"
-                                ng-click="openModalUsuario('edit', usuario)"
+                            <button ng-if="articulo.ID_ARTICULO === idSelectedArticulo"
+                                ng-click="openModalArticulo('edit', articulo)"
                                 class="btn btn-small btn-primary">
                                 <i class="glyphicon glyphicon-pencil"></i>
                             </button>
                         </td>
                         <td style="width:60px">
-                            <button ng-if="usuario.ID_ARTICULO === idSelectedUsuario"
-                                ng-click="openModalUsuario('delete', usuario)"
+                            <button ng-if="articulo.ID_ARTICULO === idSelectedArticulo"
+                                ng-click="openModalArticulo('delete', articulo)"
                                 class="btn btn-small btn-danger">
                                 <i class="glyphicon glyphicon-remove"></i>
                             </button>
@@ -87,16 +101,16 @@
         </div>
     </div>
 </div>
-<button ng-click="openModalUsuario('create', null)" class="btn btn-small">
+<button ng-click="openModalArticulo('create', null)" class="btn btn-small">
     Nuevo <span><i class="glyphicon glyphicon-plus"></i></span>
 </button>
 
 <form id        =  "uploadForm"
      enctype   =  "multipart/form-data"
-     action    =  "/api/photo"
+     action    =  "/api/image"
      method    =  "post"
 >
-<input type="file" name="userPhoto" />
+<input type="file" name="articuloImage" />
 <input type="submit" value="Upload Image" name="submit">
 </form>
 
