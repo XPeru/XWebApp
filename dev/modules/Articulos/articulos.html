@@ -4,7 +4,7 @@
     </div>
     <div class="panel-body ">
         <div class="table-responsive">
-            <table ng-table="articulosTable" class="table">
+            <table ng-table="articlesTable" class="table">
                 <thead>
                     <tr>
                         <th>Imagen</th>
@@ -50,20 +50,6 @@
                                 <span ng-show="sortType == 'VALOR_REPOSICION' && sortReverse" class="fa fa-caret-up"></span>
                             </a>
                         </th>
-                        <th>
-                            <a ng-click="setType('CREATE_TIME')">
-                                Creado
-                                <span ng-show="sortType == 'CREATE_TIME' && !sortReverse" class="fa fa-caret-down"></span>
-                                <span ng-show="sortType == 'CREATE_TIME' && sortReverse" class="fa fa-caret-up"></span>
-                            </a>
-                        </th>
-                        <th>
-                            <a ng-click="setType('UPDATE_TIME')">
-                                Ultima modificacion
-                                <span ng-show="sortType == 'UPDATE_TIME' && !sortReverse" class="fa fa-caret-down"></span>
-                                <span ng-show="sortType == 'UPDATE_TIME' && sortReverse" class="fa fa-caret-up"></span>
-                            </a>
-                        </th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -79,8 +65,6 @@
                         <td>{{articulo.UNIDAD}}</td>
                         <td>{{articulo.PRECIO_UNITARIO}}</td>
                         <td>{{articulo.VALOR_REPOSICION}}</td>
-                        <td>{{articulo.CREATE_TIME|date:'medium'}}</td>
-                        <td>{{articulo.UPDATE_TIME|date:'medium'}}</td>
                         <td style="width:60px">
                             <button ng-if="articulo.ID_ARTICULO === idSelectedArticulo"
                                 ng-click="openModalArticulo('edit', articulo)"
