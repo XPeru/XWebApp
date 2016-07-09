@@ -90,7 +90,7 @@ articulosDAO.prototype.handleRoutes = function(router, connection) {
     router.get(urlBase + "/:id_articulo", function(req, res) {
         printRequest(urlBase + " :id_articulo" + " get");
         var query = "SELECT * FROM ?? WHERE ??=?";
-        var table = [tableName, "ID_USUARIO", req.params.id_articulo];
+        var table = [tableName, "ID_ARTICULO", req.params.id_articulo];
         query = mysql.format(query, table);
         printRequest(query);
         connection.query(query, function(err, rows) {
@@ -109,26 +109,43 @@ articulosDAO.prototype.handleRoutes = function(router, connection) {
         });
     });
 
-    // router.put(urlBase, function(req, res) {
-    //     var query = "UPDATE ?? SET ?? = ?, ??=?, ??=? WHERE ?? = ?";
-    //     var table = [tableName, "PASSWORD", md5(req.body.PASSWORD), "FK_TIPO_USUARIO", req.body.FK_TIPO_USUARIO, "FOTO", req.body.FOTO,
-    //                 "ID_USUARIO", req.body.ID_USUARIO];
-    //     query = mysql.format(query, table);
-    //     printRequest(query);
-    //     connection.query(query, function(err) {
-    //         if (err) {
-    //             res.json({
-    //                 "Error": true,
-    //                 "Message": "Error executing MySQL query"
-    //             });
-    //         } else {
-    //             res.json({
-    //                 "Error": false,
-    //                 "Message": "OK"
-    //             });
-    //         }
-    //     });
-    // });
+    router.put(urlBase, function(req, res) {
+        var query = "UPDATE ?? SET ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ??=? WHERE ?? = ?";
+        var table = [tableName, 
+                        "CODIGO",
+                        req.body.CODIGO,
+                        "DESCRIPCION",
+                        req.body.DESCRIPCION,
+                        "UNIDAD",
+                        req.body.UNIDAD,
+                        "PRECIO_UNITARIO",
+                        req.body.PRECIO_UNITARIO,
+                        "VALOR_REPOSICION",
+                        req.body.VALOR_REPOSICION,
+                        "FK_CATEGORIA",
+                        req.body.FK_CATEGORIA,
+                        "IMAGEN",
+                        req.body.IMAGEN,
+                        "ID_ARTICULO",
+                        req.body.ID_ARTICULO
+                    ];
+        printRequest(table);
+        query = mysql.format(query, table);
+        printRequest(query);
+        connection.query(query, function(err) {
+            if (err) {
+                res.json({
+                    "Error": true,
+                    "Message": "Error executing MySQL query"
+                });
+            } else {
+                res.json({
+                    "Error": false,
+                    "Message": "OK"
+                });
+            }
+        });
+    });
 
     router.post(urlBase + '/image', function(req, res) {
         upload(req, res, function(err) {

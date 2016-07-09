@@ -8,13 +8,13 @@
                 <thead>
                     <tr>
                         <th>Imagen</th>
-                        <th>
+                        <!-- <th>
                             <a ng-click="setType('ID_ARTICULO')">
                                 Id
                                 <span ng-show="sortType == 'ID_ARTICULO' && !sortReverse" class="fa fa-caret-down"></span>
                                 <span ng-show="sortType == 'ID_ARTICULO' && sortReverse" class="fa fa-caret-up"></span>
                             </a>
-                        </th>
+                        </th> -->
                         <th>
                             <a ng-click="setType('CODIGO')">
                                 Codigo
@@ -51,7 +51,7 @@
                             </a>
                         </th>
                         <th></th>
-                        <th></th>
+                        <!-- <th></th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -59,7 +59,7 @@
                         ng-click="setSelected(articulo.ID_ARTICULO)"
                         ng-class="{info: articulo.ID_ARTICULO === idSelectedArticulo}">
                         <td>{{articulo.FOTO}}</td>
-                        <td>{{articulo.ID_ARTICULO}}</td>
+                        <!-- <td>{{articulo.ID_ARTICULO}}</td> -->
                         <td>{{articulo.CODIGO}}</td>
                         <td>{{articulo.DESCRIPCION}}</td>
                         <td>{{articulo.UNIDAD}}</td>
@@ -72,13 +72,13 @@
                                 <i class="glyphicon glyphicon-pencil"></i>
                             </button>
                         </td>
-                        <td style="width:60px">
+                        <!-- <td style="width:60px">
                             <button ng-if="articulo.ID_ARTICULO === idSelectedArticulo"
                                 ng-click="openModalArticulo('delete', articulo)"
                                 class="btn btn-small btn-danger">
                                 <i class="glyphicon glyphicon-remove"></i>
                             </button>
-                        </td>
+                        </td> -->
                     </tr>
                 </tbody>
             </table>
@@ -97,70 +97,3 @@
 <input type="file" name="articuloImage" />
 <input type="submit" value="Upload Image" name="submit">
 </form>
-
-
-
-
-
-
-<!-- <xwebapp-lateral-bar></xwebapp-lateral-bar>
-<div class="container">
-    <div class="row">
-        <div class="col-md-2">
-            
-        </div>
-        <div class="col-md-10">
-            <div class="table-responsive">
-                <table ng-table="articulosTable" class="table">
-                    <thead>
-                    <tr>
-                        <th style="max-width: 50px">Id</th>
-                        <th style="max-width: 200px">Descripcion</th>
-                        <th style="max-width: 70px">Unidad</th>
-                        <th style="max-width: 70px">Valor de reposicion</th>
-                        <th style="max-width: 70px">Precio unitario</th>
-                        <th style="max-width: 70px">Fecha de creacion</th>
-                        <th style="max-width: 70px">Fecha de ultima edicion</th>
-                        <th style="max-width: 20px"></th>
-                        <th style="max-width: 20px"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="articulo in $data.Articulos" ng-click="setSelected(articulo.ID_ART)"
-                        ng-class="{selected: articulo.ID_ART === idSelectedArticulo}">
-                        <td style="max-width: 50px">{{articulo.ID_ART}}</td>
-                        <td style="max-width: 200px">{{articulo.DESC}}</td>
-                        <td style="max-width: 70px">{{articulo.CANT_MED}}</td>
-                        <td style="max-width: 70px">{{articulo.VAL_REP}}</td>
-                        <td style="max-width: 70px">{{articulo.PR_UNIT}}</td>
-                        <td style="max-width: 70px">{{articulo.CRT_TIM|date:'medium'}}</td>
-                        <td style="max-width: 70px">{{articulo.UPD_TIM|date:'medium'}}</td>
-                        <td style="width:20px">
-                            <button ng-if="articulo.ID_ART === idSelectedArticulo"
-                                ng-click="openModal('edit', articulo)"
-                                class="btn btn-small btn-primary">
-                                <i class="glyphicon glyphicon-pencil"></i>
-                            </button>
-                        </td>
-                        <td style="width:20px">
-                            <button ng-if="articulo.ID_ART === idSelectedArticulo"
-                                ng-click="openModal('delete', articulo)"
-                                class="btn btn-small btn-danger">
-                                <i class="glyphicon glyphicon-remove"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-             <div class="row">
-                    <button ng-click="openModal('create', null)"
-                            class="btn btn-small hvr-fade">
-                        Crear articulo <span><i class="glyphicon glyphicon-plus"></i></span>
-                    </button>
-                </div>
-        </div>
-        
-    </div>
-    
-</div> -->

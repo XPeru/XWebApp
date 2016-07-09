@@ -6,7 +6,7 @@
     <div class="form-group" ng-class="{'has-error':formCreateArticulo.codigoF.$error.required && !formCreateArticulo.codigoF.$pristine}">
       <label for="codigo">Codigo</label>
       <input type="text" class="form-control" id="codigo" name="codigoF" ng-model="article_created.CODIGO" placeholder="Codigo" required>
-      <span ng-show="formCreateArticulo.codigoF.$error.required && !formCreateArticulo.codigoF.$pristine" class="help-block">Codigo項目は必須です。</span>
+      <span ng-show="formCreateArticulo.codigoF.$error.required && !formCreateArticulo.codigoF.$pristine" class="help-block">Codigo es un campo obligatorio.</span>
     </div>
     <div class="form-group">
       <label for="descripcion">Descripcion</label>
@@ -30,7 +30,7 @@
       </select>
     </div>
     <div class="form-group">
-      <label for="fileform">Foto</label>
+      <label for="fileform">Imagen</label>
       <input type="file" id="fileform" ><!-- fileread="article_created.IMAGEN" -->
     </div>
     <div class="form-group">
