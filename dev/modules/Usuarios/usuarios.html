@@ -9,13 +9,6 @@
                     <tr>
                         <th>Foto</th>
                         <th>
-                            <a ng-click="setType('ID_USUARIO')">
-                                Id
-                                <span ng-show="sortType == 'ID_USUARIO' && !sortReverse" class="fa fa-caret-down"></span>
-                                <span ng-show="sortType == 'ID_USUARIO' && sortReverse" class="fa fa-caret-up"></span>
-                            </a>
-                        </th>
-                        <th>
                             <a ng-click="setType('NOMBRE')">
                                 Nombre
                                 <span ng-show="sortType == 'NOMBRE' && !sortReverse" class="fa fa-caret-down"></span>
@@ -36,7 +29,6 @@
                                 <span ng-show="sortType == 'EMAIL' && sortReverse" class="fa fa-caret-up"></span>
                             </a>
                         </th>
-                        <th>Contrasena</th>
                         <th>
                             <a ng-click="setType('CREATE_TIME')">
                                 Creado
@@ -60,11 +52,9 @@
                         ng-click="setSelected(usuario.ID_USUARIO)"
                         ng-class="{info: usuario.ID_USUARIO === idSelectedUsuario}">
                         <td>{{usuario.FOTO}}</td>
-                        <td>{{usuario.ID_USUARIO}}</td>
                         <td>{{usuario.NOMBRE}}</td>
                         <td>{{usuario.APELLIDOS}}</td>
                         <td>{{usuario.EMAIL}}</td>
-                        <td>{{usuario.PASSWORD}}</td>
                         <td>{{usuario.CREATE_TIME|date:'medium'}}</td>
                         <td>{{usuario.UPDATE_TIME|date:'medium'}}</td>
                         <td style="width:60px">

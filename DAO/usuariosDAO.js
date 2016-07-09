@@ -31,7 +31,7 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
     var urlBase = "/usuario";
     router.get(urlBase + "list", function(req, res) {
         printRequest(urlBase + "list" + " get");
-        var query = "SELECT * FROM ??";
+        var query = "SELECT ID_USUARIO, NOMBRE, APELLIDOS, EMAIL, FOTO, FK_TIPO_USUARIO, CREATE_TIME, UPDATE_TIME, IS_ACTIVE FROM ?? WHERE IS_ACTIVE='1'";
         var table = [tableName];
         query = mysql.format(query, table);
         printRequest(query);
@@ -148,13 +148,12 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
             }
         });
     });
-    //
-    /*
-    router.delete("/deleteuser/:user_email", function(req, res) {
-        var query = "DELETE from ?? WHERE ??=?";
-        var table = ["user_login","user_email", req.params.user_email];
+
+    router.put(urlBase + "delete", function(req, res) {
+        var query = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
+        var table = [tableName, "IS_ACTIVE", !req.body.IS_ACTIVE, "ID_USUARIO", req.body.ID_USUARIO];
         query = mysql.format(query, table);
-        console.info(query);
+        printRequest(query);
         connection.query(query, function(err) {
             if (err) {
                 res.json({
@@ -164,11 +163,12 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
             } else {
                 res.json({
                     "Error": false,
-                    "Message": "Deleted the user with email " + req.body.user_email
+                    "Message": "OK"
                 });
             }
         });
-    });*/
+    });
+
     router.post(urlBase + '/photo', function(req, res) {
         upload(req, res, function(err) {
             if(err) {

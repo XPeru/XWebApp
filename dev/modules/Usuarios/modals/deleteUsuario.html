@@ -3,9 +3,9 @@
 </div>
 <div class="modal-body">
   <p>Realmente desea eliminar al usuario?</p>
-  <p>{{selected_user.user_email}}</p>
+  <p>{{selected_user.NOMBRE}} {{selected_user.APELLIDOS}}</p>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="deleteUser(selected_user)">Si</button>
-    <button class="btn btn-warning" type="button" ng-click="cancel()">No</button>
+    <button class="btn btn-primary" type="button" ng-click="deleteUsuario(selected_user)">Si</button>
+    <button class="btn btn-danger" type="button" ng-click="cancel()">No</button>
 </div>
