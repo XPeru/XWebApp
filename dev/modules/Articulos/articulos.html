@@ -1,6 +1,111 @@
-<!--
-<xwebapp-nav-bar articulos=1></xwebapp-nav-bar>-->
-<xwebapp-lateral-bar></xwebapp-lateral-bar>
+<div class="panel panel-default panel-primary">
+    <div class="panel-heading clearfix">
+        <h3 class="panel-title">Articulos</h3>
+    </div>
+    <div class="panel-body ">
+        <div class="table-responsive">
+            <table ng-table="articulosTable" class="table">
+                <thead>
+                    <tr>
+                        <th>Imagen</th>
+                        <th>
+                            <a ng-click="setType('ID_ARTICULO')">
+                                Id
+                                <span ng-show="sortType == 'ID_ARTICULO' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'ID_ARTICULO' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th>
+                            <a ng-click="setType('CODIGO')">
+                                Codigo
+                                <span ng-show="sortType == 'CODIGO' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'CODIGO' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th>
+                            <a ng-click="setType('DESCRIPCION')">
+                                Descripcion
+                                <span ng-show="sortType == 'DESCRIPCION' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'DESCRIPCION' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th>
+                            <a ng-click="setType('UNIDAD')">
+                                Unidad
+                                <span ng-show="sortType == 'UNIDAD' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'UNIDAD' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th>Contrasena</th>
+                        <th>
+                            <a ng-click="setType('CREATE_TIME')">
+                                Creado
+                                <span ng-show="sortType == 'CREATE_TIME' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'CREATE_TIME' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th>
+                            <a ng-click="setType('UPDATE_TIME')">
+                                Ultima modificacion
+                                <span ng-show="sortType == 'UPDATE_TIME' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'UPDATE_TIME' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="usuario in $data.Usuarios|orderBy:sortType:sortReverse"
+                        ng-click="setSelected(usuario.ID_ARTICULO)"
+                        ng-class="{info: usuario.ID_ARTICULO === idSelectedUsuario}">
+                        <td>{{usuario.FOTO}}</td>
+                        <td>{{usuario.ID_ARTICULO}}</td>
+                        <td>{{usuario.CODIGO}}</td>
+                        <td>{{usuario.DESCRIPCION}}</td>
+                        <td>{{usuario.UNIDAD}}</td>
+                        <td>{{usuario.PASSWORD}}</td>
+                        <td>{{usuario.CREATE_TIME|date:'medium'}}</td>
+                        <td>{{usuario.UPDATE_TIME|date:'medium'}}</td>
+                        <td style="width:60px">
+                            <button ng-if="usuario.ID_ARTICULO === idSelectedUsuario"
+                                ng-click="openModalUsuario('edit', usuario)"
+                                class="btn btn-small btn-primary">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </button>
+                        </td>
+                        <td style="width:60px">
+                            <button ng-if="usuario.ID_ARTICULO === idSelectedUsuario"
+                                ng-click="openModalUsuario('delete', usuario)"
+                                class="btn btn-small btn-danger">
+                                <i class="glyphicon glyphicon-remove"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<button ng-click="openModalUsuario('create', null)" class="btn btn-small">
+    Nuevo <span><i class="glyphicon glyphicon-plus"></i></span>
+</button>
+
+<form id        =  "uploadForm"
+     enctype   =  "multipart/form-data"
+     action    =  "/api/photo"
+     method    =  "post"
+>
+<input type="file" name="userPhoto" />
+<input type="submit" value="Upload Image" name="submit">
+</form>
+
+
+
+
+
+
+<!-- <xwebapp-lateral-bar></xwebapp-lateral-bar>
 <div class="container">
     <div class="row">
         <div class="col-md-2">
@@ -60,6 +165,4 @@
         
     </div>
     
-</div>
-<!--
-<xwebapp-footer></xwebapp-footer>-->
+</div> -->

@@ -94,22 +94,21 @@
 				}
 			})
 
+			.state('app.articulos', {
+				url: 'articulos',
+				views : {
+					'content@': {
+						controller: 'articulosController',
+						templateUrl: 'dev/modules/Articulos/articulos.html'
+					}
+				}
+			})
+
 			;
 
 
 
 			/*
-			
-			.state('articulos', {
-				url: '/articulos',
-				controller: 'articulosController',
-				templateUrl: 'dev/modules/Articulos/articulos.html',
-				hideMenus: true,
-				data: {},
-				reloadOnSearch: false
-			})
-			
-			
 			
 			.state('ingresos', {
 				url: '/ingresos',
