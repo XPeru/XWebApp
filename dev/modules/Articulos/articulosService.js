@@ -18,19 +18,25 @@ articulosService.factory('ArticulosServiceFactory', function($http) {
 			});
 	};
 
-	service.createArticulo = function(callback, articulo) {
-		$http.post(urlBase, articulo)
-			.success(function(response) {
-				callback(response);
-			});
+	service.createArticulo = function(articulo) {
+		return $http.post(urlBase, articulo);
 	};
+	// service.createArticulo = function(callback, articulo) {
+	// 	$http.post(urlBase, articulo)
+	// 		.success(function(response) {
+	// 			callback(response);
+	// 		});
+	// };
 
-	service.updateArticulo = function(callback, articulo) {
-		$http.put(urlBase, articulo)
-			.success(function(response) {
-				callback(response);
-			});
+	service.updateArticulo = function(articulo) {
+		return $http.put(urlBase, articulo);
 	};
+	// service.updateArticulo = function(callback, articulo) {
+	// 	$http.put(urlBase, articulo)
+	// 		.success(function(response) {
+	// 			callback(response);
+	// 		});
+	// };
 
 	service.deleteArticulo = function(callback, articulo) {
 		$http.delete(urlBase + 'delete', articulo)
@@ -40,12 +46,13 @@ articulosService.factory('ArticulosServiceFactory', function($http) {
 	};
 
 	service.uploadImageArticulo = function(callback, file) {
-		$http.post(urlBase + '/image', file)
-			.success(function(response) {
-				callback(response);
-			});
+		var fd = new FormData();
+		fd.append('articleImage', file);
+		return $http.post(urlBase + 'image', fd, {
+											transformRequest: angular.identity,
+											headers: {'Content-Type': undefined}
+											});
 	};
-
 
 	return service;
 });

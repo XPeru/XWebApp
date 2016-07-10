@@ -109,22 +109,61 @@ articulos.controller('ModalArticulo',  function ($scope, $http, $timeout, $uibMo
 	};
 
     $scope.updateArticulo = function (updated_article) {
-		ArticulosServiceFactory.updateArticulo(function() {
-			$timeout(function() {
+		// ArticulosServiceFactory.updateArticulo(function() {
+		// 	$timeout(function() {
+		// 		$uibModalInstance.close();
+		// 	}, 200);
+		// }, updated_article);
+		ArticulosServiceFactory.uploadImageArticulo(updated_article.IMAGEN_FILE).then(function(response) {
+			updated_article.IMAGEN = response.data;
+			ArticulosServiceFactory.updateUsuario(updated_article).then(function(response) {
 				$uibModalInstance.close();
-			}, 200);
-		}, updated_article);
+				console.info(response);
+			}, function(response) {
+				console.info(response.status + " " + response.statusText);
+			});
+		}, function(response) {
+			console.info(response.status + " " + response.statusText);
+		});
     };
 
     $scope.createArticulo = function (article_created) {
-		ArticulosServiceFactory.createArticulo(function() {
-			$timeout(function() {
+		// ArticulosServiceFactory.createArticulo(function() {
+		// 	$timeout(function() {
+		// 		$uibModalInstance.close();
+		// 	}, 200);
+		// }, article_created);
+		ArticulosServiceFactory.uploadImageArticulo(article_created.IMAGEN_FILE).then(function(response) {
+			article_created.IMAGEN = response.data;
+			ArticulosServiceFactory.createArticulo(article_created).then(function(response) {
 				$uibModalInstance.close();
-			}, 200);
-		}, article_created);
+				console.info(response);
+			}, function(response) {
+				console.info(response.status + " " + response.statusText);
+			});
+		}, function(response) {
+			console.info(response.status + " " + response.statusText);
+		});
     };
 
     $scope.cancel = function () {
       $uibModalInstance.dismiss('cancel');
     };
+
+// }).directive('fileModel', ['$parse', function ($parse) {
+//     return {
+//         restrict: 'A',
+//         link: function(scope, element, attrs) {
+//             var model = $parse(attrs.fileModel);
+//             var modelSetter = model.assign;
+            
+//             element.bind('change', function(){
+//                 scope.$apply(function(){
+//                     modelSetter(scope, element[0].files[0]);
+//                 });
+//             });
+//         }
+//     };
+// }]);
+
 });

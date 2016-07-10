@@ -31,7 +31,8 @@
     </div>
     <div class="form-group">
       <label for="fileform">Imagen</label>
-      <input type="file" id="fileform" ><!-- fileread="article_created.IMAGEN" -->
+      <!--el atributo name es muy importante, este define el nombrebase del archivo , revisar usuariosDAO-->
+      <input type="file" id="fileform" name="articleImage" file-model="articule_created.IMAGEN_FILE">
     </div>
     <div class="form-group">
       <button type="submit" class="btn btn-success" ng-disabled="formCreateArticulo.$invalid">
