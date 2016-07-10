@@ -155,32 +155,6 @@ articulosDAO.prototype.handleRoutes = function(router, connection) {
         });
     });
 
-    // router.put(urlBase + "delete", function(req, res) {
-    //     printRequest(urlBase + "delete", " put");
-    //     var query = "UPDATE ?? SET ?? = ?, ??=CURRENT_TIMESTAMP WHERE ?? = ?";
-    //     var table = [tableName,
-    //                 "IS_ACTIVE",
-    //                 !req.body.IS_ACTIVE,
-    //                 "UPDATE_TIME",
-    //                 "ID_ARTICULO", 
-    //                 req.body.ID_ARTICULO];
-    //     query = mysql.format(query, table);
-    //     printRequest(query);
-    //     connection.query(query, function(err) {
-    //         if (err) {
-    //             res.json({
-    //                 "Error": true,
-    //                 "Message": "Error executing MySQL query"
-    //             });
-    //         } else {
-    //             res.json({
-    //                 "Error": false,
-    //                 "Message": "OK"
-    //             });
-    //         }
-    //     });
-    // });
-
     router.post(urlBase + 'image', function(req, res) {
         printRequest(urlBase + "image", " post");
         printRequest(req);
