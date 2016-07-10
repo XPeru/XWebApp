@@ -23,13 +23,12 @@
 }
 
 .underheader {
-	margin-top: 50px;
-
+	margin-top: 30px;
 }
 
 .leftmargin {
-	margin-left: 255px;
-	margin-right: 5px;
+	margin-left: 250px;
+	margin-right: 0;
 }
 
 
@@ -39,11 +38,11 @@
 		margin-right: 5px;
 		border-right: 1px;
 		padding-right: 1px;
+	}
 
-	}
 	.underheader {
-		margin-top: 100px;
-	}
+	margin-top: 55px;
+}
 }
 .list_home {
 	font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
