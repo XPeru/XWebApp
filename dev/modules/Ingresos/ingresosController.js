@@ -75,7 +75,7 @@ ingresos.controller('ModalIngreso', function($scope, $http, $timeout, $uibModalI
 	$scope.selected_ingreso = selected_ingreso;
 
 	$scope.deleteIngreso = function(ingreso_deleted) {
-		IngresosServiceFactory.deleteIngreso(function(response) {
+		IngresosServiceFactory.deleteIngreso(function() {
 			$timeout(function() {
 				$uibModalInstance.close();
 			}, 200);
@@ -83,7 +83,7 @@ ingresos.controller('ModalIngreso', function($scope, $http, $timeout, $uibModalI
 	};
 
     $scope.editIngreso = function (ingreso_edited) {
-		IngresosServiceFactory.editIngreso(function(response) {
+		IngresosServiceFactory.editIngreso(function() {
 			$timeout(function() {
 				$uibModalInstance.close();
 			}, 200);
@@ -91,7 +91,7 @@ ingresos.controller('ModalIngreso', function($scope, $http, $timeout, $uibModalI
     };
 
     $scope.createIngreso = function (ingreso_created) {
-		IngresosServiceFactory.createIngreso(function(response) {
+		IngresosServiceFactory.createIngreso(function() {
 			$timeout(function() {
 				$uibModalInstance.close();
 			}, 200);

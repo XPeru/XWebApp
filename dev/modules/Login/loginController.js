@@ -1,12 +1,6 @@
 (function () {
     //'use strict';
- 
-    angular
-        .module('Login',[])
-        .controller('loginController', loginController);
- 
-    loginController.$inject = ['$scope', '$location', 'LoginServiceFactory'];
-    function loginController($scope, $location, LoginServiceFactory) {
+     function loginController ($scope, $location, LoginServiceFactory) {
         //var viewLogin = this;
         console.info("loginController");
         //viewLogin.login = login;
@@ -31,5 +25,13 @@
             });
         };
     }
+    angular
+        .module('Login',[])
+        .controller('loginController', loginController);
+ 
+    
+
+
+    loginController.$inject = ['$scope', '$location', 'LoginServiceFactory'];
  
 })();
