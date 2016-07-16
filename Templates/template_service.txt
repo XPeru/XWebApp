@@ -1,0 +1,43 @@
+var #patternL#Service = angular.module('#patternL#Service', ['ngResource']);
+
+ #patternL#Service.factory('#patternU#ServiceFactory', function($http) {
+	var service = {};
+	var urlBase = '/api';
+
+	service.getAll#patternU# = function(callback) {
+		$http.get(urlBase + '/#patternL#list')
+			.success(function(response) {
+				callback(response);
+			});
+	};
+
+	service.get#patternU#ById = function(callback, id_#patternL#) {
+		$http.get(urlBase + '/id_#patternL#' + id_#patternL#)
+			.success(function(response) {
+				callback(response);
+			});
+	};
+
+	service.create#patternU# = function(callback, new_#patternL#) {
+		$http.post(urlBase + '/id_#patternL#', new_#patternL#)
+			.success(function(response) {
+				callback(response);
+			});
+	};
+
+	service.update#patternU# = function(callback, updated_#patternL#) {
+		$http.put(urlBase + '/id_#patternL#', updated_#patternL#)
+			.success(function(response) {
+				callback(response);
+			});
+	};
+
+	service.delete#patternU# = function(callback, id_#patternL#) {
+		$http.delete(urlBase + '/id_#patternL#'+ '/' + id_#patternL#)
+			.success(function(response) {
+				callback(response);
+			});
+	};
+
+	return service;
+});
