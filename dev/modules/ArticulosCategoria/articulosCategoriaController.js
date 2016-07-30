@@ -31,7 +31,6 @@ articulosCategoria.controller('articulosCategoriaController', ['$scope', '$locat
 					}
 					$scope.modal_not_finished = false;
 			}
-			
 		});
 
 		$scope.callGetAllCategorias = function() {
@@ -69,7 +68,6 @@ articulosCategoria.controller('articulosCategoriaController', ['$scope', '$locat
 			modalInstance.result.then(function() {
 				$scope.modal_not_finished = true;
 				$scope.categoriasTable.reload();
-				
 			}, function() {
 				$scope.modal_not_finished = true;
 			});
@@ -80,19 +78,15 @@ articulosCategoria.controller('ModalCategoria', function($scope, $http, $timeout
 	$scope.selected_categoria = selected_categoria;
 
 	$scope.deleteCategoria = function(categoria_deleted) {
-		ArticulosCategoriaServiceFactory.deleteCategoria(function() {
-			$timeout(function() {
-				$uibModalInstance.close();
-			}, 200);
-		}, categoria_deleted);
+		ArticulosCategoriaServiceFactory.deleteCategoria(categoria_deleted).then(function() {
+			$uibModalInstance.close();
+		});
 	};
 
     $scope.editCategoria = function (categoria_edited) {
-		ArticulosCategoriaServiceFactory.editCategoria(function() {
-			$timeout(function() {
-				$uibModalInstance.close();
-			}, 200);
-		}, categoria_edited);
+		ArticulosCategoriaServiceFactory.editCategoria(categoria_edited).then(function() {
+			$uibModalInstance.close();
+		});
     };
 
     $scope.createCategoria = function (categoria_created) {

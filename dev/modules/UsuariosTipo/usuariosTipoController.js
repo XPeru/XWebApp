@@ -10,11 +10,10 @@ usuariosTipo.controller('usuariosTipoController', ['$scope',
     function ($scope, $window, $location, $http, $uibModal, $timeout, UsuariosTipoServiceFactory, NgTableParams) {
         $scope.sortType     = 'ID_TIPO_USUARIO'; // set the default sort type
         $scope.sortReverse  = false;  // set the default sort order
-        $scope.search   = '';     // set the default search/filter term
-        $scope.setType = function(type, search) {
+
+        $scope.setType = function(type) {
             $scope.sortType = type;
             $scope.sortReverse = !$scope.sortReverse;
-            $scope.search = search;
         };
         $scope.usuariosTipoData = [{}];
         $scope.modal_tipo_usuario_not_finished = true;
@@ -37,11 +36,9 @@ usuariosTipo.controller('usuariosTipoController', ['$scope',
         });
 
         $scope.callGetAllTipoUsuario = function() {
-            UsuariosTipoServiceFactory.getAllTipoUsuario(function(response) {
-                    $timeout(function() {
-                        $scope.usuariosTipoData = response;
-                        $scope.usuariosTipoTable.reload();
-                    }, 200);
+            UsuariosTipoServiceFactory.getAllTipoUsuario().then(function(response) {
+                $scope.usuariosTipoData = response.data;
+                $scope.usuariosTipoTable.reload();
             });
         };
 
@@ -106,12 +103,10 @@ usuariosTipo.controller('usuariosTipoController', ['$scope',
         });
 
         $scope.callGetAssosTipoAccesosByIdTipoUsuario = function() {
-            UsuariosTipoServiceFactory.getAssosTipoAccesosByIdTipoUsuario(function(response) {
-                    $timeout(function() {
-                        $scope.assoTipoAccesoData = response;
-                        $scope.assoTipoAccesoTable.reload();
-                    }, 200);
-            }, $scope.idSelectedTipoUsuario);
+            UsuariosTipoServiceFactory.getAssosTipoAccesosByIdTipoUsuario($scope.idSelectedTipoUsuario).then(function(response) {
+                $scope.assoTipoAccesoData = response;
+                $scope.assoTipoAccesoTable.reload();
+            });
         };
 
         $scope.openModalAssoTipoAcceso = function() {
@@ -153,27 +148,21 @@ usuariosTipo.controller('ModalUsuarioTipoController',  function($scope, $http, $
     $scope.selected_tipo_usuario = selected_tipo_usuario;
 
     $scope.deleteTipoUsuario = function(tipo_usuario) {
-        UsuariosTipoServiceFactory.deleteTipoUsuario(function() {
-            $timeout(function() {
-                $uibModalInstance.close();
-            }, 200);
-        }, tipo_usuario.ID_TIPO_USUARIO);
+        UsuariosTipoServiceFactory.deleteTipoUsuario(tipo_usuario.ID_TIPO_USUARIO).then(function() {
+            $uibModalInstance.close();
+        });
     };
 
     $scope.updateTipoUsuario = function (tipo_usuario) {
-        UsuariosTipoServiceFactory.updateTipoUsuario(function() {
-            $timeout(function() {
-                $uibModalInstance.close();
-            }, 200);
-        }, tipo_usuario);
+        UsuariosTipoServiceFactory.updateTipoUsuario(tipo_usuario).then(function() {
+            $uibModalInstance.close();
+        });
     };
 
     $scope.createTipoUsuario = function (tipo_usuario) {
-        UsuariosTipoServiceFactory.createTipoUsuario(function() {
-            $timeout(function() {
-                $uibModalInstance.close();
-            }, 200);
-        }, tipo_usuario);
+        UsuariosTipoServiceFactory.createTipoUsuario(tipo_usuario).then(function() {
+            $uibModalInstance.close();
+        });
     };
 
     $scope.cancel = function () {
@@ -181,18 +170,15 @@ usuariosTipo.controller('ModalUsuarioTipoController',  function($scope, $http, $
     };
 });
 
-usuariosTipo.controller('ModalAssoTipoAccesoController',  function($scope, $http, $timeout, $uibModalInstance, selected_tipo_usuario, UsuariosTipoServiceFactory) {
+usuariosTipo.controller('ModalAssoTipoAccesoController', function($scope, $http, $timeout, $uibModalInstance, selected_tipo_usuario, UsuariosTipoServiceFactory) {
 //TODO comprobar si esto es realmente necesario o no
     $scope.selected_tipo_usuario = selected_tipo_usuario;
 
     $scope.updateAsso = function (tipo_usuario) {
-        UsuariosTipoServiceFactory.updateTipoUsuario(function() {
-            $timeout(function() {
-                $uibModalInstance.close();
-            }, 200);
-        }, tipo_usuario);
+        UsuariosTipoServiceFactory.updateTipoUsuario(tipo_usuario).then(function() {
+            $uibModalInstance.close();
+        });
     };
-
 
     $scope.cancel = function () {
       $uibModalInstance.dismiss('cancel');

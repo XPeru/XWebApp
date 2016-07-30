@@ -4,46 +4,28 @@ usuariosTipoService.factory('UsuariosTipoServiceFactory', function($http) {
 	var service = {};
 	var urlBase = '/api/tipousuario';
 
-	service.getAllTipoUsuario = function(callback) {
-		$http.get(urlBase + 'list')
-			.success(function(response) {
-				callback(response);
-			});
+	service.getAllTipoUsuario = function() {
+		return $http.get(urlBase + 'list');
 	};
 
-	service.getTipoUsuarioById = function(callback, id_tipo_usuario) {
-		$http.get(urlBase +'/' + id_tipo_usuario)
-			.success(function(response) {
-				callback(response);
-			});
+	service.getTipoUsuarioById = function(id_tipo_usuario) {
+		return $http.get(urlBase +'/' + id_tipo_usuario);
 	};
 
-	service.createTipoUsuario = function(callback, new_tipo_usuario) {
-		$http.post(urlBase, new_tipo_usuario)
-			.success(function(response) {
-				callback(response);
-			});
+	service.createTipoUsuario = function(new_tipo_usuario) {
+		return $http.post(urlBase, new_tipo_usuario);
 	};
 
-	service.updateTipoUsuario = function(callback, updated_tipo_usuario) {
-		$http.put(urlBase, updated_tipo_usuario)
-			.success(function(response) {
-				callback(response);
-			});
+	service.updateTipoUsuario = function(updated_tipo_usuario) {
+		return $http.put(urlBase, updated_tipo_usuario);
 	};
 
-	service.deleteTipoUsuario = function(callback, id_tipo_usuario) {
-		$http.delete(urlBase + '/' + id_tipo_usuario)
-			.success(function(response) {
-				callback(response);
-			});
+	service.deleteTipoUsuario = function(id_tipo_usuario) {
+		return $http.delete(urlBase + '/' + id_tipo_usuario);
 	};
 
 	service.getAssosTipoAccesosByIdTipoUsuario = function(callback, id_tipo_usuario) {
-		$http.get(urlBase + '/assoaccesos' + '/' + id_tipo_usuario)
-			.success(function(response) {
-				callback(response);
-			});
+		return $http.get(urlBase + '/assoaccesos' + '/' + id_tipo_usuario);
 	};
 
 	service.getPDF = function(callback) {

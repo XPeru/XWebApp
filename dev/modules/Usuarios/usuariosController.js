@@ -1,3 +1,4 @@
+"use strict";
 var usuarios = angular.module('Usuarios', ['ui.bootstrap']);
 //el orden de las variables tiene que ser el mismo en la declaracion de estas, y dentro de la funcion que define al controlador
 usuarios.controller('usuariosController', ['$scope', '$location', '$http', '$uibModal', '$timeout',
@@ -5,11 +6,9 @@ usuarios.controller('usuariosController', ['$scope', '$location', '$http', '$uib
 	function($scope, $location, $http, $uibModal, $timeout, UsuariosServiceFactory, NgTableParams, UsuariosTipoServiceFactory) {
 		$scope.sortType     = 'ID_USUARIO'; // set the default sort type
         $scope.sortReverse  = false;  // set the default sort order
-        $scope.search   = '';     // set the default search/filter term
-        $scope.setType = function(type, search) {
+        $scope.setType = function(type) {
             $scope.sortType = type;
             $scope.sortReverse = !$scope.sortReverse;
-            $scope.search = search;
         };
 
         $scope.idSelectedUsuario = null;
@@ -18,11 +17,8 @@ usuarios.controller('usuariosController', ['$scope', '$location', '$http', '$uib
 		};
 
 		$scope.callGetAllTipoUsuario = function() {
-			UsuariosTipoServiceFactory.getAllTipoUsuario(function(response) {
-				$timeout(function() {
-					$scope.tipoUsuarioList = response.TiposUsuario;
-					console.info(response);
-				}, 200);
+			UsuariosTipoServiceFactory.getAllTipoUsuario().then(function(response) {
+				$scope.tipoUsuarioList = response.data.TiposUsuario;
 			});
 		};
 
@@ -48,11 +44,9 @@ usuarios.controller('usuariosController', ['$scope', '$location', '$http', '$uib
 		});
 
 		$scope.callGetUsuarioList = function() {
-			UsuariosServiceFactory.getUsuarioList(function(response) {
-				$timeout(function() {
-					$scope.usersData = response;
-					$scope.usersTable.reload();
-				}, 200);
+			UsuariosServiceFactory.getUsuarioList().then(function(response) {
+				$scope.usersData = response.data;
+				$scope.usersTable.reload();
 			});
 		};
 
@@ -103,11 +97,9 @@ usuarios.controller('ModalUsuario',  function ($scope, $http, $timeout, $uibModa
 	$scope.selected_user = selected_user;
 	$scope.tipoUsuarioList = tipoUsuarioList;
 	$scope.deleteUsuario = function(user_to_delete) {
-		UsuariosServiceFactory.deleteUsuario(function() {
-			$timeout(function() {
-				$uibModalInstance.close();
-			}, 200);
-		}, user_to_delete);
+		UsuariosServiceFactory.deleteUsuario(user_to_delete).then(function() {
+			$uibModalInstance.close();
+		});
 	};
 
     $scope.updateUsuario = function (updated_user) {
@@ -149,7 +141,7 @@ usuarios.controller('ModalUsuario',  function ($scope, $http, $timeout, $uibModa
             var model = $parse(attrs.fileModel);
             var modelSetter = model.assign;
             
-            element.bind('change', function(){
+            element.bind('change', function() {
                 scope.$apply(function(){
                     modelSetter(scope, element[0].files[0]);
                 });

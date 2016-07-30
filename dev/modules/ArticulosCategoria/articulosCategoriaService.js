@@ -15,11 +15,8 @@ categoriaesService.factory('ArticulosCategoriaServiceFactory', function($http) {
 	service.editCategoria = function(categoria_edited) {
 		return $http.put(urlBase, categoria_edited);
 	};
-	service.deleteCategoria = function(callback, categoria_deleted) {
-		$http.delete(urlBase + '/' + categoria_deleted.ID_CATEGORIA)
-			.success(function(response) {
-				callback(response);
-			});
+	service.deleteCategoria = function(categoria_deleted) {
+		return $http.delete(urlBase + '/' + categoria_deleted.ID_CATEGORIA);
 	};
 
 	return service;
