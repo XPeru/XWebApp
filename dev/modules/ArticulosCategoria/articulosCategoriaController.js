@@ -1,3 +1,4 @@
+"use strict";
 var articulosCategoria = angular.module('ArticulosCategoria', ['ui.bootstrap']);
 
 articulosCategoria.controller('articulosCategoriaController', ['$scope', '$location', '$http', '$uibModal', '$timeout',

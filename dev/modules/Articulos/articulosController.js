@@ -1,3 +1,4 @@
+"use strict";
 var articulos = angular.module('Articulos', ['ui.bootstrap']);
 //el orden de las variables tiene que ser el mismo en la declaracion de estas, y dentro de la funcion que define al controlador
 articulos.controller('articulosController', ['$scope', '$location', '$http', '$uibModal', '$timeout',

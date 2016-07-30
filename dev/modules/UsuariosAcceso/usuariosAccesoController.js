@@ -1,3 +1,4 @@
+"use strict";
 var usuariosTipo = angular.module('UsuariosAcceso', ['ui.bootstrap']);
 usuariosTipo.controller('usuariosAccesoController', ['$scope', '$location', '$http', '$uibModal', '$timeout', 'UsuariosAccesoServiceFactory', 'NgTableParams',
     function($scope, $location, $http, $uibModal, $timeout, UsuariosAccesoServiceFactory, NgTableParams) {

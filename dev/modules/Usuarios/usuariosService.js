@@ -1,3 +1,4 @@
+"use strict";
 var usuariosService = angular.module('usuariosService', ['ngResource']);
 
 usuariosService.factory('UsuariosServiceFactory', function($http) {

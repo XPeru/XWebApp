@@ -1,3 +1,4 @@
+"use strict";
 var usuariosTipo = angular.module('UsuariosTipo', ['ui.bootstrap']);
 usuariosTipo.controller('usuariosTipoController', ['$scope',
                                                     '$window',

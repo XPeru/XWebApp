@@ -1,3 +1,4 @@
+"use strict";
 var articulosService = angular.module('articulosService', ['ngResource']);
 
 articulosService.factory('ArticulosServiceFactory', function($http) {

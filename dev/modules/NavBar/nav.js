@@ -1,3 +1,4 @@
+"use strict";
 angular.module('NavBar', [])
 	
 	.controller('navBarController', ['$scope', '$rootScope', function ($scope, $rootScope) {

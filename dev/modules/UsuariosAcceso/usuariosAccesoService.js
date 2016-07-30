@@ -1,3 +1,4 @@
+"use strict";
 var usuariosAccesoService = angular.module('usuariosAccesoService', ['ngResource']);
 
 usuariosAccesoService.factory('UsuariosAccesoServiceFactory', function($http) {

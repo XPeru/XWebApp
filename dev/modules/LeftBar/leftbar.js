@@ -1,5 +1,5 @@
 /*global $*/
-
+"use strict";
 angular.module('LeftBar', [])
 	
 	.controller('leftbarController', ['$scope', '$rootScope', function ($scope, $rootScope) {

@@ -1,3 +1,4 @@
+"use strict";
 angular.module('Footer', [])
 	.controller('footerController', ['$scope', '$rootScope', function ($scope, $rootScope) {
 	$scope.comment ="this is usless";
