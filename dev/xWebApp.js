@@ -59,6 +59,7 @@
 				views : {
 					'content@': {
 						controller: 'usuariosController',
+						controllerAs: 'usuariosCtrl',
 						templateUrl: 'dev/modules/Usuarios/usuarios.html'
 					}
 				}

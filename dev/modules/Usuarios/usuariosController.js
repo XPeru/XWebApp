@@ -1,58 +1,62 @@
 "use strict";
-var usuarios = angular.module('Usuarios', ['ui.bootstrap']);
-//el orden de las variables tiene que ser el mismo en la declaracion de estas, y dentro de la funcion que define al controlador
-usuarios.controller('usuariosController', ['$scope', '$location', '$http', '$uibModal', '$timeout',
-											'UsuariosServiceFactory', 'NgTableParams', 'UsuariosTipoServiceFactory',
-	function($scope, $location, $http, $uibModal, $timeout, UsuariosServiceFactory, NgTableParams, UsuariosTipoServiceFactory) {
-		$scope.sortType     = 'ID_USUARIO'; // set the default sort type
-        $scope.sortReverse  = false;  // set the default sort order
-        $scope.setType = function(type) {
-            $scope.sortType = type;
-            $scope.sortReverse = !$scope.sortReverse;
-        };
 
-        $scope.idSelectedUsuario = null;
-		$scope.setSelected = function(idSelectedUsuario) {
-			$scope.idSelectedUsuario = idSelectedUsuario;
+angular.module('Usuarios', ['ui.bootstrap'])
+	.controller('usuariosController', ['$scope',
+										'$location',
+										'$http',
+										'$uibModal',
+										'$timeout',
+										'UsuariosServiceFactory',
+										'NgTableParams',
+										'UsuariosTipoServiceFactory',
+	function($scope, $location, $http, $uibModal, $timeout, UsuariosServiceFactory, NgTableParams, UsuariosTipoServiceFactory) {
+		var ctrl = this;
+		ctrl.sortType = 'ID_USUARIO'; // set the default sort type
+		ctrl.sortReverse = false; // set the default sort order
+		ctrl.setType = function(type) {
+			ctrl.sortType = type;
+			ctrl.sortReverse = !ctrl.sortReverse;
+		};
+		ctrl.idSelectedUsuario = null;
+		ctrl.setSelected = function(idSelectedUsuario) {
+			ctrl.idSelectedUsuario = idSelectedUsuario;
 		};
 
-		$scope.callGetAllTipoUsuario = function() {
+		ctrl.callGetAllTipoUsuario = function() {
 			UsuariosTipoServiceFactory.getAllTipoUsuario().then(function(response) {
-				$scope.tipoUsuarioList = response.data.TiposUsuario;
+				ctrl.tipoUsuarioList = response.data.TiposUsuario;
 			});
 		};
 
-		$scope.callGetAllTipoUsuario();
-		$scope.usersData = [{}];
-		$scope.modal_user_not_finished = true;
-		$scope.usersTable = new NgTableParams({
+		ctrl.callGetAllTipoUsuario();
+		ctrl.usersData = [{}];
+		ctrl.modal_user_not_finished = true;
+		ctrl.usersTable = new NgTableParams({
 			page: 1,
 			count: 10
 		}, {
 			total: 0,
 			counts: [],
 			getData: function(params) {
-				if ($scope.modal_user_not_finished) {
-						$scope.callGetUsuarioList();
+				if (ctrl.modal_user_not_finished) {
+						ctrl.callGetUsuarioList();
 					} else {
-						params.total($scope.usersData.length);
-						return $scope.usersData;
+						params.total(ctrl.usersData.length);
+						return ctrl.usersData;
 					}
-					$scope.modal_user_not_finished = false;
+					ctrl.modal_user_not_finished = false;
 			}
 			
 		});
 
-		$scope.callGetUsuarioList = function() {
+		ctrl.callGetUsuarioList = function() {
 			UsuariosServiceFactory.getUsuarioList().then(function(response) {
-				$scope.usersData = response.data;
-				$scope.usersTable.reload();
+				ctrl.usersData = response.data;
+				ctrl.usersTable.reload();
 			});
 		};
 
-		
-
-		$scope.openModalUsuario = function(selected_modal, selected_user) {
+		ctrl.openModalUsuario = function(selected_modal, selected_user) {
 			var modalInstance = $uibModal.open({
 				templateUrl: function() {
 					var template;
@@ -69,83 +73,27 @@ usuarios.controller('usuariosController', ['$scope', '$location', '$http', '$uib
 					}
 					return template;
 				},
-				controller: 'ModalUsuario',
+				controller: 'modalUsuarioController',
+				controllerAs: 'modalUsuarioCtrl',
 				resolve : {
 					selected_user : function() {
 						return selected_user;
 					},
 					tipoUsuarioList : function() {
-						return $scope.tipoUsuarioList;
+						return ctrl.tipoUsuarioList;
 					}
 				}
 			});
 
 			modalInstance.result.then(function() {
-				$scope.modal_user_not_finished = true;
-				$scope.usersTable.reload();
+				ctrl.modal_user_not_finished = true;
+				ctrl.usersTable.reload();
 				
 			}, function() {
-				$scope.modal_user_not_finished = true;
+				ctrl.modal_user_not_finished = true;
+				ctrl.usersTable.reload();
 			});
 		};
 
 	}
 ]);
-
-usuarios.controller('ModalUsuario',  function ($scope, $http, $timeout, $uibModalInstance, selected_user, UsuariosServiceFactory, tipoUsuarioList) {
-	//TODO comprobar si esto es realmente necesario o no
-	$scope.selected_user = selected_user;
-	$scope.tipoUsuarioList = tipoUsuarioList;
-	$scope.deleteUsuario = function(user_to_delete) {
-		UsuariosServiceFactory.deleteUsuario(user_to_delete).then(function() {
-			$uibModalInstance.close();
-		});
-	};
-
-    $scope.updateUsuario = function (updated_user) {
-		UsuariosServiceFactory.uploadPhotoUsuario(updated_user.FOTO_FILE).then(function(response) {
-			updated_user.FOTO = response.data;
-			UsuariosServiceFactory.updateUsuario(updated_user).then(function(response) {
-				$uibModalInstance.close();
-				console.info(response);
-			}, function(response) {
-				console.info(response.status + " " + response.statusText);
-			});
-		}, function(response) {
-			console.info(response.status + " " + response.statusText);
-		});
-    };
-
-	$scope.createUsuario = function (user_created) {
-		UsuariosServiceFactory.uploadPhotoUsuario(user_created.FOTO_FILE).then(function(response) {
-			user_created.FOTO = response.data;
-			UsuariosServiceFactory.createUsuario(user_created).then(function(response) {
-				$uibModalInstance.close();
-				console.info(response);
-			}, function(response) {
-				console.info(response.status + " " + response.statusText);
-			});
-		}, function(response) {
-			console.info(response.status + " " + response.statusText);
-		});
-	};
-
-    $scope.cancel = function () {
-		$uibModalInstance.dismiss('cancel');
-    };
-
-}).directive('fileModel', ['$parse', function ($parse) {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            var model = $parse(attrs.fileModel);
-            var modelSetter = model.assign;
-            
-            element.bind('change', function() {
-                scope.$apply(function(){
-                    modelSetter(scope, element[0].files[0]);
-                });
-            });
-        }
-    };
-}]);

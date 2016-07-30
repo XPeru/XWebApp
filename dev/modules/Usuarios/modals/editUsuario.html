@@ -1,47 +1,110 @@
 <div class="modal-header">
-    <h3 class="modal-title">Editando Usuario</h3>
+		<h3 class="modal-title">Editando Usuario</h3>
 </div>
 <div class="modal-body">
-  <form role="form" name="formEditUsuario" ng-submit="updateUsuario(selected_user)" novalidate>
-    <div class="form-group" ng-class="{'has-error':formEditUsuario.nombreF.$error.required && !formEditUsuario.nombreF.$pristine}">
-      <label for="nombre">Nombre</label>
-      <input type="text" class="form-control" id="nombre" name="nombreF" placeholder="{{selected_user.NOMBRE}}" disabled>
-      
-    </div>
-    <div class="form-group">
-      <label for="apellidos">Apellidos</label>
-      <input type="text" class="form-control" id="apellidos" placeholder="{{selected_user.APELLIDOS}}" disabled>
-    </div>
-    <div class="form-group has-feedback" ng-class="{'has-error':(formEditUsuario.emailF.$invalid || formEditUsuario.emailF.$error.required) && !formEditUsuario.emailF.$pristine}">
-      <label for="email" class="control-label">Correo electronico</label>
-      <input type="email" class="form-control" id="email" name="emailF" ng-model="selected_user.EMAIL" placeholder="Correo electronico" required>
-      <span ng-show="formEditUsuario.emailF.$invalid && !formEditUsuario.emailF.$pristine"
-            class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-      <span ng-show="(formEditUsuario.emailF.$invalid || formEditUsuario.emailF.$error.required) && !formEditUsuario.emailF.$pristine" class="help-block">Ingrese un correo electronico valido</span>
-    </div>
-    <div class="form-group has-feedback" ng-class="{'has-error':(formEditUsuario.passwordF.$invalid || formEditUsuario.passwordF.$error.required) && !formEditUsuario.passwordF.$pristine}">
-      <label for="password">Contrase&ntilde;a</label>
-      <input type="password" class="form-control" id="password" name="passwordF" ng-model="selected_user.PASSWORD" placeholder="Contrase&ntilde;a" required>
-      <span ng-show="formEditUsuario.passwordF.$invalid && !formEditUsuario.passwordF.$pristine"
-            class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-      <span ng-show="(formEditUsuario.passwordF.$invalid || formEditUsuario.passwordF.$error.required) && !formEditUsuario.passwordF.$pristine" class="help-block">Ingrese una contrase&ntilde;a valida</span>
-    </div>
-    <div class="form-group">
-      <label for="tipousuario">Tipo de usuario</label>
-      <select class="form-control" ng-model="selected_user.FK_TIPO_USUARIO" name="obj" ng-options="obj.ID_TIPO_USUARIO as obj.TIPO for obj in tipoUsuarioList">
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="fileform">Foto</label>
-      <input type="file" id="fileform" name="userPhoto" file-model="selected_user.FOTO_FILE">
-    </div>
-    <div class="form-group">
-      <button type="submit" class="btn btn-success" ng-disabled="formEditUsuario.$invalid">
-        <i class="fa fa-check" aria-hidden="true"></i>
-      </button>
-      <button class="btn btn-danger" type="button" ng-click="cancel()">
-        <i class="fa fa-times" aria-hidden="true"></i>
-      </button>
-    </div>
-  </form>
+	<form role="form"
+			name="formEditUsuario"
+			ng-submit="modalUsuarioCtrl.updateUsuario(modalUsuarioCtrl.selected_user)"
+			novalidate>
+
+		<div class="form-group"
+				ng-class="{'has-error':formEditUsuario.nombreF.$error.required &&
+										!formEditUsuario.nombreF.$pristine}">
+			<label for="nombre">Nombre</label>
+
+			<input type="text"
+					class="form-control"
+					id="nombre"
+					name="nombreF"
+					placeholder="{{modalUsuarioCtrl.selected_user.NOMBRE}}"
+					disabled>
+		</div>
+
+		<div class="form-group">
+			<label for="apellidos">Apellidos</label>
+
+			<input type="text"
+					class="form-control"
+					id="apellidos"
+					placeholder="{{modalUsuarioCtrl.selected_user.APELLIDOS}}"
+					disabled>
+		</div>
+
+		<div class="form-group has-feedback"
+				ng-class="{'has-error':(formEditUsuario.emailF.$invalid ||
+										formEditUsuario.emailF.$error.required) &&
+										!formEditUsuario.emailF.$pristine}">
+			<label for="email" class="control-label">Correo electronico</label>
+
+			<input type="email"
+					class="form-control"
+					id="email" name="emailF"
+					ng-model="modalUsuarioCtrl.selected_user.EMAIL"
+					placeholder="Correo electronico"
+					required>
+
+			<span ng-show="formEditUsuario.emailF.$invalid &&
+							!formEditUsuario.emailF.$pristine"
+					class="glyphicon glyphicon-remove form-control-feedback"
+					aria-hidden="true"></span>
+			<span ng-show="(formEditUsuario.emailF.$invalid ||
+							formEditUsuario.emailF.$error.required) &&
+							!formEditUsuario.emailF.$pristine"
+					class="help-block">Ingrese un correo electronico valido</span>
+		</div>
+
+		<div class="form-group has-feedback"
+				ng-class="{'has-error':(formEditUsuario.passwordF.$invalid ||
+										formEditUsuario.passwordF.$error.required) &&
+										!formEditUsuario.passwordF.$pristine}">
+			<label for="password">Contrase&ntilde;a</label>
+
+			<input type="password"
+					class="form-control"
+					id="password"
+					name="passwordF"
+					ng-model="modalUsuarioCtrl.selected_user.PASSWORD"
+					placeholder="Contrase&ntilde;a"
+					required>
+
+			<span ng-show="formEditUsuario.passwordF.$invalid &&
+							!formEditUsuario.passwordF.$pristine"
+					class="glyphicon glyphicon-remove form-control-feedback"
+					aria-hidden="true"></span>
+			<span ng-show="(formEditUsuario.passwordF.$invalid ||
+							formEditUsuario.passwordF.$error.required) &&
+							!formEditUsuario.passwordF.$pristine"
+					class="help-block">Ingrese una contrase&ntilde;a valida</span>
+		</div>
+
+		<div class="form-group">
+			<label for="tipousuario">Tipo de usuario</label>
+			<select class="form-control"
+					ng-model="modalUsuarioCtrl.selected_user.FK_TIPO_USUARIO"
+					name="obj"
+					ng-options="obj.ID_TIPO_USUARIO as obj.TIPO for obj in modalUsuarioCtrl.tipoUsuarioList">
+			</select>
+		</div>
+
+		<div class="form-group">
+			<label for="fileform">Foto</label>
+			<input type="file"
+					id="fileform"
+					name="userPhoto"
+					file-model="modalUsuarioCtrl.selected_user.FOTO_FILE">
+		</div>
+
+		<div class="form-group">
+			<button type="submit"
+					class="btn btn-success"
+					ng-disabled="formEditUsuario.$invalid">
+				<i class="fa fa-check" aria-hidden="true"></i>
+			</button>
+			<button class="btn btn-danger"
+					type="button"
+					ng-click="modalUsuarioCtrl.cancel()">
+				<i class="fa fa-times" aria-hidden="true"></i>
+			</button>
+		</div>
+	</form>
 </div>
