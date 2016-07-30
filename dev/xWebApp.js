@@ -70,6 +70,7 @@
 				views : {
 					'content@': {
 						controller: 'usuariosTipoController',
+						controllerAs: 'usuariosTipoCtrl',
 						templateUrl: 'dev/modules/UsuariosTipo/usuariosTipo.html'
 					}
 				}
