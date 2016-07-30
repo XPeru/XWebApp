@@ -71,6 +71,7 @@ articulosCategoria.controller('articulosCategoriaController', ['$scope', '$locat
 				$scope.categoriasTable.reload();
 			}, function() {
 				$scope.modal_not_finished = true;
+				$scope.categoriasTable.reload();
 			});
 		};
 }]);

@@ -74,6 +74,7 @@ almacenesGestion.controller('almacenesGestionController', ['$scope', '$location'
 				
 			}, function() {
 				$scope.modal_not_finished = true;
+				$scope.almacenesTable.reload();
 			});
 		};
 }]);

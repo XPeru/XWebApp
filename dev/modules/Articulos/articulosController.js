@@ -85,6 +85,7 @@ articulos.controller('articulosController', ['$scope', '$location', '$http', '$u
 				
 			}, function() {
 				$scope.modal_article_not_finished = true;
+				$scope.articlesTable.reload();
 			});
 		};
 
