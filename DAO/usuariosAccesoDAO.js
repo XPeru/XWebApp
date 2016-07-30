@@ -104,7 +104,7 @@ usuariosAccesoDAO.prototype.handleRoutes = function(router, connection) {
         });
     });
 
-	router.delete("/tipousuario/:id_acceso_usuario", function(req, res) {
+	router.delete(urlBase + "/:id_acceso_usuario", function(req, res) {
 		printRequest(urlBase + "/:id_acceso_usuario", " delete");
         var query = "DELETE from ?? WHERE ??=?";
         var table = [tableName, "ID_ACCESO_USUARIO", req.params.id_acceso_usuario];

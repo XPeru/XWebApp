@@ -5,39 +5,24 @@ usuariosAccesoService.factory('UsuariosAccesoServiceFactory', function($http) {
 	var service = {};
 	var urlBase = '/api';
 
-	service.getAllAccesoUsuario = function(callback) {
-		$http.get(urlBase + '/accesousuariolist')
-			.success(function(response) {
-				callback(response);
-			});
+	service.getAllAccesoUsuario = function() {
+		return $http.get(urlBase + '/accesousuariolist');
 	};
 
-	service.getAccesoUsuarioById = function(callback, id_acceso_usuario) {
-		$http.get(urlBase + '/accesousuario' + id_acceso_usuario)
-			.success(function(response) {
-				callback(response);
-			});
+	service.getAccesoUsuarioById = function(id_acceso_usuario) {
+		return $http.get(urlBase + '/accesousuario' + id_acceso_usuario);
 	};
 
-	service.createAccesoUsuario = function(callback, new_acceso_usuario) {
-		$http.post(urlBase + '/accesousuario', new_acceso_usuario)
-			.success(function(response) {
-				callback(response);
-			});
+	service.createAccesoUsuario = function(new_acceso_usuario) {
+		return $http.post(urlBase + '/accesousuario', new_acceso_usuario);
 	};
 
-	service.updateAccesoUsuario = function(callback, updated_acceso_usuario) {
-		$http.put(urlBase + '/accesousuario', updated_acceso_usuario)
-			.success(function(response) {
-				callback(response);
-			});
+	service.updateAccesoUsuario = function(updated_acceso_usuario) {
+		return $http.put(urlBase + '/accesousuario', updated_acceso_usuario);
 	};
 
-	service.deleteAccesoUsuario = function(callback, id_acceso_usuario) {
-		$http.delete(urlBase + '/accesousuario'+ '/' + id_acceso_usuario)
-			.success(function(response) {
-				callback(response);
-			});
+	service.deleteAccesoUsuario = function(id_acceso_usuario) {
+		return $http.delete(urlBase + '/accesousuario'+ '/' + id_acceso_usuario);
 	};
 
 	return service;

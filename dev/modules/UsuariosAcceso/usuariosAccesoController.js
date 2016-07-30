@@ -7,11 +7,10 @@ usuariosTipo.controller('usuariosAccesoController', ['$scope', '$location', '$ht
 
         $scope.sortType     = 'ID_ACCESO_USUARIO'; // set the default sort type
         $scope.sortReverse  = false;  // set the default sort order
-        $scope.search   = '';     // set the default search/filter term
-        $scope.setType = function(type, search) {
+
+        $scope.setType = function(type) {
             $scope.sortType = type;
             $scope.sortReverse = !$scope.sortReverse;
-            $scope.search = search;
         };
 
         $scope.usuariosAccesoTable = new NgTableParams({
@@ -33,11 +32,9 @@ usuariosTipo.controller('usuariosAccesoController', ['$scope', '$location', '$ht
         });
 
         $scope.callGetAllAccesoUsuario = function() {
-            UsuariosAccesoServiceFactory.getAllAccesoUsuario(function(response) {
-                    $timeout(function() {
-                        $scope.usuariosAccesoData = response;
-                        $scope.usuariosAccesoTable.reload();
-                    }, 200);
+            UsuariosAccesoServiceFactory.getAllAccesoUsuario().then(function(response) {
+                $scope.usuariosAccesoData = response.data;
+                $scope.usuariosAccesoTable.reload();
             });
         };
 
@@ -73,10 +70,11 @@ usuariosTipo.controller('usuariosAccesoController', ['$scope', '$location', '$ht
 
             modalInstance.result.then(function() {
                 $scope.modal_acceso_usuario_not_finished = true;
-                $scope.usuariosTipoTable.reload();
+                $scope.usuariosAccesoTable.reload();
                 
             }, function() {
                 $scope.modal_acceso_usuario_not_finished = true;
+                $scope.usuariosAccesoTable.reload();
             });
         };
 
@@ -88,27 +86,21 @@ usuariosTipo.controller('ModalUsuarioAccesoController',  function($scope, $http,
     $scope.selected_acceso_usuario = selected_acceso_usuario;
 
     $scope.deleteAccesoUsuario = function(acceso_usuario) {
-        UsuariosAccesoServiceFactory.deleteAccesoUsuario(function() {
-            $timeout(function() {
-                $uibModalInstance.close();
-            }, 200);
-        }, acceso_usuario.ID_ACCESO_USUARIO);
+        UsuariosAccesoServiceFactory.deleteAccesoUsuario(acceso_usuario.ID_ACCESO_USUARIO).then(function() {
+            $uibModalInstance.close();
+        });
     };
 
     $scope.updateAccesoUsuario = function (acceso_usuario) {
-        UsuariosAccesoServiceFactory.updateAccesoUsuario(function() {
-            $timeout(function() {
-                $uibModalInstance.close();
-            }, 200);
-        }, acceso_usuario);
+        UsuariosAccesoServiceFactory.updateAccesoUsuario(acceso_usuario).then(function() {
+            $uibModalInstance.close();
+        });
     };
 
     $scope.createAccesoUsuario = function (acceso_usuario) {
-        UsuariosAccesoServiceFactory.createAccesoUsuario(function() {
-            $timeout(function() {
-                $uibModalInstance.close();
-            }, 200);
-        }, acceso_usuario);
+        UsuariosAccesoServiceFactory.createAccesoUsuario(acceso_usuario).then(function() {
+            $uibModalInstance.close();
+        });
     };
 
     $scope.cancel = function () {
