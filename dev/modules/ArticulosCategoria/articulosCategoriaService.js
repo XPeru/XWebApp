@@ -4,25 +4,16 @@ categoriaesService.factory('ArticulosCategoriaServiceFactory', function($http) {
 	var service = {};
 	var urlBase = '/api/categoria';
 
-	service.getAllCategorias = function(callback) {
-		$http.get(urlBase + 'list')
-			.success(function(response) {
-				callback(response);
-			});
+	service.getAllCategorias = function() {
+		return $http.get(urlBase + 'list');
 	};
 
-	service.createCategoria = function(callback, categoria_created) {
-		$http.post(urlBase, categoria_created)
-			.success(function(response) {
-				callback(response);
-			});
+	service.createCategoria = function(categoria_created) {
+		return $http.post(urlBase, categoria_created);
 	};
 
-	service.editCategoria = function(callback, categoria_edited) {
-		$http.put(urlBase, categoria_edited)
-			.success(function(response) {
-				callback(response);
-			});
+	service.editCategoria = function(categoria_edited) {
+		return $http.put(urlBase, categoria_edited);
 	};
 	service.deleteCategoria = function(callback, categoria_deleted) {
 		$http.delete(urlBase + '/' + categoria_deleted.ID_CATEGORIA)

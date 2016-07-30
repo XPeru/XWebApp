@@ -4,18 +4,12 @@ articulosService.factory('ArticulosServiceFactory', function($http) {
 	var service = {};
 	var urlBase = '/api/articulo';
 
-	service.getArticuloList = function(callback) {
-		$http.get(urlBase + 'list')
-			.success(function(response) {
-				callback(response);
-			});
+	service.getArticuloList = function() {
+		return $http.get(urlBase + 'list');
 	};
 
-	service.getArticuloByIdArticulo = function(callback, id_articulo) {
-		$http.get(urlBase + '/' + id_articulo)
-			.success(function(response) {
-				callback(response);
-			});
+	service.getArticuloByIdArticulo = function(id_articulo) {
+		return $http.get(urlBase + '/' + id_articulo);
 	};
 
 	service.createArticulo = function(articulo) {
@@ -26,11 +20,8 @@ articulosService.factory('ArticulosServiceFactory', function($http) {
 		return $http.put(urlBase, articulo);
 	};
 
-	service.deleteArticulo = function(callback, articulo) {
-		$http.delete(urlBase + 'delete', articulo)
-			.success(function(response) {
-				callback(response);
-			});
+	service.deleteArticulo = function(articulo) {
+		return $http.delete(urlBase + 'delete', articulo);
 	};
 
 	service.uploadImageArticulo = function(file) {

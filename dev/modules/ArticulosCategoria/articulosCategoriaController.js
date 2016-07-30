@@ -5,11 +5,9 @@ articulosCategoria.controller('articulosCategoriaController', ['$scope', '$locat
 	function($scope, $location, $http, $uibModal, $timeout, ArticulosCategoriaServiceFactory, NgTableParams) {
 		$scope.sortType     = 'ID_CATEGORIA'; // set the default sort type
         $scope.sortReverse  = false;  // set the default sort order
-        $scope.search   = '';     // set the default search/filter term
-        $scope.setType = function(type, search) {
+        $scope.setType = function(type) {
             $scope.sortType = type;
             $scope.sortReverse = !$scope.sortReverse;
-            $scope.search = search;
         };
 
 		$scope.idSelectedCategoria = null;
@@ -37,11 +35,9 @@ articulosCategoria.controller('articulosCategoriaController', ['$scope', '$locat
 		});
 
 		$scope.callGetAllCategorias = function() {
-			ArticulosCategoriaServiceFactory.getAllCategorias(function(response) {
-					$timeout(function() {
-						$scope.categoriasData = response;
-						$scope.categoriasTable.reload();
-					}, 200);
+			ArticulosCategoriaServiceFactory.getAllCategorias().then(function(response) {
+				$scope.categoriasData = response.data;
+				$scope.categoriasTable.reload();
 			});
 		};
 
@@ -100,11 +96,9 @@ articulosCategoria.controller('ModalCategoria', function($scope, $http, $timeout
     };
 
     $scope.createCategoria = function (categoria_created) {
-		ArticulosCategoriaServiceFactory.createCategoria(function() {
-			$timeout(function() {
-				$uibModalInstance.close();
-			}, 200);
-		}, categoria_created);
+		ArticulosCategoriaServiceFactory.createCategoria(categoria_created).then(function() {
+			$uibModalInstance.close();
+		});
     };
 
     $scope.cancel = function() {

@@ -18,8 +18,6 @@
 						templateUrl: 'dev/modules/Home/home.html'
 					}
 				}
-				
-				
 			})
 
 			.state('app.almacenes', {
@@ -187,7 +185,7 @@
 	'almacenesGestionService',
 	'almacenesDetalleService',
 	'ingresosService',
-	'loginService',
+	//'loginService',
 	'ngRoute',
 	'ui.router',
 	'ui.bootstrap'])

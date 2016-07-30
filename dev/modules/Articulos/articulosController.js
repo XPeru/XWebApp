@@ -5,11 +5,10 @@ articulos.controller('articulosController', ['$scope', '$location', '$http', '$u
 	function($scope, $location, $http, $uibModal, $timeout, ArticulosServiceFactory, NgTableParams, ArticulosCategoriaServiceFactory) {
 		$scope.sortType     = 'ID_ARTICULO'; // set the default sort type
         $scope.sortReverse  = false;  // set the default sort order
-        $scope.search   = '';     // set the default search/filter term
-        $scope.setType = function(type, search) {
+
+        $scope.setType = function(type) {
             $scope.sortType = type;
             $scope.sortReverse = !$scope.sortReverse;
-            $scope.search = search;
         };
 
         $scope.idSelectedArticulo = null;
@@ -18,11 +17,8 @@ articulos.controller('articulosController', ['$scope', '$location', '$http', '$u
 		};
 
 		$scope.callGetAllCategorias = function() {
-			ArticulosCategoriaServiceFactory.getAllCategorias(function(response) {
-				$timeout(function() {
-					$scope.categoriaList = response.Categorias;
-					console.info(response);
-				}, 200);
+			ArticulosCategoriaServiceFactory.getAllCategorias().then(function(response) {
+				$scope.categoriaList = response.data.Categorias;
 			});
 		};
 
@@ -48,11 +44,9 @@ articulos.controller('articulosController', ['$scope', '$location', '$http', '$u
 		});
 
 		$scope.callGetArticuloList = function() {
-			ArticulosServiceFactory.getArticuloList(function(response) {
-				$timeout(function() {
-					$scope.articlesData = response;
-					$scope.articlesTable.reload();
-				}, 200);
+			ArticulosServiceFactory.getArticuloList().then(function(response) {
+				$scope.articlesData = response.data;
+				$scope.articlesTable.reload();
 			});
 		};
 
