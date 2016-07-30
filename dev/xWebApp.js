@@ -47,6 +47,7 @@
 				views : {
 					'content@': {
 						controller: 'almacenesDetalleController',
+						controllerAs: 'almacenesDetalleCtrl',
 						templateUrl: 'dev/modules/AlmacenesDetalle/almacenesDetalle.html'
 					}
 				}
