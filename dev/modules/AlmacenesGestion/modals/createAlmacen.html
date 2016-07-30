@@ -5,15 +5,31 @@
   <form>
     <div class="form-group">
       <label for="codigo">Codigo</label>
-      <input type="text" class="form-control" id="codigo" ng-model="almacen_created.CODIGO" placeholder="Codigo">
+      <input type="text"
+            class="form-control"
+            id="codigo" 
+            ng-model="almacen_created.CODIGO"
+            placeholder="Codigo">
     </div>
     <div class="form-group">
       <label for="ubicacion">Ubicacion</label>
-      <input type="text" class="form-control" id="ubicacion" ng-model="almacen_created.UBICACION" placeholder="Ubicacion">
+      <input type="text"
+            class="form-control"
+            id="ubicacion"
+            ng-model="almacen_created.UBICACION" 
+            placeholder="Ubicacion">
     </div>
   </form>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="createAlmacen(almacen_created)">Crear</button>
-    <button class="btn btn-danger" type="button" ng-click="cancel()">Cancelar</button>
+    <button class="btn btn-primary"
+            type="button"
+            ng-click="modalAlmacenCtrl.createAlmacen(almacen_created)">
+            Crear
+    </button>
+    <button class="btn btn-danger"
+            type="button"
+            ng-click="modalAlmacenCtrl.cancel()">
+            Cancelar
+    </button>
 </div>

@@ -5,6 +5,14 @@
   <p>Realmente desea eliminar al almacen?</p>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="deleteAlmacen(selected_almacen)">Si</button>
-    <button class="btn btn-danger" type="button" ng-click="cancel()">No</button>
+    <button class="btn btn-primary"
+    		type="button"
+    		ng-click="modalAlmacenCtrl.deleteAlmacen(modalAlmacenCtrl.selected_almacen)">
+    	Si
+    </button>
+    <button class="btn btn-danger"
+    		type="button"
+    		ng-click="modalAlmacenCtrl.cancel()">
+    	No
+    </button>
 </div>
