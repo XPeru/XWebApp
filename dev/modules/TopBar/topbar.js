@@ -26,8 +26,6 @@ angular.module('TopBar', [])
 		});
 
 		var url = window.location.href;
-		console.info("this is url");
-		console.info(url);
 
 		$scope.block = false;
 		var element = $('ul.nav a').filter(function() {
@@ -42,21 +40,16 @@ angular.module('TopBar', [])
 		if (element.is('li')) {
 			element.addClass('active');
 		}
+
 		$scope.callGetAllAlmacenes = function() {
-			if(!$scope.block) {
-				console.info("getting data");
-				AlmacenesGestionServiceFactory.getAllAlmacenes(function(response) {
-					$timeout(function() {
-						$scope.almacenesData = response;
-						
-					}, 200).then(function() {
-						$scope.block = true;
-					});
-			});
-			}
-			
-			
+				AlmacenesGestionServiceFactory.getAllAlmacenes().then(function(response) {
+					$scope.almacenesData = response.data;
+				});
+
 		};
+			
+			
+
 		$scope.callGetAllAlmacenes();
 
 	}])
