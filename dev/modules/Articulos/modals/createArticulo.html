@@ -2,47 +2,95 @@
     <h3 class="modal-title">Nuevo Articulo</h3>
 </div>
 <div class="modal-body">
-  <form  role="form" name="formCreateArticulo" ng-submit="createArticulo(article_created)" novalidate>
-    <div class="form-group" ng-class="{'has-error':formCreateArticulo.codigoF.$error.required && !formCreateArticulo.codigoF.$pristine}">
-      <label for="codigo">Codigo</label>
-      <input type="text" class="form-control" id="codigo" name="codigoF" ng-model="article_created.CODIGO" placeholder="Codigo" required>
-      <span ng-show="formCreateArticulo.codigoF.$error.required && !formCreateArticulo.codigoF.$pristine" class="help-block">Codigo es un campo obligatorio.</span>
-    </div>
-    <div class="form-group">
-      <label for="descripcion">Descripcion</label>
-      <input type="text" class="form-control" id="descripcion" ng-model="article_created.DESCRIPCION" placeholder="Descripcion" required>
-    </div>
-    <div class="form-group">
-      <label for="unidad">Unidad</label>
-      <input type="text" class="form-control" id="unidad" ng-model="article_created.UNIDAD" placeholder="Unidad" required>
-    </div>
-    <div class="form-group">
-      <label for="precio_unitario">Precio Unitario</label>
-      <input type="text" class="form-control" id="precio_unitario" ng-model="article_created.PRECIO_UNITARIO" placeholder="Precio Unitario" required>
-    </div>
-    <div class="form-group">
-      <label for="valor_reposicion">Valor de Reposicion</label>
-      <input type="text" class="form-control" id="valor_reposicion" ng-model="article_created.VALOR_REPOSICION" placeholder="Valor de Reposicion">
-    </div>
-    <div class="form-group">
-      <label for="categoria">Categoria</label>
-      <select class="form-control" ng-model="article_created.FK_CATEGORIA" name="obj" ng-options="obj.ID_CATEGORIA as obj.DESCRIPCION for obj in categoriaList">
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="fileform">Imagen</label>
-      <!--el atributo name es muy importante, este define el nombrebase del archivo , revisar articulosDAO-->
-      <input type="file" id="fileform" name="articleImage" file-model="article_created.IMAGEN_FILE">
-    </div>
-    <div class="form-group">
-      <button type="submit" class="btn btn-success" ng-disabled="formCreateArticulo.$invalid">
-        <i class="fa fa-check" aria-hidden="true"></i>
-      </button>
-      <button class="btn btn-danger" type="button" ng-click="cancel()">
-        <i class="fa fa-times" aria-hidden="true"></i>
-      </button>
-    </div>
-  </form>
+    <form role="form"
+            name="formCreateArticulo"
+            ng-submit="modalArticuloCtrl.createArticulo(modalArticuloCtrl.article_created)" 
+            novalidate>
+
+        <div class="form-group"
+                ng-class="{'has-error':formCreateArticulo.codigoF.$error.required && !formCreateArticulo.codigoF.$pristine}">
+            <label for="codigo">Codigo</label>
+            <input type="text"
+                    class="form-control"
+                    id="codigo"
+                    name="codigoF"
+                    ng-model="modalArticuloCtrl.article_created.CODIGO"
+                    placeholder="Codigo" 
+                    required>
+            <span ng-show="formCreateArticulo.codigoF.$error.required && !formCreateArticulo.codigoF.$pristine"
+                    class="help-block">Codigo es un campo obligatorio.</span>
+        </div>
+
+        <div class="form-group">
+            <label for="descripcion">Descripcion</label>
+            <input type="text"
+                    class="form-control"
+                    id="descripcion"
+                    ng-model="modalArticuloCtrl.article_created.DESCRIPCION"
+                    placeholder="Descripcion"
+                    required>
+        </div>
+
+        <div class="form-group">
+            <label for="unidad">Unidad</label>
+            <input type="text"
+                    class="form-control"
+                    id="unidad"
+                    ng-model="modalArticuloCtrl.article_created.UNIDAD"
+                    placeholder="Unidad"
+                    required>
+        </div>
+
+        <div class="form-group">
+            <label for="precio_unitario">Precio Unitario</label>
+            <input type="text"
+                    class="form-control"
+                    id="precio_unitario"
+                    ng-model="modalArticuloCtrl.article_created.PRECIO_UNITARIO"
+                    placeholder="Precio Unitario"
+                    required>
+        </div>
+
+        <div class="form-group">
+            <label for="valor_reposicion">Valor de Reposicion</label>
+            <input type="text"
+                    class="form-control"
+                    id="valor_reposicion"
+                    ng-model="modalArticuloCtrl.article_created.VALOR_REPOSICION"
+                    placeholder="Valor de Reposicion">
+        </div>
+
+        <div class="form-group">
+            <label for="categoria">Categoria</label>
+            <select class="form-control"
+                    ng-model="modalArticuloCtrl.article_created.FK_CATEGORIA"
+                    name="obj"
+                    ng-options="obj.ID_CATEGORIA as obj.DESCRIPCION for obj in modalArticuloCtrl.categoriaList">
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="fileform">Imagen</label>
+            <!--el atributo name es muy importante, este define el nombrebase del archivo , revisar articulosDAO-->
+            <input type="file"
+                    id="fileform"
+                    name="articleImage"
+                    file-model="modalArticuloCtrl.article_created.IMAGEN_FILE">
+        </div>
+
+        <div class="form-group">
+            <button type="submit"
+                    class="btn btn-success"
+                    ng-disabled="formCreateArticulo.$invalid">
+                <i class="fa fa-check" aria-hidden="true"></i>
+            </button>
+            <button class="btn btn-danger"
+                    type="button"
+                    ng-click="modalArticuloCtrl.cancel()">
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </button>
+        </div>
+    </form>
 </div>
 
 

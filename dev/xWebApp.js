@@ -100,6 +100,7 @@
 				views : {
 					'content@': {
 						controller: 'articulosController',
+						controllerAs: 'articulosCtrl',
 						templateUrl: 'dev/modules/Articulos/articulos.html'
 					}
 				}
