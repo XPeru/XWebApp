@@ -8,46 +8,46 @@ angular.module('AlmacenesGestion', ['ui.bootstrap'])
 												'AlmacenesGestionServiceFactory',
 												'NgTableParams',
 		function($scope, $location, $http, $uibModal, $timeout, AlmacenesGestionServiceFactory, NgTableParams) {
-			$scope.sortType     = 'ID_ALMACEN'; // set the default sort type
-			$scope.sortReverse  = false;  // set the default sort order
+			var ctrl = this;
+			ctrl.sortType     = 'ID_ALMACEN'; // set the default sort type
+			ctrl.sortReverse  = false;  // set the default sort order
 
-			$scope.setType = function(type) {
-				$scope.sortType = type;
-				$scope.sortReverse = !$scope.sortReverse;
+			ctrl.setType = function(type) {
+				ctrl.sortType = type;
+				ctrl.sortReverse = !ctrl.sortReverse;
 			};
 
-			$scope.idSelectedAlmacen = null;
-			$scope.setSelected = function(idSelectedAlmacen) {
-				$scope.idSelectedAlmacen = idSelectedAlmacen;
+			ctrl.idSelectedAlmacen = null;
+			ctrl.setSelected = function(idSelectedAlmacen) {
+				ctrl.idSelectedAlmacen = idSelectedAlmacen;
 			};
-			$scope.almacenesData = [{}];
-			$scope.modal_not_finished = true;
-			$scope.almacenesTable = new NgTableParams({
+			ctrl.almacenesData = [{}];
+			ctrl.modal_not_finished = true;
+			ctrl.almacenesTable = new NgTableParams({
 				page: 1,
 				count: 10
 			}, {
 				total: 0,
 				counts: [],
 				getData: function(params) {
-					if ($scope.modal_not_finished) {
-							$scope.callGetAllAlmacenes();
+					if (ctrl.modal_not_finished) {
+							ctrl.callGetAllAlmacenes();
 						} else {
-							params.total($scope.almacenesData.length);
-							return $scope.almacenesData;
+							params.total(ctrl.almacenesData.length);
+							return ctrl.almacenesData;
 						}
-						$scope.modal_not_finished = false;
+						ctrl.modal_not_finished = false;
 				}
-				
 			});
 
-			$scope.callGetAllAlmacenes = function() {
+				ctrl.callGetAllAlmacenes = function() {
 				AlmacenesGestionServiceFactory.getAllAlmacenes().then(function(response) {
-						$scope.almacenesData = response.data;
-						$scope.almacenesTable.reload();
+							ctrl.almacenesData = response.data;
+							ctrl.almacenesTable.reload();
 				});
 			};
 
-			$scope.openModal = function(selected_modal, selected_almacen) {
+				ctrl.openModal = function(selected_modal, selected_almacen) {
 				var modalInstance = $uibModal.open({
 					templateUrl: function() {
 						var template;
@@ -74,12 +74,12 @@ angular.module('AlmacenesGestion', ['ui.bootstrap'])
 				});
 
 				modalInstance.result.then(function() {
-					$scope.modal_not_finished = true;
-					$scope.almacenesTable.reload();
+						ctrl.modal_not_finished = true;
+						ctrl.almacenesTable.reload();
 					
 				}, function() {
-					$scope.modal_not_finished = true;
-					$scope.almacenesTable.reload();
+						ctrl.modal_not_finished = true;
+						ctrl.almacenesTable.reload();
 				});
 			};
 		}

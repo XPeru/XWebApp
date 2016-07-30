@@ -4,28 +4,34 @@
     </div>
     <div class="panel-body">
         <div class="table-responsive">
-            <table ng-table="almacenesTable" class="table" show-filter="true">
+            <table ng-table="almacenesGestionCtrl.almacenesTable" class="table" show-filter="true">
                 <thead>
                     <tr>
                         <th>
-                            <a ng-click="setType('ID_ALMACEN')">
+                            <a ng-click="almacenesGestionCtrl.setType('ID_ALMACEN')">
                                 Id
-                                <span ng-show="sortType == 'ID_ALMACEN' && !sortReverse" class="fa fa-caret-down"></span>
-                                <span ng-show="sortType == 'ID_ALMACEN' && sortReverse" class="fa fa-caret-up"></span>
+                                <span ng-show="almacenesGestionCtrl.sortType == 'ID_ALMACEN' && !almacenesGestionCtrl.sortReverse"
+                                        class="fa fa-caret-down"></span>
+                                <span ng-show="almacenesGestionCtrl.sortType == 'ID_ALMACEN' && almacenesGestionCtrl.sortReverse"
+                                        class="fa fa-caret-up"></span>
                             </a>
                         </th>
                         <th>
-                            <a ng-click="setType('CODIGO')">
+                            <a ng-click="almacenesGestionCtrl.setType('CODIGO')">
                                 Codigo
-                                <span ng-show="sortType == 'CODIGO' && !sortReverse" class="fa fa-caret-down"></span>
-                                <span ng-show="sortType == 'CODIGO' && sortReverse" class="fa fa-caret-up"></span>
+                                <span ng-show="almacenesGestionCtrl.sortType == 'CODIGO' && !almacenesGestionCtrl.sortReverse"
+                                        class="fa fa-caret-down"></span>
+                                <span ng-show="almacenesGestionCtrl.sortType == 'CODIGO' && almacenesGestionCtrl.sortReverse"
+                                        class="fa fa-caret-up"></span>
                             </a>
                         </th>
                         <th>
-                            <a ng-click="setType('UBICACION')">
+                            <a ng-click="almacenesGestionCtrl.setType('UBICACION')">
                                 Ubicacion
-                                <span ng-show="sortType == 'UBICACION' && !sortReverse" class="fa fa-caret-down"></span>
-                                <span ng-show="sortType == 'UBICACION' && sortReverse" class="fa fa-caret-up"></span>
+                                <span ng-show="almacenesGestionCtrl.sortType == 'UBICACION' && !almacenesGestionCtrl.sortReverse"
+                                        class="fa fa-caret-down"></span>
+                                <span ng-show="almacenesGestionCtrl.sortType == 'UBICACION' && almacenesGestionCtrl.sortReverse" 
+                                        class="fa fa-caret-up"></span>
                             </a>
                         </th>
                         <th></th>
@@ -33,22 +39,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="almacen in $data.Almacenes | orderBy:sortType:sortReverse" ng-click="setSelected(almacen.ID_ALMACEN)"
-                        ng-class="{info: almacen.ID_ALMACEN === idSelectedAlmacen}">
+                    <tr ng-repeat="almacen in almacenesGestionCtrl.almacenesData.Almacenes |
+                        orderBy:almacenesGestionCtrl.sortType:almacenesGestionCtrl.sortReverse"
+                        ng-click="almacenesGestionCtrl.setSelected(almacen.ID_ALMACEN)"
+                        ng-class="{info: almacen.ID_ALMACEN === almacenesGestionCtrl.idSelectedAlmacen}">
                         <td>{{almacen.ID_ALMACEN}}</td>
                         <td>{{almacen.CODIGO}}</td>
                         <td>{{almacen.UBICACION}}</td>
 
                         <td style="width:60px">
-                            <button ng-if="almacen.ID_ALMACEN === idSelectedAlmacen"
-                                ng-click="openModal('edit', almacen)"
+                            <button ng-if="almacen.ID_ALMACEN === almacenesGestionCtrl.idSelectedAlmacen"
+                                ng-click="almacenesGestionCtrl.openModal('edit', almacen)"
                                 class="btn btn-small btn-primary">
                                 <i class="glyphicon glyphicon-pencil"></i>
                             </button>
                         </td>
                         <td style="width:60px">
-                            <button ng-if="almacen.ID_ALMACEN === idSelectedAlmacen"
-                                ng-click="openModal('delete', almacen)"
+                            <button ng-if="almacen.ID_ALMACEN === almacenesGestionCtrl.idSelectedAlmacen"
+                                ng-click="almacenesGestionCtrl.openModal('delete', almacen)"
                                 class="btn btn-small btn-danger">
                                 <i class="glyphicon glyphicon-remove"></i>
                             </button>
@@ -59,6 +67,6 @@
         </div>
     </div>
 </div>
-<button ng-click="openModal('create', null)" class="btn btn-small">
+<button ng-click="almacenesGestionCtrl.openModal('create', null)" class="btn btn-small">
     Nuevo <span><i class="glyphicon glyphicon-plus"></i></span>
 </button>
