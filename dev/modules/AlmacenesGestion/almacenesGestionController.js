@@ -1,3 +1,4 @@
+"use strict";
 var almacenesGestion = angular.module('AlmacenesGestion', ['ui.bootstrap']);
 
 almacenesGestion.controller('almacenesGestionController', ['$scope', '$location', '$http', '$uibModal', '$timeout',
@@ -5,11 +6,10 @@ almacenesGestion.controller('almacenesGestionController', ['$scope', '$location'
 	function($scope, $location, $http, $uibModal, $timeout, AlmacenesGestionServiceFactory, NgTableParams) {
 		$scope.sortType     = 'ID_ALMACEN'; // set the default sort type
         $scope.sortReverse  = false;  // set the default sort order
-        $scope.search   = '';     // set the default search/filter term
-        $scope.setType = function(type, search) {
+        
+        $scope.setType = function(type) {
             $scope.sortType = type;
             $scope.sortReverse = !$scope.sortReverse;
-            $scope.search = search;
         };
 
 		$scope.idSelectedAlmacen = null;
@@ -37,11 +37,9 @@ almacenesGestion.controller('almacenesGestionController', ['$scope', '$location'
 		});
 
 		$scope.callGetAllAlmacenes = function() {
-			AlmacenesGestionServiceFactory.getAllAlmacenes(function(response) {
-					$timeout(function() {
-						$scope.almacenesData = response;
-						$scope.almacenesTable.reload();
-					}, 200);
+			AlmacenesGestionServiceFactory.getAllAlmacenes().then( function(response) {
+					$scope.almacenesData = response.data;
+					$scope.almacenesTable.reload();
 			});
 		};
 
@@ -84,27 +82,21 @@ almacenesGestion.controller('ModalAlmacen', function($scope, $http, $timeout, $u
 	$scope.selected_almacen = selected_almacen;
 
 	$scope.deleteAlmacen = function(almacen_deleted) {
-		AlmacenesGestionServiceFactory.deleteAlmacen(function() {
-			$timeout(function() {
-				$uibModalInstance.close();
-			}, 200);
-		}, almacen_deleted);
+		AlmacenesGestionServiceFactory.deleteAlmacen(almacen_deleted).then( function() {
+			$uibModalInstance.close();
+		});
 	};
 
     $scope.editAlmacen = function (almacen_edited) {
-		AlmacenesGestionServiceFactory.editAlmacen(function() {
-			$timeout(function() {
-				$uibModalInstance.close();
-			}, 200);
-		}, almacen_edited);
+		AlmacenesGestionServiceFactory.editAlmacen(almacen_edited).then( function() {
+			$uibModalInstance.close();
+		});
     };
 
     $scope.createAlmacen = function (almacen_created) {
-		AlmacenesGestionServiceFactory.createAlmacen(function() {
-			$timeout(function() {
-				$uibModalInstance.close();
-			}, 200);
-		}, almacen_created);
+		AlmacenesGestionServiceFactory.createAlmacen(almacen_created).then( function() {
+			$uibModalInstance.close();
+		});
     };
 
     $scope.cancel = function() {
