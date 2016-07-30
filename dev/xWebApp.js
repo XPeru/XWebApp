@@ -90,6 +90,7 @@
 				views : {
 					'content@': {
 						controller: 'articulosCategoriaController',
+						controllerAs: 'articulosCategoriaCtrl',
 						templateUrl: 'dev/modules/ArticulosCategoria/articulosCategoria.html'
 					}
 				}

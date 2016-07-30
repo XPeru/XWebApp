@@ -4,21 +4,25 @@
     </div>
     <div class="panel-body">
         <div class="table-responsive">
-            <table ng-table="categoriasTable" class="table" show-filter="true">
+            <table ng-table="articulosCategoriaCtrl.categoriasTable" class="table" show-filter="true">
                 <thead>
                     <tr>
                         <th>
-                            <a ng-click="setType('ID_CATEGORIA')">
+                            <a ng-click="articulosCategoriaCtrl.setType('ID_CATEGORIA')">
                                 Id
-                                <span ng-show="sortType == 'ID_CATEGORIA' && !sortReverse" class="fa fa-caret-down"></span>
-                                <span ng-show="sortType == 'ID_CATEGORIA' && sortReverse" class="fa fa-caret-up"></span>
+                                <span ng-show="articulosCategoriaCtrl.sortType == 'ID_CATEGORIA' && !articulosCategoriaCtrl.sortReverse"
+                                        class="fa fa-caret-down"></span>
+                                <span ng-show="articulosCategoriaCtrl.sortType == 'ID_CATEGORIA' && articulosCategoriaCtrl.sortReverse"
+                                        class="fa fa-caret-up"></span>
                             </a>
                         </th>
                         <th>
-                            <a ng-click="setType('DESCRIPCION')">
+                            <a ng-click="articulosCategoriaCtrl.setType('DESCRIPCION')">
                                 Descripcion
-                                <span ng-show="sortType == 'DESCRIPCION' && !sortReverse" class="fa fa-caret-down"></span>
-                                <span ng-show="sortType == 'DESCRIPCION' && sortReverse" class="fa fa-caret-up"></span>
+                                <span ng-show="articulosCategoriaCtrl.sortType == 'DESCRIPCION' && !articulosCategoriaCtrl.sortReverse"
+                                        class="fa fa-caret-down"></span>
+                                <span ng-show="articulosCategoriaCtrl.sortType == 'DESCRIPCION' && articulosCategoriaCtrl.sortReverse"
+                                        class="fa fa-caret-up"></span>
                             </a>
                         </th>
                         <th></th>
@@ -26,21 +30,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="categoria in $data.Categorias | orderBy:sortType:sortReverse" ng-click="setSelected(categoria.ID_CATEGORIA)"
-                        ng-class="{info: categoria.ID_CATEGORIA === idSelectedCategoria}">
+                    <tr ng-repeat="categoria in articulosCategoriaCtrl.categoriasData.Categorias |
+                                                orderBy:articulosCategoriaCtrl.sortType:articulosCategoriaCtrl.sortReverse"
+                        ng-click="articulosCategoriaCtrl.setSelected(categoria.ID_CATEGORIA)"
+                        ng-class="{info: categoria.ID_CATEGORIA === articulosCategoriaCtrl.idSelectedCategoria}">
                         <td>{{categoria.ID_CATEGORIA}}</td>
                         <td>{{categoria.DESCRIPCION}}</td>
 
                         <td style="width:60px">
-                            <button ng-if="categoria.ID_CATEGORIA === idSelectedCategoria"
-                                ng-click="openModal('edit', categoria)"
+                            <button ng-if="categoria.ID_CATEGORIA === articulosCategoriaCtrl.idSelectedCategoria"
+                                ng-click="articulosCategoriaCtrl.openModal('edit', categoria)"
                                 class="btn btn-small btn-primary">
                                 <i class="glyphicon glyphicon-pencil"></i>
                             </button>
                         </td>
                         <td style="width:60px">
-                            <button ng-if="categoria.ID_CATEGORIA === idSelectedCategoria"
-                                ng-click="openModal('delete', categoria)"
+                            <button ng-if="categoria.ID_CATEGORIA === articulosCategoriaCtrl.idSelectedCategoria"
+                                ng-click="articulosCategoriaCtrl.openModal('delete', categoria)"
                                 class="btn btn-small btn-danger">
                                 <i class="glyphicon glyphicon-remove"></i>
                             </button>
@@ -51,6 +57,7 @@
         </div>
     </div>
 </div>
-<button ng-click="openModal('create', null)" class="btn btn-small">
+<button ng-click="articulosCategoriaCtrl.openModal('create', null)"
+        class="btn btn-small">
     Nuevo <span><i class="glyphicon glyphicon-plus"></i></span>
 </button>
