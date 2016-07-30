@@ -1,15 +1,27 @@
 <div class="modal-header">
-    <h3 class="modal-title">Nuevo Acceso Usuario</h3>
+	<h3 class="modal-title">Nuevo Acceso Usuario</h3>
 </div>
 <div class="modal-body">
-    <form>
-      <div class="form-group">
-        <label for="acceso_usuario">Descripcion</label>
-        <input type="text" class="form-control" id="acceso_usuario" ng-model="tipo_usuario_created.DESCRIPCION" placeholder="Descripcion">
-      </div>
-    </form>
+	<form>
+		<div class="form-group">
+			<label for="acceso_usuario">Descripcion</label>
+			<input type="text"
+					class="form-control"
+					id="acceso_usuario"
+					ng-model="modalUsuarioAccesoCtrl.tipo_usuario_created.DESCRIPCION"
+					placeholder="Descripcion">
+		</div>
+	</form>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="createAccesoUsuario(tipo_usuario_created)">Crear</button>
-    <button class="btn btn-danger" type="button" ng-click="cancel()">Cancelar</button>
+	<button class="btn btn-primary"
+			type="button"
+			ng-click="modalUsuarioAccesoCtrl.createAccesoUsuario(modalUsuarioAccesoCtrl.tipo_usuario_created)">
+		Crear
+	</button>
+	<button class="btn btn-danger"
+			type="button"
+			ng-click="modalUsuarioAccesoCtrl.cancel()">
+		Cancelar
+	</button>
 </div>

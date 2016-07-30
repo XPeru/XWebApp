@@ -5,6 +5,14 @@
 	<p>Realmente desea eliminar este acceso de usuario?</p>
 </div>
 <div class="modal-footer">
-	<button class="btn btn-primary" type="button" ng-click="deleteAccesoUsuario(selected_acceso_usuario)">Si</button>
-	<button class="btn btn-danger" type="button" ng-click="cancel()">No</button>
+	<button class="btn btn-primary"
+			type="button"
+			ng-click="modalUsuarioAccesoCtrl.deleteAccesoUsuario(modalUsuarioAccesoCtrl.selected_acceso_usuario)">
+		Si
+	</button>
+	<button class="btn btn-danger"
+			type="button"
+			ng-click="modalUsuarioAccesoCtrl.cancel()">
+		No
+	</button>
 </div>

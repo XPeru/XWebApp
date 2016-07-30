@@ -5,11 +5,23 @@
 	<form>
 		<div class="form-group">
 			<label for="descripcion_acceso">Descripcion</label>
-			<input type="text" class="form-control" id="descripcion_acceso" ng-model="selected_acceso_usuario.DESCRIPCION" placeholder="{{selected_acceso_usuario.DESCRIPCION}}">
+			<input type="text"
+					class="form-control"
+					id="descripcion_acceso"
+					ng-model="modalUsuarioAccesoCtrl.selected_acceso_usuario.DESCRIPCION"
+					placeholder="{{modalUsuarioAccesoCtrl.selected_acceso_usuario.DESCRIPCION}}">
 		</div>
 	</form>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="updateAccesoUsuario(selected_acceso_usuario)">Editar</button>
-    <button class="btn btn-danger" type="button" ng-click="cancel()">Cancelar</button>
+    <button class="btn btn-primary"
+    		type="button"
+    		ng-click="modalUsuarioAccesoCtrl.updateAccesoUsuario(modalUsuarioAccesoCtrl.selected_acceso_usuario)">
+    	Editar
+    </button>
+    <button class="btn btn-danger"
+    		type="button"
+    		ng-click="modalUsuarioAccesoCtrl.cancel()">
+    	Cancelar
+    </button>
 </div>

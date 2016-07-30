@@ -81,6 +81,7 @@
 				views : {
 					'content@': {
 						controller: 'usuariosAccesoController',
+						controllerAs: 'usuariosAccesoCtrl',
 						templateUrl: 'dev/modules/UsuariosAcceso/usuariosAcceso.html'
 					}
 				}
