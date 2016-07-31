@@ -121,13 +121,25 @@
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a ui-sref="app.usuariosacceso"><i class="glyphicon glyphicon-log-in"></i> Derechos de acceso</a>
+                            <a ui-sref="app.usuariosacceso"
+                                ng-click="topbarCtrl.setSelectedMenu('usuariosacceso')"
+                                ng-class="{active: topbarCtrl.selectedMenu === 'usuariosacceso'}">
+                                <i class="glyphicon glyphicon-log-in"></i> Derechos de acceso
+                            </a>
                         </li>
                         <li>
-                            <a ui-sref="app.usuariostipo"><i class="glyphicon glyphicon-pawn"></i> Tipos de usuario</a>
+                            <a ui-sref="app.usuariostipo"
+                                ng-click="topbarCtrl.setSelectedMenu('usuariostipo')"
+                                ng-class="{active: topbarCtrl.selectedMenu === 'usuariostipo'}">
+                                <i class="glyphicon glyphicon-pawn"></i> Tipos de usuario
+                            </a>
                         </li>
                         <li>
-                            <a ui-sref="app.usuarios"><i class="glyphicon glyphicon-cog"></i> Gestion de usuarios</a>
+                            <a ui-sref="app.usuarios"
+                                ng-click="topbarCtrl.setSelectedMenu('usuarios')"
+                                ng-class="{active: topbarCtrl.selectedMenu === 'usuarios'}">
+                                <i class="glyphicon glyphicon-cog"></i> Gestion de usuarios
+                            </a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
@@ -153,10 +165,17 @@
                             <a><i class="fa fa-search-plus" aria-hidden="true"></i> Consultar<span class="fa arrow"></span></a>
                             <ul class="nav nav-third-level">
                                 <li ng-repeat="almacen in topbarCtrl.almacenesData.Almacenes">
-                                    <a ui-sref="app.almacenesdetalle({id_almacen: almacen.ID_ALMACEN, codigo_almacen: almacen.CODIGO})"><i class="fa fa-cube" aria-hidden="true"></i> {{almacen.CODIGO}}</a>
+                                    <a ui-sref="app.almacenesdetalle({id_almacen: almacen.ID_ALMACEN, codigo_almacen: almacen.CODIGO})"
+                                        ng-click="topbarCtrl.setSelectedMenu('almacenesdetalle/'+almacen.ID_ALMACEN+'/'+ almacen.CODIGO+'')"
+                                        ng-class="{active: topbarCtrl.selectedMenu === 'almacenesdetalle/'+almacen.ID_ALMACEN+'/'+almacen.CODIGO+''}">
+                                        <i class="fa fa-cube" aria-hidden="true"></i> {{almacen.CODIGO}}
+                                    </a>
                                 </li>
                                 <li>
-                                    <a ui-sref="app.almacenesdetalle({id_almacen: 15, codigo_almacen: 20})">TODOS</a>
+                                    <a ui-sref="app.almacenesdetalle({id_almacen: 15, codigo_almacen: 20})"
+                                        ng-click="topbarCtrl.setSelectedMenu('almacenesdetalle/15/20')"
+                                        ng-class="{active: topbarCtrl.selectedMenu === 'almacenesdetalle/15/20'}">TODOS
+                                    </a>
                                 </li>
                             </ul>
                             <!-- /.nav-third-level -->
@@ -168,10 +187,18 @@
                     <a href="#"><i class="glyphicon glyphicon-th-list"></i> Articulos<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a ui-sref="app.articuloscategoria"><i class="glyphicon glyphicon-cog"></i> Categorias</a>
+                            <a ui-sref="app.articuloscategoria"
+                                ng-click="topbarCtrl.setSelectedMenu('articuloscategoria')"
+                                ng-class="{active: topbarCtrl.selectedMenu === 'articuloscategoria'}">
+                                <i class="glyphicon glyphicon-cog"></i> Categorias
+                            </a>
                         </li>
                         <li>
-                            <a ui-sref="app.articulos"><i class="glyphicon glyphicon-cog"></i> Gestion de articulos</a>
+                            <a ui-sref="app.articulos"
+                                ng-click="topbarCtrl.setSelectedMenu('articulos')"
+                                ng-class="{active: topbarCtrl.selectedMenu === 'articulos'}">
+                                <i class="glyphicon glyphicon-cog"></i> Gestion de articulos
+                            </a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
