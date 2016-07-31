@@ -33,23 +33,23 @@ angular.module('TopBar', [])
 					}
 				});
 
-				var element = $('ul.nav li a').filter(function() {
-/*					console.info("baseURI");
-					console.info(this.baseURI);
+				$('ul.nav-second-level a').filter(function() {
+					return this.baseURI.substring(24) === this.pathname.substring(1);
+				}).parent().parent().addClass('in');
+
+				$('ul.nav-third-level a').filter(function() {
+					console.info("baseURI");
+					console.info(this);
 					console.info("pathName");
 					console.info(this.pathname);
-					console.info(this.baseURI.substring(24) === this.pathname.substring(1));*/
+					console.info(this.baseURI.substring(24) === this.pathname.substring(1));
 					return this.baseURI.substring(24) === this.pathname.substring(1);
-				}).addClass('active').parent().parent().addClass('in').parent();
-				if (element.is('li')) {
-					element.addClass('active');
-				}
+				}).parent().parent().addClass('in').parent().parent().addClass('in');
 
 				ctrl.callGetAllAlmacenes = function() {
-						AlmacenesGestionServiceFactory.getAllAlmacenes().then(function(response) {
-							ctrl.almacenesData = response.data;
-						});
-
+					AlmacenesGestionServiceFactory.getAllAlmacenes().then(function(response) {
+						ctrl.almacenesData = response.data;
+					});
 				};
 
 				ctrl.callGetAllAlmacenes();
