@@ -17,7 +17,7 @@
             </a>
             <ul class="dropdown-menu dropdown-messages">
                 <li>
-                    <a href="#">
+                    <a>
                         <div>
                             <strong>John Smith</strong>
                             <span class="pull-right text-muted">
@@ -37,7 +37,7 @@
             </a>
             <ul class="dropdown-menu dropdown-tasks">
                 <li>
-                    <a href="#">
+                    <a>
                         <div>
                             <p>
                                 <strong>Task 4</strong>
@@ -53,7 +53,7 @@
                 </li>
                 <li class="divider"></li>
                 <li>
-                    <a class="text-center" href="#">
+                    <a class="text-center">
                         <strong>See All Tasks</strong>
                         <i class="fa fa-angle-right"></i>
                     </a>
@@ -68,7 +68,7 @@
             </a>
             <ul class="dropdown-menu dropdown-alerts">
                 <li>
-                    <a href="#">
+                    <a>
                         <div>
                             <i class="fa fa-envelope fa-fw"></i> Message Sent
                             <span class="pull-right text-muted small">4 minutes ago</span>
@@ -84,12 +84,12 @@
                 <i class="glyphicon glyphicon-user"></i>  <i class="glyphicon glyphicon-triangle-bottom"></i>
             </a>
             <ul class="dropdown-menu dropdown-user">
-                <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                <li><a><i class="fa fa-user fa-fw"></i> User Profile</a>
                 </li>
-                <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                <li><a><i class="fa fa-gear fa-fw"></i> Settings</a>
                 </li>
                 <li class="divider"></li>
-                <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                <li><a><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                 </li>
             </ul>
             <!-- /.dropdown-user -->
@@ -123,21 +123,24 @@
                         <li>
                             <a ui-sref="app.usuariosacceso"
                                 ng-click="topbarCtrl.setSelectedMenu('usuariosacceso')"
-                                ng-class="{active: topbarCtrl.selectedMenu === 'usuariosacceso'}">
+                                ng-class="{active: topbarCtrl.selectedMenu === 'usuariosacceso'}"
+                                href='usuariosacceso'>
                                 <i class="glyphicon glyphicon-log-in"></i> Derechos de acceso
                             </a>
                         </li>
                         <li>
                             <a ui-sref="app.usuariostipo"
                                 ng-click="topbarCtrl.setSelectedMenu('usuariostipo')"
-                                ng-class="{active: topbarCtrl.selectedMenu === 'usuariostipo'}">
+                                ng-class="{active: topbarCtrl.selectedMenu === 'usuariostipo'}"
+                                href='usuariostipo'>
                                 <i class="glyphicon glyphicon-pawn"></i> Tipos de usuario
                             </a>
                         </li>
                         <li>
                             <a ui-sref="app.usuarios"
                                 ng-click="topbarCtrl.setSelectedMenu('usuarios')"
-                                ng-class="{active: topbarCtrl.selectedMenu === 'usuarios'}">
+                                ng-class="{active: topbarCtrl.selectedMenu === 'usuarios'}"
+                                href='usuarios'>
                                 <i class="glyphicon glyphicon-cog"></i> Gestion de usuarios
                             </a>
                         </li>
@@ -146,19 +149,21 @@
                 </li>
 
                 <li>
-                    <a href="#"><i class="fa fa-cubes" aria-hidden="true"></i> Almacenes<span class="fa arrow"></span></a>
+                    <a><i class="fa fa-cubes" aria-hidden="true"></i> Almacenes<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
                             <a ui-sref="app.almacenesgestion"
                                 ng-click="topbarCtrl.setSelectedMenu('almacenesgestion')"
-                                ng-class="{active: topbarCtrl.selectedMenu === 'almacenesgestion'}">
+                                ng-class="{active: topbarCtrl.selectedMenu === 'almacenesgestion'}"
+                                href='almacenesgestion'>
                                 <i class="glyphicon glyphicon-cog"></i> Gestion
                             </a>
                         </li>
                         <li>
                             <a ui-sref="app.almacenes"
                                 ng-click="topbarCtrl.setSelectedMenu('almacenes')"
-                                ng-class="{active: topbarCtrl.selectedMenu === 'almacenes'}">
+                                ng-class="{active: topbarCtrl.selectedMenu === 'almacenes'}"
+                                href='almacenes'>
                                 <i class="glyphicon glyphicon-pushpin"></i> Escoger</a>
                         </li>
                         <li>
@@ -167,7 +172,8 @@
                                 <li ng-repeat="almacen in topbarCtrl.almacenesData.Almacenes">
                                     <a ui-sref="app.almacenesdetalle({id_almacen: almacen.ID_ALMACEN, codigo_almacen: almacen.CODIGO})"
                                         ng-click="topbarCtrl.setSelectedMenu('almacenesdetalle/'+almacen.ID_ALMACEN+'/'+ almacen.CODIGO+'')"
-                                        ng-class="{active: topbarCtrl.selectedMenu === 'almacenesdetalle/'+almacen.ID_ALMACEN+'/'+almacen.CODIGO+''}">
+                                        ng-class="{active: topbarCtrl.selectedMenu === 'almacenesdetalle/'+almacen.ID_ALMACEN+'/'+almacen.CODIGO+''}"
+                                        href="'almacenesdetalle/'+almacen.ID_ALMACEN+'/'+almacen.CODIGO+''">
                                         <i class="fa fa-cube" aria-hidden="true"></i> {{almacen.CODIGO}}
                                     </a>
                                 </li>
@@ -184,19 +190,21 @@
                     <!-- /.nav-second-level -->
                 </li>
                 <li>
-                    <a href="#"><i class="glyphicon glyphicon-th-list"></i> Articulos<span class="fa arrow"></span></a>
+                    <a><i class="glyphicon glyphicon-th-list"></i> Articulos<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
                             <a ui-sref="app.articuloscategoria"
                                 ng-click="topbarCtrl.setSelectedMenu('articuloscategoria')"
-                                ng-class="{active: topbarCtrl.selectedMenu === 'articuloscategoria'}">
+                                ng-class="{active: topbarCtrl.selectedMenu === 'articuloscategoria'}"
+                                href='articuloscategoria'>
                                 <i class="glyphicon glyphicon-cog"></i> Categorias
                             </a>
                         </li>
                         <li>
                             <a ui-sref="app.articulos"
                                 ng-click="topbarCtrl.setSelectedMenu('articulos')"
-                                ng-class="{active: topbarCtrl.selectedMenu === 'articulos'}">
+                                ng-class="{active: topbarCtrl.selectedMenu === 'articulos'}"
+                                href='articulos'>
                                 <i class="glyphicon glyphicon-cog"></i> Gestion de articulos
                             </a>
                         </li>
@@ -204,7 +212,7 @@
                     <!-- /.nav-second-level -->
                 </li>
                 <li>
-                    <a href="#"><i class="glyphicon glyphicon-globe"></i> Personas<span class="fa arrow"></span></a>
+                    <a><i class="glyphicon glyphicon-globe"></i> Personas<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
                             <a><i class="fa fa-blind" aria-hidden="true"></i> Clientes</a>
@@ -216,7 +224,7 @@
                     <!-- /.nav-second-level -->
                 </li>
                 <li>
-                    <a href="#"><i class="glyphicon glyphicon-transfer"></i> Movimientos<span class="fa arrow"></span></a>
+                    <a><i class="glyphicon glyphicon-transfer"></i> Movimientos<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
                             <a><i class="glyphicon glyphicon-triangle-right"></i> Ingresos</a>

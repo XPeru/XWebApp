@@ -10,9 +10,6 @@ angular.module('TopBar', [])
 			function ($scope, $rootScope, $timeout, AlmacenesGestionServiceFactory) {
 				var ctrl = this;
 				var url = window.location.href;
-				console.info('url');
-				console.info(url);
-				console.info(url.substring(24));
 				ctrl.selectedMenu = url.substring(24);
 				$("#menu").metisMenu();
 
@@ -36,14 +33,13 @@ angular.module('TopBar', [])
 					}
 				});
 
-				var element = $('ul.nav a').filter(function() {
-					/*console.info("this is this");
-					console.info(this);
-					console.info("this is this.href");
-					console.info(this.href);
-					console.info("this is the return");
-					console.info(this.href === url);*/
-					return this.href === url;
+				var element = $('ul.nav li a').filter(function() {
+/*					console.info("baseURI");
+					console.info(this.baseURI);
+					console.info("pathName");
+					console.info(this.pathname);
+					console.info(this.baseURI.substring(24) === this.pathname.substring(1));*/
+					return this.baseURI.substring(24) === this.pathname.substring(1);
 				}).addClass('active').parent().parent().addClass('in').parent();
 				if (element.is('li')) {
 					element.addClass('active');
