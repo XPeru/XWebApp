@@ -126,8 +126,8 @@
                         <li>
                             <a ui-sref="app.usuariostipo"><i class="glyphicon glyphicon-pawn"></i> Tipos de usuario</a>
                         </li>
-                        <li ng-class="{'active':usuarios==1}">
-                            <a ui-sref="app.usuarios" ui-sref-opts="{reload: false}"><i class="glyphicon glyphicon-cog"></i> Gestion de usuarios</a>
+                        <li>
+                            <a ui-sref="app.usuarios"><i class="glyphicon glyphicon-cog"></i> Gestion de usuarios</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
@@ -137,15 +137,22 @@
                     <a href="#"><i class="fa fa-cubes" aria-hidden="true"></i> Almacenes<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a ui-sref="app.almacenesgestion"><i class="glyphicon glyphicon-cog"></i> Gestion</a>
+                            <a ui-sref="app.almacenesgestion"
+                                ng-click="topbarCtrl.setSelectedMenu('almacenesgestion')"
+                                ng-class="{active: topbarCtrl.selectedMenu === 'almacenesgestion'}">
+                                <i class="glyphicon glyphicon-cog"></i> Gestion
+                            </a>
                         </li>
                         <li>
-                            <a ui-sref="app.almacenes"><i class="glyphicon glyphicon-pushpin"></i> Escoger</a>
+                            <a ui-sref="app.almacenes"
+                                ng-click="topbarCtrl.setSelectedMenu('almacenes')"
+                                ng-class="{active: topbarCtrl.selectedMenu === 'almacenes'}">
+                                <i class="glyphicon glyphicon-pushpin"></i> Escoger</a>
                         </li>
                         <li>
                             <a><i class="fa fa-search-plus" aria-hidden="true"></i> Consultar<span class="fa arrow"></span></a>
                             <ul class="nav nav-third-level">
-                                <li ng-repeat="almacen in almacenesData.Almacenes">
+                                <li ng-repeat="almacen in topbarCtrl.almacenesData.Almacenes">
                                     <a ui-sref="app.almacenesdetalle({id_almacen: almacen.ID_ALMACEN, codigo_almacen: almacen.CODIGO})"><i class="fa fa-cube" aria-hidden="true"></i> {{almacen.CODIGO}}</a>
                                 </li>
                                 <li>

@@ -8,6 +8,7 @@
 				views: {
 					'topbar' : {
 						controller: 'topbarController',
+						controllerAs: 'topbarCtrl',
 						/*controller: 'navBarController',*/
 						templateUrl: 'dev/modules/TopBar/topbar.html',
 						/*templateUrl: 'dev/modules/NavBar/nav.html',*/
