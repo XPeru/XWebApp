@@ -41,9 +41,9 @@ angular.module('TopBar', [])
 					console.info("baseURI");
 					console.info(this);
 					console.info("pathName");
-					console.info(this.pathname);
-					console.info(this.baseURI.substring(24) === this.pathname.substring(1));
-					return this.baseURI.substring(24) === this.pathname.substring(1);
+					console.info(this.pathname.substring(1).split(/[ /]+/));
+					console.info(this.baseURI.substring(24).split(/[ /]+/)[0] === this.pathname.substring(1).split(/[ /]+/)[0]);
+					return this.baseURI.substring(24).split(/[ /]+/)[0] === this.pathname.substring(1).split(/[ /]+/)[0];
 				}).parent().parent().addClass('in').parent().parent().addClass('in');
 
 				ctrl.callGetAllAlmacenes = function() {
