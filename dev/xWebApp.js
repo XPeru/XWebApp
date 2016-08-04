@@ -169,6 +169,7 @@
     //run.$inject = ['$rootScope', '$location', '$cookieStore', '$http'];
 
     angular.module('xWebApp', [
+    'ui.grid',
 	'ngTable',
 	'ngCookies',
 	'Footer',
@@ -197,7 +198,8 @@
 	//'loginService',
 	'ngRoute',
 	'ui.router',
-	'ui.bootstrap'])
+	'ui.bootstrap'
+	])
 	.config(config);
     //.run(run);
     

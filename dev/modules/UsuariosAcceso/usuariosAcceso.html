@@ -1,61 +1,65 @@
 <div class="panel panel-default panel-primary">
-    <div class="panel-heading clearfix">
-        <h3 class="panel-title">Derechos de acceso</h3>
-    </div>
-    <div class="panel-body">
-        <div class="table-responsive">
-            <table class="table" ng-table="usuariosAccesoCtrl.usuariosAccesoTable">
-                <thead>
-                    <tr> 
-                        <th>
-                            <a ng-click="usuariosAccesoCtrl.setType('ID_ACCESO_USUARIO')">
-                                Id
-                                <span ng-show="usuariosAccesoCtrl.sortType == 'ID_ACCESO_USUARIO' && !usuariosAccesoCtrl.sortReverse"
-                                        class="fa fa-caret-down"></span>
-                                <span ng-show="usuariosAccesoCtrl.sortType == 'ID_ACCESO_USUARIO' && usuariosAccesoCtrl.sortReverse"
-                                        class="fa fa-caret-up"></span>
-                            </a>
-                        </th>
-                        <th>
-                            <a ng-click="usuariosAccesoCtrl.setType('DESCRIPCION')">
-                                Descripcion
-                                <span ng-show="usuariosAccesoCtrl.sortType == 'DESCRIPCION' && !usuariosAccesoCtrl.sortReverse"
-                                        class="fa fa-caret-down"></span>
-                                <span ng-show="usuariosAccesoCtrl.sortType == 'DESCRIPCION' && usuariosAccesoCtrl.sortReverse"
-                                        class="fa fa-caret-up"></span>
-                            </a>
-                        </th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead> 
-                <tbody>
-                    <tr ng-repeat="accesoUsuario in usuariosAccesoCtrl.usuariosAccesoData.AccesosUsuario |
-                                    orderBy:usuariosAccesoCtrl.sortType:usuariosAccesoCtrl.sortReverse"
-                        ng-click="usuariosAccesoCtrl.setSelected(accesoUsuario.ID_ACCESO_USUARIO)"
-                        ng-class="{info: accesoUsuario.ID_ACCESO_USUARIO === usuariosAccesoCtrl.idSelectedAccesoUsuario}">
-                        <td>{{accesoUsuario.ID_ACCESO_USUARIO}}</td>
-                        <td>{{accesoUsuario.DESCRIPCION}}</td>
-                        <td style="width:60px">
-                            <button ng-if="accesoUsuario.ID_ACCESO_USUARIO === usuariosAccesoCtrl.idSelectedAccesoUsuario"
-                                ng-click="usuariosAccesoCtrl.openModalAccesoUsuario('edit', accesoUsuario)"
-                                class="btn btn-small btn-primary">
-                                <i class="glyphicon glyphicon-pencil"></i>
-                            </button>
-                        </td>
-                        <td style="width:60px">
-                            <button ng-if="accesoUsuario.ID_ACCESO_USUARIO === usuariosAccesoCtrl.idSelectedAccesoUsuario"
-                                ng-click="usuariosAccesoCtrl.openModalAccesoUsuario('delete', accesoUsuario)"
-                                class="btn btn-small btn-danger">
-                                <i class="glyphicon glyphicon-remove"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody> 
-            </table>
-        </div>
-    </div>
+	<div class="panel-heading clearfix">
+		<h3 class="panel-title">Derechos de acceso</h3>
+	</div>
+	<div class="panel-body">
+		<div class="table-responsive" >
+			<!--
+			<table class="table" ng-table="usuariosAccesoCtrl.usuariosAccesoTable">
+				<thead>
+					<tr> 
+						<th>
+							<a ng-click="usuariosAccesoCtrl.setType('ID_ACCESO_USUARIO')">
+								Id
+								<span ng-show="usuariosAccesoCtrl.sortType == 'ID_ACCESO_USUARIO' && !usuariosAccesoCtrl.sortReverse"
+										class="fa fa-caret-down"></span>
+								<span ng-show="usuariosAccesoCtrl.sortType == 'ID_ACCESO_USUARIO' && usuariosAccesoCtrl.sortReverse"
+										class="fa fa-caret-up"></span>
+							</a>
+						</th>
+						<th>
+							<a ng-click="usuariosAccesoCtrl.setType('DESCRIPCION')">
+								Descripcion
+								<span ng-show="usuariosAccesoCtrl.sortType == 'DESCRIPCION' && !usuariosAccesoCtrl.sortReverse"
+										class="fa fa-caret-down"></span>
+								<span ng-show="usuariosAccesoCtrl.sortType == 'DESCRIPCION' && usuariosAccesoCtrl.sortReverse"
+										class="fa fa-caret-up"></span>
+							</a>
+						</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead> 
+				<tbody>
+					<tr ng-repeat="accesoUsuario in usuariosAccesoCtrl.usuariosAccesoData.AccesosUsuario |
+									orderBy:usuariosAccesoCtrl.sortType:usuariosAccesoCtrl.sortReverse"
+						ng-click="usuariosAccesoCtrl.setSelected(accesoUsuario.ID_ACCESO_USUARIO)"
+						ng-class="{info: accesoUsuario.ID_ACCESO_USUARIO === usuariosAccesoCtrl.idSelectedAccesoUsuario}">
+						<td>{{accesoUsuario.ID_ACCESO_USUARIO}}</td>
+						<td>{{accesoUsuario.DESCRIPCION}}</td>
+						<td style="width:60px">
+							<button ng-if="accesoUsuario.ID_ACCESO_USUARIO === usuariosAccesoCtrl.idSelectedAccesoUsuario"
+								ng-click="usuariosAccesoCtrl.openModalAccesoUsuario('edit', accesoUsuario)"
+								class="btn btn-small btn-primary">
+								<i class="glyphicon glyphicon-pencil"></i>
+							</button>
+						</td>
+						<td style="width:60px">
+							<button ng-if="accesoUsuario.ID_ACCESO_USUARIO === usuariosAccesoCtrl.idSelectedAccesoUsuario"
+								ng-click="usuariosAccesoCtrl.openModalAccesoUsuario('delete', accesoUsuario)"
+								class="btn btn-small btn-danger">
+								<i class="glyphicon glyphicon-remove"></i>
+							</button>
+						</td>
+					</tr>
+				</tbody> 
+			</table>
+		-->
+			<div  ui-i18n="es" ui-grid="{ data: usuariosAccesoCtrl.usuariosAccesoData.AccesosUsuario }" class="myGrid"></div>
+		</div>
+		
+	</div>
 </div>
 <button ng-click="usuariosAccesoCtrl.openModalAccesoUsuario('create', null)" class="btn btn-small">
-    Nuevo <span><i class="glyphicon glyphicon-plus"></i></span>
+	Nuevo <span><i class="glyphicon glyphicon-plus"></i></span>
 </button>

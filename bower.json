@@ -21,16 +21,18 @@
   ],
   "dependencies": {
     "bootstrap": "~3.3.5",
-    "angular": "~1.5.2",
+    "angular": "~1.4.12",
     "angular-ui-router": "~0.2.15",
     "angular-route": "~1.4.7",
     "angular-resource": "~1.4.7",
     "angular-bootstrap": "~0.14.1",
     "ng-table": "~0.8.3",
     "Hover": "~2.0.2",
-    "angular-cookies": "~1.5.2",
+    "angular-cookies": "~1.4.12",
     "metisMenu": "^2.5.0",
-    "components-font-awesome": "^4.6.3"
+    "components-font-awesome": "^4.6.3",
+    "angular-ui-grid": "^3.2.1",
+    "angular-i18n": "^1.5.8"
   },
   "resolutions": {
     "webcomponentsjs": "^0.6.0"

@@ -1,5 +1,5 @@
 "use strict";
-angular.module('UsuariosAcceso', ['ui.bootstrap'])
+angular.module('UsuariosAcceso', ['ui.bootstrap', 'ui.grid'])
 	.controller('usuariosAccesoController', ['$scope',
 													'$location',
 													'$http',
@@ -7,8 +7,10 @@ angular.module('UsuariosAcceso', ['ui.bootstrap'])
 													'$timeout',
 													'UsuariosAccesoServiceFactory',
 													'NgTableParams',
-		function($scope, $location, $http, $uibModal, $timeout, UsuariosAccesoServiceFactory, NgTableParams) {
+													'i18nService',
+		function($scope, $location, $http, $uibModal, $timeout, UsuariosAccesoServiceFactory, NgTableParams, i18nService) {
 			var ctrl = this;
+			i18nService.setCurrentLang('es');
 			ctrl.usuariosAccesoData = [{}];
 			ctrl.modal_acceso_usuario_not_finished = true;
 
@@ -37,14 +39,15 @@ angular.module('UsuariosAcceso', ['ui.bootstrap'])
 				}
 				
 			});
-
+			
 			ctrl.callGetAllAccesoUsuario = function() {
 				UsuariosAccesoServiceFactory.getAllAccesoUsuario().then(function(response) {
 					ctrl.usuariosAccesoData = response.data;
-					ctrl.usuariosAccesoTable.reload();
+					//ctrl.usuariosAccesoTable.reload();
+					console.info(ctrl.usuariosAccesoData.AccesosUsuario);
 				});
 			};
-
+			ctrl.callGetAllAccesoUsuario();
 			ctrl.idSelectedAccesoUsuario = null;
 			ctrl.setSelected = function(idSelectedAccesoUsuario) {
 				ctrl.idSelectedAccesoUsuario = idSelectedAccesoUsuario;

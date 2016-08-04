@@ -55,7 +55,7 @@
                         <td>{{articulo.CODIGO}}</td>
                         <td>{{articulo.DESCRIPCION}}</td>
                         <td>{{articulo.UNIDAD}}</td>
-                        <td>{{articulo.PRECIO_UNITARIO}}</td>
+                        <td>{{articulo.PRECIO_UNITARIO |currency}}</td>
                         <td>{{articulo.VALOR_REPOSICION}}</td>
                         <td style="width:60px">
                             <button ng-if="articulo.ID_ARTICULO === articulosCtrl.idSelectedArticulo"
