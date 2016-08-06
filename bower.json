@@ -32,7 +32,8 @@
     "metisMenu": "^2.5.0",
     "components-font-awesome": "^4.6.3",
     "angular-ui-grid": "^3.2.1",
-    "angular-i18n": "^1.5.8"
+    "angular-i18n": "^1.5.8",
+    "pdfmake": "^0.1.20"
   },
   "resolutions": {
     "webcomponentsjs": "^0.6.0"
