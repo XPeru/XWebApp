@@ -40,9 +40,13 @@
 		padding-right: 1px;
 	}
 
+	.buttonhide {
+		display: none;
+	}
+
 	.underheader {
-	margin-top: 55px;
-}
+		margin-top: 55px;
+	}
 }
 .list_home {
 	font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
