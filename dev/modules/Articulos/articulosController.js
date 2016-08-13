@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('Articulos', ['ui.bootstrap'])
+angular.module('Articulos', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.grid.selection'])
 	.controller('articulosController', ['$scope',
 										'$location',
 										'$http',
@@ -9,19 +9,12 @@ angular.module('Articulos', ['ui.bootstrap'])
 										'ArticulosServiceFactory',
 										'NgTableParams',
 										'ArticulosCategoriaServiceFactory',
-	function($scope, $location, $http, $uibModal, $timeout, ArticulosServiceFactory, NgTableParams, ArticulosCategoriaServiceFactory) {
+										'i18nService',
+	function($scope, $location, $http, $uibModal, $timeout, ArticulosServiceFactory, NgTableParams, ArticulosCategoriaServiceFactory, i18nService) {
 		var ctrl = this;
-		ctrl.sortType     = 'ID_ARTICULO'; // set the default sort type
-        ctrl.sortReverse  = false;  // set the default sort order
-
-        ctrl.setType = function(type) {
-            ctrl.sortType = type;
-            ctrl.sortReverse = !ctrl.sortReverse;
-        };
-
-        ctrl.idSelectedArticulo = null;
-		ctrl.setSelected = function(idSelectedArticulo) {
-			ctrl.idSelectedArticulo = idSelectedArticulo;
+		ctrl.tableMode = true;
+		ctrl.switchTableMode = function() {
+			ctrl.tableMode = !ctrl.tableMode;
 		};
 
 		ctrl.callGetAllCategorias = function() {
@@ -29,33 +22,48 @@ angular.module('Articulos', ['ui.bootstrap'])
 				ctrl.categoriaList = response.data.Categorias;
 			});
 		};
-
 		ctrl.callGetAllCategorias();
-		ctrl.articlesData = [{}];
-		ctrl.modal_article_not_finished = true;
-		ctrl.articlesTable = new NgTableParams({
-			page: 1,
-			count: 10
-		}, {
-			total: 0,
-			counts: [],
-			getData: function(params) {
-				if (ctrl.modal_article_not_finished) {
-						ctrl.callGetArticuloList();
-					} else {
-						params.total(ctrl.articlesData.length);
-						return ctrl.articlesData;
-					}
-					ctrl.modal_article_not_finished = false;
-			}
-			
-		});
 
+		i18nService.setCurrentLang('es');
+		$scope.columns = [{ field: 'CODIGO', headerCellClass: 'blue'},
+							{field: 'DESCRIPCION', headerCellClass : 'blue'},
+							{field: 'UNIDAD', headerCellClass : 'blue'},
+							{field: 'PRECIO_UNITARIO', headerCellClass: 'blue'},
+							{field: 'VALOR_REPOSICION', headerCellClass :' blue'}];
+			$scope.columns[0].displayName = 'Codigo';
+			$scope.columns[1].displayName = 'Descripcion';
+			$scope.columns[2].displayName = 'Unidad';
+			$scope.columns[3].displayName = 'Precio unitario';
+			$scope.columns[4].displayName = 'Valor de reposicion';
+			$scope.gridOptions = {
+				exporterMenuCsv: false,
+				enableGridMenu: true,
+				enableSorting: true,
+				enableFiltering: true,
+				columnDefs: $scope.columns,
+				onRegisterApi: function(gridApi) {
+					$scope.gridApi = gridApi;
+				}
+			};
+
+		ctrl.articlesData = [{}];
 		ctrl.callGetArticuloList = function() {
 			ArticulosServiceFactory.getArticuloList().then(function(response) {
-				ctrl.articlesData = response.data;
-				ctrl.articlesTable.reload();
+				ctrl.articlesData = response.data.Articulos;
+				$scope.gridOptions.data = response.data.Articulos;
+				ctrl.articlesTable = new NgTableParams({
+					page: 1,
+					count: 10
+				}, {
+					data : ctrl.articlesData
+				});
 			});
+		};
+		ctrl.callGetArticuloList();
+
+		ctrl.idSelectedArticulo = null;
+		ctrl.setSelected = function(idSelectedArticulo) {
+			ctrl.idSelectedArticulo = idSelectedArticulo;
 		};
 
 		ctrl.openModalArticulo = function(selected_modal, selected_article) {
@@ -88,11 +96,11 @@ angular.module('Articulos', ['ui.bootstrap'])
 			});
 
 			modalInstance.result.then(function() {
-				ctrl.modal_article_not_finished = true;
+				ctrl.callGetArticuloList();
 				ctrl.articlesTable.reload();
 				
 			}, function() {
-				ctrl.modal_article_not_finished = true;
+				ctrl.callGetArticuloList();
 				ctrl.articlesTable.reload();
 			});
 		};

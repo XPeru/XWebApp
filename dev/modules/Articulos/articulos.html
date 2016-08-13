@@ -1,75 +1,38 @@
 <div class="panel panel-default panel-primary">
     <div class="panel-heading clearfix">
-        <h3 class="panel-title">Articulos</h3>
+        <h3 class="panel-title">Articulos
+            <button ng-click="articulosCtrl.switchTableMode()" class="pull-right btn btn-small btn-danger btn_separate">
+                 <i ng-if="articulosCtrl.tableMode" class="fa fa-print" aria-hidden="true"></i> <i ng-if="articulosCtrl.tableMode" class="fa fa-file-pdf-o" aria-hidden="true"></i> <i ng-if="!articulosCtrl.tableMode" class="fa fa-long-arrow-left" aria-hidden="true"></i>
+            </button>
+            <button ng-click="articulosCtrl.openModalArticulo('create', null)" class="btn_separate pull-right btn btn-small btn-success">
+                Nuevo <span><i class="glyphicon glyphicon-plus"></i></span>
+            </button>
+        </h3>
     </div>
-    <div class="panel-body ">
-        <div class="table-responsive">
-            <table ng-table="articulosCtrl.articlesTable" class="table">
-                <thead>
-                    <tr>
-                        <th>Imagen</th>
-                        <th>
-                            <a ng-click="articulosCtrl.setType('CODIGO')">
-                                Codigo
-                                <span ng-show="articulosCtrl.sortType == 'CODIGO' && !articulosCtrl.sortReverse" class="fa fa-caret-down"></span>
-                                <span ng-show="articulosCtrl.sortType == 'CODIGO' && articulosCtrl.sortReverse" class="fa fa-caret-up"></span>
-                            </a>
-                        </th>
-                        <th>
-                            <a ng-click="articulosCtrl.setType('DESCRIPCION')">
-                                Descripcion
-                                <span ng-show="articulosCtrl.sortType == 'DESCRIPCION' && !articulosCtrl.sortReverse" class="fa fa-caret-down"></span>
-                                <span ng-show="articulosCtrl.sortType == 'DESCRIPCION' && articulosCtrl.sortReverse" class="fa fa-caret-up"></span>
-                            </a>
-                        </th>
-                        <th>
-                            <a ng-click="articulosCtrl.setType('UNIDAD')">
-                                Unidad
-                                <span ng-show="articulosCtrl.sortType == 'UNIDAD' && !articulosCtrl.sortReverse" class="fa fa-caret-down"></span>
-                                <span ng-show="articulosCtrl.sortType == 'UNIDAD' && articulosCtrl.sortReverse" class="fa fa-caret-up"></span>
-                            </a>
-                        </th>
-                        <th>
-                            <a ng-click="articulosCtrl.setType('PRECIO_UNITARIO')">
-                                Precio Unitario
-                                <span ng-show="articulosCtrl.sortType == 'PRECIO_UNITARIO' && !articulosCtrl.sortReverse" class="fa fa-caret-down"></span>
-                                <span ng-show="articulosCtrl.sortType == 'PRECIO_UNITARIO' && articulosCtrl.sortReverse" class="fa fa-caret-up"></span>
-                            </a>
-                        </th>
-                        <th>
-                            <a ng-click="articulosCtrl.setType('VALOR_REPOSICION')">
-                                Valor de Reposicion
-                                <span ng-show="articulosCtrl.sortType == 'VALOR_REPOSICION' && !articulosCtrl.sortReverse" class="fa fa-caret-down"></span>
-                                <span ng-show="articulosCtrl.sortType == 'VALOR_REPOSICION' && articulosCtrl.sortReverse" class="fa fa-caret-up"></span>
-                            </a>
-                        </th>
-                        <th></th>
-                        <!-- <th></th> -->
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="articulo in articulosCtrl.articlesData.Articulos|orderBy:articulosCtrl.sortType:articulosCtrl.sortReverse"
-                        ng-click="articulosCtrl.setSelected(articulo.ID_ARTICULO)"
-                        ng-class="{info: articulo.ID_ARTICULO === articulosCtrl.idSelectedArticulo}">
-                        <td><img class="img-thumbnail" ng-src={{articulo.IMAGEN}} width="100" height="100"></td>
-                        <td>{{articulo.CODIGO}}</td>
-                        <td>{{articulo.DESCRIPCION}}</td>
-                        <td>{{articulo.UNIDAD}}</td>
-                        <td>{{articulo.PRECIO_UNITARIO |currency}}</td>
-                        <td>{{articulo.VALOR_REPOSICION}}</td>
-                        <td style="width:60px">
-                            <button ng-if="articulo.ID_ARTICULO === articulosCtrl.idSelectedArticulo"
-                                ng-click="articulosCtrl.openModalArticulo('edit', articulo)"
-                                class="btn btn-small btn-primary">
-                                <i class="glyphicon glyphicon-pencil"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
+    <div class="panel-body">
+        <div class="table-responsive" ng-if="articulosCtrl.tableMode">
+            <table class="table table-striped" ng-table="articulosCtrl.articlesTable" show-filter="true">
+                <tr ng-repeat="articulo in $data track by articulo.ID_ARTICULO"
+                    ng-click="articulosCtrl.setSelected(articulo.ID_ARTICULO)"
+                    ng-class="{info: articulo.ID_ARTICULO === articulosCtrl.idSelectedArticulo}">
+                    <td data-title="'Imagen'"><img class="img-thumbnail" ng-src={{articulo.IMAGEN}} width="100" height="100"></td>
+                    <td data-title="'Codigo'" filter="{CODIGO: 'text'}" sortable="'CODIGO'">{{articulo.CODIGO}}</td>
+                    <td data-title="'Descripcion'" filter="{DESCRIPCION: 'text'}" sortable="'DESCRIPCION'">{{articulo.DESCRIPCION}}</td>
+                    <td data-title="'Unidad'" filter="{UNIDAD: 'text'}" sortable="'UNIDAD'">{{articulo.UNIDAD}}</td>
+                    <td data-title="'Precio Unitario'" filter="{PRECIO_UNITARIO: 'number'}" sortable="'PRECIO_UNITARIO'">{{articulo.PRECIO_UNITARIO |currency}}</td>
+                    <td data-title="'Valor de reposicion'" filter="{VALOR_REPOSICION: 'number'}" sortable="'VALOR_REPOSICION'">{{articulo.VALOR_REPOSICION}}</td>
+                    <td style="width:60px">
+                        <button ng-if="articulo.ID_ARTICULO === articulosCtrl.idSelectedArticulo"
+                            ng-click="articulosCtrl.openModalArticulo('edit', articulo)"
+                            class="btn btn-small btn-primary">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                        </button>
+                    </td>
+                </tr>
+
             </table>
+        </div>
+        <div ng-if="!articulosCtrl.tableMode" id="gridArticulos" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid">
         </div>
     </div>
 </div>
-<button ng-click="articulosCtrl.openModalArticulo('create', null)" class="btn btn-small">
-    Nuevo <span><i class="glyphicon glyphicon-plus"></i></span>
-</button>
