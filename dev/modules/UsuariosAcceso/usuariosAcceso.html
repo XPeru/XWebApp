@@ -1,11 +1,17 @@
-<div class="panel panel-default panel-primary">
+<div class="row">
+	<div class="panel panel-default panel-primary">
 	<div class="panel-heading clearfix">
-		<h3 class="panel-title">Derechos de acceso</h3>
+		<h2 class="panel-title">
+			Derechos de acceso
+			<button ng-click="usuariosAccesoCtrl.switchTableMode()" class="pull-right btn btn-small btn-success">
+				 <i class="fa fa-magic" aria-hidden="true"></i>
+			</button>
+		</h2>
+	
 	</div>
 	<div class="panel-body">
-		<div class="table-responsive" >
-
-			<table class="table" ng-table="usuariosAccesoCtrl.usuariosAccesoTable">
+		<div class="table-responsive" style="height:350px" ng-if="usuariosAccesoCtrl.tableMode">
+			<table class="table" ng-table="usuariosAccesoCtrl.usuariosAccesoTable" show-filter="true">
 				<thead>
 					<tr> 
 						<th>
@@ -31,11 +37,11 @@
 					</tr>
 				</thead> 
 				<tbody>
-					<tr ng-repeat="accesoUsuario in usuariosAccesoCtrl.usuariosAccesoData.AccesosUsuario |
+					<tr ng-repeat="accesoUsuario in $data.AccesosUsuario |
 									orderBy:usuariosAccesoCtrl.sortType:usuariosAccesoCtrl.sortReverse"
 						ng-click="usuariosAccesoCtrl.setSelected(accesoUsuario.ID_ACCESO_USUARIO)"
 						ng-class="{info: accesoUsuario.ID_ACCESO_USUARIO === usuariosAccesoCtrl.idSelectedAccesoUsuario}">
-						<td>{{accesoUsuario.ID_ACCESO_USUARIO}}</td>
+						<td data-title="'ID_ACCESO_USUARIO'"  filter="{ID_ACCESO_USUARIO:'number'}" sortable="'ID_ACCESO_USUARIO'">{{accesoUsuario.ID_ACCESO_USUARIO}}</td>
 						<td>{{accesoUsuario.DESCRIPCION}}</td>
 						<td style="width:60px">
 							<button ng-if="accesoUsuario.ID_ACCESO_USUARIO === usuariosAccesoCtrl.idSelectedAccesoUsuario"
@@ -52,14 +58,14 @@
 							</button>
 						</td>
 					</tr>
-				</tbody> 
+				</tbody>
 			</table>
-
-			<!-- <div  ui-i18n="es" ui-grid="{ data: usuariosAccesoCtrl.usuariosAccesoData.AccesosUsuario }" class="myGrid"></div> -->
 		</div>
-		
+		<div ng-if="!usuariosAccesoCtrl.tableMode" style="height:350px"  id="grid1" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid"></div>
 	</div>
 </div>
 <button ng-click="usuariosAccesoCtrl.openModalAccesoUsuario('create', null)" class="btn btn-small">
 	Nuevo <span><i class="glyphicon glyphicon-plus"></i></span>
 </button>
+</div>
+
