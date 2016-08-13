@@ -1,5 +1,5 @@
-<div class="row">
-	<div class="panel panel-default panel-primary">
+
+<div class="panel panel-default panel-primary">
 	<div class="panel-heading clearfix">
 		<h2 class="panel-title">
 			Derechos de acceso
@@ -10,14 +10,13 @@
 				Nuevo <span><i class="glyphicon glyphicon-plus"></i></span>
 			</button>
 		</h2>
-	
 	</div>
 	<div class="panel-body">
 		<div class="table-responsive" ng-if="usuariosAccesoCtrl.tableMode">
 			<table class="table table-striped" ng-table="usuariosAccesoCtrl.usuariosAccesoTable">
 				<tr ng-repeat="accesoUsuario in $data track by accesoUsuario.ID_ACCESO_USUARIO"
 					ng-click="usuariosAccesoCtrl.setSelected(accesoUsuario.ID_ACCESO_USUARIO)"
-                    ng-class="{info: accesoUsuario.ID_ACCESO_USUARIO === usuariosAccesoCtrl.idSelectedAccesoUsuario}">					
+					ng-class="{info: accesoUsuario.ID_ACCESO_USUARIO === usuariosAccesoCtrl.idSelectedAccesoUsuario}">					
 					<td data-title="'ID'" filter="{ID_ACCESO_USUARIO: 'text'}" sortable="'ID_ACCESO_USUARIO'">{{accesoUsuario.ID_ACCESO_USUARIO}}</td>
 					<td data-title="'DESCRIPCION'" filter="{DESCRIPCION: 'text'}" sortable="'DESCRIPCION'">{{accesoUsuario.DESCRIPCION}}</td>
 					<td style="width:60px">
@@ -37,9 +36,9 @@
 				</tr>
 			</table>
 		</div>
-		<div ng-if="!usuariosAccesoCtrl.tableMode" style="height:350px"  id="grid1" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid"></div>
+		<div ng-if="!usuariosAccesoCtrl.tableMode" id="grid1" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid">
+		</div>
 	</div>
 </div>
 
-</div>
 
