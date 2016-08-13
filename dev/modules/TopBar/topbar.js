@@ -58,5 +58,12 @@ angular.module('TopBar', [])
 					ctrl.selectedMenu = nameMenu;
 				};
 
+				ctrl.lateralMenu = true;
+				$rootScope.toLeft = true;
+				ctrl.showLateralMenu = function() {
+					ctrl.lateralMenu = !ctrl.lateralMenu;
+					$rootScope.toLeft = !$rootScope.toLeft;
+				};
+
 			}
 ]);

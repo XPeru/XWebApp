@@ -1,242 +1,249 @@
 <nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
 
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#leftbarToCollapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#/home">Electrica Optimizacion</a>
-    </div>
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#leftbarToCollapse">
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="#/home">Electrica Optimizacion</a>
+	</div>
+	<ul class="nav navbar-top-links navbar-left" >
+		<li class="dropdown" aria-expanded="true">
+			<a class="dropdown-toggle" data-toggle="dropdown" ng-click="topbarCtrl.showLateralMenu()">
+				<i ng-if="!topbarCtrl.lateralMenu"class="glyphicon glyphicon-resize-full"></i>
+				<i ng-if="topbarCtrl.lateralMenu"class="glyphicon glyphicon-resize-small"></i>
+			</a>
+		</li>
+	</ul>
 
+	<ul class="nav navbar-top-links navbar-right">
+		<li class="dropdown" aria-expanded="true">
+			<a class="dropdown-toggle" data-toggle="dropdown">
+				<i class="glyphicon glyphicon-envelope"></i>  <i class="glyphicon glyphicon-triangle-bottom"></i>
+			</a>
+			<ul class="dropdown-menu dropdown-messages">
+				<li>
+					<a>
+						<div>
+							<strong>John Smith</strong>
+							<span class="pull-right text-muted">
+								<em>Yesterday</em>
+							</span>
+						</div>
+						<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+					</a>
+				</li>
+			</ul>
+			<!-- /.dropdown-messages -->
+		</li>
+		<!-- /.dropdown -->
+		<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown">
+				<i class="glyphicon glyphicon-align-left"></i>  <i class="glyphicon glyphicon-triangle-bottom"></i>
+			</a>
+			<ul class="dropdown-menu dropdown-tasks">
+				<li>
+					<a>
+						<div>
+							<p>
+								<strong>Task 4</strong>
+								<span class="pull-right text-muted">80% Complete</span>
+							</p>
+							<div class="progress progress-striped active">
+								<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+									<span class="sr-only">80% Complete (danger)</span>
+								</div>
+							</div>
+						</div>
+					</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					<a class="text-center">
+						<strong>See All Tasks</strong>
+						<i class="fa fa-angle-right"></i>
+					</a>
+				</li>
+			</ul>
+			<!-- /.dropdown-tasks -->
+		</li>
+		<!-- /.dropdown -->
+		<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown">
+				<i class="glyphicon glyphicon-bell"></i>  <i class="glyphicon glyphicon-triangle-bottom"></i>
+			</a>
+			<ul class="dropdown-menu dropdown-alerts">
+				<li>
+					<a>
+						<div>
+							<i class="fa fa-envelope fa-fw"></i> Message Sent
+							<span class="pull-right text-muted small">4 minutes ago</span>
+						</div>
+					</a>
+				</li>
+			</ul>
+			<!-- /.dropdown-alerts -->
+		</li>
+		<!-- /.dropdown -->
+		<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown">
+				<i class="glyphicon glyphicon-user"></i>  <i class="glyphicon glyphicon-triangle-bottom"></i>
+			</a>
+			<ul class="dropdown-menu dropdown-user">
+				<li><a><i class="fa fa-user fa-fw"></i> User Profile</a>
+				</li>
+				<li><a><i class="fa fa-gear fa-fw"></i> Settings</a>
+				</li>
+				<li class="divider"></li>
+				<li><a><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+				</li>
+			</ul>
+			<!-- /.dropdown-user -->
+		</li>
+		<!-- /.dropdown -->
+	</ul>
 
-    <ul class="nav navbar-top-links navbar-right">
-        <li class="dropdown" aria-expanded="true">
-            <a class="dropdown-toggle" data-toggle="dropdown">
-                <i class="glyphicon glyphicon-envelope"></i>  <i class="glyphicon glyphicon-triangle-bottom"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-messages">
-                <li>
-                    <a>
-                        <div>
-                            <strong>John Smith</strong>
-                            <span class="pull-right text-muted">
-                                <em>Yesterday</em>
-                            </span>
-                        </div>
-                        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                    </a>
-                </li>
-            </ul>
-            <!-- /.dropdown-messages -->
-        </li>
-        <!-- /.dropdown -->
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown">
-                <i class="glyphicon glyphicon-align-left"></i>  <i class="glyphicon glyphicon-triangle-bottom"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-tasks">
-                <li>
-                    <a>
-                        <div>
-                            <p>
-                                <strong>Task 4</strong>
-                                <span class="pull-right text-muted">80% Complete</span>
-                            </p>
-                            <div class="progress progress-striped active">
-                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                    <span class="sr-only">80% Complete (danger)</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a class="text-center">
-                        <strong>See All Tasks</strong>
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-                </li>
-            </ul>
-            <!-- /.dropdown-tasks -->
-        </li>
-        <!-- /.dropdown -->
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown">
-                <i class="glyphicon glyphicon-bell"></i>  <i class="glyphicon glyphicon-triangle-bottom"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-alerts">
-                <li>
-                    <a>
-                        <div>
-                            <i class="fa fa-envelope fa-fw"></i> Message Sent
-                            <span class="pull-right text-muted small">4 minutes ago</span>
-                        </div>
-                    </a>
-                </li>
-            </ul>
-            <!-- /.dropdown-alerts -->
-        </li>
-        <!-- /.dropdown -->
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown">
-                <i class="glyphicon glyphicon-user"></i>  <i class="glyphicon glyphicon-triangle-bottom"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-user">
-                <li><a><i class="fa fa-user fa-fw"></i> User Profile</a>
-                </li>
-                <li><a><i class="fa fa-gear fa-fw"></i> Settings</a>
-                </li>
-                <li class="divider"></li>
-                <li><a><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                </li>
-            </ul>
-            <!-- /.dropdown-user -->
-        </li>
-        <!-- /.dropdown -->
-    </ul>
+	<div ng-if="topbarCtrl.lateralMenu" class="navbar-default sidebar navbar-inverse" role="navigation">
+		<div class="sidebar-nav navbar-collapse collapse" aria-expanded="false" id="leftbarToCollapse">
+			<ul class="nav in" id="menu">
+				<li class="sidebar-search">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Buscar...">
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="button">
+								<i class="glyphicon glyphicon-search"></i>
+							</button>
+						</span>
+					</div>
+				</li>
+				<li>
+					<a><i class="fa fa-area-chart" aria-hidden="true"></i> Dashboard</a>
+				</li>
+				<li>
+					<a>
+						<i class="glyphicon glyphicon-user">
+							
+						</i> Usuarios<span class="fa arrow"></span>
+					</a>
+					<ul class="nav nav-second-level">
+						<li>
+							<a ui-sref="app.usuariosacceso"
+								ng-click="topbarCtrl.setSelectedMenu('usuariosacceso')"
+								ng-class="{active: topbarCtrl.selectedMenu === 'usuariosacceso'}"
+								href='usuariosacceso'>
+								<i class="glyphicon glyphicon-log-in"></i> Derechos de acceso
+							</a>
+						</li>
+						<li>
+							<a ui-sref="app.usuariostipo"
+								ng-click="topbarCtrl.setSelectedMenu('usuariostipo')"
+								ng-class="{active: topbarCtrl.selectedMenu === 'usuariostipo'}"
+								href='usuariostipo'>
+								<i class="glyphicon glyphicon-pawn"></i> Tipos de usuario
+							</a>
+						</li>
+						<li>
+							<a ui-sref="app.usuarios"
+								ng-click="topbarCtrl.setSelectedMenu('usuarios')"
+								ng-class="{active: topbarCtrl.selectedMenu === 'usuarios'}"
+								href='usuarios'>
+								<i class="glyphicon glyphicon-cog"></i> Gestion de usuarios
+							</a>
+						</li>
+					</ul>
+					<!-- /.nav-second-level -->
+				</li>
 
-    <div class="navbar-default sidebar navbar-inverse" role="navigation">
-        <div class="sidebar-nav navbar-collapse collapse" aria-expanded="false" id="leftbarToCollapse">
-            <ul class="nav in" id="menu">
-                <li class="sidebar-search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Buscar...">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">
-                                <i class="glyphicon glyphicon-search"></i>
-                            </button>
-                        </span>
-                    </div>
-                </li>
-                <li>
-                    <a><i class="fa fa-area-chart" aria-hidden="true"></i> Dashboard</a>
-                </li>
-                <li>
-                    <a>
-                        <i class="glyphicon glyphicon-user">
-                            
-                        </i> Usuarios<span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a ui-sref="app.usuariosacceso"
-                                ng-click="topbarCtrl.setSelectedMenu('usuariosacceso')"
-                                ng-class="{active: topbarCtrl.selectedMenu === 'usuariosacceso'}"
-                                href='usuariosacceso'>
-                                <i class="glyphicon glyphicon-log-in"></i> Derechos de acceso
-                            </a>
-                        </li>
-                        <li>
-                            <a ui-sref="app.usuariostipo"
-                                ng-click="topbarCtrl.setSelectedMenu('usuariostipo')"
-                                ng-class="{active: topbarCtrl.selectedMenu === 'usuariostipo'}"
-                                href='usuariostipo'>
-                                <i class="glyphicon glyphicon-pawn"></i> Tipos de usuario
-                            </a>
-                        </li>
-                        <li>
-                            <a ui-sref="app.usuarios"
-                                ng-click="topbarCtrl.setSelectedMenu('usuarios')"
-                                ng-class="{active: topbarCtrl.selectedMenu === 'usuarios'}"
-                                href='usuarios'>
-                                <i class="glyphicon glyphicon-cog"></i> Gestion de usuarios
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.nav-second-level -->
-                </li>
-
-                <li>
-                    <a><i class="fa fa-cubes" aria-hidden="true"></i> Almacenes<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a ui-sref="app.almacenesgestion"
-                                ng-click="topbarCtrl.setSelectedMenu('almacenesgestion')"
-                                ng-class="{active: topbarCtrl.selectedMenu === 'almacenesgestion'}"
-                                href='almacenesgestion'>
-                                <i class="glyphicon glyphicon-cog"></i> Gestion
-                            </a>
-                        </li>
-                        <li>
-                            <a ui-sref="app.almacenes"
-                                ng-click="topbarCtrl.setSelectedMenu('almacenes')"
-                                ng-class="{active: topbarCtrl.selectedMenu === 'almacenes'}"
-                                href='almacenes'>
-                                <i class="glyphicon glyphicon-pushpin"></i> Escoger</a>
-                        </li>
-                        <li>
-                            <a><i class="fa fa-search-plus" aria-hidden="true"></i> Consultar<span class="fa arrow"></span></a>
-                            <ul class="nav nav-third-level">
-                                <li ng-repeat="almacen in topbarCtrl.almacenesData.Almacenes">
-                                    <a ui-sref="app.almacenesdetalle({id_almacen: almacen.ID_ALMACEN, codigo_almacen: almacen.CODIGO})"
-                                        ng-click="topbarCtrl.setSelectedMenu('almacenesdetalle/'+almacen.ID_ALMACEN+'/'+ almacen.CODIGO+'')"
-                                        ng-class="{active: topbarCtrl.selectedMenu === 'almacenesdetalle/'+almacen.ID_ALMACEN+'/'+almacen.CODIGO+''}"
-                                        href="'almacenesdetalle/'+almacen.ID_ALMACEN+'/'+almacen.CODIGO+''">
-                                        <i class="fa fa-cube" aria-hidden="true"></i> {{almacen.CODIGO}}
-                                    </a>
-                                </li>
-                                <li>
-                                    <a ui-sref="app.almacenesdetalle({id_almacen: 15, codigo_almacen: 20})"
-                                        ng-click="topbarCtrl.setSelectedMenu('almacenesdetalle/15/20')"
-                                        ng-class="{active: topbarCtrl.selectedMenu === 'almacenesdetalle/15/20'}"
-                                        href='almacenesdetalle/15/20'>TODOS
-                                    </a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-third-level -->
-                        </li>
-                    </ul>
-                    <!-- /.nav-second-level -->
-                </li>
-                <li>
-                    <a><i class="glyphicon glyphicon-th-list"></i> Articulos<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a ui-sref="app.articuloscategoria"
-                                ng-click="topbarCtrl.setSelectedMenu('articuloscategoria')"
-                                ng-class="{active: topbarCtrl.selectedMenu === 'articuloscategoria'}"
-                                href='articuloscategoria'>
-                                <i class="glyphicon glyphicon-cog"></i> Categorias
-                            </a>
-                        </li>
-                        <li>
-                            <a ui-sref="app.articulos"
-                                ng-click="topbarCtrl.setSelectedMenu('articulos')"
-                                ng-class="{active: topbarCtrl.selectedMenu === 'articulos'}"
-                                href='articulos'>
-                                <i class="glyphicon glyphicon-cog"></i> Gestion de articulos
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.nav-second-level -->
-                </li>
-                <li>
-                    <a><i class="glyphicon glyphicon-globe"></i> Personas<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a><i class="fa fa-blind" aria-hidden="true"></i> Clientes</a>
-                        </li>
-                        <li>
-                            <a><i class="fa fa-industry" aria-hidden="true"></i> Proveedores</a>
-                        </li>
-                    </ul>
-                    <!-- /.nav-second-level -->
-                </li>
-                <li>
-                    <a><i class="glyphicon glyphicon-transfer"></i> Movimientos<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a><i class="glyphicon glyphicon-triangle-right"></i> Ingresos</a>
-                        </li>
-                        <li>
-                            <a><i class="glyphicon glyphicon-triangle-left"></i> Salidas</a>
-                        </li>
-                    </ul>
-                    <!-- /.nav-second-level -->
-                </li>
-            </ul>
-        </div>
-    </div>
+				<li>
+					<a><i class="fa fa-cubes" aria-hidden="true"></i> Almacenes<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<li>
+							<a ui-sref="app.almacenesgestion"
+								ng-click="topbarCtrl.setSelectedMenu('almacenesgestion')"
+								ng-class="{active: topbarCtrl.selectedMenu === 'almacenesgestion'}"
+								href='almacenesgestion'>
+								<i class="glyphicon glyphicon-cog"></i> Gestion
+							</a>
+						</li>
+						<li>
+							<a ui-sref="app.almacenes"
+								ng-click="topbarCtrl.setSelectedMenu('almacenes')"
+								ng-class="{active: topbarCtrl.selectedMenu === 'almacenes'}"
+								href='almacenes'>
+								<i class="glyphicon glyphicon-pushpin"></i> Escoger</a>
+						</li>
+						<li>
+							<a><i class="fa fa-search-plus" aria-hidden="true"></i> Consultar<span class="fa arrow"></span></a>
+							<ul class="nav nav-third-level">
+								<li ng-repeat="almacen in topbarCtrl.almacenesData.Almacenes">
+									<a ui-sref="app.almacenesdetalle({id_almacen: almacen.ID_ALMACEN, codigo_almacen: almacen.CODIGO})"
+										ng-click="topbarCtrl.setSelectedMenu('almacenesdetalle/'+almacen.ID_ALMACEN+'/'+ almacen.CODIGO+'')"
+										ng-class="{active: topbarCtrl.selectedMenu === 'almacenesdetalle/'+almacen.ID_ALMACEN+'/'+almacen.CODIGO+''}"
+										href="'almacenesdetalle/'+almacen.ID_ALMACEN+'/'+almacen.CODIGO+''">
+										<i class="fa fa-cube" aria-hidden="true"></i> {{almacen.CODIGO}}
+									</a>
+								</li>
+								<li>
+									<a ui-sref="app.almacenesdetalle({id_almacen: 15, codigo_almacen: 20})"
+										ng-click="topbarCtrl.setSelectedMenu('almacenesdetalle/15/20')"
+										ng-class="{active: topbarCtrl.selectedMenu === 'almacenesdetalle/15/20'}"
+										href='almacenesdetalle/15/20'>TODOS
+									</a>
+								</li>
+							</ul>
+							<!-- /.nav-third-level -->
+						</li>
+					</ul>
+					<!-- /.nav-second-level -->
+				</li>
+				<li>
+					<a><i class="glyphicon glyphicon-th-list"></i> Articulos<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<li>
+							<a ui-sref="app.articuloscategoria"
+								ng-click="topbarCtrl.setSelectedMenu('articuloscategoria')"
+								ng-class="{active: topbarCtrl.selectedMenu === 'articuloscategoria'}"
+								href='articuloscategoria'>
+								<i class="glyphicon glyphicon-cog"></i> Categorias
+							</a>
+						</li>
+						<li>
+							<a ui-sref="app.articulos"
+								ng-click="topbarCtrl.setSelectedMenu('articulos')"
+								ng-class="{active: topbarCtrl.selectedMenu === 'articulos'}"
+								href='articulos'>
+								<i class="glyphicon glyphicon-cog"></i> Gestion de articulos
+							</a>
+						</li>
+					</ul>
+					<!-- /.nav-second-level -->
+				</li>
+				<li>
+					<a><i class="glyphicon glyphicon-globe"></i> Personas<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<li>
+							<a><i class="fa fa-blind" aria-hidden="true"></i> Clientes</a>
+						</li>
+						<li>
+							<a><i class="fa fa-industry" aria-hidden="true"></i> Proveedores</a>
+						</li>
+					</ul>
+					<!-- /.nav-second-level -->
+				</li>
+				<li>
+					<a><i class="glyphicon glyphicon-transfer"></i> Movimientos<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<li>
+							<a><i class="glyphicon glyphicon-triangle-right"></i> Ingresos</a>
+						</li>
+						<li>
+							<a><i class="glyphicon glyphicon-triangle-left"></i> Salidas</a>
+						</li>
+					</ul>
+					<!-- /.nav-second-level -->
+				</li>
+			</ul>
+		</div>
+	</div>
 </nav>
