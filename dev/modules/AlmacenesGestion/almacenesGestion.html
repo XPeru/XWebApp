@@ -1,72 +1,41 @@
 <div class="panel panel-default panel-primary">
     <div class="panel-heading clearfix">
-        <h3 class="panel-title">Almacenes</h3>
+        <h2 class="panel-title">Almacenes
+            <button ng-click="almacenesGestionCtrl.switchTableMode()" class="pull-right btn btn-small btn-danger btn_separate">
+                 <i ng-if="almacenesGestionCtrl.tableMode" class="fa fa-print" aria-hidden="true"></i> <i ng-if="almacenesGestionCtrl.tableMode" class="fa fa-file-pdf-o" aria-hidden="true"></i> <i ng-if="!almacenesGestionCtrl.tableMode" class="fa fa-long-arrow-left" aria-hidden="true"></i>
+            </button>
+            <button ng-click="almacenesGestionCtrl.openModal('create', null)" class="btn_separate pull-right btn btn-small btn-success">
+                Nuevo <span><i class="glyphicon glyphicon-plus"></i></span>
+            </button>
+        </h2>
     </div>
     <div class="panel-body">
-        <div class="table-responsive">
-            <table ng-table="almacenesGestionCtrl.almacenesTable" class="table" show-filter="true">
-                <thead>
-                    <tr>
-                        <th>
-                            <a ng-click="almacenesGestionCtrl.setType('ID_ALMACEN')">
-                                Id
-                                <span ng-show="almacenesGestionCtrl.sortType == 'ID_ALMACEN' && !almacenesGestionCtrl.sortReverse"
-                                        class="fa fa-caret-down"></span>
-                                <span ng-show="almacenesGestionCtrl.sortType == 'ID_ALMACEN' && almacenesGestionCtrl.sortReverse"
-                                        class="fa fa-caret-up"></span>
-                            </a>
-                        </th>
-                        <th>
-                            <a ng-click="almacenesGestionCtrl.setType('CODIGO')">
-                                Codigo
-                                <span ng-show="almacenesGestionCtrl.sortType == 'CODIGO' && !almacenesGestionCtrl.sortReverse"
-                                        class="fa fa-caret-down"></span>
-                                <span ng-show="almacenesGestionCtrl.sortType == 'CODIGO' && almacenesGestionCtrl.sortReverse"
-                                        class="fa fa-caret-up"></span>
-                            </a>
-                        </th>
-                        <th>
-                            <a ng-click="almacenesGestionCtrl.setType('UBICACION')">
-                                Ubicacion
-                                <span ng-show="almacenesGestionCtrl.sortType == 'UBICACION' && !almacenesGestionCtrl.sortReverse"
-                                        class="fa fa-caret-down"></span>
-                                <span ng-show="almacenesGestionCtrl.sortType == 'UBICACION' && almacenesGestionCtrl.sortReverse" 
-                                        class="fa fa-caret-up"></span>
-                            </a>
-                        </th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="almacen in almacenesGestionCtrl.almacenesData.Almacenes |
-                        orderBy:almacenesGestionCtrl.sortType:almacenesGestionCtrl.sortReverse"
-                        ng-click="almacenesGestionCtrl.setSelected(almacen.ID_ALMACEN)"
-                        ng-class="{info: almacen.ID_ALMACEN === almacenesGestionCtrl.idSelectedAlmacen}">
-                        <td>{{almacen.ID_ALMACEN}}</td>
-                        <td>{{almacen.CODIGO}}</td>
-                        <td>{{almacen.UBICACION}}</td>
-
-                        <td style="width:60px">
-                            <button ng-if="almacen.ID_ALMACEN === almacenesGestionCtrl.idSelectedAlmacen"
-                                ng-click="almacenesGestionCtrl.openModal('edit', almacen)"
-                                class="btn btn-small btn-primary">
-                                <i class="glyphicon glyphicon-pencil"></i>
-                            </button>
-                        </td>
-                        <td style="width:60px">
-                            <button ng-if="almacen.ID_ALMACEN === almacenesGestionCtrl.idSelectedAlmacen"
-                                ng-click="almacenesGestionCtrl.openModal('delete', almacen)"
-                                class="btn btn-small btn-danger">
-                                <i class="glyphicon glyphicon-remove"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
+        <div class="table-responsive" ng-if="almacenesGestionCtrl.tableMode">
+            <table class="table table-striped" ng-table="almacenesGestionCtrl.almacenesTable" show-filter="true">
+                <tr ng-repeat="almacen in $data track by almacen.ID_ALMACEN"
+                    ng-click="almacenesGestionCtrl.setSelected(almacen.ID_ALMACEN)"
+                    ng-class="{info: almacen.ID_ALMACEN === almacenesGestionCtrl.idSelectedAlmacen}">
+<!--                     <td data-title="'ID'" filter="{ID_ALMACEN: 'text'}" sortable="'ID_ALMACEN'">{{almacen.ID_ALMACEN}}</td> -->
+                    <td data-title="'CODIGO'" filter="{CODIGO: 'text'}" sortable="'CODIGO'">{{almacen.CODIGO}}</td>
+                    <td data-title="'UBICACION'" filter="{UBICACION: 'text'}" sortable="'UBICACION'">{{almacen.UBICACION}}</td>
+                    <td style="width:60px">
+                        <button ng-if="almacen.ID_ALMACEN === almacenesGestionCtrl.idSelectedAlmacen"
+                            ng-click="almacenesGestionCtrl.openModal('edit', almacen)"
+                            class="btn btn-small btn-primary">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                        </button>
+                    </td>
+                    <td style="width:60px">
+                        <button ng-if="almacen.ID_ALMACEN === almacenesGestionCtrl.idSelectedAlmacen"
+                            ng-click="almacenesGestionCtrl.openModal('delete', almacen)"
+                            class="btn btn-small btn-danger">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </button>
+                    </td>
+                </tr>
             </table>
+        </div>
+        <div ng-if="!almacenesGestionCtrl.tableMode" id="gridAlmacenesGestion" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid">
         </div>
     </div>
 </div>
-<button ng-click="almacenesGestionCtrl.openModal('create', null)" class="btn btn-small">
-    Nuevo <span><i class="glyphicon glyphicon-plus"></i></span>
-</button>

@@ -48,6 +48,7 @@ angular.module('UsuariosAcceso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 
 			};
 
 			ctrl.callGetAllAccesoUsuario();
+
 			ctrl.idSelectedAccesoUsuario = null;
 			ctrl.setSelected = function(idSelectedAccesoUsuario) {
 				ctrl.idSelectedAccesoUsuario = idSelectedAccesoUsuario;

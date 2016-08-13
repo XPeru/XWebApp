@@ -1,5 +1,5 @@
 "use strict";
-angular.module('AlmacenesGestion', ['ui.bootstrap'])
+angular.module('AlmacenesGestion', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.grid.selection'])
 	.controller('almacenesGestionController', ['$scope',
 												'$location',
 												'$http',
@@ -7,47 +7,54 @@ angular.module('AlmacenesGestion', ['ui.bootstrap'])
 												'$timeout',
 												'AlmacenesGestionServiceFactory',
 												'NgTableParams',
-		function($scope, $location, $http, $uibModal, $timeout, AlmacenesGestionServiceFactory, NgTableParams) {
+												'i18nService',
+		function($scope, $location, $http, $uibModal, $timeout, AlmacenesGestionServiceFactory, NgTableParams, i18nService) {
 			var ctrl = this;
-			ctrl.sortType     = 'ID_ALMACEN'; // set the default sort type
-			ctrl.sortReverse  = false;  // set the default sort order
-
-			ctrl.setType = function(type) {
-				ctrl.sortType = type;
-				ctrl.sortReverse = !ctrl.sortReverse;
+			ctrl.tableMode = true;
+			ctrl.switchTableMode = function() {
+				ctrl.tableMode = !ctrl.tableMode;
 			};
+
+			i18nService.setCurrentLang('es');
+
+			$scope.columns = [{ field: 'CODIGO', headerCellClass: 'blue'}, {field : 'UBICACION', headerCellClass: 'blue'}];
+			$scope.columns[0].displayName = 'Codigo';
+			$scope.columns[1].displayName = 'Ubicacion';
+			$scope.gridOptions = {
+				exporterMenuCsv: false,
+				enableGridMenu: true,
+				enableSorting: true,
+				enableFiltering: true,
+				columnDefs: $scope.columns,
+				onRegisterApi: function(gridApi) {
+					$scope.gridApi = gridApi;
+				}
+			};
+			
+			ctrl.almacenesData = [{}];
+			ctrl.modal_not_finished = true;
+			
+
+			ctrl.callGetAllAlmacenes = function() {
+				AlmacenesGestionServiceFactory.getAllAlmacenes().then(function(response) {
+					ctrl.almacenesData = response.data.Almacenes;
+					$scope.gridOptions.data = response.data.Almacenes;
+					ctrl.almacenesTable = new NgTableParams({
+						page: 1,
+						count: 10
+					}, {
+						data: ctrl.almacenesData
+					});
+				});
+			};
+			ctrl.callGetAllAlmacenes();
 
 			ctrl.idSelectedAlmacen = null;
 			ctrl.setSelected = function(idSelectedAlmacen) {
 				ctrl.idSelectedAlmacen = idSelectedAlmacen;
 			};
-			ctrl.almacenesData = [{}];
-			ctrl.modal_not_finished = true;
-			ctrl.almacenesTable = new NgTableParams({
-				page: 1,
-				count: 10
-			}, {
-				total: 0,
-				counts: [],
-				getData: function(params) {
-					if (ctrl.modal_not_finished) {
-							ctrl.callGetAllAlmacenes();
-						} else {
-							params.total(ctrl.almacenesData.length);
-							return ctrl.almacenesData;
-						}
-						ctrl.modal_not_finished = false;
-				}
-			});
 
-				ctrl.callGetAllAlmacenes = function() {
-				AlmacenesGestionServiceFactory.getAllAlmacenes().then(function(response) {
-							ctrl.almacenesData = response.data;
-							ctrl.almacenesTable.reload();
-				});
-			};
-
-				ctrl.openModal = function(selected_modal, selected_almacen) {
+			ctrl.openModal = function(selected_modal, selected_almacen) {
 				var modalInstance = $uibModal.open({
 					templateUrl: function() {
 						var template;
@@ -74,12 +81,12 @@ angular.module('AlmacenesGestion', ['ui.bootstrap'])
 				});
 
 				modalInstance.result.then(function() {
-						ctrl.modal_not_finished = true;
-						ctrl.almacenesTable.reload();
+					ctrl.callGetAllAlmacenes();
+					ctrl.almacenesTable.reload();
 					
 				}, function() {
-						ctrl.modal_not_finished = true;
-						ctrl.almacenesTable.reload();
+					ctrl.callGetAllAlmacenes();
+					ctrl.almacenesTable.reload();
 				});
 			};
 		}
