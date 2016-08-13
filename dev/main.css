@@ -22,6 +22,10 @@
 	font-variant: small-caps;
 }
 
+.btn {
+	margin: 2px;
+}
+
 .underheader {
 	margin-top: 30px;
 }
