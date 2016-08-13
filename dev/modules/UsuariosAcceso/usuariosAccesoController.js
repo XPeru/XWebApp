@@ -22,12 +22,13 @@ angular.module('UsuariosAcceso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 
 				exporterMenuCsv: false,
 				enableGridMenu: true,
 				enableSorting: true,
+				enableFiltering: true,
 				columnDefs: $scope.columns,
 				onRegisterApi: function(gridApi) {
 					$scope.gridApi = gridApi;
-					gridApi.core.on.columnVisibilityChanged( $scope, function( changedColumn ){
+					/*gridApi.core.on.columnVisibilityChanged( $scope, function( changedColumn ){
 						$scope.columnChanged = { name: changedColumn.colDef.name, visible: changedColumn.colDef.visible };
-					});
+					});*/
 				}
 			};
 
