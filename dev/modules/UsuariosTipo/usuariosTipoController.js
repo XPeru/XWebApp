@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('UsuariosTipo', ['ui.bootstrap'])
+angular.module('UsuariosTipo', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.grid.selection'])
 	.controller('usuariosTipoController', ['$scope',
 													'$window',
 													'$location',
@@ -9,45 +9,48 @@ angular.module('UsuariosTipo', ['ui.bootstrap'])
 													'$timeout',
 													'UsuariosTipoServiceFactory',
 													'NgTableParams',
-	function ($scope, $window, $location, $http, $uibModal, $timeout, UsuariosTipoServiceFactory, NgTableParams) {
+													'i18nService',
+	function ($scope, $window, $location, $http, $uibModal, $timeout, UsuariosTipoServiceFactory, NgTableParams, i18nService) {
 		var ctrl = this;
-		ctrl.sortType     = 'ID_TIPO_USUARIO'; // set the default sort type
-		ctrl.sortReverse  = false;  // set the default sort order
-
-		ctrl.setType = function(type) {
-			ctrl.sortType = type;
-			ctrl.sortReverse = !ctrl.sortReverse;
+		ctrl.tableMode = true;
+		ctrl.switchTableMode = function() {
+			ctrl.tableMode = !ctrl.tableMode;
 		};
-		ctrl.usuariosTipoData = [{}];
-		ctrl.modal_tipo_usuario_not_finished = true;
-		ctrl.usuariosTipoTable = new NgTableParams({
-			page: 1,
-			count: 10
-		}, {
-			total: 0,
-			counts: [],
-			getData: function(params) {
-				if (ctrl.modal_tipo_usuario_not_finished) {
-						ctrl.callGetAllTipoUsuario();
-					} else {
-						params.total(ctrl.usuariosTipoData.length);
-						return ctrl.usuariosTipoData;
-					}
-					ctrl.modal_tipo_usuario_not_finished = false;
+		i18nService.setCurrentLang('es');
+		$scope.columns = [{ field: 'TIPO', headerCellClass: 'blue'}];
+		$scope.columns[0].displayName = 'Tipo';
+		$scope.gridOptions = {
+			exporterMenuCsv: false,
+			enableGridMenu: true,
+			enableSorting: true,
+			enableFiltering: true,
+			columnDefs: $scope.columns,
+			onRegisterApi: function(gridApi) {
+				$scope.gridApi = gridApi;
 			}
-			
-		});
+		};
 
+		ctrl.usuariosTipoData = [{}];
 		ctrl.callGetAllTipoUsuario = function() {
 			UsuariosTipoServiceFactory.getAllTipoUsuario().then(function(response) {
-				ctrl.usuariosTipoData = response.data;
-				ctrl.usuariosTipoTable.reload();
+				ctrl.usuariosTipoData = response.data.TiposUsuario;
+				$scope.gridOptions.data = response.data.TiposUsuario;
+				ctrl.usuariosTipoTable = new NgTableParams({
+					page: 1,
+					count: 10
+				}, {
+					total: 0,
+					data : ctrl.usuariosTipoData
+					
+				});
 			});
 		};
+		ctrl.callGetAllTipoUsuario();
 
 		ctrl.idSelectedTipoUsuario = null;
 		ctrl.setSelected = function(idSelectedTipoUsuario) {
 			ctrl.idSelectedTipoUsuario = idSelectedTipoUsuario;
+			ctrl.callGetAssosTipoAccesosByIdTipoUsuario();
 		};
 
 		ctrl.openModalTipoUsuario = function(selected_modal, selected_tipo_usuario) {
@@ -77,39 +80,27 @@ angular.module('UsuariosTipo', ['ui.bootstrap'])
 			});
 
 			modalInstance.result.then(function() {
-				ctrl.modal_tipo_usuario_not_finished = true;
+				ctrl.callGetAllTipoUsuario();
 				ctrl.usuariosTipoTable.reload();
 				
 			}, function() {
+				ctrl.callGetAllTipoUsuario();
 				ctrl.usuariosTipoTable.reload();
 			});
 		};
 
 
 		ctrl.assoTipoAccesoData = [{}];
-		ctrl.modal_asso_tipo_acceso_not_finished = true;
-		ctrl.assoTipoAccesoTable = new NgTableParams({
-			page: 1,
-			count: 10
-		}, {
-			total: 0,
-			counts: [],
-			getData: function(params) {
-				if (ctrl.modal_asso_tipo_acceso_not_finished) {
-						ctrl.callGetAssosTipoAccesos();
-					} else {
-						params.total(ctrl.assoTipoAccesoData.length);
-						return ctrl.assoTipoAccesoData;
-					}
-					ctrl.modal_asso_tipo_acceso_not_finished = false;
-			}
-			
-		});
-
 		ctrl.callGetAssosTipoAccesosByIdTipoUsuario = function() {
 			UsuariosTipoServiceFactory.getAssosTipoAccesosByIdTipoUsuario(ctrl.idSelectedTipoUsuario).then(function(response) {
-				ctrl.assoTipoAccesoData = response.data;
-				ctrl.assoTipoAccesoTable.reload();
+				ctrl.assoTipoAccesoData = response.data.AccesoUsuario;
+				ctrl.assoTipoAccesoTable = new NgTableParams({
+					page: 1,
+					count: 10
+				}, {
+					total: 0,
+					data : ctrl.assoTipoAccesoData
+				});
 			});
 		};
 
@@ -129,11 +120,12 @@ angular.module('UsuariosTipo', ['ui.bootstrap'])
 			});
 
 			modalInstance.result.then(function() {
-				ctrl.modal_asso_tipo_acceso_not_finished = true;
+				ctrl.callGetAssosTipoAccesosByIdTipoUsuario();
 				ctrl.assoTipoAccesoTable.reload();
 				
 			}, function() {
-				ctrl.modal_asso_tipo_acceso_not_finished = true;
+				ctrl.callGetAssosTipoAccesosByIdTipoUsuario();
+				ctrl.assoTipoAccesoTable.reload();
 			});
 		};
 

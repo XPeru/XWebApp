@@ -8,7 +8,7 @@ angular.module('UsuariosAcceso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 
 													'UsuariosAccesoServiceFactory',
 													'NgTableParams',
 													'i18nService',
-		function($scope, $location, $http, $uibModal, $timeout, UsuariosAccesoServiceFactory, NgTableParams, i18nService) {
+		function ($scope, $location, $http, $uibModal, $timeout, UsuariosAccesoServiceFactory, NgTableParams, i18nService) {
 			var ctrl = this;
 			ctrl.tableMode = true;
 			ctrl.switchTableMode = function() {

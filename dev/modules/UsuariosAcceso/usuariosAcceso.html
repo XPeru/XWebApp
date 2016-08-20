@@ -13,11 +13,11 @@
 	</div>
 	<div class="panel-body">
 		<div class="table-responsive" ng-if="usuariosAccesoCtrl.tableMode">
-			<table class="table table-striped" ng-table="usuariosAccesoCtrl.usuariosAccesoTable" show-filter="true">
+			<table class="table table-striped" ng-table="usuariosAccesoCtrl.usuariosAccesoTable">
 				<tr ng-repeat="accesoUsuario in $data track by accesoUsuario.ID_ACCESO_USUARIO"
 					ng-click="usuariosAccesoCtrl.setSelected(accesoUsuario.ID_ACCESO_USUARIO)"
 					ng-class="{info: accesoUsuario.ID_ACCESO_USUARIO === usuariosAccesoCtrl.idSelectedAccesoUsuario}">					
-					<td data-title="'ID'" filter="{ID_ACCESO_USUARIO: 'text'}" sortable="'ID_ACCESO_USUARIO'">{{accesoUsuario.ID_ACCESO_USUARIO}}</td>
+					<!-- <td data-title="'ID'" filter="{ID_ACCESO_USUARIO: 'text'}" sortable="'ID_ACCESO_USUARIO'">{{accesoUsuario.ID_ACCESO_USUARIO}}</td> -->
 					<td data-title="'DESCRIPCION'" filter="{DESCRIPCION: 'text'}" sortable="'DESCRIPCION'">{{accesoUsuario.DESCRIPCION}}</td>
 					<td style="width:60px">
 						<button ng-if="accesoUsuario.ID_ACCESO_USUARIO === usuariosAccesoCtrl.idSelectedAccesoUsuario"

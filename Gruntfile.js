@@ -41,8 +41,8 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('build', [
 		'clean',
-		'jshint'/*,
-		'copy'*/
+		'jshint',
+		'copy'
 	]);
 
 	grunt.registerTask('default', ['build']);
