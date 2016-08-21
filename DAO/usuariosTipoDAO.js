@@ -131,8 +131,8 @@ usuariosTipoDAO.prototype.handleRoutes = function(router, connection) {
 
     router.get(urlBase + "/assoaccesos/:id_tipo_usuario", function(req, res) {
         printRequest(urlBase + "/assoaccesos/:id_tipo_usuario", " GET");
-        var query = "SELECT ?? FROM ?? WHERE ??=?";
-        var table = ["FK_ACCESO_USUARIO", assoTableName, "FK_TIPO_USUARIO", req.params.id_tipo_usuario];
+        var query = "SELECT ?? FROM ?? asso INNER JOIN ?? acc ON ??=?? WHERE ??=?";
+        var table = ["acc.DESCRIPCION", assoTableName, "ACCESO_USUARIO", "acc.ID_ACCESO_USUARIO", "asso.FK_ACCESO_USUARIO", "asso.FK_TIPO_USUARIO", req.params.id_tipo_usuario];
         query = mysql.format(query, table);
         printRequest(query);
         connection.query(query, function(err, rows) {

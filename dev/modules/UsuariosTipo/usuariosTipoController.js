@@ -10,7 +10,8 @@ angular.module('UsuariosTipo', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'u
 													'UsuariosTipoServiceFactory',
 													'NgTableParams',
 													'i18nService',
-	function ($scope, $window, $location, $http, $uibModal, $timeout, UsuariosTipoServiceFactory, NgTableParams, i18nService) {
+													'UsuariosAccesoServiceFactory',
+	function ($scope, $window, $location, $http, $uibModal, $timeout, UsuariosTipoServiceFactory, NgTableParams, i18nService, UsuariosAccesoServiceFactory) {
 		var ctrl = this;
 		ctrl.tableMode = true;
 		ctrl.switchTableMode = function() {
@@ -93,7 +94,7 @@ angular.module('UsuariosTipo', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'u
 		ctrl.assoTipoAccesoData = [{}];
 		ctrl.callGetAssosTipoAccesosByIdTipoUsuario = function() {
 			UsuariosTipoServiceFactory.getAssosTipoAccesosByIdTipoUsuario(ctrl.idSelectedTipoUsuario).then(function(response) {
-				ctrl.assoTipoAccesoData = response.data.AccesoUsuario;
+				ctrl.assoTipoAccesoData = response.data.Assos;
 				ctrl.assoTipoAccesoTable = new NgTableParams({
 					page: 1,
 					count: 10
@@ -104,6 +105,15 @@ angular.module('UsuariosTipo', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'u
 			});
 		};
 
+		ctrl.usuariosAccesoData = [{}];
+		ctrl.callGetAllAccesoUsuario = function() {
+				UsuariosAccesoServiceFactory.getAllAccesoUsuario().then(function(response) {
+					ctrl.usuariosAccesoData = response.data.AccesosUsuario;
+				});
+			};
+
+		ctrl.callGetAllAccesoUsuario();
+
 		ctrl.openModalAssoTipoAcceso = function() {
 			var modalInstance = $uibModal.open({
 				templateUrl: function() {
@@ -113,7 +123,13 @@ angular.module('UsuariosTipo', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'u
 				controller: 'modalAssoTipoAccesoController',
 				controllerAs: 'modalAssoTipoAccesoCtrl',
 				resolve : {
-					selected_tipo_usuario : function() {
+					selectedAssos : function() {
+						return ctrl.assoTipoAccesoData;
+					},
+					allAssos : function() {
+						return ctrl.usuariosAccesoData;
+					},
+					selectedTipoUsuario : function() {
 						return ctrl.idSelectedTipoUsuario;
 					}
 				}

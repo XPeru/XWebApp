@@ -25,7 +25,7 @@ usuariosTipoService.factory('UsuariosTipoServiceFactory', function($http) {
 		return $http.delete(urlBase + '/' + id_tipo_usuario);
 	};
 
-	service.getAssosTipoAccesosByIdTipoUsuario = function(callback, id_tipo_usuario) {
+	service.getAssosTipoAccesosByIdTipoUsuario = function(id_tipo_usuario) {
 		return $http.get(urlBase + '/assoaccesos' + '/' + id_tipo_usuario);
 	};
 
