@@ -17,8 +17,7 @@ function printRequest(data) {
 
 usuariosTipoDAO.prototype.handleRoutes = function(router, connection) {
 	var tableName = "TIPO_USUARIO";
-    var assoTableName = "ASOC_TIPO_ACCESO";
-	var urlBase = "/tipousuario";
+    var urlBase = "/tipousuario";
 
 	router.get(urlBase + "list", function(req, res) {
 		printRequest(urlBase + "list" + " get");
@@ -129,27 +128,7 @@ usuariosTipoDAO.prototype.handleRoutes = function(router, connection) {
         });
     });
 
-    router.get(urlBase + "/assoaccesos/:id_tipo_usuario", function(req, res) {
-        printRequest(urlBase + "/assoaccesos/:id_tipo_usuario", " GET");
-        var query = "SELECT ??, ?? FROM ?? asso INNER JOIN ?? acc ON ??=?? WHERE ??=?";
-        var table = ["acc.ID_ACCESO_USUARIO", "acc.DESCRIPCION", assoTableName, "ACCESO_USUARIO", "acc.ID_ACCESO_USUARIO", "asso.FK_ACCESO_USUARIO", "asso.FK_TIPO_USUARIO", req.params.id_tipo_usuario];
-        query = mysql.format(query, table);
-        printRequest(query);
-        connection.query(query, function(err, rows) {
-            if (err) {
-                res.json({
-                    "Error": true,
-                    "Message": "Error executing MySQL query"
-                });
-            } else {
-                res.json({
-                    "Error": false,
-                    "Message": "Success",
-                    "Assos": rows
-                });
-            }
-        });
-    });
+    
 
     router.get(urlBase + "topdf", function(req, res) {
 

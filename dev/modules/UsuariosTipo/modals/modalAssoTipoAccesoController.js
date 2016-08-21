@@ -5,8 +5,8 @@ angular.module('UsuariosTipo')
 			var ctrl = this;
 			ctrl.selectedTipoUsuario = selectedTipoUsuario;
 
-			ctrl.updateAsso = function (tipo_usuario) {
-				UsuariosTipoServiceFactory.updateTipoUsuario(tipo_usuario).then(function() {
+			ctrl.updateAsso = function () {
+				UsuariosTipoServiceFactory.updateTipoUsuario(selectedTipoUsuario).then(function() {
 					$uibModalInstance.close();
 				});
 			};
