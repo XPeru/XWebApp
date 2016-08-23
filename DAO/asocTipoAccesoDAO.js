@@ -60,10 +60,10 @@ assocTipoAccesoDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.post(urlBase, function(req, res) {
 		printRequest(urlBase, " post");
-		var query = "INSERT INTO ?? (??, ??) VALUES";
-		var table = [tableName,	"FK_TIPO_USUARIO",	"FK_ACCESO_USUARIO"];
+		var query = "INSERT INTO ?? (??, ??, ??) VALUES";
+		var table = [tableName,	"FK_TIPO_USUARIO",	"FK_ACCESO_USUARIO", "IS_ACTIVE"];
 		var idTipoUsuario = req.body.ID_TIPO_USUARIO;
-		var end_query = " (?, ?)";
+		var end_query = " (?, ?, ?)";
 		var length = req.body.LIST.length;
 		for(var i = 0; i < length; i++) {
 			if(i === length - 1) {
@@ -71,10 +71,11 @@ assocTipoAccesoDAO.prototype.handleRoutes = function(router, connection) {
 			} else {
 				query = query + end_query + ",";
 			}
-			table = [table, idTipoUsuario, req.body.LIST[i].ID_ACCESO_USUARIO];
+			table.push(idTipoUsuario, req.body.LIST[i].ID_ACCESO_USUARIO, 1);
 		}
-		
-		
+		console.info("desde aqui verificar");
+		printRequest(table);
+		printRequest(query);
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err) {

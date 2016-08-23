@@ -1,18 +1,21 @@
 <div class="modal-header">
-	<h3 class="modal-title">Editando Tipo de Usuario</h3>
+	<h3 class="modal-title">Editando accesos para {{modalAssoTipoAccesoCtrl.selectedTipoUsuario.TIPO}}</h3>
 </div>
 <div class="modal-body">
-	
+	<div class="panel-body">
+		<div id="gridAssoTipoAcceso" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid">
+		</div>
+	</div>
 </div>
 <div class="modal-footer">
 	<button class="btn btn-primary"
 			type="button"
-			ng-click="modalUsuarioTipoCtrl.updateTipoUsuario(modalUsuarioTipoCtrl.selected_tipo_usuario)">
+			ng-click="modalAssoTipoAccesoCtrl.updateAsso()">
 		Editar
 	</button>
 	<button class="btn btn-danger"
 			type="button"
-			ng-click="modalUsuarioTipoCtrl.cancel()">
+			ng-click="modalAssoTipoAccesoCtrl.cancel()">
 		Cancelar
 	</button>
 </div>

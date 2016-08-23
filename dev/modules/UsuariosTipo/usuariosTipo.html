@@ -14,7 +14,7 @@
 			<div class="table-responsive" ng-if="usuariosTipoCtrl.tableMode">
 				<table ng-table="usuariosTipoCtrl.usuariosTipoTable" class="table">
 					<tr ng-repeat="tipoUsuario in $data track by tipoUsuario.ID_TIPO_USUARIO"
-						ng-click="usuariosTipoCtrl.setSelected(tipoUsuario.ID_TIPO_USUARIO)"
+						ng-click="usuariosTipoCtrl.setSelected(tipoUsuario)"
 						ng-class="{info: tipoUsuario.ID_TIPO_USUARIO === usuariosTipoCtrl.idSelectedTipoUsuario}">
 			<!-- 			<td data-title="'ID'" filter="{ID_TIPO_USUARIO: 'text'}" sortable="'ID_TIPO_USUARIO'">{{tipoUsuario.ID_TIPO_USUARIO}}</td> -->
 						<td data-title="'TIPO'" filter="{TIPO: 'text'}" sortable="'TIPO'">{{tipoUsuario.TIPO}}</td>
@@ -44,7 +44,7 @@
 	<div class="panel panel-default panel-primary">
 		<div class="panel-heading clearfix">
 			<h3 class="panel-title">Derechos de acceso
-				<button ng-click="usuariosTipoCtrl.openModalAssoTipoAcceso()" class="btn_separate pull-right btn btn-small btn-success">
+				<button ng-if="usuariosTipoCtrl.idSelectedTipoUsuario !== null" ng-click="usuariosTipoCtrl.openModalAssoTipoAcceso(tipoUsuario)" class="btn_separate pull-right btn btn-small btn-success">
 					Cambiar <span><i class="glyphicon glyphicon-pencil"></i></span>
 				</button>
 			</h3>

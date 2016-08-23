@@ -49,8 +49,9 @@ angular.module('UsuariosTipo', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'u
 		ctrl.callGetAllTipoUsuario();
 
 		ctrl.idSelectedTipoUsuario = null;
-		ctrl.setSelected = function(idSelectedTipoUsuario) {
-			ctrl.idSelectedTipoUsuario = idSelectedTipoUsuario;
+		ctrl.setSelected = function(selectedTipoUsuario) {
+			ctrl.idSelectedTipoUsuario = selectedTipoUsuario.ID_TIPO_USUARIO;
+			ctrl.selectedTipoUsuario = selectedTipoUsuario;
 			ctrl.callGetAssosTipoAccesosByIdTipoUsuario();
 		};
 
@@ -130,7 +131,7 @@ angular.module('UsuariosTipo', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'u
 						return ctrl.usuariosAccesoData;
 					},
 					selectedTipoUsuario : function() {
-						return ctrl.idSelectedTipoUsuario;
+						return ctrl.selectedTipoUsuario;
 					}
 				}
 			});

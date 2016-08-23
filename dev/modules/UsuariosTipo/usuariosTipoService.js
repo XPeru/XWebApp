@@ -30,6 +30,14 @@ usuariosTipoService.factory('UsuariosTipoServiceFactory', function($http) {
 		return $http.get(urlBase + 'asoctipoacceso/' + id_tipo_usuario);
 	};
 
+	service.updateAssosTipoAcceso = function(updated_assos_tipo_acceso) {
+		return $http.post(urlBase + 'asoctipoacceso', updated_assos_tipo_acceso);
+	};
+
+	service.deleteAssosTipoAcceso = function(id_tipo_usuario) {
+		return $http.delete(urlBase + 'asoctipoacceso/' + id_tipo_usuario);
+	};
+
 	service.getPDF = function(callback) {
 		$http.get(urlBaseTipo + 'topdf')
 			.success(function(response) {
