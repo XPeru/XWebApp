@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('Usuarios', ['ui.bootstrap'])
+angular.module('Usuarios', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.grid.selection'])
 	.controller('usuariosController', ['$scope',
 										'$location',
 										'$http',
@@ -9,17 +9,12 @@ angular.module('Usuarios', ['ui.bootstrap'])
 										'UsuariosServiceFactory',
 										'NgTableParams',
 										'UsuariosTipoServiceFactory',
-	function($scope, $location, $http, $uibModal, $timeout, UsuariosServiceFactory, NgTableParams, UsuariosTipoServiceFactory) {
+										'i18nService',
+	function($scope, $location, $http, $uibModal, $timeout, UsuariosServiceFactory, NgTableParams, UsuariosTipoServiceFactory, i18nService) {
 		var ctrl = this;
-		ctrl.sortType = 'ID_USUARIO'; // set the default sort type
-		ctrl.sortReverse = false; // set the default sort order
-		ctrl.setType = function(type) {
-			ctrl.sortType = type;
-			ctrl.sortReverse = !ctrl.sortReverse;
-		};
-		ctrl.idSelectedUsuario = null;
-		ctrl.setSelected = function(idSelectedUsuario) {
-			ctrl.idSelectedUsuario = idSelectedUsuario;
+		ctrl.tableMode = true;
+		ctrl.switchTableMode = function() {
+			ctrl.tableMode = !ctrl.tableMode;
 		};
 
 		ctrl.callGetAllTipoUsuario = function() {
@@ -27,33 +22,48 @@ angular.module('Usuarios', ['ui.bootstrap'])
 				ctrl.tipoUsuarioList = response.data.TiposUsuario;
 			});
 		};
-
 		ctrl.callGetAllTipoUsuario();
-		ctrl.usersData = [{}];
-		ctrl.modal_user_not_finished = true;
-		ctrl.usersTable = new NgTableParams({
-			page: 1,
-			count: 10
-		}, {
-			total: 0,
-			counts: [],
-			getData: function(params) {
-				if (ctrl.modal_user_not_finished) {
-						ctrl.callGetUsuarioList();
-					} else {
-						params.total(ctrl.usersData.length);
-						return ctrl.usersData;
-					}
-					ctrl.modal_user_not_finished = false;
-			}
-			
-		});
 
+		i18nService.setCurrentLang('es');
+		$scope.columns = [{ field: 'NOMBRE', headerCellClass: 'blue'},
+							{field: 'APELLIDOS', headerCellClass : 'blue'},
+							{field: 'EMAIL', headerCellClass : 'blue'},
+							{field: 'CREATE_TIME', headerCellClass: 'blue'},
+							{field: 'UPDATE_TIME', headerCellClass :' blue'}];
+			$scope.columns[0].displayName = 'Nombre';
+			$scope.columns[1].displayName = 'Apellidos';
+			$scope.columns[2].displayName = 'Email';
+			$scope.columns[3].displayName = 'Fecha de Creacion';
+			$scope.columns[4].displayName = 'Ultima Modificacion';
+			$scope.gridOptions = {
+				exporterMenuCsv: false,
+				enableGridMenu: true,
+				enableSorting: true,
+				enableFiltering: true,
+				columnDefs: $scope.columns,
+				onRegisterApi: function(gridApi) {
+					$scope.gridApi = gridApi;
+				}
+			};
+
+		ctrl.usersData = [{}];
 		ctrl.callGetUsuarioList = function() {
 			UsuariosServiceFactory.getUsuarioList().then(function(response) {
-				ctrl.usersData = response.data;
-				ctrl.usersTable.reload();
+				ctrl.usersData = response.data.Usuarios;
+				$scope.gridOptions.data = response.data.Usuarios;
+				ctrl.usersTable = new NgTableParams({
+					page: 1,
+					count: 10
+				}, {
+					data : ctrl.usersData
+				});
 			});
+		};
+		ctrl.callGetUsuarioList();
+
+		ctrl.idSelectedUsuario = null;
+		ctrl.setSelected = function(idSelectedUsuario) {
+			ctrl.idSelectedUsuario = idSelectedUsuario;
 		};
 
 		ctrl.openModalUsuario = function(selected_modal, selected_user) {
@@ -86,11 +96,11 @@ angular.module('Usuarios', ['ui.bootstrap'])
 			});
 
 			modalInstance.result.then(function() {
-				ctrl.modal_user_not_finished = true;
+				ctrl.callGetUsuarioList();
 				ctrl.usersTable.reload();
 				
 			}, function() {
-				ctrl.modal_user_not_finished = true;
+				ctrl.callGetUsuarioList();
 				ctrl.usersTable.reload();
 			});
 		};

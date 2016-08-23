@@ -1,4 +1,5 @@
 "use strict";
+
 angular.module('usuariosService', ['ngResource'])
 	.factory('UsuariosServiceFactory',
 		function($http) {
