@@ -21,6 +21,7 @@
                     <td data-title="'Unidad'" filter="{UNIDAD: 'text'}" sortable="'UNIDAD'">{{articulo.UNIDAD}}</td>
                     <td data-title="'Precio Unitario'" filter="{PRECIO_UNITARIO: 'number'}" sortable="'PRECIO_UNITARIO'">{{articulo.PRECIO_UNITARIO |currency}}</td>
                     <td data-title="'Valor de reposicion'" filter="{VALOR_REPOSICION: 'number'}" sortable="'VALOR_REPOSICION'">{{articulo.VALOR_REPOSICION}}</td>
+                    <td data-title="'Categoria'" filter="{CATEGORIA: 'text'}" sortable="'CATEGORIA'">{{articulo.CATEGORIA}}</td>
                     <td style="width:60px">
                         <button ng-if="articulo.ID_ARTICULO === articulosCtrl.idSelectedArticulo"
                             ng-click="articulosCtrl.openModalArticulo('edit', articulo)"

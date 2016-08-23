@@ -39,8 +39,20 @@ articulosDAO.prototype.handleRoutes = function(router, connection) {
 	var urlBase = "/articulo";
 	router.get(urlBase + "list", function(req, res) {
 		printRequest(urlBase + "list" + " get");
-		var query = "SELECT * FROM ??";
-		var table = [tableName];
+		var query = "SELECT ??, ??, ??, ??, ??, ??, ??, ??, ?? as CATEGORIA FROM ?? art INNER JOIN ?? cat ON ?? = ??";
+		var table = ["art.ID_ARTICULO",
+					"art.CODIGO",
+					"art.DESCRIPCION",
+					"art.UNIDAD",
+					"art.PRECIO_UNITARIO",
+					"art.IMAGEN",
+					"art.VALOR_REPOSICION",
+					"art.FK_CATEGORIA",
+					"cat.DESCRIPCION",
+					tableName,
+					"CATEGORIA",
+					"cat.ID_CATEGORIA",
+					"art.FK_CATEGORIA"];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err, rows) {

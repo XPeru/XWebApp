@@ -14,7 +14,7 @@ angular.module('UsuariosTipo')
 				// exporterMenuCsv: false,
 				// enableGridMenu: false,
 				enableRowSelection: true,
-    			enableSelectAll: true,
+				enableSelectAll: true,
 				enableSorting: true,
 				enableFiltering: false,
 				showGridFooter:true,
@@ -31,15 +31,15 @@ angular.module('UsuariosTipo')
 						return true;
 					}
 				}
-			  	return false;
+				return false;
 			}
 			$timeout(function() {
-		        $scope.gridOptions.data.forEach(function (row, index) {
-				    if (isSelected(row, ctrl.selectedAssos)) {
-				        $scope.gridApi.selection.selectRow($scope.gridOptions.data[index]);
-				    }
+				$scope.gridOptions.data.forEach(function (row, index) {
+					if (isSelected(row, ctrl.selectedAssos)) {
+						$scope.gridApi.selection.selectRow($scope.gridOptions.data[index]);
+					}
 				});
-		    });
+			});
 
 			ctrl.updateAsso = function () {
 				ctrl.selectedAssos = $scope.gridApi.selection.getSelectedRows();
