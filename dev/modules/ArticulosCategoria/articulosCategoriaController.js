@@ -1,53 +1,56 @@
 "use strict";
 
-angular.module('ArticulosCategoria', ['ui.bootstrap'])
+angular.module('ArticulosCategoria', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.grid.selection'])
 	.controller('articulosCategoriaController', ['$scope',
-												'$location',
-												'$http',
-												'$uibModal',
-												'$timeout',
-												'ArticulosCategoriaServiceFactory',
-												'NgTableParams',
-		function($scope, $location, $http, $uibModal, $timeout, ArticulosCategoriaServiceFactory, NgTableParams) {
+													'$location',
+													'$http',
+													'$uibModal',
+													'$timeout',
+													'ArticulosCategoriaServiceFactory',
+													'NgTableParams',
+													'i18nService',
+		function($scope, $location, $http, $uibModal, $timeout, ArticulosCategoriaServiceFactory, NgTableParams, i18nService) {
 			var ctrl = this;
-			ctrl.sortType     = 'ID_CATEGORIA'; // set the default sort type
-			ctrl.sortReverse = false; // set the default sort order
-			ctrl.setType = function(type) {
-				ctrl.sortType = type;
-				ctrl.sortReverse = !ctrl.sortReverse;
+			ctrl.tableMode = true;
+			ctrl.switchTableMode = function() {
+				ctrl.tableMode = !ctrl.tableMode;
 			};
+
+			i18nService.setCurrentLang('es');
+			$scope.columns = [{ field: 'DESCRIPCION', headerCellClass: 'blue'}];
+			$scope.columns[0].displayName = 'Descripcion';
+			$scope.gridOptions = {
+				exporterMenuCsv: false,
+				enableGridMenu: true,
+				enableSorting: true,
+				enableFiltering: true,
+				columnDefs: $scope.columns,
+				onRegisterApi: function(gridApi) {
+					$scope.gridApi = gridApi;
+				}
+			};
+
+			ctrl.categoriasData = [{}];
+			ctrl.callGetAllCategorias = function() {
+				ArticulosCategoriaServiceFactory.getAllCategorias().then(function(response) {
+					ctrl.categoriasData = response.data.Categorias;
+					$scope.gridOptions.data = response.data.Categorias;
+					ctrl.categoriasTable = new NgTableParams({
+						page: 1,
+						count: 10
+					}, {
+						data: ctrl.categoriasData
+					});
+				});
+			};
+			ctrl.callGetAllCategorias();
 
 			ctrl.idSelectedCategoria = null;
 			ctrl.setSelected = function(idSelectedCategoria) {
 				ctrl.idSelectedCategoria = idSelectedCategoria;
 			};
-			ctrl.categoriasData = [{}];
-			ctrl.modal_not_finished = true;
-			ctrl.categoriasTable = new NgTableParams({
-				page: 1,
-				count: 10
-			}, {
-				total: 0,
-				counts: [],
-				getData: function(params) {
-					if (ctrl.modal_not_finished) {
-							ctrl.callGetAllCategorias();
-						} else {
-							params.total(ctrl.categoriasData.length);
-							return ctrl.categoriasData;
-						}
-						ctrl.modal_not_finished = false;
-				}
-			});
 
-			ctrl.callGetAllCategorias = function() {
-				ArticulosCategoriaServiceFactory.getAllCategorias().then(function(response) {
-					ctrl.categoriasData = response.data;
-					ctrl.categoriasTable.reload();
-				});
-			};
-
-			ctrl.openModal = function(selected_modal, selected_categoria) {
+			ctrl.openModalArticuloCategoria = function(selected_modal, selected_categoria) {
 				var modalInstance = $uibModal.open({
 					templateUrl: function() {
 						var template;
@@ -74,10 +77,10 @@ angular.module('ArticulosCategoria', ['ui.bootstrap'])
 				});
 
 				modalInstance.result.then(function() {
-					ctrl.modal_not_finished = true;
+					ctrl.callGetAllCategorias();
 					ctrl.categoriasTable.reload();
 				}, function() {
-					ctrl.modal_not_finished = true;
+					ctrl.callGetAllCategorias();
 					ctrl.categoriasTable.reload();
 				});
 			};
