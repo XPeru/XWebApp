@@ -73,7 +73,6 @@ assocTipoAccesoDAO.prototype.handleRoutes = function(router, connection) {
 			}
 			table.push(idTipoUsuario, req.body.LIST[i].ID_ACCESO_USUARIO, 1);
 		}
-		console.info("desde aqui verificar");
 		printRequest(table);
 		printRequest(query);
 		query = mysql.format(query, table);
