@@ -45,7 +45,6 @@ echo "Creacion del directorio del modulo $key_up"
 echo Aqui se debe agregar un ifpara que si el directorio ya existe, no se tenga que crear denuevo
 echo
 echo
-pwd=$(pwd)
 echo $pwd
 template_path=$(pwd)
 cd ..

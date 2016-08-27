@@ -4,26 +4,26 @@ angular.module('usuariosAccesoService', ['ngResource'])
 	.factory('UsuariosAccesoServiceFactory',
 		function($http) {
 			var service = {};
-			var urlBase = '/api';
+			var urlBase = '/api/accesousuario';
 
 			service.getAllAccesoUsuario = function() {
-				return $http.get(urlBase + '/accesousuariolist');
+				return $http.get(urlBase + 'list');
 			};
 
-			service.getAccesoUsuarioById = function(id_acceso_usuario) {
-				return $http.get(urlBase + '/accesousuario' + id_acceso_usuario);
+			service.getAccesoUsuarioById = function(id_accesousuario) {
+				return $http.get(urlBase + id_accesousuario);
 			};
 
-			service.createAccesoUsuario = function(new_acceso_usuario) {
-				return $http.post(urlBase + '/accesousuario', new_acceso_usuario);
+			service.createAccesoUsuario = function(newAccesoUsuario) {
+				return $http.post(urlBase, newAccesoUsuario);
 			};
 
-			service.updateAccesoUsuario = function(updated_acceso_usuario) {
-				return $http.put(urlBase + '/accesousuario', updated_acceso_usuario);
+			service.updateAccesoUsuario = function(updAccesoUsuario) {
+				return $http.put(urlBase, updAccesoUsuario);
 			};
 
-			service.deleteAccesoUsuario = function(id_acceso_usuario) {
-				return $http.delete(urlBase + '/accesousuario'+ '/' + id_acceso_usuario);
+			service.deleteAccesoUsuario = function(id_accesousuario) {
+				return $http.delete(urlBase + '/' + id_accesousuario);
 			};
 
 			return service;

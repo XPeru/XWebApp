@@ -1,43 +1,31 @@
-var #patternL#Service = angular.module('#patternL#Service', ['ngResource']);
+"use strict";
 
- #patternL#Service.factory('#patternU#ServiceFactory', function($http) {
-	var service = {};
-	var urlBase = '/api';
+angular.module('#patternL#Service', ['ngResource'])
+	.factory('#patternU#ServiceFactory',
+		function($http) {
+			var service = {};
+			var urlBase = '/api/#patternM#';
 
-	service.getAll#patternU# = function(callback) {
-		$http.get(urlBase + '/#patternL#list')
-			.success(function(response) {
-				callback(response);
-			});
-	};
+			service.getAll#patternU# = function() {
+				return $http.get(urlBase + 'list');
+			};
 
-	service.get#patternU#ById = function(callback, id_#patternL#) {
-		$http.get(urlBase + '/id_#patternL#' + id_#patternL#)
-			.success(function(response) {
-				callback(response);
-			});
-	};
+			service.get#patternU#ById = function(id_#patternM#) {
+				return $http.get(urlBase + id_#patternM#);
+			};
 
-	service.create#patternU# = function(callback, new_#patternL#) {
-		$http.post(urlBase + '/id_#patternL#', new_#patternL#)
-			.success(function(response) {
-				callback(response);
-			});
-	};
+			service.create#patternU# = function(new#patternU#) {
+				return $http.post(urlBase, new#patternU#);
+			};
 
-	service.update#patternU# = function(callback, updated_#patternL#) {
-		$http.put(urlBase + '/id_#patternL#', updated_#patternL#)
-			.success(function(response) {
-				callback(response);
-			});
-	};
+			service.update#patternU# = function(upd#patternU#) {
+				return $http.put(urlBase, upd#patternU#);
+			};
 
-	service.delete#patternU# = function(callback, id_#patternL#) {
-		$http.delete(urlBase + '/id_#patternL#'+ '/' + id_#patternL#)
-			.success(function(response) {
-				callback(response);
-			});
-	};
+			service.delete#patternU# = function(id_#patternM#) {
+				return $http.delete(urlBase + '/' + id_#patternM#);
+			};
 
-	return service;
-});
+			return service;
+		}
+);
