@@ -21,6 +21,7 @@
                     <td data-title="'Email'" filter="{EMAIL: 'text'}" sortable="'EMAIL'">{{usuario.EMAIL}}</td>
                     <td data-title="'Fecha de Creacion'" filter="{CREATE_TIME: 'text'}" sortable="'CREATE_TIME'">{{usuario.CREATE_TIME | date: 'dd-MM-yyyy HH:mm'}}</td>
                     <td data-title="'Ultima Modificacion'" filter="{UPDATE_TIME: 'text'}" sortable="'UPDATE_TIME'">{{usuario.UPDATE_TIME | date: 'dd-MM-yyyy HH:mm'}}</td>
+                    <td data-title="'Tipo'" filter="{TIPO: 'text'}" sortable="'TIPO'">{{usuario.TIPO}}</td>
                     <td style="width:60px">
                         <button ng-if="usuario.ID_USUARIO === usuariosCtrl.idSelectedUsuario"
                             ng-click="usuariosCtrl.openModalUsuario('edit', usuario)"
