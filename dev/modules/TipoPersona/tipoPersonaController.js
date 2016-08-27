@@ -17,8 +17,8 @@ angular.module('TipoPersona', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui
             };
 
             i18nService.setCurrentLang('es');
-            $scope.columns = [{ field: '', headerCellClass: 'blue'}];
-            $scope.columns[0].displayName = '';
+            $scope.columns = [{ field: 'DESCRIPCION', headerCellClass: 'blue'}];
+            $scope.columns[0].displayName = 'Descripcion';
             $scope.gridOptions = {
                 exporterMenuCsv: false,
                 enableGridMenu: true,
