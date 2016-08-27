@@ -17,6 +17,7 @@ echo ---------------------------------------------------------------------------
 
 key_low=""
 key_up=""
+key_min=""
 
 if [[ $# -eq 0 ]] ; then
 	echo 'Argumentos insuficientes'
@@ -29,10 +30,13 @@ else
 		if [[ "$key_low" = "" ]] ; then
 			key_low="$tempo"
 			key_up=`echo $tempo | awk '{ print toupper(substr($0, 1, 1)) substr($0, 2) }'`
+			key_min="$tempo"
 		else
+			key_min="$key_min""$tempo"
 			tempo=`echo $tempo | awk '{ print toupper(substr($0, 1, 1)) substr($0, 2) }'`
 			key_low="$key_low""$tempo"
 			key_up="$key_up""$tempo"
+
 		fi
 	done
 fi
@@ -71,7 +75,7 @@ echo $pwd
 echo ----------------------------------------------------------------------------------------------------
 echo Generador del modulo Service
 echo
-sh ./generate_service.sh $key_low $key_up $template_path $module_path
+sh ./generate_service.sh $key_low $key_up $key_min $template_path $module_path
 echo ----------------------------------------------------------------------------------------------------
 echo Generador del modulo Controller
 echo
