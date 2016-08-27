@@ -228,6 +228,14 @@
 						<li>
 							<a><i class="fa fa-industry" aria-hidden="true"></i> Proveedores</a>
 						</li>
+						<li>
+							<a ui-sref="app.tipopersona"
+								ng-click="topbarCtrl.setSelectedMenu('tipopersona')"
+								ng-class="{active: topbarCtrl.selectedMenu === 'tipopersona'}"
+								href='tipopersona'>
+								<i class="glyphicon glyphicon-cog"></i> Tipos de Persona
+							</a>
+						</li>
 					</ul>
 					<!-- /.nav-second-level -->
 				</li>

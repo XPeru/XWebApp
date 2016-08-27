@@ -111,6 +111,17 @@
 				}
 			})
 
+			.state('app.tipopersona', {
+				url: 'tipopersona',
+				views : {
+					'content@': {
+						controller: 'tipoPersonaController',
+						controllerAs: 'tipoPersonaCtrl',
+						templateUrl: 'dev/modules/TipoPersona/tipopersona.html'
+					}
+				}
+			})
+
 			;
 
 
@@ -194,6 +205,8 @@
 	'ArticulosCategoriaService',
 	'almacenesGestionService',
 	'almacenesDetalleService',
+	'TipoPersona',
+	'tipoPersonaService',
 	'ingresosService',
 	//'loginService',
 	'ngRoute',

@@ -1,0 +1,43 @@
+<div class="panel panel-default panel-primary">
+	<div class="panel-heading clearfix">
+		<h2 class="panel-title">
+			Tipos de Persona
+			<button ng-click="tipoPersonaCtrl.switchTableMode()" class="pull-right btn btn-small btn-danger btn_separate">
+				 <i ng-if="tipoPersonaCtrl.tableMode" class="fa fa-print" aria-hidden="true"></i> <i ng-if="tipoPersonaCtrl.tableMode" class="fa fa-file-pdf-o" aria-hidden="true"></i> <i ng-if="!tipoPersonaCtrl.tableMode" class="fa fa-long-arrow-left" aria-hidden="true"></i>
+			</button>
+			<button ng-click="tipoPersonaCtrl.openModalTipoPersona('create', null)" class="btn_separate pull-right btn btn-small btn-success">
+				Nuevo <span><i class="glyphicon glyphicon-plus"></i></span>
+			</button>
+		</h2>
+	</div>
+	<div class="panel-body">
+		<div class="table-responsive" ng-if="tipoPersonaCtrl.tableMode">
+			<table class="table table-striped" ng-table="tipoPersonaCtrl.tipoPersonaTable">
+				<tr ng-repeat="tipoPersona in $data track by tipoPersona.ID_TIPO_PERSONA"
+					ng-click="tipoPersonaCtrl.setSelected(tipoPersona.ID_TIPO_PERSONA)"
+					ng-class="{info: tipoPersona.ID_TIPO_PERSONA === tipoPersonaCtrl.idSelectedTipoPersona}">					
+					<!-- <td data-title="'ID'" filter="{ID_TIPO_PERSONA: 'text'}" sortable="'ID_TIPO_PERSONA'">{{tipoPersona.ID_TIPO_PERSONA}}</td> -->
+					<td data-title="'DESCRIPCION'" filter="{DESCRIPCION: 'text'}" sortable="'DESCRIPCION'">{{tipoPersona.DESCRIPCION}}</td>
+					<td style="width:60px">
+						<button ng-if="tipoPersona.ID_TIPO_PERSONA === tipoPersonaCtrl.idSelectedTipoPersona"
+							ng-click="tipoPersonaCtrl.openModalTipoPersona('edit', tipoPersona)"
+							class="btn btn-small btn-primary">
+							<i class="glyphicon glyphicon-pencil"></i>
+						</button>
+					</td>
+					<td style="width:60px">
+						<button ng-if="tipoPersona.ID_TIPO_PERSONA === tipoPersonaCtrl.idSelectedTipoPersona"
+							ng-click="tipoPersonaCtrl.openModalTipoPersona('delete', tipoPersona)"
+							class="btn btn-small btn-danger">
+							<i class="glyphicon glyphicon-remove"></i>
+						</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div ng-if="!tipoPersonaCtrl.tableMode" id="gridTipoPersona" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid">
+		</div>
+	</div>
+</div>
+
+

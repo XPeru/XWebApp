@@ -1,0 +1,27 @@
+<div class="modal-header">
+	<h3 class="modal-title">Nuevo Tipo de Persona</h3>
+</div>
+<div class="modal-body">
+	<form>
+		<div class="form-group">
+			<label for="tipopersona">Descripcion</label>
+			<input type="text"
+					class="form-control"
+					id="tipopersona"
+					ng-model="modalTipoPersonaCtrl.createdTipoPersona.DESCRIPCION"
+					placeholder="Descripcion">
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary"
+			type="button"
+			ng-click="modalTipoPersonaCtrl.createTipoPersona(modalTipoPersonaCtrl.createdTipoPersona)">
+		Crear
+	</button>
+	<button class="btn btn-danger"
+			type="button"
+			ng-click="modalTipoPersonaCtrl.cancel()">
+		Cancelar
+	</button>
+</div>

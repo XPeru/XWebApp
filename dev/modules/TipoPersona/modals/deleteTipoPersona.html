@@ -1,0 +1,18 @@
+<div class="modal-header">
+	<h3 class="modal-title">Eliminando Tipo Persona</h3>
+</div>
+<div class="modal-body">
+	<p>Realmente desea eliminar el tipo de persona {{modalTipoPersonaCtrl.selectedTipoPersona.DESCRIPCION}}?</p>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary"
+			type="button"
+			ng-click="modalTipoPersonaCtrl.deleteAccesoUsuario(modalTipoPersonaCtrl.selectedTipoPersona)">
+		Si
+	</button>
+	<button class="btn btn-danger"
+			type="button"
+			ng-click="modalTipoPersonaCtrl.cancel()">
+		No
+	</button>
+</div>
