@@ -1,39 +1,39 @@
 <div class="panel panel-default panel-primary">
-    <div class="panel-heading clearfix">
-        <h3 class="panel-title">Categorias
-            <button ng-click="articulosCategoriaCtrl.switchTableMode()" class="pull-right btn btn-small btn-danger btn_separate">
-                 <i ng-if="articulosCategoriaCtrl.tableMode" class="fa fa-print" aria-hidden="true"></i> <i ng-if="articulosCategoriaCtrl.tableMode" class="fa fa-file-pdf-o" aria-hidden="true"></i> <i ng-if="!articulosCategoriaCtrl.tableMode" class="fa fa-long-arrow-left" aria-hidden="true"></i>
-            </button>
-            <button ng-click="articulosCategoriaCtrl.openModalArticuloCategoria('create', null)" class="btn_separate pull-right btn btn-small btn-success">
-                Nuevo <span><i class="glyphicon glyphicon-plus"></i></span>
-            </button>
-        </h3>
-    </div>
-    <div class="panel-body">
-        <div class="table-responsive" ng-if="articulosCategoriaCtrl.tableMode">
-            <table class="table table-striped" ng-table="articulosCategoriaCtrl.categoriasTable">
-                <tr ng-repeat="categoria in $data track by categoria.ID_CATEGORIA"
-                    ng-click="articulosCategoriaCtrl.setSelected(categoria.ID_CATEGORIA)"
-                    ng-class="{info: categoria.ID_CATEGORIA === articulosCategoriaCtrl.idSelectedCategoria}">
-                    <td data-title="'DESCRIPCION'" filter="{DESCRIPCION: 'text'}" sortable="'DESCRIPCION'">{{categoria.DESCRIPCION}}</td>
-                    <td style="width:60px">
-                        <button ng-if="categoria.ID_CATEGORIA === articulosCategoriaCtrl.idSelectedCategoria"
-                            ng-click="articulosCategoriaCtrl.openModalArticuloCategoria('edit', categoria)"
-                            class="btn btn-small btn-primary">
-                            <i class="glyphicon glyphicon-pencil"></i>
-                        </button>
-                    </td>
-                    <td style="width:60px">
-                        <button ng-if="categoria.ID_CATEGORIA === articulosCategoriaCtrl.idSelectedCategoria"
-                            ng-click="articulosCategoriaCtrl.openModalArticuloCategoria('delete', categoria)"
-                            class="btn btn-small btn-danger">
-                            <i class="glyphicon glyphicon-remove"></i>
-                        </button>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div ng-if="!articulosCategoriaCtrl.tableMode" id="gridArticulosCategoria" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid">
-        </div>
-    </div>
+	<div class="panel-heading clearfix">
+		<h3 class="panel-title">Categorias
+			<button ng-click="articulosCategoriaCtrl.switchTableMode()" class="pull-right btn btn-small btn-danger btn_separate">
+				 <i ng-if="articulosCategoriaCtrl.tableMode" class="fa fa-print" aria-hidden="true"></i> <i ng-if="articulosCategoriaCtrl.tableMode" class="fa fa-file-pdf-o" aria-hidden="true"></i> <i ng-if="!articulosCategoriaCtrl.tableMode" class="fa fa-long-arrow-left" aria-hidden="true"></i>
+			</button>
+			<button ng-click="articulosCategoriaCtrl.openModalArticuloCategoria('create', null)" class="btn_separate pull-right btn btn-small btn-success">
+				Nuevo <span><i class="glyphicon glyphicon-plus"></i></span>
+			</button>
+		</h3>
+	</div>
+	<div class="panel-body">
+		<div class="table-responsive" ng-if="articulosCategoriaCtrl.tableMode">
+			<table class="table table-striped" ng-table="articulosCategoriaCtrl.categoriasTable">
+				<tr ng-repeat="categoria in $data track by categoria.ID_CATEGORIA"
+					ng-click="articulosCategoriaCtrl.setSelected(categoria.ID_CATEGORIA)"
+					ng-class="{info: categoria.ID_CATEGORIA === articulosCategoriaCtrl.idSelectedCategoria}">
+					<td data-title="'DESCRIPCION'" filter="{DESCRIPCION: 'text'}" sortable="'DESCRIPCION'">{{categoria.DESCRIPCION}}</td>
+					<td style="width:60px">
+						<button ng-if="categoria.ID_CATEGORIA === articulosCategoriaCtrl.idSelectedCategoria"
+							ng-click="articulosCategoriaCtrl.openModalArticuloCategoria('edit', categoria)"
+							class="btn btn-small btn-primary">
+							<i class="glyphicon glyphicon-pencil"></i>
+						</button>
+					</td>
+					<td style="width:60px">
+						<button ng-if="categoria.ID_CATEGORIA === articulosCategoriaCtrl.idSelectedCategoria"
+							ng-click="articulosCategoriaCtrl.openModalArticuloCategoria('delete', categoria)"
+							class="btn btn-small btn-danger">
+							<i class="glyphicon glyphicon-remove"></i>
+						</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div ng-if="!articulosCategoriaCtrl.tableMode" id="gridArticulosCategoria" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid">
+		</div>
+	</div>
 </div>

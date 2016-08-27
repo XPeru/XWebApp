@@ -1,122 +1,88 @@
-var usuariosTipo = angular.module('UsuariosAcceso', ['ui.bootstrap']);
-usuariosTipo.controller('usuariosAccesoController', ['$scope', '$location', '$http', '$uibModal', '$timeout', 'UsuariosAccesoServiceFactory', 'NgTableParams',
-    function($scope, $location, $http, $uibModal, $timeout, UsuariosAccesoServiceFactory, NgTableParams) {
-        $scope.usuariosAccesoData = [{}];
-        $scope.modal_acceso_usuario_not_finished = true;
+"use strict";
 
-        $scope.sortType     = 'ID_ACCESO_USUARIO'; // set the default sort type
-        $scope.sortReverse  = false;  // set the default sort order
+angular.module('#patternU#', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.grid.selection'])
+    .controller('#patternL#Controller', ['$scope',
+                                                    '$location',
+                                                    '$http',
+                                                    '$uibModal',
+                                                    '$timeout',
+                                                    '#patternU#ServiceFactory',
+                                                    'NgTableParams',
+                                                    'i18nService',
+        function($scope, $location, $http, $uibModal, $timeout, #patternU#ServiceFactory, NgTableParams, i18nService) {
+            var ctrl = this;
+            ctrl.tableMode = true;
+            ctrl.switchTableMode = function() {
+                ctrl.tableMode = !ctrl.tableMode;
+            };
 
-        $scope.setType = function(type) {
-            $scope.sortType = type;
-            $scope.sortReverse = !$scope.sortReverse;
-        };
-
-        $scope.usuariosAccesoTable = new NgTableParams({
-            page: 1,
-            count: 10
-        }, {
-            total: 0,
-            counts: [],
-            getData: function(params) {
-                if ($scope.modal_acceso_usuario_not_finished) {
-                        $scope.callGetAllAccesoUsuario();
-                    } else {
-                        params.total($scope.usuariosAccesoData.length);
-                        return $scope.usuariosAccesoData;
-                    }
-                    $scope.modal_acceso_usuario_not_finished = false;
-            }
-            
-        });
-
-        $scope.callGetAllAccesoUsuario = function() {
-            UsuariosAccesoServiceFactory.getAllAccesoUsuario(function(response) {
-                    $timeout(function() {
-                        $scope.usuariosAccesoData = response;
-                        $scope.usuariosAccesoTable.reload();
-                    }, 200);
-            });
-        };
-
-        $scope.idSelectedAccesoUsuario = null;
-        $scope.setSelected = function(idSelectedAccesoUsuario) {
-            $scope.idSelectedAccesoUsuario = idSelectedAccesoUsuario;
-        };
-
-        $scope.openModalAccesoUsuario = function(selected_modal, selected_acceso_usuario) {
-            var modalInstance = $uibModal.open({
-                templateUrl: function() {
-                    var template;
-                    switch(selected_modal) {
-                        case "create":
-                            template = 'dev/modules/UsuariosAcceso/modals/createUsuarioAcceso.html';
-                            break;
-                        case "edit":
-                            template = 'dev/modules/UsuariosAcceso/modals/editUsuarioAcceso.html';
-                            break;
-                        case "delete":
-                            template = 'dev/modules/UsuariosAcceso/modals/deleteUsuarioAcceso.html';
-                            break;
-                    }
-                    return template;
-                },
-                controller: 'ModalUsuarioAccesoController',
-                resolve : {
-                    selected_acceso_usuario : function() {
-                        return selected_acceso_usuario;
-                    }
+            i18nService.setCurrentLang('es');
+            $scope.columns = [{ field: '', headerCellClass: 'blue'}];
+            $scope.columns[0].displayName = '';
+            $scope.gridOptions = {
+                exporterMenuCsv: false,
+                enableGridMenu: true,
+                enableSorting: true,
+                enableFiltering: true,
+                columnDefs: $scope.columns,
+                onRegisterApi: function(gridApi) {
+                    $scope.gridApi = gridApi;
                 }
-            });
+            };
 
-            modalInstance.result.then(function() {
-                $scope.modal_acceso_usuario_not_finished = true;
-                $scope.usuariosTipoTable.reload();
-                
-            }, function() {
-                $scope.modal_acceso_usuario_not_finished = true;
-            });
-        };
+            ctrl.#patternL#Data = [{}];
+            ctrl.callGetAll#patternU# = function() {
+                #patternU#ServiceFactory.getAll#patternU#().then(function(response) {
+                    ctrl.#patternL#Data = response.data.#patternU#;
+                    $scope.gridOptions.data = response.data.#patternU#;
+                    ctrl.#patternL#Table = new NgTableParams({
+                        page: 1,
+                        count: 10
+                    }, {
+                        data: ctrl.#patternL#Data
+                    });
+                });
+            };
+            ctrl.callGetAll#patternU#();
 
-        
-    }]);
-/*
-usuariosTipo.controller('ModalUsuarioAccesoController',  function($scope, $http, $timeout, $uibModalInstance, selected_acceso_usuario, UsuariosAccesoServiceFactory) {
-    $scope.selected_acceso_usuario = selected_acceso_usuario;
+            ctrl.idSelected#patternU# = null;
+            ctrl.setSelected = function(idSelected#patternU#) {
+                ctrl.idSelected#patternU# = idSelected#patternU#;
+            };
 
-    $scope.deleteAccesoUsuario = function(acceso_usuario) {
-        UsuariosAccesoServiceFactory.deleteAccesoUsuario(function() {
-            $timeout(function() {
-                $uibModalInstance.close();
-            }, 200);
-        }, acceso_usuario.ID_ACCESO_USUARIO);
-    };
+            ctrl.openModal#patternU# = function(selected_modal, selected#patternU#) {
+                var modalInstance = $uibModal.open({
+                    templateUrl: function() {
+                        var template;
+                        switch(selected_modal) {
+                            case "create":
+                                template = 'dev/modules/#patternU#/modals/create#patternU#.html';
+                                break;
+                            case "edit":
+                                template = 'dev/modules/#patternU#/modals/edit#patternU#.html';
+                                break;
+                            case "delete":
+                                template = 'dev/modules/#patternU#/modals/delete#patternU#.html';
+                                break;
+                        }
+                        return template;
+                    },
+                    controller: 'modal#patternU#Controller',
+                    controllerAs: 'modal#patternU#Ctrl',
+                    resolve : {
+                        selected#patternU# : function() {
+                            return selected#patternU#;
+                        }
+                    }
+                });
 
-    $scope.updateAccesoUsuario = function (acceso_usuario) {
-        UsuariosAccesoServiceFactory.updateAccesoUsuario(function() {
-            $timeout(function() {
-                $uibModalInstance.close();
-            }, 200);
-        }, acceso_usuario);
-    };
-
-    $scope.createAccesoUsuario = function (acceso_usuario) {
-        UsuariosAccesoServiceFactory.createAccesoUsuario(function() {
-            $timeout(function() {
-                $uibModalInstance.close();
-            }, 200);
-        }, acceso_usuario);
-    };
-
-    $scope.cancel = function () {
-      $uibModalInstance.dismiss('cancel');
-    };
-});
-
-*/
-
-    
-
-
-    
- 
+                modalInstance.result.then(function() {
+                    ctrl.callGetAll#patternU#();
+                    ctrl.#patternL#Table.reload();
+                }, function() {
+                    ctrl.callGetAll#patternU#();
+                    ctrl.#patternL#Table.reload();
+                });
+            };
+        }
+]);

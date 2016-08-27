@@ -1,7 +1,7 @@
 var mysql = require("mysql");
 var dateGenerator = require("./dateGenerator.js");
-var daoName = "articulosCategoriaDAO";
-function articulosCategoriaDAO(router, connection) {
+var daoName = "#patternL#DAO";
+function #patternL#DAO(router, connection) {
 	var self = this;
 	self.handleRoutes(router, connection);
 	dateGenerator.printInfo(daoName + " agregado correctamente");
@@ -12,9 +12,9 @@ function printRequest(data) {
 }
 
 
-articulosCategoriaDAO.prototype.handleRoutes = function(router, connection) {
-	var tableName = "CATEGORIA";
-	var urlBase = "/categoria";
+#patternL#DAO.prototype.handleRoutes = function(router, connection) {
+	var tableName = "";
+	var urlBase = "/#patternM#";
 	router.get(urlBase + "list", function(req, res) {
 		printRequest(urlBase + "list" + " get");
 		var query = "SELECT * FROM ??";
@@ -33,7 +33,7 @@ articulosCategoriaDAO.prototype.handleRoutes = function(router, connection) {
 				res.json({
 					"Error": false,
 					"Message": "Success",
-					"Categorias": rows
+					"#patternU#": rows
 				});
 			}
 		});
@@ -42,7 +42,7 @@ articulosCategoriaDAO.prototype.handleRoutes = function(router, connection) {
 	router.post(urlBase, function(req, res) {
 		printRequest(urlBase + " post");
 		var query = "INSERT INTO ?? (??) VALUES (?)";
-		var table = [tableName, "DESCRIPCION", req.body.DESCRIPCION];
+		var table = [tableName, "", req.body.];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err) {
@@ -65,7 +65,7 @@ articulosCategoriaDAO.prototype.handleRoutes = function(router, connection) {
 	router.put(urlBase, function(req, res) {
 		printRequest(urlBase + " put");
 		var query = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
-		var table = [tableName, "DESCRIPCION", req.body.DESCRIPCION, "ID_CATEGORIA", req.body.ID_CATEGORIA];
+		var table = [tableName, "", req.body., "ID_", req.body.ID_];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err) {
@@ -85,10 +85,10 @@ articulosCategoriaDAO.prototype.handleRoutes = function(router, connection) {
 		});
 	});
 
-	router.delete(urlBase + "/:id_categoria", function(req, res) {
-		printRequest(urlBase + "/:id_categoria", " delete");
+	router.delete(urlBase + "/:id_", function(req, res) {
+		printRequest(urlBase + "/:id_", " delete");
 		var query = "DELETE FROM ?? WHERE ?? = ?";
-		var table = [tableName, "ID_CATEGORIA", req.params.id_categoria];
+		var table = [tableName, "ID_", req.params.id_];
 		query = mysql.format(query, table);
 		connection.query(query, function(err) {
 			if (err) {
@@ -101,11 +101,11 @@ articulosCategoriaDAO.prototype.handleRoutes = function(router, connection) {
 				console.info('Success MySQL query:' + query);
 				res.json({
 					"Error": false,
-					"Message": "Categoria deleted: " + req.params.id_categoria
+					"Message": "Categoria deleted: " + req.params.id_
 				});
 			}
 		});
 	});
 };
 
-module.exports = articulosCategoriaDAO;
+module.exports = #patternL#DAO;
