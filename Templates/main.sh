@@ -28,15 +28,14 @@ else
 		tempo="$var"
 		tempo=`echo $tempo | tr '[:upper:]' '[:lower:]'`
 		if [[ "$key_low" = "" ]] ; then
+			key_min="$tempo"
 			key_low="$tempo"
 			key_up=`echo $tempo | awk '{ print toupper(substr($0, 1, 1)) substr($0, 2) }'`
-			key_min="$tempo"
 		else
 			key_min="$key_min""$tempo"
 			tempo=`echo $tempo | awk '{ print toupper(substr($0, 1, 1)) substr($0, 2) }'`
 			key_low="$key_low""$tempo"
 			key_up="$key_up""$tempo"
-
 		fi
 	done
 fi
@@ -49,33 +48,22 @@ echo "Creacion del directorio del modulo $key_up"
 echo Aqui se debe agregar un ifpara que si el directorio ya existe, no se tenga que crear denuevo
 echo
 echo
-echo $pwd
-template_path=$(pwd)
-cd ..
-pwd=$(pwd)
-echo $pwd
 
-cd dev
-cd modules
-pwd=$(pwd)
-echo $pwd
-mkdir $key_up
-cd $key_up
-pwd=$(pwd)
-echo $pwd
-module_path=$(pwd)
-
-echo Regresando al path que contiene los otros scripts sh
-cd ..
-cd ..
-cd ..
+cd ../
+OUTPUT_PATH="`pwd`/dev/"
+OUTPUT_MODULE_PATH=$OUTPUT_PATH'modules/'$key_up'/'
+mkdir -p $OUTPUT_MODULE_PATH
+# rm -rf $OUTPUT_MODULE_PATH
+# OUTPUT_MODAL_PATH=$OUTPUT_MODULE_PATH'modals/'
+# OUTPUT_DAO_PATH=$OUTPUT_PATH'DAO/'
+# mkdir -p $OUTPUT_MODAL_PATH
+# mkdir -p $OUTPUT_DAO_PATH
 cd Templates
-pwd=$(pwd)
-echo $pwd
+
 echo ----------------------------------------------------------------------------------------------------
 echo Generador del modulo Service
 echo
-sh ./generate_service.sh $key_low $key_up $key_min $template_path $module_path
+sh ./generate_service.sh $key_low $key_up $key_min $OUTPUT_MODULE_PATH
 echo ----------------------------------------------------------------------------------------------------
 echo Generador del modulo Controller
 echo
