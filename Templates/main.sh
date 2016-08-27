@@ -1,19 +1,4 @@
-echo
-echo
-# echo Version numero 1 
-# echo ----------------------------------------------------------------------------------------------------
-# echo Ingrese el nombre del modulo que desea crear:
-# read module_name
-# echo 
-# key_low=`echo $module_name | tr '[:upper:]' '[:lower:]'`
-# echo  "Patron en minusculas : $key_low"
-# echo
-# echo
-# echo 
-# key_up=`echo $module_name | awk '{ print toupper(substr($0, 1, 1)) substr($0, 2) }'`
-# echo "Patron con mayusculas $key_up"
-# echo
-echo ----------------------------------------------------------------------------------------------------
+# Version 1.0 
 
 key_low=""
 key_up=""
@@ -21,6 +6,7 @@ key_min=""
 
 if [[ $# -eq 0 ]] ; then
 	echo 'Argumentos insuficientes'
+	echo "Uso: $0 string1 string2 ..."
 	exit 1
 else
 	for var in "$@"; do
@@ -40,32 +26,55 @@ else
 	done
 fi
 
-echo ----------------------------------------------------------------------------------------------------
-
-echo Antes de pasar a la generacion de archivos, vamos a guardar en memoria los paths necesarios
-echo
-echo "Creacion del directorio del modulo $key_up"
-echo Aqui se debe agregar un ifpara que si el directorio ya existe, no se tenga que crear denuevo
-echo
-echo
+ReplaceString(){
+	cat $1 | sed "s/#patternL#/$key_low/g" | \
+		sed "s/#patternU#/$key_up/g" | sed "s/#patternM#/$key_min/g"  > $2
+}
 
 cd ../
 OUTPUT_PATH="`pwd`/dev/"
+OUTPUT_DAO_PATH="`pwd`/DAO/"
 OUTPUT_MODULE_PATH=$OUTPUT_PATH'modules/'$key_up'/'
 mkdir -p $OUTPUT_MODULE_PATH
+# mkdir -p $OUTPUT_DAO_PATH
 # rm -rf $OUTPUT_MODULE_PATH
 # OUTPUT_MODAL_PATH=$OUTPUT_MODULE_PATH'modals/'
-# OUTPUT_DAO_PATH=$OUTPUT_PATH'DAO/'
 # mkdir -p $OUTPUT_MODAL_PATH
-# mkdir -p $OUTPUT_DAO_PATH
 cd Templates
 
-echo ----------------------------------------------------------------------------------------------------
-echo Generador del modulo Service
+while true; do
+    read -p "Desea iniciar creacion de modulos Service, Controller y DAO? (y/n) " yn
+    case $yn in
+        [Yy]* ) break;;
+        [Nn]* ) echo OPERACION CANCELADA; exit 0;;
+        * ) echo "Por favor conteste (y) o (n)";;
+    esac
+done
 echo
-sh ./generate_service.sh $key_low $key_up $key_min $OUTPUT_MODULE_PATH
-echo ----------------------------------------------------------------------------------------------------
-echo Generador del modulo Controller
+echo "****************************************************************************************************"
+echo Modulo Service
 echo
-
-
+OUTPUT_FILE=$OUTPUT_MODULE_PATH$key_low'Service.js'
+echo Archivo a crear: "$OUTPUT_FILE"
+echo Generando modulo Service...
+ReplaceString "template_service.txt" $OUTPUT_FILE
+echo Archivo Service creado
+echo "****************************************************************************************************"
+echo Modulo Controller
+echo 
+OUTPUT_FILE=$OUTPUT_MODULE_PATH$key_low'Controller.js'
+echo Archivo a crear: "$OUTPUT_FILE"
+echo Generando modulo Controller...
+ReplaceString "template_controller.txt" $OUTPUT_FILE
+echo Archivo Controller creado
+echo "****************************************************************************************************"
+echo Modulo DAO
+echo
+OUTPUT_FILE=$OUTPUT_DAO_PATH$key_low'DAO.js'
+echo Archivo a crear: "$OUTPUT_FILE"
+echo Generando modulo DAO...
+ReplaceString "template_dao.txt" $OUTPUT_FILE
+echo Archivo DAO creado
+echo "****************************************************************************************************"
+echo OPERACION TERMINADA CON EXITO 
+exit 0
