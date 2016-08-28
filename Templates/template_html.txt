@@ -12,8 +12,8 @@
 	</div>
 	<div class="panel-body">
 		<div class="table-responsive" ng-if="#patternL#Ctrl.tableMode">
-			<table class="table table-striped" ng-table="#patternL#Ctrl.#patternU#Table">
-				<tr ng-repeat="#patternL#" in $data track by #patternL#.ID_"
+			<table class="table table-striped" ng-table="#patternL#Ctrl.#patternL#Table">
+				<tr ng-repeat="#patternL# in $data track by #patternL#.ID_"
 					ng-click="#patternL#Ctrl.setSelected(#patternL#.ID_)"
 					ng-class="{info: #patternL#.ID_ === #patternL#Ctrl.idSelected#patternU#}">					
 					<!-- <td data-title="'ID'" filter="{ID_: 'text'}" sortable="'ID_'">{{#patternL#.ID_}}</td> -->

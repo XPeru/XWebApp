@@ -7,7 +7,7 @@ angular.module('clienteService', ['ngResource'])
 			var urlBase = '/api/cliente';
 
 			service.getAllCliente = function() {
-				return $http.get(urlBase + 'list');
+				return $http.get(urlBase + 'list' + '/Cliente');
 			};
 
 			service.getClienteById = function(id_cliente) {

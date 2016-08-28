@@ -13,12 +13,13 @@ function printRequest(data) {
 
 
 clienteDAO.prototype.handleRoutes = function(router, connection) {
-	var tableName = "";
+	var tableName = "PROVEEDOR_CLIENTE";
+	var tableTipo = "TIPO_PERSONA";
 	var urlBase = "/cliente";
-	router.get(urlBase + "list", function(req, res) {
+	router.get(urlBase + "list" + "/:desc", function(req, res) {
 		printRequest(urlBase + "list" + " get");
-		var query = "SELECT * FROM ??";
-		var table = [tableName];
+		var query = "SELECT pc.NOMBRE, pc.EMAIL, pc.RUC, pc.NUMERO_CUENTA, pc.DIRECCION_CALLE, pc.DIRECCION_DISTRITO, pc.DIRECCION_DEPARTAMENTO, pc.DIRECCION_COMPLEMENTO, pc.TELEFONO, pc.FK_TIPO_PERSONA FROM ?? tipo INNER JOIN ?? pc ON ?? = ?? WHERE ?? = ?";
+		var table = [tableTipo, tableName, "pc.FK_TIPO_PERSONA", "tipo.ID_TIPO_PERSONA", "tipo.DESCRIPCION", req.params.desc];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err, rows) {
@@ -41,8 +42,28 @@ clienteDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.post(urlBase, function(req, res) {
 		printRequest(urlBase + " post");
-		var query = "INSERT INTO ?? (??) VALUES (?)";
-		var table = [tableName, "", req.body.];
+		var query = "INSERT INTO ?? (??, ??, ??, ??, ??, ??, ??, ??, ??, ??) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		var table = [tableName,
+					"NOMBRE",
+					"EMAIL",
+					"RUC",
+					"NUMERO_CUENTA",
+					"DIRECCION_CALLE",
+					"DIRECCION_DISTRITO",
+					"DIRECCION_DEPARTAMENTO",
+					"DIRECCION_COMPLEMENTO",
+					"TELEFONO",
+					"FK_TIPO_PERSONA",
+					req.body.NOMBRE,
+					req.body.EMAIL,
+					req.body.RUC,
+					req.body.NUMERO_CUENTA,
+					req.body.DIRECCION_CALLE,
+					req.body.DIRECCION_DISTRITO,
+					req.body.DIRECCION_DEPARTAMENTO,
+					req.body.DIRECCION_COMPLEMENTO,
+					req.body.TELEFONO,
+					req.body.FK_TIPO_PERSONA];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err) {
@@ -64,8 +85,24 @@ clienteDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.put(urlBase, function(req, res) {
 		printRequest(urlBase + " put");
-		var query = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
-		var table = [tableName, "", req.body., "ID_", req.body.ID_];
+		var query = "UPDATE ?? SET ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ? WHERE ?? = ?";
+		var table = [tableName,
+					"RUC",
+					req.body.RUC,
+					"NUMERO_CUENTA",
+					req.body.NUMERO_CUENTA,
+					"DIRECCION_CALLE",
+					req.body.DIRECCION_CALLE,
+					"DIRECCION_DISTRITO",
+					req.body.DIRECCION_DISTRITO,
+					"DIRECCION_DEPARTAMENTO",
+					req.body.DIRECCION_DEPARTAMENTO,
+					"DIRECCION_COMPLEMENTO",
+					req.body.DIRECCION_COMPLEMENTO,
+					"TELEFONO",
+					req.body.TELEFONO,
+					"ID_PROVEEDOR_CLIENTE",
+					req.body.ID_PROVEEDOR_CLIENTE];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err) {
@@ -85,10 +122,10 @@ clienteDAO.prototype.handleRoutes = function(router, connection) {
 		});
 	});
 
-	router.delete(urlBase + "/:id_", function(req, res) {
-		printRequest(urlBase + "/:id_", " delete");
+	router.delete(urlBase + "/:id_cliente", function(req, res) {
+		printRequest(urlBase + "/:id_cliente", " delete");
 		var query = "DELETE FROM ?? WHERE ?? = ?";
-		var table = [tableName, "ID_", req.params.id_];
+		var table = [tableName, "ID_PROVEEDOR_CLIENTE", req.params.id_cliente];
 		query = mysql.format(query, table);
 		connection.query(query, function(err) {
 			if (err) {
@@ -101,7 +138,7 @@ clienteDAO.prototype.handleRoutes = function(router, connection) {
 				console.info('Success MySQL query:' + query);
 				res.json({
 					"Error": false,
-					"Message": "Categoria deleted: " + req.params.id_
+					"Message": "Categoria deleted: " + req.params.id_cliente
 				});
 			}
 		});

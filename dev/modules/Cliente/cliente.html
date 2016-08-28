@@ -1,7 +1,7 @@
 <div class="panel panel-default panel-primary">
 	<div class="panel-heading clearfix">
 		<h2 class="panel-title">
-			PONER TITULO AQUI
+			Clientes
 			<button ng-click="clienteCtrl.switchTableMode()" class="pull-right btn btn-small btn-danger btn_separate">
 				 <i ng-if="clienteCtrl.tableMode" class="fa fa-print" aria-hidden="true"></i> <i ng-if="clienteCtrl.tableMode" class="fa fa-file-pdf-o" aria-hidden="true"></i> <i ng-if="!clienteCtrl.tableMode" class="fa fa-long-arrow-left" aria-hidden="true"></i>
 			</button>
@@ -12,21 +12,29 @@
 	</div>
 	<div class="panel-body">
 		<div class="table-responsive" ng-if="clienteCtrl.tableMode">
-			<table class="table table-striped" ng-table="clienteCtrl.ClienteTable">
-				<tr ng-repeat="cliente" in $data track by cliente.ID_"
-					ng-click="clienteCtrl.setSelected(cliente.ID_)"
-					ng-class="{info: cliente.ID_ === clienteCtrl.idSelectedCliente}">					
-					<!-- <td data-title="'ID'" filter="{ID_: 'text'}" sortable="'ID_'">{{cliente.ID_}}</td> -->
-					<td data-title="'TOCOMPLET'" filter="{TOCOMPLET: 'text'}" sortable="'TOCOMPLET'">{{cliente.TOCOMPLET}}</td>
+			<table class="table table-striped" ng-table="clienteCtrl.clienteTable">
+				<tr ng-repeat="cliente in $data track by cliente.ID_PROVEEDOR_CLIENTE"
+					ng-click="clienteCtrl.setSelected(cliente.ID_PROVEEDOR_CLIENTE)"
+					ng-class="{info: cliente.ID_PROVEEDOR_CLIENTE === clienteCtrl.idSelectedCliente}">					
+					<!-- <td data-title="'ID'" filter="{ID_PROVEEDOR_CLIENTE: 'text'}" sortable="'ID_PROVEEDOR_CLIENTE'">{{cliente.ID_PROVEEDOR_CLIENTE}}</td> -->
+					<td data-title="'Nombre'" filter="{NOMBRE: 'text'}" sortable="'NOMBRE'">{{cliente.NOMBRE}}</td>
+					<td data-title="'Email'" filter="{EMAIL: 'text'}" sortable="'EMAIL'">{{cliente.EMAIL}}</td>
+					<td data-title="'RUC'" filter="{RUC: 'text'}" sortable="'RUC'">{{cliente.RUC}}</td>
+					<td data-title="'Numero de cuenta'" filter="{NUMERO_CUENTA: 'text'}" sortable="'NUMERO_CUENTA'">{{cliente.NUMERO_CUENTA}}</td>
+					<td data-title="'Calle'" filter="{DIRECCION_CALLE: 'text'}" sortable="'DIRECCION_CALLE'">{{cliente.DIRECCION_CALLE}}</td>
+					<td data-title="'Distrito'" filter="{DIRECCION_DISTRITO: 'text'}" sortable="'DIRECCION_DISTRITO'">{{cliente.DIRECCION_DISTRITO}}</td>
+					<td data-title="'Departamento'" filter="{DIRECCION_DEPARTAMENTO: 'text'}" sortable="'DIRECCION_DEPARTAMENTO'">{{cliente.DIRECCION_DEPARTAMENTO}}</td>
+					<td data-title="'Complemento'" filter="{DIRECCION_COMPLEMENTO: 'text'}" sortable="'DIRECCION_COMPLEMENTO'">{{cliente.DIRECCION_COMPLEMENTO}}</td>
+					<td data-title="'Telefono'" filter="{TELEFONO: 'text'}" sortable="'TELEFONO'">{{cliente.TELEFONO}}</td>
 					<td style="width:60px">
-						<button ng-if="cliente.ID_ === clienteCtrl.idSelectedCliente"
+						<button ng-if="cliente.ID_PROVEEDOR_CLIENTE === clienteCtrl.idSelectedCliente"
 							ng-click="clienteCtrl.openModalCliente('edit', cliente)"
 							class="btn btn-small btn-primary">
 							<i class="glyphicon glyphicon-pencil"></i>
 						</button>
 					</td>
 					<td style="width:60px">
-						<button ng-if="cliente.ID_ === clienteCtrl.idSelectedCliente"
+						<button ng-if="cliente.ID_PROVEEDOR_CLIENTE === clienteCtrl.idSelectedCliente"
 							ng-click="clienteCtrl.openModalCliente('delete', cliente)"
 							class="btn btn-small btn-danger">
 							<i class="glyphicon glyphicon-remove"></i>

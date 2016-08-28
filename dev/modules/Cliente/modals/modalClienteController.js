@@ -1,6 +1,6 @@
-angular.module('Cliente').controller('modalClienteController',  function ($scope, $http, $timeout, $uibModalInstance, selected_cliente, ClienteServiceFactory, tipoClienteList) {
+angular.module('Cliente').controller('modalClienteController',  function ($scope, $http, $timeout, $uibModalInstance, selectedCliente, ClienteServiceFactory) {
 	var ctrl = this;
-	ctrl.selected_cliente = selected_cliente;
+	ctrl.selectedCliente = selectedCliente;
     // Utilisar si la propiedad tipo o categoria corresponde
 	//ctrl.tipoClienteList = tipoClienteList;
 
@@ -26,18 +26,4 @@ angular.module('Cliente').controller('modalClienteController',  function ($scope
 		$uibModalInstance.dismiss('cancel');
     };
 
-}).directive('fileModel', ['$parse', function ($parse) {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            var model = $parse(attrs.fileModel);
-            var modelSetter = model.assign;
-            
-            element.bind('change', function() {
-                scope.$apply(function(){
-                    modelSetter(scope, element[0].files[0]);
-                });
-            });
-        }
-    };
-}]);
+});
