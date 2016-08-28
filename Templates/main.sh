@@ -38,12 +38,12 @@ OUTPUT_MODULE_PATH=$OUTPUT_PATH'modules/'$key_up'/'
 mkdir -p $OUTPUT_MODULE_PATH
 # mkdir -p $OUTPUT_DAO_PATH
 # rm -rf $OUTPUT_MODULE_PATH
-# OUTPUT_MODAL_PATH=$OUTPUT_MODULE_PATH'modals/'
-# mkdir -p $OUTPUT_MODAL_PATH
+OUTPUT_MODAL_PATH=$OUTPUT_MODULE_PATH'modals/'
+mkdir -p $OUTPUT_MODAL_PATH
 cd Templates
 
 while true; do
-    read -p "Desea iniciar creacion de modulos Service, Controller y DAO? (y/n) " yn
+    read -p "Desea iniciar creacion de modulos HTML, Service, Controller, DAO y Modals? (y/n) " yn
     case $yn in
         [Yy]* ) break;;
         [Nn]* ) echo OPERACION CANCELADA; exit 0;;
@@ -51,6 +51,14 @@ while true; do
     esac
 done
 echo
+echo "****************************************************************************************************"
+echo Modulo HTML
+echo
+OUTPUT_FILE=$OUTPUT_MODULE_PATH$key_low'.html'
+echo Archivo a crear: "$OUTPUT_FILE"
+echo Generando modulo HTML...
+ReplaceString "template_html.txt" $OUTPUT_FILE
+echo Archivo HTML creado
 echo "****************************************************************************************************"
 echo Modulo Service
 echo
@@ -75,6 +83,16 @@ echo Archivo a crear: "$OUTPUT_FILE"
 echo Generando modulo DAO...
 ReplaceString "template_dao.txt" $OUTPUT_FILE
 echo Archivo DAO creado
+echo "****************************************************************************************************"
+echo Modulo Modals
+echo
+OUTPUT_FILE=$OUTPUT_MODAL_PATH'modal'$key_up'Controller.js'
+OUTPUT_FILE1=$OUTPUT_MODAL_PATH'create'$key_up'.html'
+echo Archivos a crear: "$OUTPUT_FILE, $OUTPUT_FILE1"
+echo Generando modulo Modals...
+ReplaceString "template_modal_controller.txt" $OUTPUT_FILE
+ReplaceString "template_modal_create_complex.txt" $OUTPUT_FILE1
+echo Archivos Modal creados
 echo "****************************************************************************************************"
 echo OPERACION TERMINADA CON EXITO 
 exit 0

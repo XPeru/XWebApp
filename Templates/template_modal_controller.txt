@@ -1,0 +1,43 @@
+angular.module('#patternU#').controller('modal#patternU#Controller',  function ($scope, $http, $timeout, $uibModalInstance, selected_#patternL#, #patternU#ServiceFactory, tipo#patternU#List) {
+	var ctrl = this;
+	ctrl.selected_#patternL# = selected_#patternL#;
+    // Utilisar si la propiedad tipo o categoria corresponde
+	//ctrl.tipo#patternU#List = tipo#patternU#List;
+
+	ctrl.create#patternU# = function (create_#patternL#) {
+		#patternU#ServiceFactory.create#patternU#(create_#patternL#).then(function() {
+			$uibModalInstance.close();
+		});
+	};
+
+    ctrl.update#patternU# = function (update_#patternL#) {
+		#patternU#ServiceFactory.update#patternU#(update_#patternL#).then(function() {
+			$uibModalInstance.close();
+		});
+    };
+
+    ctrl.delete#patternU# = function(delete_#patternL#) {
+		#patternU#ServiceFactory.delete#patternU#(delete_#patternL#).then(function() {
+			$uibModalInstance.close();
+		});
+	};
+
+    ctrl.cancel = function () {
+		$uibModalInstance.dismiss('cancel');
+    };
+
+}).directive('fileModel', ['$parse', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+            
+            element.bind('change', function() {
+                scope.$apply(function(){
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
+    };
+}]);

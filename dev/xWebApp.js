@@ -122,6 +122,17 @@
 				}
 			})
 
+			.state('app.cliente', {
+				url: 'cliente',
+				views : {
+					'content@': {
+						controller: 'clienteController',
+						controllerAs: 'clienteCtrl',
+						templateUrl: 'dev/modules/Cliente/cliente.html'
+					}
+				}
+			})
+
 			;
 
 
@@ -207,6 +218,8 @@
 	'almacenesDetalleService',
 	'TipoPersona',
 	'tipoPersonaService',
+	'Cliente',
+	'clienteService',
 	'ingresosService',
 	//'loginService',
 	'ngRoute',

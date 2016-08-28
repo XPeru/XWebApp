@@ -1,0 +1,43 @@
+<div class="panel panel-default panel-primary">
+	<div class="panel-heading clearfix">
+		<h2 class="panel-title">
+			PONER TITULO AQUI
+			<button ng-click="clienteCtrl.switchTableMode()" class="pull-right btn btn-small btn-danger btn_separate">
+				 <i ng-if="clienteCtrl.tableMode" class="fa fa-print" aria-hidden="true"></i> <i ng-if="clienteCtrl.tableMode" class="fa fa-file-pdf-o" aria-hidden="true"></i> <i ng-if="!clienteCtrl.tableMode" class="fa fa-long-arrow-left" aria-hidden="true"></i>
+			</button>
+			<button ng-click="clienteCtrl.openModalCliente('create', null)" class="btn_separate pull-right btn btn-small btn-success">
+				Nuevo <span><i class="glyphicon glyphicon-plus"></i></span>
+			</button>
+		</h2>
+	</div>
+	<div class="panel-body">
+		<div class="table-responsive" ng-if="clienteCtrl.tableMode">
+			<table class="table table-striped" ng-table="clienteCtrl.ClienteTable">
+				<tr ng-repeat="cliente" in $data track by cliente.ID_"
+					ng-click="clienteCtrl.setSelected(cliente.ID_)"
+					ng-class="{info: cliente.ID_ === clienteCtrl.idSelectedCliente}">					
+					<!-- <td data-title="'ID'" filter="{ID_: 'text'}" sortable="'ID_'">{{cliente.ID_}}</td> -->
+					<td data-title="'TOCOMPLET'" filter="{TOCOMPLET: 'text'}" sortable="'TOCOMPLET'">{{cliente.TOCOMPLET}}</td>
+					<td style="width:60px">
+						<button ng-if="cliente.ID_ === clienteCtrl.idSelectedCliente"
+							ng-click="clienteCtrl.openModalCliente('edit', cliente)"
+							class="btn btn-small btn-primary">
+							<i class="glyphicon glyphicon-pencil"></i>
+						</button>
+					</td>
+					<td style="width:60px">
+						<button ng-if="cliente.ID_ === clienteCtrl.idSelectedCliente"
+							ng-click="clienteCtrl.openModalCliente('delete', cliente)"
+							class="btn btn-small btn-danger">
+							<i class="glyphicon glyphicon-remove"></i>
+						</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div ng-if="!clienteCtrl.tableMode" id="gridCliente" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid">
+		</div>
+	</div>
+</div>
+
+

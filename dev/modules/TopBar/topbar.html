@@ -223,7 +223,13 @@
 					<a><i class="glyphicon glyphicon-globe"></i> Personas<span class="fa arrow"></span></a>
 					<ul class="nav nav-second-level">
 						<li>
-							<a><i class="fa fa-blind" aria-hidden="true"></i> Clientes</a>
+							<a ui-sref="app.cliente"
+								ng-click="topbarCtrl.setSelectedMenu('cliente')"
+								ng-class="{active: topbarCtrl.selectedMenu === 'cliente'}"
+								href='cliente'>
+								<i class="glyphicon glyphicon-cog"></i> Clientes
+							</a>
+							<!-- <a><i class="fa fa-blind" aria-hidden="true"></i> Clientes</a> -->
 						</li>
 						<li>
 							<a><i class="fa fa-industry" aria-hidden="true"></i> Proveedores</a>

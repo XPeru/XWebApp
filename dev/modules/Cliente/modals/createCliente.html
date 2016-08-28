@@ -1,0 +1,107 @@
+<div class="modal-header">
+	<h3 class="modal-title"> PONER TITULO </h3>
+</div>
+<div class="modal-body">
+	<form role="form"
+			name="formCreateCliente"
+			ng-submit="modalClienteCtrl.createCliente(modalClienteCtrl.createdCliente)"
+			novalidate>
+
+		<!--Text Example-->
+		<div class="form-group"
+				ng-class="{'has-error': formCreateCliente.nombreF.$error.required &&
+										!formCreateCliente.nombreF.$pristine}">
+			<label for="nombre">Nombre</label>
+
+			<input type="text"
+					class="form-control"
+					id="nombre"
+					name="nombreF"
+					ng-model="modalClienteCtrl.createdCliente.NOMBRE"
+					placeholder="Nombre"
+					required>
+
+			<span ng-show="formCreateCliente.nombreF.$error.required &&
+							!formCreateCliente.nombreF.$pristine"
+					class="help-block">Su nombre es obligatorio</span>
+		</div>
+
+		<!--Email Example-->
+		<div class="form-group has-feedback"
+				ng-class="{'has-error':(formCreateCliente.emailF.$invalid ||
+										formCreateCliente.emailF.$error.required) &&
+										!formCreateCliente.emailF.$pristine}">
+			<label for="email" class="control-label">Correo electronico</label>
+
+			<input type="email"
+					class="form-control"
+					id="email"
+					name="emailF"
+					ng-model="modalClienteCtrl.createdCliente.EMAIL"
+					placeholder="Correo electronico"
+					required>
+
+			<span ng-show="formCreateCliente.emailF.$invalid && !formCreateCliente.emailF.$pristine"
+					class="glyphicon glyphicon-remove form-control-feedback"
+					aria-hidden="true"></span>
+			<span ng-show="(formCreateCliente.emailF.$invalid ||
+							formCreateCliente.emailF.$error.required) &&
+							!formCreateCliente.emailF.$pristine"
+					class="help-block">Ingrese un correo electronico valido</span>
+		</div>
+
+
+		<!--Password Example-->
+		<div class="form-group has-feedback"
+				ng-class="{'has-error':(formCreateCliente.passwordF.$invalid ||
+										formCreateCliente.passwordF.$error.required) &&
+										!formCreateCliente.passwordF.$pristine}">
+			<label for="password">Contrase&ntilde;a</label>
+
+			<input type="password"
+					class="form-control"
+					id="password"
+					name="passwordF"
+					ng-model="modalClienteCtrl.createdCliente.PASSWORD"
+					placeholder="Contrase&ntilde;a"
+					required>
+
+			<span ng-show="formCreateCliente.passwordF.$invalid && !formCreateUsuario.passwordF.$pristine"
+					class="glyphicon glyphicon-remove form-control-feedback"
+					aria-hidden="true"></span>
+			<span ng-show="(formCreateUsuario.passwordF.$invalid ||
+							formCreateUsuario.passwordF.$error.required) &&
+							!formCreateUsuario.passwordF.$pristine"
+					class="help-block">Ingrese una contrase&ntilde;a valida</span>
+		</div>
+
+		<!-- Dropdown List Example -->
+		<div class="form-group">
+			<label for="tipousuario"> PONER TITULO</label>
+			<select class="form-control"
+					ng-model="modalClienteCtrl.createdCliente."
+					name="obj"
+					ng-options="obj.ID_TIPO_USUARIO as obj.TIPO for obj in modalClienteCtrl.">
+			</select>
+		</div>
+
+		<!-- File Example -->
+		<div class="form-group">
+			<label for="fileform">Foto</label>
+			<!--el atributo name es muy importante, este define el nombrebase del archivo , revisar usuariosDAO-->
+			<input type="file"
+					id="fileform"
+					name="userPhoto"
+					file-model="modalClienteCtrl.createdCliente.FOTO_FILE">
+		</div>
+
+		<div class="form-group">
+			<button type="submit" class="btn btn-success" ng-disabled="formCreateUsuario.$invalid">
+				<i class="fa fa-check" aria-hidden="true"></i>
+			</button>
+			<button class="btn btn-danger" type="button" ng-click="modalClienteCtrl.cancel()">
+				<i class="fa fa-times" aria-hidden="true"></i>
+			</button>
+		</div>
+	</form>
+</div>
