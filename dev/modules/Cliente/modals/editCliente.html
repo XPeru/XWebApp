@@ -1,29 +1,20 @@
 <div class="modal-header">
-	<h3 class="modal-title"> Nuevo cliente </h3>
+		<h3 class="modal-title">Editando cliente</h3>
 </div>
 <div class="modal-body">
 	<form role="form"
-			name="formCreateCliente"
-			ng-submit="modalClienteCtrl.createCliente(modalClienteCtrl.createdCliente)"
+			name="formEditCliente"
+			ng-submit="modalClienteCtrl.updateCliente(modalClienteCtrl.selectedCliente)"
 			novalidate>
 
-		<!--Text Example-->
-		<div class="form-group"
-				ng-class="{'has-error': formCreateCliente.nombreF.$error.required &&
-										!formCreateCliente.nombreF.$pristine}">
+		<div class="form-group">
 			<label for="nombre">Nombre</label>
 
 			<input type="text"
 					class="form-control"
 					id="nombre"
-					name="nombreF"
-					ng-model="modalClienteCtrl.createdCliente.NOMBRE"
-					placeholder="Nombre"
-					required>
-
-			<span ng-show="formCreateCliente.nombreF.$error.required &&
-							!formCreateCliente.nombreF.$pristine"
-					class="help-block">Su nombre es obligatorio</span>
+					placeholder="{{modalClienteCtrl.selectedCliente.NOMBRE}}"
+					disabled>
 		</div>
 
 		<!--Email Example-->
@@ -37,7 +28,7 @@
 					class="form-control"
 					id="email"
 					name="emailF"
-					ng-model="modalClienteCtrl.createdCliente.EMAIL"
+					ng-model="modalClienteCtrl.selectedCliente.EMAIL"
 					placeholder="Correo electronico"
 					required>
 
@@ -59,7 +50,7 @@
 					class="form-control"
 					id="ruc"
 					name="rucF"
-					ng-model="modalClienteCtrl.createdCliente.RUC"
+					ng-model="modalClienteCtrl.selectedCliente.RUC"
 					placeholder="RUC"
 					required>
 
@@ -77,7 +68,7 @@
 					class="form-control"
 					id="numeroCuenta"
 					name="numeroCuentaF"
-					ng-model="modalClienteCtrl.createdCliente.NUMERO_CUENTA"
+					ng-model="modalClienteCtrl.selectedCliente.NUMERO_CUENTA"
 					placeholder="Numero de Cuenta"
 					required>
 
@@ -95,7 +86,7 @@
 					class="form-control"
 					id="direccionCalle"
 					name="direccionCalleF"
-					ng-model="modalClienteCtrl.createdCliente.DIRECCION_CALLE"
+					ng-model="modalClienteCtrl.selectedCliente.DIRECCION_CALLE"
 					placeholder="Calle"
 					required>
 
@@ -113,7 +104,7 @@
 					class="form-control"
 					id="direccionDistrito"
 					name="direccionDistritoF"
-					ng-model="modalClienteCtrl.createdCliente.DIRECCION_DISTRITO"
+					ng-model="modalClienteCtrl.selectedCliente.DIRECCION_DISTRITO"
 					placeholder="Distrito"
 					required>
 
@@ -131,7 +122,7 @@
 					class="form-control"
 					id="direccionDepartamento"
 					name="direccionDepartamentoF"
-					ng-model="modalClienteCtrl.createdCliente.DIRECCION_DEPARTAMENTO"
+					ng-model="modalClienteCtrl.selectedCliente.DIRECCION_DEPARTAMENTO"
 					placeholder="Departamento"
 					required>
 
@@ -146,7 +137,7 @@
 					class="form-control"
 					id="direccionComplemento"
 					name="direccionComplemento"
-					ng-model="modalClienteCtrl.createdCliente.DIRECCION_COMPLEMENTO"
+					ng-model="modalClienteCtrl.selectedCliente.DIRECCION_COMPLEMENTO"
 					placeholder="Complemento">
 		</div>
 
@@ -156,59 +147,19 @@
 					class="form-control"
 					id="telefono"
 					name="telefono"
-					ng-model="modalClienteCtrl.createdCliente.TELEFONO"
+					ng-model="modalClienteCtrl.selectedCliente.TELEFONO"
 					placeholder="Telefono">
 		</div>
 
-		<!--Password Example-->
-		<!-- <div class="form-group has-feedback"
-				ng-class="{'has-error':(formCreateCliente.passwordF.$invalid ||
-										formCreateCliente.passwordF.$error.required) &&
-										!formCreateCliente.passwordF.$pristine}">
-			<label for="password">Contrase&ntilde;a</label>
-
-			<input type="password"
-					class="form-control"
-					id="password"
-					name="passwordF"
-					ng-model="modalClienteCtrl.createdCliente.PASSWORD"
-					placeholder="Contrase&ntilde;a"
-					required>
-
-			<span ng-show="formCreateCliente.passwordF.$invalid && !formCreateCliente.passwordF.$pristine"
-					class="glyphicon glyphicon-remove form-control-feedback"
-					aria-hidden="true"></span>
-			<span ng-show="(formCreateCliente.passwordF.$invalid ||
-							formCreateCliente.passwordF.$error.required) &&
-							!formCreateCliente.passwordF.$pristine"
-					class="help-block">Ingrese una contrase&ntilde;a valida</span>
-		</div>
- -->
-		<!-- Dropdown List Example -->
-		<!-- <div class="form-group">
-			<label for="tipousuario"> PONER TITULO</label>
-			<select class="form-control"
-					ng-model="modalClienteCtrl.createdCliente."
-					name="obj"
-					ng-options="obj.ID_TIPO_USUARIO as obj.TIPO for obj in modalClienteCtrl.">
-			</select>
-		</div> -->
-
-		<!-- File Example -->
-		<!-- <div class="form-group">
-			<label for="fileform">Foto</label>
-			el atributo name es muy importante, este define el nombrebase del archivo , revisar usuariosDAO
-			<input type="file"
-					id="fileform"
-					name="userPhoto"
-					file-model="modalClienteCtrl.createdCliente.FOTO_FILE">
-		</div> -->
-
 		<div class="form-group">
-			<button type="submit" class="btn btn-success" ng-disabled="formCreateCliente.$invalid">
+			<button type="submit"
+					class="btn btn-success"
+					ng-disabled="formEditCliente.$invalid">
 				<i class="fa fa-check" aria-hidden="true"></i>
 			</button>
-			<button class="btn btn-danger" type="button" ng-click="modalClienteCtrl.cancel()">
+			<button class="btn btn-danger"
+					type="button"
+					ng-click="modalClienteCtrl.cancel()">
 				<i class="fa fa-times" aria-hidden="true"></i>
 			</button>
 		</div>

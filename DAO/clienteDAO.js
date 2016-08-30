@@ -18,7 +18,7 @@ clienteDAO.prototype.handleRoutes = function(router, connection) {
 	var urlBase = "/cliente";
 	router.get(urlBase + "list" + "/:desc", function(req, res) {
 		printRequest(urlBase + "list" + " get");
-		var query = "SELECT pc.NOMBRE, pc.EMAIL, pc.RUC, pc.NUMERO_CUENTA, pc.DIRECCION_CALLE, pc.DIRECCION_DISTRITO, pc.DIRECCION_DEPARTAMENTO, pc.DIRECCION_COMPLEMENTO, pc.TELEFONO, pc.FK_TIPO_PERSONA FROM ?? tipo INNER JOIN ?? pc ON ?? = ?? WHERE ?? = ?";
+		var query = "SELECT pc.ID_PROVEEDOR_CLIENTE, pc.NOMBRE, pc.EMAIL, pc.RUC, pc.NUMERO_CUENTA, pc.DIRECCION_CALLE, pc.DIRECCION_DISTRITO, pc.DIRECCION_DEPARTAMENTO, pc.DIRECCION_COMPLEMENTO, pc.TELEFONO, pc.FK_TIPO_PERSONA FROM ?? tipo INNER JOIN ?? pc ON ?? = ?? WHERE ?? = ?";
 		var table = [tableTipo, tableName, "pc.FK_TIPO_PERSONA", "tipo.ID_TIPO_PERSONA", "tipo.DESCRIPCION", req.params.desc];
 		query = mysql.format(query, table);
 		printRequest(query);
@@ -63,7 +63,9 @@ clienteDAO.prototype.handleRoutes = function(router, connection) {
 					req.body.DIRECCION_DEPARTAMENTO,
 					req.body.DIRECCION_COMPLEMENTO,
 					req.body.TELEFONO,
-					req.body.FK_TIPO_PERSONA];
+					1];//revisar si vamos a poner varios tipos de persona (sin sentido propuesto por Oscar)
+					//P.D.: si es un sin sentido, no es solo por joder
+					// req.body.FK_TIPO_PERSONA];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err) {
