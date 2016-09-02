@@ -1,7 +1,7 @@
 var mysql = require("mysql");
 var dateGenerator = require("./dateGenerator.js");
-var daoName = "clienteDAO";
-function clienteDAO(router, connection) {
+var daoName = "personaDAO";
+function personaDAO(router, connection) {
 	var self = this;
 	self.handleRoutes(router, connection);
 	dateGenerator.printInfo(daoName + " agregado correctamente");
@@ -12,10 +12,10 @@ function printRequest(data) {
 }
 
 
-clienteDAO.prototype.handleRoutes = function(router, connection) {
+personaDAO.prototype.handleRoutes = function(router, connection) {
 	var tableName = "PROVEEDOR_CLIENTE";
 	var tableTipo = "TIPO_PERSONA";
-	var urlBase = "/cliente";
+	var urlBase = "/persona";
 	router.get(urlBase + "list" + "/:desc", function(req, res) {
 		printRequest(urlBase + "list" + " get");
 		var query = "SELECT pc.ID_PROVEEDOR_CLIENTE, pc.NOMBRE, pc.EMAIL, pc.RUC, pc.NUMERO_CUENTA, pc.DIRECCION_CALLE, pc.DIRECCION_DISTRITO, pc.DIRECCION_DEPARTAMENTO, pc.DIRECCION_COMPLEMENTO, pc.TELEFONO, pc.FK_TIPO_PERSONA FROM ?? tipo INNER JOIN ?? pc ON ?? = ?? WHERE ?? = ?";
@@ -34,7 +34,7 @@ clienteDAO.prototype.handleRoutes = function(router, connection) {
 				res.json({
 					"Error": false,
 					"Message": "Success",
-					"Cliente": rows
+					"Persona": rows
 				});
 			}
 		});
@@ -63,9 +63,7 @@ clienteDAO.prototype.handleRoutes = function(router, connection) {
 					req.body.DIRECCION_DEPARTAMENTO,
 					req.body.DIRECCION_COMPLEMENTO,
 					req.body.TELEFONO,
-					1];//revisar si vamos a poner varios tipos de persona (sin sentido propuesto por Oscar)
-					//P.D.: si es un sin sentido, no es solo por joder
-					// req.body.FK_TIPO_PERSONA];
+					req.body.FK_TIPO_PERSONA];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err) {
@@ -80,7 +78,7 @@ clienteDAO.prototype.handleRoutes = function(router, connection) {
 				console.info('Success MySQL query:' + query);
 				res.json({
 					"Error": false,
-					"Message": "Categoria Added !"
+					"Message": "Persona Added !"
 				});
 			}
 		});
@@ -125,10 +123,10 @@ clienteDAO.prototype.handleRoutes = function(router, connection) {
 		});
 	});
 
-	router.delete(urlBase + "/:id_cliente", function(req, res) {
-		printRequest(urlBase + "/:id_cliente", " delete");
+	router.delete(urlBase + "/:id_proveedor_cliente", function(req, res) {
+		printRequest(urlBase + "/:id_proveedor_cliente", " delete");
 		var query = "DELETE FROM ?? WHERE ?? = ?";
-		var table = [tableName, "ID_PROVEEDOR_CLIENTE", req.params.id_cliente];
+		var table = [tableName, "ID_PROVEEDOR_CLIENTE", req.params.id_proveedor_cliente];
 		query = mysql.format(query, table);
 		connection.query(query, function(err) {
 			if (err) {
@@ -141,11 +139,11 @@ clienteDAO.prototype.handleRoutes = function(router, connection) {
 				console.info('Success MySQL query:' + query);
 				res.json({
 					"Error": false,
-					"Message": "Categoria deleted: " + req.params.id_cliente
+					"Message": "Categoria deleted: " + req.params.id_proveedor_cliente
 				});
 			}
 		});
 	});
 };
 
-module.exports = clienteDAO;
+module.exports = personaDAO;

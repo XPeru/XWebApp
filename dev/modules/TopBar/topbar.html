@@ -227,12 +227,17 @@
 								ng-click="topbarCtrl.setSelectedMenu('cliente')"
 								ng-class="{active: topbarCtrl.selectedMenu === 'cliente'}"
 								href='cliente'>
-								<i class="glyphicon glyphicon-cog"></i> Clientes
+								<i class="fa fa-blind" aria-hidden="true"></i> Clientes
 							</a>
 							<!-- <a><i class="fa fa-blind" aria-hidden="true"></i> Clientes</a> -->
 						</li>
 						<li>
-							<a><i class="fa fa-industry" aria-hidden="true"></i> Proveedores</a>
+							<a ui-sref="app.proveedor"
+								ng-click="topbarCtrl.setSelectedMenu('proveedor')"
+								ng-class="{active: topbarCtrl.selectedMenu === 'proveedor'}"
+								href='proveedor'>
+								<i class="fa fa-industry" aria-hidden="true"></i> Proveedores
+							</a>
 						</li>
 						<li>
 							<a ui-sref="app.tipopersona"

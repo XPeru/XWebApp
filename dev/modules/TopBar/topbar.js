@@ -38,11 +38,11 @@ angular.module('TopBar', [])
 				}).parent().parent().addClass('in');
 
 				$('ul.nav-third-level a').filter(function() {
-					console.info("baseURI");
+					/*console.info("baseURI");
 					console.info(this);
 					console.info("pathName");
 					console.info(this.pathname.substring(1).split(/[ /]+/));
-					console.info(this.baseURI.substring(24).split(/[ /]+/)[0] === this.pathname.substring(1).split(/[ /]+/)[0]);
+					console.info(this.baseURI.substring(24).split(/[ /]+/)[0] === this.pathname.substring(1).split(/[ /]+/)[0]);*/
 					return this.baseURI.substring(24).split(/[ /]+/)[0] === this.pathname.substring(1).split(/[ /]+/)[0];
 				}).parent().parent().addClass('in').parent().parent().addClass('in');
 

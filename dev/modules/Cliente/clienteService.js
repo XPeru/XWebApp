@@ -4,14 +4,10 @@ angular.module('clienteService', ['ngResource'])
 	.factory('ClienteServiceFactory',
 		function($http) {
 			var service = {};
-			var urlBase = '/api/cliente';
+			var urlBase = '/api/persona';
 
 			service.getAllCliente = function() {
 				return $http.get(urlBase + 'list' + '/Cliente');
-			};
-
-			service.getClienteById = function(id_cliente) {
-				return $http.get(urlBase + id_cliente);
 			};
 
 			service.createCliente = function(newCliente) {

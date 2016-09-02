@@ -133,6 +133,17 @@
 				}
 			})
 
+			.state('app.proveedor', {
+				url: 'proveedor',
+				views : {
+					'content@': {
+						controller: 'proveedorController',
+						controllerAs: 'proveedorCtrl',
+						templateUrl: 'dev/modules/Proveedor/proveedor.html'
+					}
+				}
+			})
+
 			;
 
 
@@ -221,6 +232,8 @@
 	'Cliente',
 	'clienteService',
 	'ingresosService',
+	'Proveedor',
+	'proveedorService',
 	//'loginService',
 	'ngRoute',
 	'ui.router',

@@ -1,0 +1,51 @@
+<div class="panel panel-default panel-primary">
+	<div class="panel-heading clearfix">
+		<h2 class="panel-title">
+			Proveedores
+			<button ng-click="proveedorCtrl.switchTableMode()" class="pull-right btn btn-small btn-danger btn_separate">
+				 <i ng-if="proveedorCtrl.tableMode" class="fa fa-print" aria-hidden="true"></i> <i ng-if="proveedorCtrl.tableMode" class="fa fa-file-pdf-o" aria-hidden="true"></i> <i ng-if="!proveedorCtrl.tableMode" class="fa fa-long-arrow-left" aria-hidden="true"></i>
+			</button>
+			<button ng-click="proveedorCtrl.openModalProveedor('create', null)" class="btn_separate pull-right btn btn-small btn-success">
+				Nuevo <span><i class="glyphicon glyphicon-plus"></i></span>
+			</button>
+		</h2>
+	</div>
+	<div class="panel-body">
+		<div class="table-responsive" ng-if="proveedorCtrl.tableMode">
+			<table class="table table-striped" ng-table="proveedorCtrl.proveedorTable">
+				<tr ng-repeat="proveedor in $data track by proveedor.ID_PROVEEDOR_CLIENTE"
+					ng-click="proveedorCtrl.setSelected(proveedor.ID_PROVEEDOR_CLIENTE)"
+					ng-class="{info: proveedor.ID_PROVEEDOR_CLIENTE === proveedorCtrl.idSelectedProveedor}">					
+					<!-- <td data-title="'ID'" filter="{ID_PROVEEDOR_CLIENTE: 'text'}" sortable="'ID_PROVEEDOR_CLIENTE'">{{proveedor.ID_PROVEEDOR_CLIENTE}}</td> -->
+					<td data-title="'Nombre'" filter="{NOMBRE: 'text'}" sortable="'NOMBRE'">{{proveedor.NOMBRE}}</td>
+					<td data-title="'Email'" filter="{EMAIL: 'text'}" sortable="'EMAIL'">{{proveedor.EMAIL}}</td>
+					<td data-title="'RUC'" filter="{RUC: 'text'}" sortable="'RUC'">{{proveedor.RUC}}</td>
+					<td data-title="'Numero de cuenta'" filter="{NUMERO_CUENTA: 'text'}" sortable="'NUMERO_CUENTA'">{{proveedor.NUMERO_CUENTA}}</td>
+					<td data-title="'Calle'" filter="{DIRECCION_CALLE: 'text'}" sortable="'DIRECCION_CALLE'">{{proveedor.DIRECCION_CALLE}}</td>
+					<td data-title="'Distrito'" filter="{DIRECCION_DISTRITO: 'text'}" sortable="'DIRECCION_DISTRITO'">{{proveedor.DIRECCION_DISTRITO}}</td>
+					<td data-title="'Departamento'" filter="{DIRECCION_DEPARTAMENTO: 'text'}" sortable="'DIRECCION_DEPARTAMENTO'">{{proveedor.DIRECCION_DEPARTAMENTO}}</td>
+					<td data-title="'Complemento'" filter="{DIRECCION_COMPLEMENTO: 'text'}" sortable="'DIRECCION_COMPLEMENTO'">{{proveedor.DIRECCION_COMPLEMENTO}}</td>
+					<td data-title="'Telefono'" filter="{TELEFONO: 'text'}" sortable="'TELEFONO'">{{proveedor.TELEFONO}}</td>
+					<td style="width:60px">
+						<button ng-if="proveedor.ID_PROVEEDOR_CLIENTE === proveedorCtrl.idSelectedProveedor"
+							ng-click="proveedorCtrl.openModalProveedor('edit', proveedor)"
+							class="btn btn-small btn-primary">
+							<i class="glyphicon glyphicon-pencil"></i>
+						</button>
+					</td>
+					<td style="width:60px">
+						<button ng-if="proveedor.ID_PROVEEDOR_CLIENTE === proveedorCtrl.idSelectedProveedor"
+							ng-click="proveedorCtrl.openModalProveedor('delete', proveedor)"
+							class="btn btn-small btn-danger">
+							<i class="glyphicon glyphicon-remove"></i>
+						</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div ng-if="!proveedorCtrl.tableMode" id="gridProveedor" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid">
+		</div>
+	</div>
+</div>
+
+

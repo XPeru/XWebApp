@@ -1,0 +1,172 @@
+<div class="modal-header">
+	<h3 class="modal-title"> Nuevo proveedor </h3>
+</div>
+<div class="modal-body">
+	<form role="form"
+			name="formCreateProveedor"
+			ng-submit="modalProveedorCtrl.createProveedor(modalProveedorCtrl.createdProveedor)"
+			novalidate>
+
+		<!--Text Example-->
+		<div class="form-group"
+				ng-class="{'has-error': formCreateProveedor.nombreF.$error.required &&
+										!formCreateProveedor.nombreF.$pristine}">
+			<label for="nombre">Nombre</label>
+
+			<input type="text"
+					class="form-control"
+					id="nombre"
+					name="nombreF"
+					ng-model="modalProveedorCtrl.createdProveedor.NOMBRE"
+					placeholder="Nombre"
+					required>
+
+			<span ng-show="formCreateProveedor.nombreF.$error.required &&
+							!formCreateProveedor.nombreF.$pristine"
+					class="help-block">Su nombre es obligatorio</span>
+		</div>
+
+		<!--Email Example-->
+		<div class="form-group has-feedback"
+				ng-class="{'has-error':(formCreateProveedor.emailF.$invalid ||
+										formCreateProveedor.emailF.$error.required) &&
+										!formCreateProveedor.emailF.$pristine}">
+			<label for="email" class="control-label">Correo electronico</label>
+
+			<input type="email"
+					class="form-control"
+					id="email"
+					name="emailF"
+					ng-model="modalProveedorCtrl.createdProveedor.EMAIL"
+					placeholder="Correo electronico"
+					required>
+
+			<span ng-show="formCreateProveedor.emailF.$invalid && !formCreateProveedor.emailF.$pristine"
+					class="glyphicon glyphicon-remove form-control-feedback"
+					aria-hidden="true"></span>
+			<span ng-show="(formCreateProveedor.emailF.$invalid ||
+							formCreateProveedor.emailF.$error.required) &&
+							!formCreateProveedor.emailF.$pristine"
+					class="help-block">Ingrese un correo electronico valido</span>
+		</div>
+
+		<div class="form-group"
+				ng-class="{'has-error': formCreateProveedor.rucF.$error.required &&
+										!formCreateProveedor.rucF.$pristine}">
+			<label for="ruc">RUC</label>
+
+			<input type="text"
+					class="form-control"
+					id="ruc"
+					name="rucF"
+					ng-model="modalProveedorCtrl.createdProveedor.RUC"
+					placeholder="RUC"
+					required>
+
+			<span ng-show="formCreateProveedor.rucF.$error.required &&
+							!formCreateProveedor.rucF.$pristine"
+					class="help-block">Su RUC es obligatorio</span>
+		</div>
+
+		<div class="form-group"
+				ng-class="{'has-error': formCreateProveedor.numeroCuentaF.$error.required &&
+										!formCreateProveedor.numeroCuentaF.$pristine}">
+			<label for="numeroCuenta">Numero de Cuenta</label>
+
+			<input type="text"
+					class="form-control"
+					id="numeroCuenta"
+					name="numeroCuentaF"
+					ng-model="modalProveedorCtrl.createdProveedor.NUMERO_CUENTA"
+					placeholder="Numero de Cuenta"
+					required>
+
+			<span ng-show="formCreateProveedor.numeroCuentaF.$error.required &&
+							!formCreateProveedor.numeroCuentaF.$pristine"
+					class="help-block">Su Numero de Cuenta es obligatorio</span>
+		</div>
+
+		<div class="form-group"
+				ng-class="{'has-error': formCreateProveedor.direccionCalleF.$error.required &&
+										!formCreateProveedor.direccionCalleF.$pristine}">
+			<label for="direccionCalle">Calle</label>
+
+			<input type="text"
+					class="form-control"
+					id="direccionCalle"
+					name="direccionCalleF"
+					ng-model="modalProveedorCtrl.createdProveedor.DIRECCION_CALLE"
+					placeholder="Calle"
+					required>
+
+			<span ng-show="formCreateProveedor.direccionCalleF.$error.required &&
+							!formCreateProveedor.direccionCalleF.$pristine"
+					class="help-block">El campo Calle es obligatorio</span>
+		</div>
+
+		<div class="form-group"
+				ng-class="{'has-error': formCreateProveedor.direccionDistritoF.$error.required &&
+										!formCreateProveedor.direccionDistritoF.$pristine}">
+			<label for="direccionDistrito">Distrito</label>
+
+			<input type="text"
+					class="form-control"
+					id="direccionDistrito"
+					name="direccionDistritoF"
+					ng-model="modalProveedorCtrl.createdProveedor.DIRECCION_DISTRITO"
+					placeholder="Distrito"
+					required>
+
+			<span ng-show="formCreateProveedor.direccionDistritoF.$error.required &&
+							!formCreateProveedor.direccionDistritoF.$pristine"
+					class="help-block">El campo Distrito es obligatorio</span>
+		</div>
+
+		<div class="form-group"
+				ng-class="{'has-error': formCreateProveedor.direccionDepartamentoF.$error.required &&
+										!formCreateProveedor.direccionDepartamentoF.$pristine}">
+			<label for="direccionDepartamento">Departamento</label>
+
+			<input type="text"
+					class="form-control"
+					id="direccionDepartamento"
+					name="direccionDepartamentoF"
+					ng-model="modalProveedorCtrl.createdProveedor.DIRECCION_DEPARTAMENTO"
+					placeholder="Departamento"
+					required>
+
+			<span ng-show="formCreateProveedor.direccionDepartamentoF.$error.required &&
+							!formCreateProveedor.direccionDepartamentoF.$pristine"
+					class="help-block">El campo Departamento es obligatorio</span>
+		</div>
+
+		<div class="form-group">
+			<label for="direccionComplemento">Complemento</label>
+			<input type="text"
+					class="form-control"
+					id="direccionComplemento"
+					name="direccionComplemento"
+					ng-model="modalProveedorCtrl.createdProveedor.DIRECCION_COMPLEMENTO"
+					placeholder="Complemento">
+		</div>
+
+		<div class="form-group">
+			<label for="telefono">Telefono</label>
+			<input type="text"
+					class="form-control"
+					id="telefono"
+					name="telefono"
+					ng-model="modalProveedorCtrl.createdProveedor.TELEFONO"
+					placeholder="Telefono">
+		</div>
+
+		<div class="form-group">
+			<button type="submit" class="btn btn-success" ng-disabled="formCreateProveedor.$invalid">
+				<i class="fa fa-check" aria-hidden="true"></i>
+			</button>
+			<button class="btn btn-danger" type="button" ng-click="modalProveedorCtrl.cancel()">
+				<i class="fa fa-times" aria-hidden="true"></i>
+			</button>
+		</div>
+	</form>
+</div>

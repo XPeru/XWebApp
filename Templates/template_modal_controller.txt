@@ -1,6 +1,6 @@
-angular.module('#patternU#').controller('modal#patternU#Controller',  function ($scope, $http, $timeout, $uibModalInstance, selected_#patternL#, #patternU#ServiceFactory, tipo#patternU#List) {
+angular.module('#patternU#').controller('modal#patternU#Controller',  function ($scope, $http, $timeout, $uibModalInstance, selected#patternL#, #patternU#ServiceFactory, tipo#patternU#List) {
 	var ctrl = this;
-	ctrl.selected_#patternL# = selected_#patternL#;
+	ctrl.selected#patternL# = selected#patternL#;
     // Utilisar si la propiedad tipo o categoria corresponde
 	//ctrl.tipo#patternU#List = tipo#patternU#List;
 
@@ -26,18 +26,4 @@ angular.module('#patternU#').controller('modal#patternU#Controller',  function (
 		$uibModalInstance.dismiss('cancel');
     };
 
-}).directive('fileModel', ['$parse', function ($parse) {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            var model = $parse(attrs.fileModel);
-            var modelSetter = model.assign;
-            
-            element.bind('change', function() {
-                scope.$apply(function(){
-                    modelSetter(scope, element[0].files[0]);
-                });
-            });
-        }
-    };
-}]);
+});

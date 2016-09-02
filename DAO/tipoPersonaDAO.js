@@ -39,6 +39,30 @@ tipoPersonaDAO.prototype.handleRoutes = function(router, connection) {
 		});
 	});
 
+	router.get(urlBase + "/:desc", function(req, res) {
+		printRequest(urlBase + " get");
+		var query = "SELECT * FROM ?? WHERE DESCRIPCION = ?";
+		var table = [tableName, req.params.desc];
+		query = mysql.format(query, table);
+		printRequest(query);
+		connection.query(query, function(err, rows) {
+			if (err) {
+				console.info('Error executing MySQL query:' + query);
+				res.json({
+					"Error": true,
+					"Message": "Error executing MySQL query"
+				});
+			} else {
+				console.info('Success MySQL query:' + query);
+				res.json({
+					"Error": false,
+					"Message": "Success",
+					"TipoPersona": rows
+				});
+			}
+		});
+	});
+
 	router.post(urlBase, function(req, res) {
 		printRequest(urlBase + " post");
 		var query = "INSERT INTO ?? (??) VALUES (?)";

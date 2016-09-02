@@ -140,7 +140,7 @@
 					class="help-block">El campo Departamento es obligatorio</span>
 		</div>
 
-		<div class="form-group"">
+		<div class="form-group">
 			<label for="direccionComplemento">Complemento</label>
 			<input type="text"
 					class="form-control"
@@ -150,7 +150,7 @@
 					placeholder="Complemento">
 		</div>
 
-		<div class="form-group"">
+		<div class="form-group">
 			<label for="telefono">Telefono</label>
 			<input type="text"
 					class="form-control"
@@ -159,50 +159,6 @@
 					ng-model="modalClienteCtrl.createdCliente.TELEFONO"
 					placeholder="Telefono">
 		</div>
-
-		<!--Password Example-->
-		<!-- <div class="form-group has-feedback"
-				ng-class="{'has-error':(formCreateCliente.passwordF.$invalid ||
-										formCreateCliente.passwordF.$error.required) &&
-										!formCreateCliente.passwordF.$pristine}">
-			<label for="password">Contrase&ntilde;a</label>
-
-			<input type="password"
-					class="form-control"
-					id="password"
-					name="passwordF"
-					ng-model="modalClienteCtrl.createdCliente.PASSWORD"
-					placeholder="Contrase&ntilde;a"
-					required>
-
-			<span ng-show="formCreateCliente.passwordF.$invalid && !formCreateCliente.passwordF.$pristine"
-					class="glyphicon glyphicon-remove form-control-feedback"
-					aria-hidden="true"></span>
-			<span ng-show="(formCreateCliente.passwordF.$invalid ||
-							formCreateCliente.passwordF.$error.required) &&
-							!formCreateCliente.passwordF.$pristine"
-					class="help-block">Ingrese una contrase&ntilde;a valida</span>
-		</div>
- -->
-		<!-- Dropdown List Example -->
-		<!-- <div class="form-group">
-			<label for="tipousuario"> PONER TITULO</label>
-			<select class="form-control"
-					ng-model="modalClienteCtrl.createdCliente."
-					name="obj"
-					ng-options="obj.ID_TIPO_USUARIO as obj.TIPO for obj in modalClienteCtrl.">
-			</select>
-		</div> -->
-
-		<!-- File Example -->
-		<!-- <div class="form-group">
-			<label for="fileform">Foto</label>
-			el atributo name es muy importante, este define el nombrebase del archivo , revisar usuariosDAO
-			<input type="file"
-					id="fileform"
-					name="userPhoto"
-					file-model="modalClienteCtrl.createdCliente.FOTO_FILE">
-		</div> -->
 
 		<div class="form-group">
 			<button type="submit" class="btn btn-success" ng-disabled="formCreateCliente.$invalid">

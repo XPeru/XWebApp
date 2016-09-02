@@ -10,8 +10,8 @@ angular.module('tipoPersonaService', ['ngResource'])
 				return $http.get(urlBase + 'list');
 			};
 
-			service.getTipoPersonaById = function(id_tipopersona) {
-				return $http.get(urlBase + id_tipopersona);
+			service.getTipoPersonaByDesc = function(desc) {
+				return $http.get(urlBase + '/' + desc);
 			};
 
 			service.createTipoPersona = function(newTipoPersona) {
