@@ -259,6 +259,14 @@
 						<li>
 							<a><i class="glyphicon glyphicon-triangle-left"></i> Salidas</a>
 						</li>
+						<li>
+							<a ui-sref="app.tipodocumento"
+								ng-click="topbarCtrl.setSelectedMenu('tipodocumento')"
+								ng-class="{active: topbarCtrl.selectedMenu === 'tipodocumento'}"
+								href='tipodocumento'>
+								<i class="glyphicon glyphicon-cog"></i> Tipos de documento
+							</a>
+						</li>
 					</ul>
 					<!-- /.nav-second-level -->
 				</li>

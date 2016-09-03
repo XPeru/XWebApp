@@ -1,0 +1,43 @@
+<div class="panel panel-default panel-primary">
+	<div class="panel-heading clearfix">
+		<h2 class="panel-title">
+			Tipo de documento
+			<button ng-click="tipoDocumentoCtrl.switchTableMode()" class="pull-right btn btn-small btn-danger btn_separate">
+				 <i ng-if="tipoDocumentoCtrl.tableMode" class="fa fa-print" aria-hidden="true"></i> <i ng-if="tipoDocumentoCtrl.tableMode" class="fa fa-file-pdf-o" aria-hidden="true"></i> <i ng-if="!tipoDocumentoCtrl.tableMode" class="fa fa-long-arrow-left" aria-hidden="true"></i>
+			</button>
+			<button ng-click="tipoDocumentoCtrl.openModalTipoDocumento('create', null)" class="btn_separate pull-right btn btn-small btn-success">
+				Nuevo <span><i class="glyphicon glyphicon-plus"></i></span>
+			</button>
+		</h2>
+	</div>
+	<div class="panel-body">
+		<div class="table-responsive" ng-if="tipoDocumentoCtrl.tableMode">
+			<table class="table table-striped" ng-table="tipoDocumentoCtrl.tipoDocumentoTable">
+				<tr ng-repeat="tipoDocumento in $data track by tipoDocumento.ID_TIPO_DOCUMENTO"
+					ng-click="tipoDocumentoCtrl.setSelected(tipoDocumento.ID_TIPO_DOCUMENTO)"
+					ng-class="{info: tipoDocumento.ID_TIPO_DOCUMENTO === tipoDocumentoCtrl.idSelectedTipoDocumento}">					
+					<!-- <td data-title="'ID'" filter="{ID_TIPO_DOCUMENTO: 'text'}" sortable="'ID_TIPO_DOCUMENTO'">{{tipoDocumento.ID_TIPO_DOCUMENTO}}</td> -->
+					<td data-title="'Descripcion'" filter="{DESCRIPCION: 'text'}" sortable="'DESCRIPCION'">{{tipoDocumento.DESCRIPCION}}</td>
+					<td style="width:60px">
+						<button ng-if="tipoDocumento.ID_TIPO_DOCUMENTO === tipoDocumentoCtrl.idSelectedTipoDocumento"
+							ng-click="tipoDocumentoCtrl.openModalTipoDocumento('edit', tipoDocumento)"
+							class="btn btn-small btn-primary">
+							<i class="glyphicon glyphicon-pencil"></i>
+						</button>
+					</td>
+					<td style="width:60px">
+						<button ng-if="tipoDocumento.ID_TIPO_DOCUMENTO === tipoDocumentoCtrl.idSelectedTipoDocumento"
+							ng-click="tipoDocumentoCtrl.openModalTipoDocumento('delete', tipoDocumento)"
+							class="btn btn-small btn-danger">
+							<i class="glyphicon glyphicon-remove"></i>
+						</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div ng-if="!tipoDocumentoCtrl.tableMode" id="gridTipoDocumento" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid">
+		</div>
+	</div>
+</div>
+
+

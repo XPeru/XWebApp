@@ -144,6 +144,17 @@
 				}
 			})
 
+			.state('app.tipodocumento', {
+				url: 'tipodocumento',
+				views : {
+					'content@': {
+						controller: 'tipoDocumentoController',
+						controllerAs: 'tipoDocumentoCtrl',
+						templateUrl: 'dev/modules/tipoDocumento/tipodocumento.html'
+					}
+				}
+			})
+
 			;
 
 
@@ -234,6 +245,8 @@
 	'ingresosService',
 	'Proveedor',
 	'proveedorService',
+	'TipoDocumento',
+	'tipoDocumentoService',
 	//'loginService',
 	'ngRoute',
 	'ui.router',
