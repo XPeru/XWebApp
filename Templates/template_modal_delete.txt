@@ -1,0 +1,18 @@
+<div class="modal-header">
+	<h3 class="modal-title">Eliminando PONER TITULO</h3>
+</div>
+<div class="modal-body">
+	<p>Realmente desea eliminar COMPLETAR ?</p>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary"
+			type="button"
+			ng-click="modal#patternU#Ctrl.delete#patternU#(modal#patternU#Ctrl.selected#patternU#.ID_)">
+		Si
+	</button>
+	<button class="btn btn-danger"
+			type="button"
+			ng-click="modalTipoPersonaCtrl.cancel()">
+		No
+	</button>
+</div>

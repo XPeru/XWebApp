@@ -155,6 +155,17 @@
 				}
 			})
 
+			.state('app.estado', {
+				url: 'estado',
+				views : {
+					'content@': {
+						controller: 'estadoController',
+						controllerAs: 'estadoCtrl',
+						templateUrl: 'dev/modules/estado/estado.html'
+					}
+				}
+			})
+
 			;
 
 
@@ -247,6 +258,8 @@
 	'proveedorService',
 	'TipoDocumento',
 	'tipoDocumentoService',
+	'Estado',
+	'estadoService',
 	//'loginService',
 	'ngRoute',
 	'ui.router',

@@ -88,10 +88,14 @@ echo Modulo Modals
 echo
 OUTPUT_FILE=$OUTPUT_MODAL_PATH'modal'$key_up'Controller.js'
 OUTPUT_FILE1=$OUTPUT_MODAL_PATH'create'$key_up'.html'
-echo Archivos a crear: "$OUTPUT_FILE, $OUTPUT_FILE1"
+OUTPUT_FILE2=$OUTPUT_MODAL_PATH'edit'$key_up'.html'
+OUTPUT_FILE3=$OUTPUT_MODAL_PATH'delete'$key_up'.html'
+echo Archivos a crear: "$OUTPUT_FILE, $OUTPUT_FILE1, $OUTPUT_FILE2, $OUTPUT_FILE3"
 echo Generando modulo Modals...
 ReplaceString "template_modal_controller.txt" $OUTPUT_FILE
 ReplaceString "template_modal_create_complex.txt" $OUTPUT_FILE1
+ReplaceString "template_modal_edit_complex.txt" $OUTPUT_FILE2
+ReplaceString "template_modal_delete.txt" $OUTPUT_FILE3
 echo Archivos Modal creados
 echo "****************************************************************************************************"
 echo OPERACION TERMINADA CON EXITO 

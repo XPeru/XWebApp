@@ -1,0 +1,43 @@
+<div class="panel panel-default panel-primary">
+	<div class="panel-heading clearfix">
+		<h2 class="panel-title">
+			Estados
+			<button ng-click="estadoCtrl.switchTableMode()" class="pull-right btn btn-small btn-danger btn_separate">
+				 <i ng-if="estadoCtrl.tableMode" class="fa fa-print" aria-hidden="true"></i> <i ng-if="estadoCtrl.tableMode" class="fa fa-file-pdf-o" aria-hidden="true"></i> <i ng-if="!estadoCtrl.tableMode" class="fa fa-long-arrow-left" aria-hidden="true"></i>
+			</button>
+			<button ng-click="estadoCtrl.openModalEstado('create', null)" class="btn_separate pull-right btn btn-small btn-success">
+				Nuevo <span><i class="glyphicon glyphicon-plus"></i></span>
+			</button>
+		</h2>
+	</div>
+	<div class="panel-body">
+		<div class="table-responsive" ng-if="estadoCtrl.tableMode">
+			<table class="table table-striped" ng-table="estadoCtrl.estadoTable">
+				<tr ng-repeat="estado in $data track by estado.ID_ESTADO"
+					ng-click="estadoCtrl.setSelected(estado.ID_ESTADO)"
+					ng-class="{info: estado.ID_ESTADO === estadoCtrl.idSelectedEstado}">					
+					<!-- <td data-title="'ID'" filter="{ID_ESTADO: 'text'}" sortable="'ID_ESTADO'">{{estado.ID_ESTADO}}</td> -->
+					<td data-title="'Descripcion'" filter="{DESCRIPCION: 'text'}" sortable="'DESCRIPCION'">{{estado.DESCRIPCION}}</td>
+					<td style="width:60px">
+						<button ng-if="estado.ID_ESTADO === estadoCtrl.idSelectedEstado"
+							ng-click="estadoCtrl.openModalEstado('edit', estado)"
+							class="btn btn-small btn-primary">
+							<i class="glyphicon glyphicon-pencil"></i>
+						</button>
+					</td>
+					<td style="width:60px">
+						<button ng-if="estado.ID_ESTADO === estadoCtrl.idSelectedEstado"
+							ng-click="estadoCtrl.openModalEstado('delete', estado)"
+							class="btn btn-small btn-danger">
+							<i class="glyphicon glyphicon-remove"></i>
+						</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div ng-if="!estadoCtrl.tableMode" id="gridEstado" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid">
+		</div>
+	</div>
+</div>
+
+

@@ -66,22 +66,22 @@
 					placeholder="Contrase&ntilde;a"
 					required>
 
-			<span ng-show="formCreate#patternU#.passwordF.$invalid && !formCreateUsuario.passwordF.$pristine"
+			<span ng-show="formCreate#patternU#.passwordF.$invalid && !formCreate#patternU#.passwordF.$pristine"
 					class="glyphicon glyphicon-remove form-control-feedback"
 					aria-hidden="true"></span>
-			<span ng-show="(formCreateUsuario.passwordF.$invalid ||
-							formCreateUsuario.passwordF.$error.required) &&
-							!formCreateUsuario.passwordF.$pristine"
+			<span ng-show="(formCreate#patternU#.passwordF.$invalid ||
+							formCreate#patternU#.passwordF.$error.required) &&
+							!formCreate#patternU#.passwordF.$pristine"
 					class="help-block">Ingrese una contrase&ntilde;a valida</span>
 		</div>
 
 		<!-- Dropdown List Example -->
 		<div class="form-group">
-			<label for="tipousuario"> PONER TITULO</label>
+			<label for="TOCOMPLET"> PONER TITULO</label>
 			<select class="form-control"
 					ng-model="modal#patternU#Ctrl.created#patternU#."
 					name="obj"
-					ng-options="obj.ID_TIPO_USUARIO as obj.TIPO for obj in modal#patternU#Ctrl.">
+					ng-options="obj.ID_TOCOMPLET as obj.TOCOMPLETE for obj in modal#patternU#Ctrl.">
 			</select>
 		</div>
 
@@ -96,7 +96,7 @@
 		</div>
 
 		<div class="form-group">
-			<button type="submit" class="btn btn-success" ng-disabled="formCreateUsuario.$invalid">
+			<button type="submit" class="btn btn-success" ng-disabled="formCreate#patternU#.$invalid">
 				<i class="fa fa-check" aria-hidden="true"></i>
 			</button>
 			<button class="btn btn-danger" type="button" ng-click="modal#patternU#Ctrl.cancel()">

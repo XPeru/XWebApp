@@ -21,6 +21,7 @@ var restAsocTipoAcceso = require("./DAO/asocTipoAccesoDAO.js");
 var restTipoPersona = require("./DAO/tipoPersonaDAO.js");
 var restPersona = require("./DAO/personaDAO.js");
 var restTipoDocumento = require("./DAO/tipoDocumentoDAO.js");
+var restEstado = require("./DAO/estadoDAO.js");
 // We execute the express
 var app = express();
 
@@ -72,6 +73,7 @@ REST.prototype.configureExpress = function(connection) {
     new restTipoPersona(router, connection);
     new restPersona(router, connection);
     new restTipoDocumento(router, connection);
+    new restEstado(router, connection);
     self.startServer();
 };
 
