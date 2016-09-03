@@ -1,133 +1,134 @@
 <div class="modal-header">
-	<h3 class="modal-title">Editando cliente</h3>
+	<h3 class="modal-title"> Nuevo proveedor </h3>
 </div>
 <div class="modal-body">
 	<form role="form"
-			name="formEditCliente"
-			ng-submit="modalClienteCtrl.updateCliente(modalClienteCtrl.selectedCliente)"
+			name="formEditProveedor"
+			ng-submit="modalProveedorCtrl.updateProveedor(modalProveedorCtrl.selectedProveedor)"
 			novalidate>
 
+		<!--Text Example-->
 		<div class="form-group">
 			<label for="nombre">Nombre</label>
 
 			<input type="text"
 					class="form-control"
 					id="nombre"
-					placeholder="{{modalClienteCtrl.selectedCliente.NOMBRE}}"
+					placeholder="{{modalProveedorCtrl.selectedProveedor.NOMBRE}}"
 					disabled>
 		</div>
 
 		<!--Email Example-->
 		<div class="form-group has-feedback"
-				ng-class="{'has-error':(formCreateCliente.emailF.$invalid ||
-										formCreateCliente.emailF.$error.required) &&
-										!formCreateCliente.emailF.$pristine}">
+				ng-class="{'has-error':(formEditProveedor.emailF.$invalid ||
+										formEditProveedor.emailF.$error.required) &&
+										!formEditProveedor.emailF.$pristine}">
 			<label for="email" class="control-label">Correo electronico</label>
 
 			<input type="email"
 					class="form-control"
 					id="email"
 					name="emailF"
-					ng-model="modalClienteCtrl.selectedCliente.EMAIL"
+					ng-model="modalProveedorCtrl.selectedProveedor.EMAIL"
 					placeholder="Correo electronico"
 					required>
 
-			<span ng-show="formCreateCliente.emailF.$invalid && !formCreateCliente.emailF.$pristine"
+			<span ng-show="formEditProveedor.emailF.$invalid && !formEditProveedor.emailF.$pristine"
 					class="glyphicon glyphicon-remove form-control-feedback"
 					aria-hidden="true"></span>
-			<span ng-show="(formCreateCliente.emailF.$invalid ||
-							formCreateCliente.emailF.$error.required) &&
-							!formCreateCliente.emailF.$pristine"
+			<span ng-show="(formEditProveedor.emailF.$invalid ||
+							formEditProveedor.emailF.$error.required) &&
+							!formEditProveedor.emailF.$pristine"
 					class="help-block">Ingrese un correo electronico valido</span>
 		</div>
 
 		<div class="form-group"
-				ng-class="{'has-error': formCreateCliente.rucF.$error.required &&
-										!formCreateCliente.rucF.$pristine}">
+				ng-class="{'has-error': formEditProveedor.rucF.$error.required &&
+										!formEditProveedor.rucF.$pristine}">
 			<label for="ruc">RUC</label>
 
 			<input type="text"
 					class="form-control"
 					id="ruc"
 					name="rucF"
-					ng-model="modalClienteCtrl.selectedCliente.RUC"
+					ng-model="modalProveedorCtrl.selectedProveedor.RUC"
 					placeholder="RUC"
 					required>
 
-			<span ng-show="formCreateCliente.rucF.$error.required &&
-							!formCreateCliente.rucF.$pristine"
+			<span ng-show="formEditProveedor.rucF.$error.required &&
+							!formEditProveedor.rucF.$pristine"
 					class="help-block">Su RUC es obligatorio</span>
 		</div>
 
 		<div class="form-group"
-				ng-class="{'has-error': formCreateCliente.numeroCuentaF.$error.required &&
-										!formCreateCliente.numeroCuentaF.$pristine}">
+				ng-class="{'has-error': formEditProveedor.numeroCuentaF.$error.required &&
+										!formEditProveedor.numeroCuentaF.$pristine}">
 			<label for="numeroCuenta">Numero de Cuenta</label>
 
 			<input type="text"
 					class="form-control"
 					id="numeroCuenta"
 					name="numeroCuentaF"
-					ng-model="modalClienteCtrl.selectedCliente.NUMERO_CUENTA"
+					ng-model="modalProveedorCtrl.selectedProveedor.NUMERO_CUENTA"
 					placeholder="Numero de Cuenta"
 					required>
 
-			<span ng-show="formCreateCliente.numeroCuentaF.$error.required &&
-							!formCreateCliente.numeroCuentaF.$pristine"
+			<span ng-show="formEditProveedor.numeroCuentaF.$error.required &&
+							!formEditProveedor.numeroCuentaF.$pristine"
 					class="help-block">Su Numero de Cuenta es obligatorio</span>
 		</div>
 
 		<div class="form-group"
-				ng-class="{'has-error': formCreateCliente.direccionCalleF.$error.required &&
-										!formCreateCliente.direccionCalleF.$pristine}">
+				ng-class="{'has-error': formEditProveedor.direccionCalleF.$error.required &&
+										!formEditProveedor.direccionCalleF.$pristine}">
 			<label for="direccionCalle">Calle</label>
 
 			<input type="text"
 					class="form-control"
 					id="direccionCalle"
 					name="direccionCalleF"
-					ng-model="modalClienteCtrl.selectedCliente.DIRECCION_CALLE"
+					ng-model="modalProveedorCtrl.selectedProveedor.DIRECCION_CALLE"
 					placeholder="Calle"
 					required>
 
-			<span ng-show="formCreateCliente.direccionCalleF.$error.required &&
-							!formCreateCliente.direccionCalleF.$pristine"
+			<span ng-show="formEditProveedor.direccionCalleF.$error.required &&
+							!formEditProveedor.direccionCalleF.$pristine"
 					class="help-block">El campo Calle es obligatorio</span>
 		</div>
 
 		<div class="form-group"
-				ng-class="{'has-error': formCreateCliente.direccionDistritoF.$error.required &&
-										!formCreateCliente.direccionDistritoF.$pristine}">
+				ng-class="{'has-error': formEditProveedor.direccionDistritoF.$error.required &&
+										!formEditProveedor.direccionDistritoF.$pristine}">
 			<label for="direccionDistrito">Distrito</label>
 
 			<input type="text"
 					class="form-control"
 					id="direccionDistrito"
 					name="direccionDistritoF"
-					ng-model="modalClienteCtrl.selectedCliente.DIRECCION_DISTRITO"
+					ng-model="modalProveedorCtrl.selectedProveedor.DIRECCION_DISTRITO"
 					placeholder="Distrito"
 					required>
 
-			<span ng-show="formCreateCliente.direccionDistritoF.$error.required &&
-							!formCreateCliente.direccionDistritoF.$pristine"
+			<span ng-show="formEditProveedor.direccionDistritoF.$error.required &&
+							!formEditProveedor.direccionDistritoF.$pristine"
 					class="help-block">El campo Distrito es obligatorio</span>
 		</div>
 
 		<div class="form-group"
-				ng-class="{'has-error': formCreateCliente.direccionDepartamentoF.$error.required &&
-										!formCreateCliente.direccionDepartamentoF.$pristine}">
+				ng-class="{'has-error': formEditProveedor.direccionDepartamentoF.$error.required &&
+										!formEditProveedor.direccionDepartamentoF.$pristine}">
 			<label for="direccionDepartamento">Departamento</label>
 
 			<input type="text"
 					class="form-control"
 					id="direccionDepartamento"
 					name="direccionDepartamentoF"
-					ng-model="modalClienteCtrl.selectedCliente.DIRECCION_DEPARTAMENTO"
+					ng-model="modalProveedorCtrl.selectedProveedor.DIRECCION_DEPARTAMENTO"
 					placeholder="Departamento"
 					required>
 
-			<span ng-show="formCreateCliente.direccionDepartamentoF.$error.required &&
-							!formCreateCliente.direccionDepartamentoF.$pristine"
+			<span ng-show="formEditProveedor.direccionDepartamentoF.$error.required &&
+							!formEditProveedor.direccionDepartamentoF.$pristine"
 					class="help-block">El campo Departamento es obligatorio</span>
 		</div>
 
@@ -137,7 +138,7 @@
 					class="form-control"
 					id="direccionComplemento"
 					name="direccionComplemento"
-					ng-model="modalClienteCtrl.selectedCliente.DIRECCION_COMPLEMENTO"
+					ng-model="modalProveedorCtrl.selectedProveedor.DIRECCION_COMPLEMENTO"
 					placeholder="Complemento">
 		</div>
 
@@ -147,19 +148,15 @@
 					class="form-control"
 					id="telefono"
 					name="telefono"
-					ng-model="modalClienteCtrl.selectedCliente.TELEFONO"
+					ng-model="modalProveedorCtrl.selectedProveedor.TELEFONO"
 					placeholder="Telefono">
 		</div>
 
 		<div class="form-group">
-			<button type="submit"
-					class="btn btn-success"
-					ng-disabled="formEditCliente.$invalid">
+			<button type="submit" class="btn btn-success" ng-disabled="formEditProveedor.$invalid">
 				<i class="fa fa-check" aria-hidden="true"></i>
 			</button>
-			<button class="btn btn-danger"
-					type="button"
-					ng-click="modalClienteCtrl.cancel()">
+			<button class="btn btn-danger" type="button" ng-click="modalProveedorCtrl.cancel()">
 				<i class="fa fa-times" aria-hidden="true"></i>
 			</button>
 		</div>

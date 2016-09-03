@@ -18,8 +18,24 @@ angular.module('Proveedor', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.g
 			};
 
 			i18nService.setCurrentLang('es');
-			$scope.columns = [{ field: '', headerCellClass: 'blue'}];
-			$scope.columns[0].displayName = '';
+			$scope.columns = [{ field: 'NOMBRE', headerCellClass: 'blue'},
+					{ field: 'EMAIL', headerCellClass: 'blue'},
+					{ field: 'RUC', headerCellClass: 'blue'},
+					{ field: 'NUMERO_CUENTA', headerCellClass: 'blue'},
+					{ field: 'DIRECCION_CALLE', headerCellClass: 'blue'},
+					{ field: 'DIRECCION_DISTRITO', headerCellClass: 'blue'},
+					{ field: 'DIRECCION_DEPARTAMENTO', headerCellClass: 'blue'},
+					{ field: 'DIRECCION_COMPLEMENTO', headerCellClass: 'blue'},
+					{ field: 'TELEFONO', headerCellClass: 'blue'}];
+			$scope.columns[0].displayName = 'Nombre';
+			$scope.columns[1].displayName = 'Email';
+			$scope.columns[2].displayName = 'RUC';
+			$scope.columns[3].displayName = 'Numero de cuenta';
+			$scope.columns[4].displayName = 'Calle';
+			$scope.columns[5].displayName = 'Distrito';
+			$scope.columns[6].displayName = 'Departamento';
+			$scope.columns[7].displayName = 'Complemento';
+			$scope.columns[8].displayName = 'Telefono';
 			$scope.gridOptions = {
 				exporterMenuCsv: false,
 				enableGridMenu: true,
