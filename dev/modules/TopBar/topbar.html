@@ -254,7 +254,11 @@
 					<a><i class="glyphicon glyphicon-transfer"></i> Movimientos<span class="fa arrow"></span></a>
 					<ul class="nav nav-second-level">
 						<li>
-							<a><i class="glyphicon glyphicon-triangle-right"></i> Ingresos</a>
+							<a ui-sref="app.ingreso"
+								ng-click="topbarCtrl.setSelectedMenu('ingreso')"
+								ng-class="{active: topbarCtrl.selectedMenu === 'ingreso'}"
+								href='ingreso'>
+								<i class="glyphicon glyphicon-triangle-right"></i> Ingresos</a>
 						</li>
 						<li>
 							<a><i class="glyphicon glyphicon-triangle-left"></i> Salidas</a>

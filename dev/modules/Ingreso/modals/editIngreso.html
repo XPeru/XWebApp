@@ -1,0 +1,107 @@
+<div class="modal-header">
+	<h3 class="modal-title"> PONER TITULO </h3>
+</div>
+<div class="modal-body">
+	<form role="form"
+			name="formEditIngreso"
+			ng-submit="modalIngresoCtrl.updateIngreso(modalIngresoCtrl.selectedIngreso)"
+			novalidate>
+
+		<!--Text Example-->
+		<div class="form-group"
+				ng-class="{'has-error': formEditIngreso.nombreF.$error.required &&
+										!formEditIngreso.nombreF.$pristine}">
+			<label for="nombre">Nombre</label>
+
+			<input type="text"
+					class="form-control"
+					id="nombre"
+					name="nombreF"
+					ng-model="modalIngresoCtrl.selectedIngreso.NOMBRE"
+					placeholder="Nombre"
+					required>
+
+			<span ng-show="formEditIngreso.nombreF.$error.required &&
+							!formEditIngreso.nombreF.$pristine"
+					class="help-block">Su nombre es obligatorio</span>
+		</div>
+
+		<!--Email Example-->
+		<div class="form-group has-feedback"
+				ng-class="{'has-error':(formEditIngreso.emailF.$invalid ||
+										formEditIngreso.emailF.$error.required) &&
+										!formEditIngreso.emailF.$pristine}">
+			<label for="email" class="control-label">Correo electronico</label>
+
+			<input type="email"
+					class="form-control"
+					id="email"
+					name="emailF"
+					ng-model="modalIngresoCtrl.selectedIngreso.EMAIL"
+					placeholder="Correo electronico"
+					required>
+
+			<span ng-show="formEditIngreso.emailF.$invalid && !formEditIngreso.emailF.$pristine"
+					class="glyphicon glyphicon-remove form-control-feedback"
+					aria-hidden="true"></span>
+			<span ng-show="(formEditIngreso.emailF.$invalid ||
+							formEditIngreso.emailF.$error.required) &&
+							!formEditIngreso.emailF.$pristine"
+					class="help-block">Ingrese un correo electronico valido</span>
+		</div>
+
+
+		<!--Password Example-->
+		<div class="form-group has-feedback"
+				ng-class="{'has-error':(formEditIngreso.passwordF.$invalid ||
+										formEditIngreso.passwordF.$error.required) &&
+										!formEditIngreso.passwordF.$pristine}">
+			<label for="password">Contrase&ntilde;a</label>
+
+			<input type="password"
+					class="form-control"
+					id="password"
+					name="passwordF"
+					ng-model="modalIngresoCtrl.selectedIngreso.PASSWORD"
+					placeholder="Contrase&ntilde;a"
+					required>
+
+			<span ng-show="formEditIngreso.passwordF.$invalid && !formEditIngreso.passwordF.$pristine"
+					class="glyphicon glyphicon-remove form-control-feedback"
+					aria-hidden="true"></span>
+			<span ng-show="(formEditIngreso.passwordF.$invalid ||
+							formEditIngreso.passwordF.$error.required) &&
+							!formEditIngreso.passwordF.$pristine"
+					class="help-block">Ingrese una contrase&ntilde;a valida</span>
+		</div>
+
+		<!-- Dropdown List Example -->
+		<div class="form-group">
+			<label for=""> PONER TITULO</label>
+			<select class="form-control"
+					ng-model="modalIngresoCtrl.selectedIngreso."
+					name="obj"
+					ng-options="obj.ID_TIPO_USUARIO as obj.TIPO for obj in modalIngresoCtrl.">
+			</select>
+		</div>
+
+		<!-- File Example -->
+		<div class="form-group">
+			<label for="fileform">Foto</label>
+			<!--el atributo name es muy importante, este define el nombrebase del archivo , revisar usuariosDAO-->
+			<input type="file"
+					id="fileform"
+					name="userPhoto"
+					file-model="modalIngresoCtrl.selectedIngreso.FOTO_FILE">
+		</div>
+
+		<div class="form-group">
+			<button type="submit" class="btn btn-success" ng-disabled="formEditIngreso.$invalid">
+				<i class="fa fa-check" aria-hidden="true"></i>
+			</button>
+			<button class="btn btn-danger" type="button" ng-click="modalIngresoCtrl.cancel()">
+				<i class="fa fa-times" aria-hidden="true"></i>
+			</button>
+		</div>
+	</form>
+</div>

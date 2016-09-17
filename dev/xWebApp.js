@@ -166,20 +166,24 @@
 				}
 			})
 
+			.state('app.ingreso', {
+				url: 'ingreso',
+				views : {
+					'content@': {
+						controller: 'ingresoController',
+						controllerAs: 'ingresoCtrl',
+						templateUrl: 'dev/modules/ingreso/ingreso.html'
+					}
+				}
+			})
+
 			;
 
 
 
 			/*
 			
-			.state('ingresos', {
-				url: '/ingresos',
-				controller: 'ingresosController',
-				templateUrl: 'dev/modules/Ingresos/ingresos.html',
-				hideMenus: true,
-				data: {},
-				reloadOnSearch: false
-			})
+
 			.state('footer', {
 				url: '/footer',
 				controller: 'footerController',
@@ -241,7 +245,7 @@
 	'Almacenes',
 	'AlmacenesGestion',
 	'AlmacenesDetalle',
-	'Ingresos',
+	'Ingreso',
 	'usuariosService',
 	'usuariosTipoService',
 	'usuariosAccesoService',
@@ -253,7 +257,7 @@
 	'tipoPersonaService',
 	'Cliente',
 	'clienteService',
-	'ingresosService',
+	'ingresoService',
 	'Proveedor',
 	'proveedorService',
 	'TipoDocumento',

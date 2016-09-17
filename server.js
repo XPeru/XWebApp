@@ -14,7 +14,6 @@ var restUsuarios = require("./DAO/usuariosDAO.js");
 var restArticulos = require("./DAO/articulosDAO.js");
 var restArticulosCategoria = require("./DAO/articulosCategoriaDAO.js");
 var restAlmacenes = require("./DAO/almacenesDAO.js");
-var restIngresos = require("./DAO/ingresosDAO.js");
 var restUsuariosTipo = require("./DAO/usuariosTipoDAO.js"); 
 var restUsuariosAcceso = require("./DAO/usuariosAccesoDAO.js");
 var restAsocTipoAcceso = require("./DAO/asocTipoAccesoDAO.js");
@@ -22,6 +21,7 @@ var restTipoPersona = require("./DAO/tipoPersonaDAO.js");
 var restPersona = require("./DAO/personaDAO.js");
 var restTipoDocumento = require("./DAO/tipoDocumentoDAO.js");
 var restEstado = require("./DAO/estadoDAO.js");
+var restIngreso = require("./DAO/ingresoDAO.js");
 // We execute the express
 var app = express();
 
@@ -66,7 +66,6 @@ REST.prototype.configureExpress = function(connection) {
     new restArticulos(router, connection);
     new restArticulosCategoria(router, connection);
     new restAlmacenes(router, connection);
-    new restIngresos(router, connection);
     new restUsuariosTipo(router, connection);
     new restUsuariosAcceso(router, connection);
     new restAsocTipoAcceso(router, connection);
@@ -74,6 +73,7 @@ REST.prototype.configureExpress = function(connection) {
     new restPersona(router, connection);
     new restTipoDocumento(router, connection);
     new restEstado(router, connection);
+    new restIngreso(router, connection);
     self.startServer();
 };
 
