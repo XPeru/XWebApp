@@ -123,6 +123,16 @@
     color: #aaa;
 }
 
+.sidebar.ng-hide-add, .sidebar.ng-hide-remove {
+  transition: all linear 0.5s;
+}
+
+.sidebar.ng-hide {
+  line-height: 0;
+  opacity: 0;
+  padding: 0 10px;
+}
+
 
 @media(min-width:768px) {
     .sidebar {

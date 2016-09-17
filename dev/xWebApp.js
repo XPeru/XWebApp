@@ -231,6 +231,7 @@
     'ui.grid',
 	'ngTable',
 	'ngCookies',
+	'ngAnimate',
 	'Footer',
 	'Login',
 	'TopBar',
