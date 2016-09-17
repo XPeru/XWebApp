@@ -37,6 +37,7 @@
     "angular-animate": "^1.5.8"
   },
   "resolutions": {
-    "webcomponentsjs": "^0.6.0"
+    "webcomponentsjs": "^0.6.0",
+    "angular": "~1.4.12"
   }
 }
