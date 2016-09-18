@@ -142,6 +142,7 @@ ingresoDAO.prototype.handleRoutes = function(router, connection) {
 		var query = "DELETE FROM ?? WHERE ?? = ?";
 		var table = [tableName, "ID_INGRESO", req.params.id_ingreso];
 		query = mysql.format(query, table);
+		printRequest(query);
 		connection.query(query, function(err) {
 			if (err) {
 				console.info('Error executing MySQL query:' + query);

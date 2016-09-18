@@ -93,6 +93,7 @@ estadoDAO.prototype.handleRoutes = function(router, connection) {
 		var query = "DELETE FROM ?? WHERE ?? = ?";
 		var table = [tableName, "ID_ESTADO", req.params.id_estado];
 		query = mysql.format(query, table);
+		printRequest(query);
 		connection.query(query, function(err) {
 			if (err) {
 				console.info('Error executing MySQL query:' + query);
