@@ -15,34 +15,37 @@ function printRequest(data) {
 ingresoDAO.prototype.handleRoutes = function(router, connection) {
 	var tableName = "INGRESO";
 	var tableUsuario = "USUARIO";
-	var tablePersona = "CLIENTE_PROVEEDOR";
+	var tablePersona = "PROVEEDOR_CLIENTE";
 	var tableDocumento = "TIPO_DOCUMENTO";
 	var urlBase = "/ingreso";
 	router.get(urlBase + "list", function(req, res) {
 		printRequest(urlBase + "list" + " get");
-		var query = "SELECT ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??, ?? FROM ?? ing INNER JOIN ?? us ON ?? = ?? INNER JOIN ?? us2 ?? = ?? INNER JOIN ?? cp ?? = ?? INNER JOIN ?? tdoc ?? = ??";
+		var query = "SELECT ??, ??, ??, ??, CONCAT(??,' ', ??) AS CREATE_USUARIO, ??, ??, CONCAT(??,' ', ??) AS UPDATE_USUARIO, ??, ??, ?? AS NOMBRE_PROVEEDOR, ??, ?? FROM ?? ing INNER JOIN ?? us ON ?? = ?? LEFT JOIN ?? us2 ON ?? = ?? INNER JOIN ?? cp ON ?? = ?? INNER JOIN ?? tdoc ON ?? = ??";
 		var table = ["ing.ID_INGRESO",
 					"ing.CODE_INGRESO",
 					"ing.COSTO_TOTAL",
 					"ing.FK_CREATE_USUARIO",
-					"CONCAT(us.NOMBRE, us.APELLIDOS) AS CREATE_USUARIO",
+					"us.NOMBRE",
+					"us.APELLIDOS",
 					"ing.CREATE_TIME",
 					"ing.FK_UPDATE_USUARIO",
-					"CONCAT(us2.NOMBRE, us2.APELLIDOS) AS UPDATE_USUARIO",
+					"us2.NOMBRE",
+					"us2.APELLIDOS",
 					"ing.UPDATE_TIME",
 					"ing.FK_PROVEEDOR",
-					"cp.NOMBRE AS NOMBRE_PROVEEDOR",
+					"cp.NOMBRE",
 					"ing.FK_TIPO_DOCUMENTO",
 					"tdoc.DESCRIPCION",
 					tableName,
 					tableUsuario,
 					"ing.FK_CREATE_USUARIO",
 					"us.ID_USUARIO",
+					tableUsuario,
 					"ing.FK_UPDATE_USUARIO",
 					"us2.ID_USUARIO",
 					tablePersona,
 					"ing.FK_PROVEEDOR",
-					"cp.ID_CLIENTE_PROVEEDOR",
+					"cp.ID_PROVEEDOR_CLIENTE",
 					tableDocumento,
 					"ing.FK_TIPO_DOCUMENTO",
 					"tdoc.ID_TIPO_DOCUMENTO"];
@@ -51,6 +54,7 @@ ingresoDAO.prototype.handleRoutes = function(router, connection) {
 		connection.query(query, function(err, rows) {
 			if (err) {
 				console.info('Error executing MySQL query:' + query);
+				console.info(err.message);
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
@@ -68,15 +72,17 @@ ingresoDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.post(urlBase, function(req, res) {
 		printRequest(urlBase + " post");
-		var query = "INSERT INTO ?? (??, ??, ??, ??, ??) VALUES (?, ?, CURRENT_TIMESTAMP, ?, ?)";
+		var query = "INSERT INTO ?? (??, ??, ??, ??, ??, ??) VALUES (?, ?, ?, CURRENT_TIMESTAMP, ?, ?)";
 		var table = [tableName,
 					"CODE_INGRESO",
+					"COSTO_TOTAL",
 					"FK_CREATE_USUARIO",
 					"CREATE_TIME",
 					"FK_PROVEEDOR",
 					"FK_TIPO_DOCUMENTO",
 					req.body.CODE_INGRESO,
-					req.body.FK_CREATE_USUARIO,
+					0,
+					1, // here should be req.body.FK_CREATE_USUARIO
 					req.body.FK_PROVEEDOR,
 					req.body.FK_TIPO_DOCUMENTO];
 		query = mysql.format(query, table);
@@ -84,6 +90,7 @@ ingresoDAO.prototype.handleRoutes = function(router, connection) {
 		connection.query(query, function(err) {
 			if (err) {
 				console.info('Error executing MySQL query:' + query);
+				console.info(err.message);
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
@@ -107,6 +114,7 @@ ingresoDAO.prototype.handleRoutes = function(router, connection) {
 		connection.query(query, function(err) {
 			if (err) {
 				console.info('Error executing MySQL query:' + query);
+				console.info(err.message);
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
@@ -129,6 +137,7 @@ ingresoDAO.prototype.handleRoutes = function(router, connection) {
 		connection.query(query, function(err) {
 			if (err) {
 				console.info('Error executing MySQL query:' + query);
+				console.info(err.message);
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
