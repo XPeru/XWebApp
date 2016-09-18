@@ -61,6 +61,8 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 		printRequest(query);
 		connection.query(query, function(err, rows) {
 			if (err) {
+				console.info('Error executing MySQL query:' + query);
+				console.info(err.message);
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
@@ -96,6 +98,8 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 		printRequest(query);
 		connection.query(query, function(err) {
 			if (err) {
+				console.info('Error executing MySQL query:' + query);
+				console.info(err.message);
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
@@ -117,6 +121,8 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 		printRequest(query);
 		connection.query(query, function(err, rows) {
 			if (err) {
+				console.info('Error executing MySQL query:' + query);
+				console.info(err.message);
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
@@ -140,6 +146,8 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 		printRequest(query);
 		connection.query(query, function(err, rows) {
 			if (err) {
+				console.info('Error executing MySQL query:' + query);
+				console.info(err.message);
 				res.json({
 					"Message": "Error executing MySQL query"
 				});
@@ -169,6 +177,8 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 		printRequest(query);
 		connection.query(query, function(err) {
 			if (err) {
+				console.info('Error executing MySQL query:' + query);
+				console.info(err.message);
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
@@ -195,6 +205,8 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 		printRequest(query);
 		connection.query(query, function(err) {
 			if (err) {
+				console.info('Error executing MySQL query:' + query);
+				console.info(err.message);
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"

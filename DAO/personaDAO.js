@@ -25,6 +25,7 @@ personaDAO.prototype.handleRoutes = function(router, connection) {
 		connection.query(query, function(err, rows) {
 			if (err) {
 				console.info('Error executing MySQL query:' + query);
+				console.info(err.message);
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
