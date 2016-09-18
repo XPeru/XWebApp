@@ -8,59 +8,55 @@ function ingresoDAO(router, connection) {
 }
 
 function printRequest(data) {
-	dateGenerator.printInfo(daoName + " " + data);
+	dateGenerator.printInfo(daoName + " " + "\n" + data);
 }
 
 
 ingresoDAO.prototype.handleRoutes = function(router, connection) {
 	var tableName = "INGRESO";
-	var tableUsuario = "USUARIO";
-	var tablePersona = "PROVEEDOR_CLIENTE";
-	var tableDocumento = "TIPO_DOCUMENTO";
 	var urlBase = "/ingreso";
 	router.get(urlBase + "list", function(req, res) {
 		printRequest(urlBase + "list" + " get");
-		var query = "SELECT ??, ??, ??, ??, CONCAT(??,' ', ??) AS CREATE_USUARIO, ??, ??, CONCAT(??,' ', ??) AS UPDATE_USUARIO, ??, ??, ?? AS NOMBRE_PROVEEDOR, ??, ?? FROM ?? ing INNER JOIN ?? us ON ?? = ?? LEFT JOIN ?? us2 ON ?? = ?? INNER JOIN ?? cp ON ?? = ?? INNER JOIN ?? tdoc ON ?? = ??";
-		var table = ["ing.ID_INGRESO",
-					"ing.CODE_INGRESO",
-					"ing.COSTO_TOTAL",
-					"ing.FK_CREATE_USUARIO",
-					"us.NOMBRE",
-					"us.APELLIDOS",
-					"ing.CREATE_TIME",
-					"ing.FK_UPDATE_USUARIO",
-					"us2.NOMBRE",
-					"us2.APELLIDOS",
-					"ing.UPDATE_TIME",
-					"ing.FK_PROVEEDOR",
-					"cp.NOMBRE",
-					"ing.FK_TIPO_DOCUMENTO",
-					"tdoc.DESCRIPCION",
-					tableName,
-					tableUsuario,
-					"ing.FK_CREATE_USUARIO",
-					"us.ID_USUARIO",
-					tableUsuario,
-					"ing.FK_UPDATE_USUARIO",
-					"us2.ID_USUARIO",
-					tablePersona,
-					"ing.FK_PROVEEDOR",
-					"cp.ID_PROVEEDOR_CLIENTE",
-					tableDocumento,
-					"ing.FK_TIPO_DOCUMENTO",
-					"tdoc.ID_TIPO_DOCUMENTO"];
-		query = mysql.format(query, table);
-		printRequest(query);
-		connection.query(query, function(err, rows) {
+		var query2 ="SELECT " + "\n" +
+					"	ing.ID_INGRESO, " + "\n" +
+					"	ing.CODE_INGRESO, " + "\n" +
+					"	ing.COSTO_TOTAL, " + "\n" +
+					"	ing.FK_CREATE_USUARIO, " + "\n" +
+					"	CONCAT(us.NOMBRE,' ', us.APELLIDOS) AS CREATE_USUARIO, " + "\n" +
+					"	ing.CREATE_TIME, " + "\n" +
+					"	ing.FK_UPDATE_USUARIO, " + "\n" +
+					"	CONCAT(us2.NOMBRE,' ', us2.APELLIDOS) AS UPDATE_USUARIO, " + "\n" +
+					"	ing.UPDATE_TIME, " + "\n" +
+					"	ing.FK_PROVEEDOR, " + "\n" +
+					"	cp.NOMBRE AS NOMBRE_PROVEEDOR, " + "\n" +
+					"	ing.FK_TIPO_DOCUMENTO, " + "\n" +
+					"	tdoc.DESCRIPCION" + "\n" +
+					"FROM " + "\n" +
+					"	INGRESO ing " + "\n" +
+					"INNER JOIN USUARIO us ON " + "\n" +
+					"	us.ID_USUARIO = ing.FK_CREATE_USUARIO " + "\n" +
+					"LEFT JOIN USUARIO us2 ON " + "\n" +
+					"	us2.ID_USUARIO = ing.FK_UPDATE_USUARIO " + "\n" +
+					"INNER JOIN PROVEEDOR_CLIENTE cp ON " + "\n" +
+					"	cp.ID_PROVEEDOR_CLIENTE = ing.FK_PROVEEDOR " + "\n" +
+					"INNER JOIN TIPO_DOCUMENTO tdoc ON " + "\n" +
+					"	tdoc.ID_TIPO_DOCUMENTO = ing.FK_TIPO_DOCUMENTO";
+
+		printRequest(query2);
+		//var query = "SELECT ??, ??, ??, ??, CONCAT(??,' ', ??) AS CREATE_USUARIO, ??, ??, CONCAT(??,' ', ??) AS UPDATE_USUARIO, ??, ??, ?? AS NOMBRE_PROVEEDOR, ??, ?? FROM ?? ing INNER JOIN ?? us ON ?? = ?? LEFT JOIN ?? us2 ON ?? = ?? INNER JOIN ?? cp ON ?? = ?? INNER JOIN ?? tdoc ON ?? = ??";
+		var table = [];
+		query2 = mysql.format(query2, table);
+		printRequest(query2);
+		connection.query(query2, function(err, rows) {
 			if (err) {
-				console.info('Error executing MySQL query:' + query);
+				console.info('Error executing MySQL query:' + query2);
 				console.info(err.message);
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				console.info('Success MySQL query:' + query);
+				console.info('Success MySQL query');
 				res.json({
 					"Error": false,
 					"Message": "Success",
