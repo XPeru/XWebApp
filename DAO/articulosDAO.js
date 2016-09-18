@@ -15,7 +15,7 @@ function articulosDAO(router, connection, md5) {
 }
 
 function printRequest(data) {
-	dateGenerator.printInfo(daoName + " " + data);
+	dateGenerator.printInfo(daoName + "\n" + data);
 }
 
 var storage = multer.diskStorage({
@@ -39,20 +39,21 @@ articulosDAO.prototype.handleRoutes = function(router, connection) {
 	var urlBase = "/articulo";
 	router.get(urlBase + "list", function(req, res) {
 		printRequest(urlBase + "list" + " get");
-		var query = "SELECT ??, ??, ??, ??, ??, ??, ??, ??, ?? as CATEGORIA FROM ?? art INNER JOIN ?? cat ON ?? = ??";
-		var table = ["art.ID_ARTICULO",
-					"art.CODIGO",
-					"art.DESCRIPCION",
-					"art.UNIDAD",
-					"art.PRECIO_UNITARIO",
-					"art.IMAGEN",
-					"art.VALOR_REPOSICION",
-					"art.FK_CATEGORIA",
-					"cat.DESCRIPCION",
-					tableName,
-					"CATEGORIA",
-					"cat.ID_CATEGORIA",
-					"art.FK_CATEGORIA"];
+		var query = "SELECT " + "\n" +
+					"	art.ID_ARTICULO," + "\n" +
+					"	art.CODIGO," + "\n" +
+					"	art.DESCRIPCION, " + "\n" +
+					"	art.UNIDAD, " + "\n" +
+					"	art.PRECIO_UNITARIO, " + "\n" +
+					"	art.IMAGEN, " + "\n" +
+					"	art.VALOR_REPOSICION, " + "\n" +
+					"	art.FK_CATEGORIA, " + "\n" +
+					"	cat.DESCRIPCION as CATEGORIA " + "\n" +
+					"FROM " + "\n" +
+					"	ARTICULO art " + "\n" +
+					"INNER JOIN CATEGORIA cat ON" + "\n" +
+					"	cat.ID_CATEGORIA = art.FK_CATEGORIA";
+		var table = [];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err, rows) {
@@ -75,28 +76,37 @@ articulosDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.post(urlBase, function(req, res) {
 		printRequest(urlBase, " post");
-		var query = "INSERT INTO ?? (??, ??, ??, ??, ??, ??, ??) VALUES (?, ?, ?, ?, ?, ?, ?)";
-		var table = [tableName,
-						"CODIGO",
-						"DESCRIPCION",
-						"UNIDAD",
-						"PRECIO_UNITARIO",
-						"VALOR_REPOSICION",
-						"FK_CATEGORIA",
-						"IMAGEN",
-						req.body.CODIGO,
-						req.body.DESCRIPCION,
-						req.body.UNIDAD,
-						req.body.PRECIO_UNITARIO,
-						req.body.VALOR_REPOSICION,
-						req.body.FK_CATEGORIA,
-						req.body.IMAGEN
-					];
+		var query = "INSERT INTO" + "\n" +
+					"	ARTICULO (" + "\n" +
+					"		CODIGO," + "\n" +
+					"		DESCRIPCION," + "\n" +
+					"		UNIDAD," + "\n" +
+					"		PRECIO_UNITARIO," + "\n" +
+					"		VALOR_REPOSICION," + "\n" +
+					"		FK_CATEGORIA," + "\n" +
+					"		IMAGEN" + "\n" +
+					"	)" + "\n" +
+					"VALUES (" + "\n" +
+					"	?, " + "\n" +
+					"	?, " + "\n" +
+					"	?, " + "\n" +
+					"	?, " + "\n" +
+					"	?, " + "\n" +
+					"	?, " + "\n" +
+					"	?" + "\n" +
+					")";
+		var table = [req.body.CODIGO,
+					req.body.DESCRIPCION,
+					req.body.UNIDAD,
+					req.body.PRECIO_UNITARIO,
+					req.body.VALOR_REPOSICION,
+					req.body.FK_CATEGORIA,
+					req.body.IMAGEN];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err) {
 			if (err) {
-				console.info('Error executing MySQL query:' + query);
+				console.info('Error executing MySQL query:'  + query);
 				console.info(err.message);
 				res.json({
 					"Error": true,
@@ -137,25 +147,26 @@ articulosDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.put(urlBase, function(req, res) {
 		printRequest(urlBase, " put");
-		var query = "UPDATE ?? SET ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ??=? WHERE ?? = ?";
-		var table = [tableName, 
-						"CODIGO",
-						req.body.CODIGO,
-						"DESCRIPCION",
-						req.body.DESCRIPCION,
-						"UNIDAD",
-						req.body.UNIDAD,
-						"PRECIO_UNITARIO",
-						req.body.PRECIO_UNITARIO,
-						"VALOR_REPOSICION",
-						req.body.VALOR_REPOSICION,
-						"FK_CATEGORIA",
-						req.body.FK_CATEGORIA,
-						"IMAGEN",
-						req.body.IMAGEN,
-						"ID_ARTICULO",
-						req.body.ID_ARTICULO
-					];
+		var query = "UPDATE" + "\n" +
+					"	ARTICULO" + "\n" +
+					"SET " + "\n" +
+					"	CODIGO = ?, " + "\n" +
+					"	DESCRIPCION = ?, " + "\n" +
+					"	UNIDAD = ?, " + "\n" +
+					"	PRECIO_UNITARIO = ?, " + "\n" +
+					"	VALOR_REPOSICION = ?, " + "\n" +
+					"	FK_CATEGORIA = ?, " + "\n" +
+					"	IMAGEN = ? " + "\n" +
+					"WHERE" + "\n" +
+					"	ID_ARTICULO = ?";
+		var table = [req.body.CODIGO,
+					req.body.DESCRIPCION,
+					req.body.UNIDAD,
+					req.body.PRECIO_UNITARIO,
+					req.body.VALOR_REPOSICION,
+					req.body.FK_CATEGORIA,
+					req.body.IMAGEN,
+					req.body.ID_ARTICULO];
 		
 		query = mysql.format(query, table);
 		printRequest(query);

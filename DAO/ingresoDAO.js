@@ -8,7 +8,7 @@ function ingresoDAO(router, connection) {
 }
 
 function printRequest(data) {
-	dateGenerator.printInfo(daoName + " " + "\n" + data);
+	dateGenerator.printInfo(daoName + "\n" + data);
 }
 
 

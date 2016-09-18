@@ -8,7 +8,7 @@ function usuariosAccesoDAO(router, connection) {
 }
 
 function printRequest(data) {
-    dateGenerator.printInfo(daoName + " " + data);
+    dateGenerator.printInfo(daoName + "\n" + data);
 }
 
 

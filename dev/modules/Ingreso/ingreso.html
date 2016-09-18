@@ -20,8 +20,8 @@
 					<td data-title="'Codigo de Ingreso'" filter="{CODE_INGRESO: 'text'}" sortable="'CODE_INGRESO'">{{ingreso.CODE_INGRESO}}</td>
 					<td data-title="'Costo Total'" filter="{COSTO_TOTAL: 'text'}" sortable="'COSTO_TOTAL'">{{ingreso.COSTO_TOTAL}}</td>
 					<td data-title="'Usuario creador'" filter="{CREATE_USUARIO: 'text'}" sortable="'CREATE_USUARIO'">{{ingreso.CREATE_USUARIO}}</td>
-					<td data-title="'Fecha de creacion'" filter="{CREATE_TIME: 'text'}" sortable="'CREATE_TIME'">{{ingreso.CREATE_TIME}}</td>
-					<td data-title="'Usuario update'" filter="{UPDATE_USUARIO: 'text'}" sortable="'UPDATE_USUARIO'">{{ingreso.UPDATE_USUARIO}}</td>
+					<td data-title="'Fecha de creacion'" filter="{CREATE_TIME: 'text'}" sortable="'CREATE_TIME'">{{ingreso.CREATE_TIME | date: 'dd-MM-yyyy HH:mm'}}</td>
+					<td data-title="'Usuario update'" filter="{UPDATE_USUARIO: 'text'}" sortable="'UPDATE_USUARIO'">{{ingreso.UPDATE_USUARIO | date: 'dd-MM-yyyy HH:mm'}}</td>
 					<td data-title="'Proveedor'" filter="{NOMBRE_PROVEEDOR: 'text'}" sortable="'NOMBRE_PROVEEDOR'">{{ingreso.NOMBRE_PROVEEDOR}}</td>
 					<td data-title="'Tipo de documento'" filter="{DESCRIPCION: 'text'}" sortable="'DESCRIPCION'">{{ingreso.DESCRIPCION}}</td>
 					<td style="width:60px">

@@ -15,7 +15,7 @@ function usuariosDAO(router, connection, md5) {
 }
 
 function printRequest(data) {
-	dateGenerator.printInfo(daoName + " " + data);
+	dateGenerator.printInfo(daoName + "\n" + data);
 }
 
 var storage = multer.diskStorage({

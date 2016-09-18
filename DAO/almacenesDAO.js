@@ -8,9 +8,8 @@ function almacenesDAO(router, connection) {
 }
 
 function printRequest(data) {
-    dateGenerator.printInfo(daoName + " " + data);
+    dateGenerator.printInfo(daoName + "\n" + data);
 }
-
 
 almacenesDAO.prototype.handleRoutes = function(router, connection) {
     var tableName = "ALMACEN";
@@ -42,8 +41,17 @@ almacenesDAO.prototype.handleRoutes = function(router, connection) {
 
     router.post(urlBase, function(req, res) {
         printRequest(urlBase + " post");
-        var query = "INSERT INTO ?? (??, ??) VALUES (?, ?)";
-        var table = [tableName, "CODIGO", "UBICACION", req.body.CODIGO, req.body.UBICACION];
+        var query = "INSERT INTO " + "\n" + "\n" +
+                    "   ALMACEN (" + "\n" +
+                    "       CODIGO," + "\n" +
+                    "       UBICACION" + "\n" +
+                    "   )" + "\n" +
+                    "VALUES (" + "\n" +
+                    "   ?, " + "\n" +
+                    "   ?" + "\n" +
+                    ")";
+        var table = [req.body.CODIGO,
+                    req.body.UBICACION];
         query = mysql.format(query, table);
         printRequest(query);
         connection.query(query, function(err) {
@@ -66,8 +74,14 @@ almacenesDAO.prototype.handleRoutes = function(router, connection) {
 
     router.put(urlBase, function(req, res) {
         printRequest(urlBase + " put");
-        var query = "UPDATE ?? SET ?? = ?, ?? = ? WHERE ?? = ?";
-        var table = [tableName, "CODIGO", req.body.CODIGO, "UBICACION", req.body.UBICACION, "ID_ALMACEN", req.body.ID_ALMACEN];
+        var query = "UPDATE" + "\n" +
+                    "   ALMACEN " + "\n" +
+                    "SET" + "\n" +
+                    "   CODIGO = ?, " + "\n" +
+                    "   UBICACION = ? " + "\n" +
+                    "WHERE " + "\n" +
+                    "   ID_ALMACEN = ?";
+        var table = [req.body.CODIGO, req.body.UBICACION, req.body.ID_ALMACEN];
         query = mysql.format(query, table);
         printRequest(query);
         connection.query(query, function(err) {

@@ -8,9 +8,8 @@ function articulosCategoriaDAO(router, connection) {
 }
 
 function printRequest(data) {
-	dateGenerator.printInfo(daoName + " " + data);
+	dateGenerator.printInfo(daoName + "\n" + data);
 }
-
 
 articulosCategoriaDAO.prototype.handleRoutes = function(router, connection) {
 	var tableName = "CATEGORIA";
