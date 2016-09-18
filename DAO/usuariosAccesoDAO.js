@@ -31,8 +31,9 @@ usuariosAccesoDAO.prototype.handleRoutes = function(router, connection) {
                     "Message": "Error executing MySQL query"
                 });
             } else {
-                res.json({
-                    "Error": false,
+				console.info('Success MySQL query');
+				res.json({
+					"Error": false,
                     "Message": "Success",
                     "AccesosUsuario": rows
                 });
@@ -56,8 +57,9 @@ usuariosAccesoDAO.prototype.handleRoutes = function(router, connection) {
                     "Message": "Error executing MySQL query"
                 });
             } else {
-                res.json({
-                    "Error": false,
+				console.info('Success MySQL query');
+				res.json({
+					"Error": false,
                     "Message": "Acceso Usuario Agregado"
                 });
             }
@@ -80,8 +82,9 @@ usuariosAccesoDAO.prototype.handleRoutes = function(router, connection) {
                     "Message": "Error executing MySQL query"
                 });
             } else {
-                res.json({
-                    "Error": false,
+				console.info('Success MySQL query');
+				res.json({
+					"Error": false,
                     "Message": "Tipo Usuario modificado"
                 });
             }
@@ -103,8 +106,9 @@ usuariosAccesoDAO.prototype.handleRoutes = function(router, connection) {
                     "Message": "Error executing MySQL query"
                 });
             } else {
-                res.json({
-                    "Error": false,
+				console.info('Success MySQL query');
+				res.json({
+					"Error": false,
                     "Message": "Success",
                     "AccesoUsuario": rows
                 });
@@ -127,8 +131,9 @@ usuariosAccesoDAO.prototype.handleRoutes = function(router, connection) {
                     "Message": "Error executing MySQL query"
                 });
             } else {
-                res.json({
-                    "Error": false,
+				console.info('Success MySQL query');
+				res.json({
+					"Error": false,
                     "Message": "Deleted the user with id_acceso_usuario " + req.params.id_acceso_usuario
                 });
             }
