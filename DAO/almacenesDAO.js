@@ -30,7 +30,7 @@ almacenesDAO.prototype.handleRoutes = function(router, connection) {
                     "Message": "Error executing MySQL query"
                 });
             } else {
-                console.info('Success MySQL query:' + query);
+                console.info('Success MySQL query');
                 res.json({
                     "Error": false,
                     "Message": "Success",
@@ -55,7 +55,7 @@ almacenesDAO.prototype.handleRoutes = function(router, connection) {
                     "Message": "Error executing MySQL query"
                 });
             } else {
-                console.info('Success MySQL query:' + query);
+                console.info('Success MySQL query');
                 res.json({
                     "Error": false,
                     "Message": "Articulo Added !"
@@ -79,7 +79,7 @@ almacenesDAO.prototype.handleRoutes = function(router, connection) {
                     "Message": "Error executing MySQL query"
                 });
             } else {
-                console.info('Success MySQL query:' + query);
+                console.info('Success MySQL query');
                 res.json({
                     "Error": false,
                     "Message": "Almacen detalle updated !"
@@ -102,7 +102,7 @@ almacenesDAO.prototype.handleRoutes = function(router, connection) {
                     "Message": "Error executing MySQL query"
                 });
             } else {
-                console.info('Success MySQL query:' + query);
+                console.info('Success MySQL query');
                 res.json({
                     "Error": false,
                     "Message": "Almacen deleted: " + req.params.id_almacen

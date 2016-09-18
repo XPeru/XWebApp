@@ -34,8 +34,9 @@ usuariosTipoDAO.prototype.handleRoutes = function(router, connection) {
                     "Message": "Error executing MySQL query"
                 });
             } else {
-                res.json({
-                    "Error": false,
+				console.info('Success MySQL query');
+				res.json({
+					"Error": false,
                     "Message": "Success",
                     "TiposUsuario": rows
                 });
@@ -59,8 +60,9 @@ usuariosTipoDAO.prototype.handleRoutes = function(router, connection) {
                     "Message": "Error executing MySQL query"
                 });
             } else {
-                res.json({
-                    "Error": false,
+				console.info('Success MySQL query');
+				res.json({
+					"Error": false,
                     "Message": "Tipo Usuario Agregado"
                 });
             }
@@ -83,8 +85,9 @@ usuariosTipoDAO.prototype.handleRoutes = function(router, connection) {
                     "Message": "Error executing MySQL query"
                 });
             } else {
-                res.json({
-                    "Error": false,
+				console.info('Success MySQL query');
+				res.json({
+					"Error": false,
                     "Message": "Tipo Usuario modificado"
                 });
             }
@@ -106,8 +109,9 @@ usuariosTipoDAO.prototype.handleRoutes = function(router, connection) {
                     "Message": "Error executing MySQL query"
                 });
             } else {
-                res.json({
-                    "Error": false,
+				console.info('Success MySQL query');
+				res.json({
+					"Error": false,
                     "Message": "Success",
                     "TipoUsuario": rows
                 });
@@ -130,8 +134,9 @@ usuariosTipoDAO.prototype.handleRoutes = function(router, connection) {
                     "Message": "Error executing MySQL query"
                 });
             } else {
-                res.json({
-                    "Error": false,
+				console.info('Success MySQL query');
+				res.json({
+					"Error": false,
                     "Message": "Deleted the user with id_tipo_usuario " + req.params.id_tipo_usuario
                 });
             }

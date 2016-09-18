@@ -76,7 +76,7 @@ personaDAO.prototype.handleRoutes = function(router, connection) {
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				console.info('Success MySQL query:' + query);
+				console.info('Success MySQL query');
 				res.json({
 					"Error": false,
 					"Message": "Persona Added !"
@@ -116,7 +116,7 @@ personaDAO.prototype.handleRoutes = function(router, connection) {
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				console.info('Success MySQL query:' + query);
+				console.info('Success MySQL query');
 				res.json({
 					"Error": false,
 					"Message": "Categoria detalle updated !"
@@ -139,7 +139,7 @@ personaDAO.prototype.handleRoutes = function(router, connection) {
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				console.info('Success MySQL query:' + query);
+				console.info('Success MySQL query');
 				res.json({
 					"Error": false,
 					"Message": "Categoria deleted: " + req.params.id_proveedor_cliente

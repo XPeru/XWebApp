@@ -30,7 +30,7 @@ articulosCategoriaDAO.prototype.handleRoutes = function(router, connection) {
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				console.info('Success MySQL query:' + query);
+				console.info('Success MySQL query');
 				res.json({
 					"Error": false,
 					"Message": "Success",
@@ -55,7 +55,7 @@ articulosCategoriaDAO.prototype.handleRoutes = function(router, connection) {
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				console.info('Success MySQL query:' + query);
+				console.info('Success MySQL query');
 				res.json({
 					"Error": false,
 					"Message": "Categoria Added !"
@@ -79,7 +79,7 @@ articulosCategoriaDAO.prototype.handleRoutes = function(router, connection) {
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				console.info('Success MySQL query:' + query);
+				console.info('Success MySQL query');
 				res.json({
 					"Error": false,
 					"Message": "Categoria detalle updated !"
@@ -102,7 +102,7 @@ articulosCategoriaDAO.prototype.handleRoutes = function(router, connection) {
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				console.info('Success MySQL query:' + query);
+				console.info('Success MySQL query');
 				res.json({
 					"Error": false,
 					"Message": "Categoria deleted: " + req.params.id_categoria
