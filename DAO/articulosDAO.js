@@ -123,8 +123,13 @@ articulosDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.get(urlBase + "/:id_articulo", function(req, res) {
 		printRequest(urlBase + " :id_articulo" + " get");
-		var query = "SELECT * FROM ?? WHERE ??=?";
-		var table = [tableName, "ID_ARTICULO", req.params.id_articulo];
+		var query = "SELECT " + "\n" +
+					"	* " + "\n" +
+					"FROM " + "\n" +
+					"	ARTICULO" + "\n" +
+					"WHERE" + "\n" +
+					"	ID_ARTICULO = ?";
+		var table = [req.params.id_articulo];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err, rows) {

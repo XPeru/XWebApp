@@ -13,7 +13,6 @@ function printRequest(data) {
 
 
 ingresoDAO.prototype.handleRoutes = function(router, connection) {
-	var tableName = "INGRESO";
 	var urlBase = "/ingreso";
 	router.get(urlBase + "list", function(req, res) {
 		printRequest(urlBase + "list" + " get");
@@ -112,8 +111,10 @@ ingresoDAO.prototype.handleRoutes = function(router, connection) {
 		printRequest(urlBase + " put");
 		var query = "UPDATE " + "\n" +
 					"	INGRESO " + "\n" +
-					"SET COSTO_TOTAL = ?" + "\n" +
-					"WHERE ID_INGRESO = ?";
+					"SET " + "\n" +
+					"	COSTO_TOTAL = ?" + "\n" +
+					"WHERE" + "\n" +
+					"	ID_INGRESO = ?";
 		var table = [
 					req.body.COSTO_TOTAL, 
 					req.body.ID_INGRESO];
@@ -139,8 +140,11 @@ ingresoDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.delete(urlBase + "/:id_ingreso", function(req, res) {
 		printRequest(urlBase + "/:id_ingreso", " delete");
-		var query = "DELETE FROM ?? WHERE ?? = ?";
-		var table = [tableName, "ID_INGRESO", req.params.id_ingreso];
+		var query = "DELETE FROM" + "\n" +
+					"	INGRESO" + "\n" +
+					"WHERE " + "\n" +
+					"	ID_INGRESO = ?";
+		var table = [req.params.id_ingreso];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err) {

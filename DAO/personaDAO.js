@@ -11,15 +11,30 @@ function printRequest(data) {
 	dateGenerator.printInfo(daoName + "\n" + data);
 }
 
-
 personaDAO.prototype.handleRoutes = function(router, connection) {
 	var tableName = "PROVEEDOR_CLIENTE";
-	var tableTipo = "TIPO_PERSONA";
 	var urlBase = "/persona";
 	router.get(urlBase + "list" + "/:desc", function(req, res) {
 		printRequest(urlBase + "list" + " get");
-		var query = "SELECT pc.ID_PROVEEDOR_CLIENTE, pc.NOMBRE, pc.EMAIL, pc.RUC, pc.NUMERO_CUENTA, pc.DIRECCION_CALLE, pc.DIRECCION_DISTRITO, pc.DIRECCION_DEPARTAMENTO, pc.DIRECCION_COMPLEMENTO, pc.TELEFONO, pc.FK_TIPO_PERSONA FROM ?? tipo INNER JOIN ?? pc ON ?? = ?? WHERE ?? = ?";
-		var table = [tableTipo, tableName, "pc.FK_TIPO_PERSONA", "tipo.ID_TIPO_PERSONA", "tipo.DESCRIPCION", req.params.desc];
+		var query = "SELECT " + "\n" +
+					"	pc.ID_PROVEEDOR_CLIENTE, " + "\n" +
+					"	pc.NOMBRE, " + "\n" +
+					"	pc.EMAIL, " + "\n" +
+					"	pc.RUC, " + "\n" +
+					"	pc.NUMERO_CUENTA, " + "\n" +
+					"	pc.DIRECCION_CALLE, " + "\n" +
+					"	pc.DIRECCION_DISTRITO, " + "\n" +
+					"	pc.DIRECCION_DEPARTAMENTO, " + "\n" +
+					"	pc.DIRECCION_COMPLEMENTO, " + "\n" +
+					"	pc.TELEFONO, " + "\n" +
+					"	pc.FK_TIPO_PERSONA " + "\n" +
+					"FROM" + "\n" +
+					"	TIPO_PERSONA tipo " + "\n" +
+					"INNER JOIN PROVEEDOR_CLIENTE pc ON " + "\n" +
+					"	pc.FK_TIPO_PERSONA = tipo.ID_TIPO_PERSONA " + "\n" +
+					"WHERE" + "\n" +
+					"	tipo.DESCRIPCION = ?";
+		var table = [req.params.desc];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err, rows) {
@@ -43,19 +58,31 @@ personaDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.post(urlBase, function(req, res) {
 		printRequest(urlBase + " post");
-		var query = "INSERT INTO ?? (??, ??, ??, ??, ??, ??, ??, ??, ??, ??) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		var table = [tableName,
-					"NOMBRE",
-					"EMAIL",
-					"RUC",
-					"NUMERO_CUENTA",
-					"DIRECCION_CALLE",
-					"DIRECCION_DISTRITO",
-					"DIRECCION_DEPARTAMENTO",
-					"DIRECCION_COMPLEMENTO",
-					"TELEFONO",
-					"FK_TIPO_PERSONA",
-					req.body.NOMBRE,
+		var query = "INSERT INTO " + "\n" +
+					"	PROVEEDOR_CLIENTE (" + "\n" +
+					"		NOMBRE," + "\n" +
+					"		EMAIL," + "\n" +
+					"		RUC," + "\n" +
+					"		NUMERO_CUENTA," + "\n" +
+					"		DIRECCION_CALLE," + "\n" +
+					"		DIRECCION_DISTRITO," + "\n" +
+					"		DIRECCION_DEPARTAMENTO," + "\n" +
+					"		DIRECCION_COMPLEMENTO," + "\n" +
+					"		TELEFONO," + "\n" +
+					"		FK_TIPO_PERSONA" + "\n" +
+					"	) VALUES (" + "\n" +
+					"		?," + "\n" +
+					"		?," + "\n" +
+					"		?," + "\n" +
+					"		?," + "\n" +
+					"		?," + "\n" +
+					"		?," + "\n" +
+					"		?," + "\n" +
+					"		?," + "\n" +
+					"		?," + "\n" +
+					"		?" + "\n" +
+					"	)";
+		var table = [req.body.NOMBRE,
 					req.body.EMAIL,
 					req.body.RUC,
 					req.body.NUMERO_CUENTA,
@@ -87,29 +114,31 @@ personaDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.put(urlBase, function(req, res) {
 		printRequest(urlBase + " put");
-		var query = "UPDATE ?? SET ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ? WHERE ?? = ?";
-		var table = [tableName,
-					"RUC",
-					req.body.RUC,
-					"NUMERO_CUENTA",
+		var query = "UPDATE " + "\n" +
+					"	PROVEEDOR_CLIENTE" + "\n" +
+					"SET" + "\n" +
+					"	RUC = ?, " + "\n" +
+					"	NUMERO_CUENTA = ?, " + "\n" +
+					"	DIRECCION_CALLE = ?, " + "\n" +
+					"	DIRECCION_DISTRITO = ?, " + "\n" +
+					"	DIRECCION_DEPARTAMENTO = ?, " + "\n" +
+					"	DIRECCION_COMPLEMENTO = ?, " + "\n" +
+					"	TELEFONO = ? " + "\n" +
+					"WHERE " + "\n" +
+					"	ID_PROVEEDOR_CLIENTE = ?";
+		var table = [req.body.RUC,
 					req.body.NUMERO_CUENTA,
-					"DIRECCION_CALLE",
 					req.body.DIRECCION_CALLE,
-					"DIRECCION_DISTRITO",
 					req.body.DIRECCION_DISTRITO,
-					"DIRECCION_DEPARTAMENTO",
 					req.body.DIRECCION_DEPARTAMENTO,
-					"DIRECCION_COMPLEMENTO",
 					req.body.DIRECCION_COMPLEMENTO,
-					"TELEFONO",
 					req.body.TELEFONO,
-					"ID_PROVEEDOR_CLIENTE",
 					req.body.ID_PROVEEDOR_CLIENTE];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err) {
 			if (err) {
-				console.info('Error executing MySQL query:' + query);
+				console.info('Error executing MySQL query:'  + query);
 				console.info(err.message);
 				res.json({
 					"Error": true,
@@ -127,8 +156,11 @@ personaDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.delete(urlBase + "/:id_proveedor_cliente", function(req, res) {
 		printRequest(urlBase + "/:id_proveedor_cliente", " delete");
-		var query = "DELETE FROM ?? WHERE ?? = ?";
-		var table = [tableName, "ID_PROVEEDOR_CLIENTE", req.params.id_proveedor_cliente];
+		var query = "DELETE FROM" + "\n" +
+					"	PROVEEDOR_CLIENTE" + "\n" +
+					"WHERE " + "\n" +
+					"	ID_PROVEEDOR_CLIENTE = ?";
+		var table = [req.params.id_proveedor_cliente];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err) {

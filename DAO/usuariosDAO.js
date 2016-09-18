@@ -37,26 +37,28 @@ var upload = multer({ storage : storage}).single(nameBase);
 //argumento, el url, ver detalles mas abajo
 usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 	var tableName = "USUARIO";
-	var tableTipo = "TIPO_USUARIO";
 	var urlBase = "/usuario";
 	router.get(urlBase + "list", function(req, res) {
 		printRequest(urlBase + "list" + " get");
-		var query = "SELECT ??, ??, ??, ??, ??, ??, ??, ??, ??, ?? FROM ?? us INNER JOIN ?? tipo ON ?? = ?? WHERE ??='1'";
-		var table = ["us.ID_USUARIO",
-						"us.NOMBRE", 
-						"us.APELLIDOS",
-						"us.EMAIL",
-						"us.FOTO",
-						"us.FK_TIPO_USUARIO",
-						"us.CREATE_TIME",
-						"us.UPDATE_TIME",
-						"us.IS_ACTIVE",
-						"tipo.TIPO",
-						tableName,
-						tableTipo,
-						"tipo.ID_TIPO_USUARIO",
-						"us.FK_TIPO_USUARIO",
-						"us.IS_ACTIVE"];
+		var query = "SELECT " + "\n" +
+					"	us.ID_USUARIO, " + "\n" +
+					"	us.NOMBRE, " + "\n" +
+					"	us.APELLIDOS, " + "\n" +
+					"	us.EMAIL, " + "\n" +
+					"	us.FOTO, " + "\n" +
+					"	us.FK_TIPO_USUARIO, " + "\n" +
+					"	us.CREATE_TIME, " + "\n" +
+					"	us.UPDATE_TIME, " + "\n" +
+					"	us.IS_ACTIVE, " + "\n" +
+					"	tipo.TIPO" + "\n" +
+					"FROM" + "\n" +
+					"	USUARIO us" + "\n" +
+					"INNER JOIN" + "\n" +
+					"TIPO_USUARIO tipo ON" + "\n" +
+					"	tipo.ID_TIPO_USUARIO = us.FK_TIPO_USUARIO" + "\n" +
+					"WHERE" + "\n" +
+					"	us.IS_ACTIVE = '1'";
+		var table = [];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err, rows) {
@@ -79,21 +81,28 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 
 	router.post(urlBase, function(req, res) {
 		printRequest(urlBase, " post");
-		var query = "INSERT INTO ?? (??, ??, ??, ??, ??, ??) VALUES (?, ?, ?, ?, ?, ?)";
-		var table = [tableName,
-						"NOMBRE",
-						"APELLIDOS",
-						"EMAIL",
-						"PASSWORD",
-						"FK_TIPO_USUARIO",
-						"FOTO",
-						req.body.NOMBRE,
-						req.body.APELLIDOS,
-						req.body.EMAIL,
-						md5(req.body.PASSWORD),
-						req.body.FK_TIPO_USUARIO,
-						req.body.FOTO
-					];
+		var query = "INSERT INTO " + "\n" +
+					"	USUARIO (" + "\n" +
+					"		NOMBRE," + "\n" +
+					"		APELLIDOS," + "\n" +
+					"		EMAIL," + "\n" +
+					"		PASSWORD," + "\n" +
+					"		FK_TIPO_USUARIO," + "\n" +
+					"		FOTO" + "\n" +
+					"	) VALUES (" + "\n" +
+					"		?," + "\n" +
+					"		?," + "\n" +
+					"		?," + "\n" +
+					"		?," + "\n" +
+					"		?," + "\n" +
+					"		?" + "\n" +
+					"	)";
+		var table = [req.body.NOMBRE,
+					req.body.APELLIDOS,
+					req.body.EMAIL,
+					md5(req.body.PASSWORD),
+					req.body.FK_TIPO_USUARIO,
+					req.body.FOTO];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err) {
@@ -162,16 +171,18 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 
 	router.put(urlBase, function(req, res) {
 		printRequest(urlBase, " put");
-		var query = "UPDATE ?? SET ?? = ?, ??=?, ??=?, ??=CURRENT_TIMESTAMP WHERE ?? = ?";
-		var table = [tableName,
-					"PASSWORD",
-					md5(req.body.PASSWORD),
-					"FK_TIPO_USUARIO",
+		var query = "UPDATE " + "\n" +
+					"	USUARIO" + "\n" +
+					"SET" + "\n" +
+					"	PASSWORD = ?, " + "\n" +
+					"	FK_TIPO_USUARIO = ?, " + "\n" +
+					"	FOTO = ?, " + "\n" +
+					"	UPDATE_TIME = CURRENT_TIMESTAMP" + "\n" +
+					"WHERE" + "\n" +
+					"	ID_USUARIO = ?";
+		var table = [md5(req.body.PASSWORD),
 					req.body.FK_TIPO_USUARIO,
-					"FOTO",
 					req.body.FOTO,
-					"UPDATE_TIME",
-					"ID_USUARIO",
 					req.body.ID_USUARIO];
 		query = mysql.format(query, table);
 		printRequest(query);
@@ -194,12 +205,14 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 
 	router.put(urlBase + "delete", function(req, res) {
 		printRequest(urlBase + "delete", " put");
-		var query = "UPDATE ?? SET ?? = ?, ??=CURRENT_TIMESTAMP WHERE ?? = ?";
-		var table = [tableName,
-					"IS_ACTIVE",
-					!req.body.IS_ACTIVE,
-					"UPDATE_TIME",
-					"ID_USUARIO", 
+		var query = "UPDATE" + "\n" +
+					"	USUARIO" + "\n" +
+					"SET" + "\n" +
+					"	IS_ACTIVE = ?," + "\n" +
+					"	UPDATE_TIME = CURRENT_TIMESTAMP" + "\n" +
+					"WHERE" + "\n" +
+					"	ID_USUARIO = ?";
+		var table = [!req.body.IS_ACTIVE,
 					req.body.ID_USUARIO];
 		query = mysql.format(query, table);
 		printRequest(query);

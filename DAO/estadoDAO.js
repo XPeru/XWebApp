@@ -13,12 +13,14 @@ function printRequest(data) {
 
 
 estadoDAO.prototype.handleRoutes = function(router, connection) {
-	var tableName = "ESTADO";
 	var urlBase = "/estado";
 	router.get(urlBase + "list", function(req, res) {
 		printRequest(urlBase + "list" + " get");
-		var query = "SELECT * FROM ??";
-		var table = [tableName];
+		var query = "SELECT " + "\n" +
+					"	* " + "\n" +
+					"FROM " + "\n" +
+					"	ESTADO";
+		var table = [];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err, rows) {
@@ -42,8 +44,14 @@ estadoDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.post(urlBase, function(req, res) {
 		printRequest(urlBase + " post");
-		var query = "INSERT INTO ?? (??) VALUES (?)";
-		var table = [tableName, "DESCRIPCION", req.body.DESCRIPCION];
+		var query = "INSERT INTO " + "\n" +
+					"	ESTADO (" + "\n" +
+					"		DESCRIPCION" + "\n" +
+					"	)" + "\n" +
+					"VALUES (" + "\n" +
+					"		?" + "\n" +
+					"	)";
+		var table = [req.body.DESCRIPCION];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err) {
@@ -66,8 +74,14 @@ estadoDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.put(urlBase, function(req, res) {
 		printRequest(urlBase + " put");
-		var query = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
-		var table = [tableName, "DESCRIPCION", req.body.DESCRIPCION, "ID_ESTADO", req.body.ID_ESTADO];
+		var query = "UPDATE" + "\n" +
+					"	ESTADO " + "\n" +
+					"SET " + "\n" +
+					"	DESCRIPCION = ? " + "\n" +
+					"WHERE" + "\n" +
+					"	ID_ESTADO = ?";
+		var table = [req.body.DESCRIPCION,
+					req.body.ID_ESTADO];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err) {
@@ -90,8 +104,11 @@ estadoDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.delete(urlBase + "/:id_estado", function(req, res) {
 		printRequest(urlBase + "/:id_estado", " delete");
-		var query = "DELETE FROM ?? WHERE ?? = ?";
-		var table = [tableName, "ID_ESTADO", req.params.id_estado];
+		var query = "DELETE FROM " + "\n" +
+					"	ESTADO " + "\n" +
+					"WHERE " + "\n" +
+					"	ID_ESTADO = ?";
+		var table = [req.params.id_estado];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err) {

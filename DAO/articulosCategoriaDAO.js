@@ -12,12 +12,14 @@ function printRequest(data) {
 }
 
 articulosCategoriaDAO.prototype.handleRoutes = function(router, connection) {
-	var tableName = "CATEGORIA";
 	var urlBase = "/categoria";
 	router.get(urlBase + "list", function(req, res) {
 		printRequest(urlBase + "list" + " get");
-		var query = "SELECT * FROM ??";
-		var table = [tableName];
+		var query = "SELECT " + "\n" +
+					"	* " + "\n" +
+					"FROM " + "\n" +
+					"	CATEGORIA";
+		var table = [];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err, rows) {
@@ -41,8 +43,14 @@ articulosCategoriaDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.post(urlBase, function(req, res) {
 		printRequest(urlBase + " post");
-		var query = "INSERT INTO ?? (??) VALUES (?)";
-		var table = [tableName, "DESCRIPCION", req.body.DESCRIPCION];
+		var query = "INSERT INTO " + "\n" + "\n" +
+					"	CATEGORIA (" + "\n" +
+					"		DESCRIPCION" + "\n" +
+					"	)" + "\n" +
+					"VALUES (" + "\n" +
+					"	?" + "\n" +
+					")";
+		var table = [req.body.DESCRIPCION];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err) {
@@ -65,8 +73,14 @@ articulosCategoriaDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.put(urlBase, function(req, res) {
 		printRequest(urlBase + " put");
-		var query = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
-		var table = [tableName, "DESCRIPCION", req.body.DESCRIPCION, "ID_CATEGORIA", req.body.ID_CATEGORIA];
+		var query = "UPDATE" + "\n" +
+					"	CATEGORIA " + "\n" +
+					"SET" + "\n" +
+					"	DESCRIPCION = ? " + "\n" +
+					"WHERE " + "\n" +
+					"	ID_CATEGORIA = ?";
+		var table = [req.body.DESCRIPCION,
+					req.body.ID_CATEGORIA];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err) {
@@ -89,8 +103,11 @@ articulosCategoriaDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.delete(urlBase + "/:id_categoria", function(req, res) {
 		printRequest(urlBase + "/:id_categoria", " delete");
-		var query = "DELETE FROM ?? WHERE ?? = ?";
-		var table = [tableName, "ID_CATEGORIA", req.params.id_categoria];
+		var query = "DELETE FROM" + "\n" +
+					"	CATEGORIA" + "\n" +
+					"WHERE " + "\n" +
+					"	ID_CATEGORIA = ?";
+		var table = [req.params.id_categoria];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err) {

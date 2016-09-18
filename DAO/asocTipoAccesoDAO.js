@@ -18,8 +18,16 @@ assocTipoAccesoDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.get(urlBase + "/:id_tipo_usuario", function(req, res) {
 		printRequest(urlBase + "/:id_tipo_usuario", " GET");
-		var query = "SELECT ??, ?? FROM ?? asso INNER JOIN ?? acc ON ??=?? WHERE ??=?";
-		var table = ["acc.ID_ACCESO_USUARIO", "acc.DESCRIPCION", tableName, "ACCESO_USUARIO", "acc.ID_ACCESO_USUARIO", "asso.FK_ACCESO_USUARIO", "asso.FK_TIPO_USUARIO", req.params.id_tipo_usuario];
+		var query = "SELECT " + "\n" +
+					"	acc.ID_ACCESO_USUARIO, " + "\n" +
+					"	acc.DESCRIPCION" + "\n" +
+					"FROM " + "\n" +
+					"	ASOC_TIPO_ACCESO asso " + "\n" +
+					"INNER JOIN ACCESO_USUARIO acc ON " + "\n" +
+					"	acc.ID_ACCESO_USUARIO = asso.FK_ACCESO_USUARIO" + "\n" +
+					"WHERE" + "\n" +
+					"	asso.FK_TIPO_USUARIO = ?";
+		var table = [req.params.id_tipo_usuario];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err, rows) {
@@ -42,8 +50,11 @@ assocTipoAccesoDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.delete(urlBase +  "/:id_tipo_usuario", function(req, res) {
 		printRequest(urlBase + "/:id_tipo_usuario", " delete");
-		var query = "DELETE FROM ?? WHERE ?? = ?";
-		var table = [tableName, "FK_TIPO_USUARIO", req.params.id_tipo_usuario];
+		var query = "DELETE FROM" + "\n" +
+					"	ASOC_TIPO_ACCESO" + "\n" +
+					"WHERE " + "\n" +
+					"	FK_TIPO_USUARIO = ?";
+		var table = [req.params.id_tipo_usuario];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err) {
@@ -65,10 +76,15 @@ assocTipoAccesoDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.post(urlBase, function(req, res) {
 		printRequest(urlBase, " post");
-		var query = "INSERT INTO ?? (??, ??, ??) VALUES";
-		var table = [tableName,	"FK_TIPO_USUARIO",	"FK_ACCESO_USUARIO", "IS_ACTIVE"];
+		var query = "INSERT INTO " + "\n" +
+					"	ASOC_TIPO_ACCESO (" + "\n" +
+					"		FK_TIPO_USUARIO, " + "\n" +
+					"		FK_ACCESO_USUARIO, " + "\n" +
+					"		IS_ACTIVE" + "\n" +
+					"	) VALUES";
+		var table = [];
 		var idTipoUsuario = req.body.ID_TIPO_USUARIO;
-		var end_query = " (?, ?, ?)";
+		var end_query = "\n" + " (?, ?, ?)";
 		var length = req.body.LIST.length;
 		for(var i = 0; i < length; i++) {
 			if(i === length - 1) {
