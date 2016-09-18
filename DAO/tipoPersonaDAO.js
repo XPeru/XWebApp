@@ -13,12 +13,14 @@ function printRequest(data) {
 
 
 tipoPersonaDAO.prototype.handleRoutes = function(router, connection) {
-	var tableName = "TIPO_PERSONA";
 	var urlBase = "/tipopersona";
 	router.get(urlBase + "list", function(req, res) {
 		printRequest(urlBase + "list" + " get");
-		var query = "SELECT * FROM ??";
-		var table = [tableName];
+		var query = "SELECT " + "\n" +
+					"	* " + "\n" +
+					"FROM " + "\n" +
+					"	TIPO_PERSONA";
+		var table = [];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err, rows) {
@@ -42,8 +44,13 @@ tipoPersonaDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.get(urlBase + "/:desc", function(req, res) {
 		printRequest(urlBase + " get");
-		var query = "SELECT * FROM ?? WHERE DESCRIPCION = ?";
-		var table = [tableName, req.params.desc];
+		var query = "SELECT " + "\n" +
+					"	* " + "\n" +
+					"FROM " + "\n" +
+					"	TIPO_PERSONA" + "\n" +
+					"WHERE" + "\n" +
+					"	DESCRIPCION = ?";
+		var table = [req.params.desc];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err, rows) {
@@ -67,8 +74,14 @@ tipoPersonaDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.post(urlBase, function(req, res) {
 		printRequest(urlBase + " post");
-		var query = "INSERT INTO ?? (??) VALUES (?)";
-		var table = [tableName, "DESCRIPCION", req.body.DESCRIPCION];
+		var query = "INSERT INTO " + "\n" +
+					"	TIPO_PERSONA (" + "\n" +
+					"		DESCRIPCION" + "\n" +
+					"	)" + "\n" +
+					"VALUES (" + "\n" +
+					"	?" + "\n" +
+					")";
+		var table = [req.body.DESCRIPCION];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err) {
@@ -91,8 +104,14 @@ tipoPersonaDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.put(urlBase, function(req, res) {
 		printRequest(urlBase + " put");
-		var query = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
-		var table = [tableName, "DESCRIPCION", req.body.DESCRIPCION, "ID_TIPO_PERSONA", req.body.ID_TIPO_PERSONA];
+		var query = "UPDATE" + "\n" +
+					"	TIPO_PERSONA " + "\n" +
+					"SET" + "\n" +
+					"	DESCRIPCION = ? " + "\n" +
+					"WHERE " + "\n" +
+					"	ID_TIPO_PERSONA = ?";
+		var table = [req.body.DESCRIPCION,
+					req.body.ID_TIPO_PERSONA];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err) {
@@ -115,8 +134,11 @@ tipoPersonaDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.delete(urlBase + "/:id_tipopersona", function(req, res) {
 		printRequest(urlBase + "/:id_tipopersona", " delete");
-		var query = "DELETE FROM ?? WHERE ?? = ?";
-		var table = [tableName, "ID_TIPO_PERSONA", req.params.id_tipopersona];
+		var query = "DELETE FROM" + "\n" +
+					"	TIPO_PERSONA" + "\n" +
+					"WHERE " + "\n" +
+					"	ID_TIPO_PERSONA = ?";
+		var table = [req.params.id_tipopersona];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err) {

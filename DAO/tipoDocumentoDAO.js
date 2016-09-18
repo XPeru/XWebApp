@@ -17,8 +17,11 @@ tipoDocumentoDAO.prototype.handleRoutes = function(router, connection) {
 	var urlBase = "/tipodocumento";
 	router.get(urlBase + "list", function(req, res) {
 		printRequest(urlBase + "list" + " get");
-		var query = "SELECT * FROM ??";
-		var table = [tableName];
+		var query = "SELECT " + "\n" +
+					"	* " + "\n" +
+					"FROM " + "\n" +
+					"	TIPO_DOCUMENTO";
+		var table = [];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err, rows) {
@@ -42,8 +45,14 @@ tipoDocumentoDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.post(urlBase, function(req, res) {
 		printRequest(urlBase + " post");
-		var query = "INSERT INTO ?? (??) VALUES (?)";
-		var table = [tableName, "DESCRIPCION", req.body.DESCRIPCION];
+		var query = "INSERT INTO " + "\n" +
+					"	TIPO_DOCUMENTO (" + "\n" +
+					"		DESCRIPCION" + "\n" +
+					"	)" + "\n" +
+					"VALUES (" + "\n" +
+					"	?" + "\n" +
+					")";
+		var table = [req.body.DESCRIPCION];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err) {
@@ -66,8 +75,14 @@ tipoDocumentoDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.put(urlBase, function(req, res) {
 		printRequest(urlBase + " put");
-		var query = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
-		var table = [tableName, "DESCRIPCION", req.body.DESCRIPCION, "ID_TIPO_DOCUMENTO", req.body.ID_TIPO_DOCUMENTO];
+		var query = "UPDATE" + "\n" +
+					"	TIPO_DOCUMENTO " + "\n" +
+					"SET" + "\n" +
+					"	DESCRIPCION = ? " + "\n" +
+					"WHERE " + "\n" +
+					"	ID_TIPO_DOCUMENTO = ?";
+		var table = [req.body.DESCRIPCION,
+					req.body.ID_TIPO_DOCUMENTO];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err) {
@@ -90,8 +105,11 @@ tipoDocumentoDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.delete(urlBase + "/:id_tipodocumento", function(req, res) {
 		printRequest(urlBase + "/:id_tipodocumento", " delete");
-		var query = "DELETE FROM ?? WHERE ?? = ?";
-		var table = [tableName, "ID_TIPO_DOCUMENTO", req.params.id_tipodocumento];
+		var query = "DELETE FROM" + "\n" +
+					"	TIPO_DOCUMENTO" + "\n" +
+					"WHERE " + "\n" +
+					"	ID_TIPO_DOCUMENTO = ?";
+		var table = [req.params.id_tipodocumento];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err) {

@@ -43,7 +43,7 @@ articulosCategoriaDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.post(urlBase, function(req, res) {
 		printRequest(urlBase + " post");
-		var query = "INSERT INTO " + "\n" + "\n" +
+		var query = "INSERT INTO " + "\n" +
 					"	CATEGORIA (" + "\n" +
 					"		DESCRIPCION" + "\n" +
 					"	)" + "\n" +

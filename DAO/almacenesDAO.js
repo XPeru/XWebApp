@@ -43,7 +43,7 @@ almacenesDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.post(urlBase, function(req, res) {
 		printRequest(urlBase + " post");
-		var query = "INSERT INTO " + "\n" + "\n" +
+		var query = "INSERT INTO " + "\n" +
 					"	ALMACEN (" + "\n" +
 					"		CODIGO," + "\n" +
 					"		UBICACION" + "\n" +
