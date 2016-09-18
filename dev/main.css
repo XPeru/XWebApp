@@ -93,5 +93,16 @@
 }
 
 .ui-grid-menu-button {
-  height: 31px;
+	height: 31px;
 }
+
+.animate-show.ng-hide-add, .animate-show.ng-hide-remove {
+	transition: all linear 0.15s;
+}
+
+.animate-show.ng-hide {
+	line-height: 0;
+	opacity: 0;
+	padding: 0 10px;
+}
+

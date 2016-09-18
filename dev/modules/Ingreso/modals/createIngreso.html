@@ -1,5 +1,5 @@
 <div class="modal-header">
-	<h3 class="modal-title"> PONER TITULO </h3>
+	<h3 class="modal-title"> Creando ingreso </h3>
 </div>
 <div class="modal-body">
 	<form role="form"
@@ -9,91 +9,45 @@
 
 		<!--Text Example-->
 		<div class="form-group"
-				ng-class="{'has-error': formCreateIngreso.nombreF.$error.required &&
-										!formCreateIngreso.nombreF.$pristine}">
-			<label for="nombre">Nombre</label>
+				ng-class="{'has-error': formCreateIngreso.codeIngresoF.$error.required &&
+										!formCreateIngreso.codeIngresoF.$pristine}">
+			<label for="codeIngreso">Codigo de ingreso</label>
 
 			<input type="text"
 					class="form-control"
-					id="nombre"
-					name="nombreF"
-					ng-model="modalIngresoCtrl.createdIngreso.NOMBRE"
-					placeholder="Nombre"
+					id="codeIngreso"
+					name="codeIngresoF"
+					ng-model="modalIngresoCtrl.createdIngreso.CODE_INGRESO"
+					placeholder="Codigo de ingreso"
 					required>
 
-			<span ng-show="formCreateIngreso.nombreF.$error.required &&
-							!formCreateIngreso.nombreF.$pristine"
-					class="help-block">Su nombre es obligatorio</span>
-		</div>
-
-		<!--Email Example-->
-		<div class="form-group has-feedback"
-				ng-class="{'has-error':(formCreateIngreso.emailF.$invalid ||
-										formCreateIngreso.emailF.$error.required) &&
-										!formCreateIngreso.emailF.$pristine}">
-			<label for="email" class="control-label">Correo electronico</label>
-
-			<input type="email"
-					class="form-control"
-					id="email"
-					name="emailF"
-					ng-model="modalIngresoCtrl.createdIngreso.EMAIL"
-					placeholder="Correo electronico"
-					required>
-
-			<span ng-show="formCreateIngreso.emailF.$invalid && !formCreateIngreso.emailF.$pristine"
-					class="glyphicon glyphicon-remove form-control-feedback"
-					aria-hidden="true"></span>
-			<span ng-show="(formCreateIngreso.emailF.$invalid ||
-							formCreateIngreso.emailF.$error.required) &&
-							!formCreateIngreso.emailF.$pristine"
-					class="help-block">Ingrese un correo electronico valido</span>
+			<span ng-show="formCreateIngreso.codeIngresoF.$error.required &&
+							!formCreateIngreso.codeIngresoF.$pristine"
+					class="help-block">El codigo de ingreso es obligatorio</span>
 		</div>
 
 
-		<!--Password Example-->
-		<div class="form-group has-feedback"
-				ng-class="{'has-error':(formCreateIngreso.passwordF.$invalid ||
-										formCreateIngreso.passwordF.$error.required) &&
-										!formCreateIngreso.passwordF.$pristine}">
-			<label for="password">Contrase&ntilde;a</label>
-
-			<input type="password"
-					class="form-control"
-					id="password"
-					name="passwordF"
-					ng-model="modalIngresoCtrl.createdIngreso.PASSWORD"
-					placeholder="Contrase&ntilde;a"
-					required>
-
-			<span ng-show="formCreateIngreso.passwordF.$invalid && !formCreateIngreso.passwordF.$pristine"
-					class="glyphicon glyphicon-remove form-control-feedback"
-					aria-hidden="true"></span>
-			<span ng-show="(formCreateIngreso.passwordF.$invalid ||
-							formCreateIngreso.passwordF.$error.required) &&
-							!formCreateIngreso.passwordF.$pristine"
-					class="help-block">Ingrese una contrase&ntilde;a valida</span>
+		<!-- Dropdown List Example -->
+		<div class="form-group">
+			<label for="tipoDocumento"> Tipo de documento</label>
+			<select class="form-control"
+					ng-model="modalIngresoCtrl.createdIngreso.FK_TIPO_DOCUMENTO"
+					name="obj"
+					ng-options="obj.ID_TIPO_DOCUMENTO as obj.DESCRIPCION for obj in modalIngresoCtrl.tipoDocumentoList">
+			</select>
 		</div>
 
 		<!-- Dropdown List Example -->
 		<div class="form-group">
-			<label for="TOCOMPLET"> PONER TITULO</label>
+			<label for="TOCOMPLET"> Proveedores</label>
 			<select class="form-control"
-					ng-model="modalIngresoCtrl.createdIngreso."
+					ng-model="modalIngresoCtrl.createdIngreso.FK_PROVEEDOR"
 					name="obj"
-					ng-options="obj.ID_TOCOMPLET as obj.TOCOMPLETE for obj in modalIngresoCtrl.">
+					ng-options="obj.ID_PROVEEDOR_CLIENTE as obj.NOMBRE for obj in modalIngresoCtrl.proveedorList">
 			</select>
 		</div>
 
-		<!-- File Example -->
-		<div class="form-group">
-			<label for="fileform">Foto</label>
-			<!--el atributo name es muy importante, este define el nombrebase del archivo , revisar usuariosDAO-->
-			<input type="file"
-					id="fileform"
-					name="userPhoto"
-					file-model="modalIngresoCtrl.createdIngreso.FOTO_FILE">
-		</div>
+
 
 		<div class="form-group">
 			<button type="submit" class="btn btn-success" ng-disabled="formCreateIngreso.$invalid">

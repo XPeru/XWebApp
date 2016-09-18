@@ -14,9 +14,12 @@ angular.module('UsuariosTipo', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'u
 	function ($scope, $window, $location, $http, $uibModal, $timeout, UsuariosTipoServiceFactory, NgTableParams, i18nService, UsuariosAccesoServiceFactory) {
 		var ctrl = this;
 		ctrl.tableMode = true;
+		ctrl.showAccesos = false;
 		ctrl.switchTableMode = function() {
 			ctrl.tableMode = !ctrl.tableMode;
 		};
+
+
 		i18nService.setCurrentLang('es');
 		$scope.columns = [{ field: 'TIPO', headerCellClass: 'blue'}];
 		$scope.columns[0].displayName = 'Tipo';
@@ -52,6 +55,7 @@ angular.module('UsuariosTipo', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'u
 		ctrl.setSelected = function(selectedTipoUsuario) {
 			ctrl.idSelectedTipoUsuario = selectedTipoUsuario.ID_TIPO_USUARIO;
 			ctrl.selectedTipoUsuario = selectedTipoUsuario;
+			ctrl.showAccesos = true;
 			ctrl.callGetAssosTipoAccesosByIdTipoUsuario();
 		};
 
