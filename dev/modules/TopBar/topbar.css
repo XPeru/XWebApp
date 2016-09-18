@@ -1,152 +1,152 @@
 .navbar-top-links {
-    margin-right: 0;
+	margin-right: 0;
 }
 
 .navbar-top-links li {
-    display: inline-block;
+	display: inline-block;
 }
 
 .navbar-top-links li:last-child {
-    margin-right: 15px;
+	margin-right: 15px;
 }
 
 .navbar-top-links li a {
-    padding: 15px;
-    min-height: 50px;
+	padding: 15px;
+	min-height: 50px;
 }
 
 .navbar-top-links .dropdown-menu li {
-    display: block;
+	display: block;
 }
 
 .navbar-top-links .dropdown-menu li:last-child {
-    margin-right: 0;
+	margin-right: 0;
 }
 
 .navbar-top-links .dropdown-menu li a {
-    padding: 3px 20px;
-    min-height: 0;
+	padding: 3px 20px;
+	min-height: 0;
 }
 
 .navbar-top-links .dropdown-menu li a div {
-    white-space: normal;
+	white-space: normal;
 }
 
 .navbar-top-links .dropdown-messages,
 .navbar-top-links .dropdown-tasks,
 .navbar-top-links .dropdown-alerts {
-    width: 310px;
-    min-width: 0;
+	width: 310px;
+	min-width: 0;
 }
 
 .navbar-top-links .dropdown-messages {
-    margin-left: 5px;
+	margin-left: 5px;
 }
 
 .navbar-top-links .dropdown-tasks {
-    margin-left: -59px;
+	margin-left: -59px;
 }
 
 .navbar-top-links .dropdown-alerts {
-    margin-left: -123px;
+	margin-left: -123px;
 }
 
 .navbar-top-links .dropdown-user {
-    right: 0;
-    left: auto;
+	right: 0;
+	left: auto;
 }
 
 .sidebar .sidebar-nav.navbar-collapse {
-    padding-right: 0;
-    padding-left: 0;
+	padding-right: 0;
+	padding-left: 0;
 }
 
 .sidebar .sidebar-search {
-    padding: 15px;
+	padding: 15px;
 }
 
 .sidebar ul li {
-    border-bottom: 1px solid #000000;
+	border-bottom: 1px solid #000000;
 }
 
 .sidebar ul li a.active {
-    background-color: #000000;
+	background-color: #000000;
 }
 .sidebar ul li .accordion-toogle .collapsed { 
-    font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
-    content: "\e114";    /* adjust as needed, taken from bootstrap.css */
-    float: right;        /* adjust as needed */  
+	font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+	content: "\e114";    /* adjust as needed, taken from bootstrap.css */
+	float: right;        /* adjust as needed */  
 }
 
 .sidebar ul li .collapsed:after { 
-    content: "\e080";    /* adjust as needed, taken from bootstrap.css */
-    /*float: right;         adjust as needed   */
+	content: "\e080";    /* adjust as needed, taken from bootstrap.css */
+	/*float: right;         adjust as needed   */
 }
 
 .sidebar .glyphicon-chevron-left {
-    float: right;
+	float: right;
 }
 
 .sidebar ul li  > .active > span {
-    float: left;
-    padding: 400px;
+	float: left;
+	padding: 400px;
 
 }
 
 .sidebar .arrow {
-    float: right;
+	float: right;
 }
 
 .sidebar .fa.arrow:before {
-    content: "\f104";
+	content: "\f104";
 }
 
 .sidebar .active>a>.fa.arrow:before {
-    content: "\f107";
+	content: "\f107";
 }
 
 .sidebar .nav-second-level li,
 .sidebar .nav-third-level li {
-    border-bottom: 0!important;
+	border-bottom: 0!important;
 }
 
 .sidebar .nav-second-level li a {
-    padding-left: 37px;
+	padding-left: 37px;
 }
 
 .sidebar .nav-third-level li a {
-    padding-left: 52px;
+	padding-left: 52px;
 }
 
 .sidebar {
-     min-height: 100%;
-    color: #aaa;
+	min-height: 100%;
+	color: #aaa;
 }
 
 .sidebar.ng-hide-add, .sidebar.ng-hide-remove {
-  transition: all linear 0.5s;
+	transition: all linear 0.15s;
 }
 
 .sidebar.ng-hide {
-  line-height: 0;
-  opacity: 0;
-  padding: 0 10px;
+	line-height: 0;
+	opacity: 0;
+	padding: 0 10px;
 }
 
 
 @media(min-width:768px) {
-    .sidebar {
-        z-index: 1;
-        position: absolute;
-        width: 250px;
-        margin-top: 51px;
-       
-        min-height: 1500px;
-    }
+	.sidebar {
+		z-index: 1;
+		position: absolute;
+		width: 250px;
+		margin-top: 51px;
 
-    .navbar-top-links .dropdown-messages,
-    .navbar-top-links .dropdown-tasks,
-    .navbar-top-links .dropdown-alerts {
-        margin-left: auto;
-    }
+		min-height: 1500px;
+	}
+
+	.navbar-top-links .dropdown-messages,
+	.navbar-top-links .dropdown-tasks,
+	.navbar-top-links .dropdown-alerts {
+		margin-left: auto;
+	}
 }
