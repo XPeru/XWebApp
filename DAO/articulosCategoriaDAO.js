@@ -93,6 +93,7 @@ articulosCategoriaDAO.prototype.handleRoutes = function(router, connection) {
 		var query = "DELETE FROM ?? WHERE ?? = ?";
 		var table = [tableName, "ID_CATEGORIA", req.params.id_categoria];
 		query = mysql.format(query, table);
+		printRequest(query);
 		connection.query(query, function(err) {
 			if (err) {
 				console.info('Error executing MySQL query:' + query);

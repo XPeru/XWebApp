@@ -41,6 +41,7 @@ assocTipoAccesoDAO.prototype.handleRoutes = function(router, connection) {
 	});
 
 	router.delete(urlBase +  "/:id_tipo_usuario", function(req, res) {
+		printRequest(urlBase + "/:id_tipo_usuario", " delete");
 		var query = "DELETE FROM ?? WHERE ?? = ?";
 		var table = [tableName, "FK_TIPO_USUARIO", req.params.id_tipo_usuario];
 		query = mysql.format(query, table);
@@ -77,8 +78,6 @@ assocTipoAccesoDAO.prototype.handleRoutes = function(router, connection) {
 			}
 			table.push(idTipoUsuario, req.body.LIST[i].ID_ACCESO_USUARIO, 1);
 		}
-		printRequest(table);
-		printRequest(query);
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err) {

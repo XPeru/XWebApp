@@ -136,6 +136,7 @@ articulosDAO.prototype.handleRoutes = function(router, connection) {
 	});
 
 	router.put(urlBase, function(req, res) {
+		printRequest(urlBase, " put");
 		var query = "UPDATE ?? SET ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ??=? WHERE ?? = ?";
 		var table = [tableName, 
 						"CODIGO",
@@ -155,7 +156,7 @@ articulosDAO.prototype.handleRoutes = function(router, connection) {
 						"ID_ARTICULO",
 						req.body.ID_ARTICULO
 					];
-		printRequest(table);
+		
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err) {
