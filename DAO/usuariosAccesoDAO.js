@@ -18,8 +18,11 @@ usuariosAccesoDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.get(urlBase + "list", function(req, res) {
 		printRequest(urlBase + "list" + " get");
-        var query = "SELECT * FROM ??";
-        var table = [tableName];
+        var query = "SELECT " + "\n" +
+                    "   * " + "\n" +
+                    "FROM " + "\n" +
+                    "   ACCESO_USUARIO";
+        var table = [];
         query = mysql.format(query, table);
         printRequest(query);
         connection.query(query, function(err, rows) {
@@ -43,9 +46,13 @@ usuariosAccesoDAO.prototype.handleRoutes = function(router, connection) {
 
     router.post(urlBase, function(req, res) {
 		printRequest(urlBase, " post");
-        var query = "INSERT INTO ??(??) VALUES (?)";
-        var table = [tableName, "DESCRIPCION",
-                    req.body.DESCRIPCION];
+        var query = "INSERT INTO " + "\n" +
+                    "   ACCESO_USUARIO (" + "\n" +
+                    "       DESCRIPCION" + "\n" +
+                    "   ) VALUES (" + "\n" +
+                    "       ?" + "\n" +
+                    "   )";
+        var table = [req.body.DESCRIPCION];
         query = mysql.format(query, table);
         printRequest(query);
         connection.query(query, function(err) {
@@ -68,9 +75,13 @@ usuariosAccesoDAO.prototype.handleRoutes = function(router, connection) {
 
     router.put(urlBase, function(req, res) {
         printRequest(urlBase, " put");
-        var query = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
-        var table = [tableName, "DESCRIPCION",
-                    req.body.DESCRIPCION, "ID_ACCESO_USUARIO", req.body.ID_ACCESO_USUARIO];
+        var query = "UPDATE " + "\n" +
+                    "   ACCESO_USUARIO " + "\n" +
+                    "SET " + "\n" +
+                    "   DESCRIPCION = ? " + "\n" +
+                    "WHERE " + "\n" +
+                    "   ID_ACCESO_USUARIO = ?";
+        var table = [req.body.DESCRIPCION, req.body.ID_ACCESO_USUARIO];
         query = mysql.format(query, table);
         printRequest(query);
         connection.query(query, function(err) {
@@ -93,8 +104,13 @@ usuariosAccesoDAO.prototype.handleRoutes = function(router, connection) {
 
     router.get(urlBase + "/:id_acceso_usuario", function(req, res) {
 		printRequest(urlBase + "/:id_acceso_usuario", " get");
-        var query = "SELECT * FROM ?? WHERE ??=?";
-        var table = [tableName, "ID_ACCESO_USUARIO", req.params.id_acceso_usuario];
+        var query = "SELECT " + "\n" +
+                    "   * " + "\n" +
+                    "FROM " + "\n" +
+                    "   ACCESO_USUARIO " + "\n" +
+                    "WHERE " + "\n" +
+                    "   ID_ACCESO_USUARIO=?";
+        var table = [req.params.id_acceso_usuario];
         query = mysql.format(query, table);
         printRequest(query);
         connection.query(query, function(err, rows) {
@@ -118,8 +134,11 @@ usuariosAccesoDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.delete(urlBase + "/:id_acceso_usuario", function(req, res) {
 		printRequest(urlBase + "/:id_acceso_usuario", " delete");
-        var query = "DELETE from ?? WHERE ??=?";
-        var table = [tableName, "ID_ACCESO_USUARIO", req.params.id_acceso_usuario];
+        var query = "DELETE FROM " + "\n" +
+                    "   ACCESO_USUARIO " + "\n" +
+                    "WHERE " + "\n" +
+                    "   ID_ACCESO_USUARIO=?";
+        var table = [req.params.id_acceso_usuario];
         query = mysql.format(query, table);
         printRequest(query);
         connection.query(query, function(err) {

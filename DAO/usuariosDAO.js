@@ -54,8 +54,8 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 					"FROM" + "\n" +
 					"	USUARIO us" + "\n" +
 					"INNER JOIN" + "\n" +
-					"TIPO_USUARIO tipo ON" + "\n" +
-					"	tipo.ID_TIPO_USUARIO = us.FK_TIPO_USUARIO" + "\n" +
+					"	TIPO_USUARIO tipo ON" + "\n" +
+					"		tipo.ID_TIPO_USUARIO = us.FK_TIPO_USUARIO" + "\n" +
 					"WHERE" + "\n" +
 					"	us.IS_ACTIVE = '1'";
 		var table = [];
@@ -70,6 +70,7 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 					"Message": "Error executing MySQL query"
 				});
 			} else {
+				console.info('Success MySQL query');
 				res.json({
 					"Error": false,
 					"Message": "Success",
@@ -114,6 +115,7 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 					"Message": "Error executing MySQL query"
 				});
 			} else {
+				console.info('Success MySQL query');
 				res.json({
 					"Error": false,
 					"Message": "User Added !"
@@ -124,8 +126,13 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 
 	router.get(urlBase + "/:id_usuario", function(req, res) {
 		printRequest(urlBase + " :id_usuario" + " get");
-		var query = "SELECT * FROM ?? WHERE ??=?";
-		var table = [tableName, "ID_USUARIO", req.params.id_usuario];
+		var query = "SELECT " + "\n" +
+					"	* " + "\n" +
+					"FROM " + "\n" +
+					"	USUARIO " + "\n" +
+					"WHERE " + "\n" +
+					"	ID_USUARIO=?";
+		var table = [req.params.id_usuario];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err, rows) {
@@ -137,6 +144,7 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 					"Message": "Error executing MySQL query"
 				});
 			} else {
+				console.info('Success MySQL query');
 				res.json({
 					"Error": false,
 					"Message": "Success",
@@ -148,9 +156,16 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 
 	/*router.get("/authentication/:usuario_email/:usuario_password", function(req, res) {
 		printRequest("/authentication/:usuario_email/:usuario_password" + " get");
-		var query = "SELECT * FROM ?? WHERE ??=? AND ??=?";
-		var table = [tableName, "EMAIL", req.params.usuario_email,
-					"usuario_password", md5(req.params.usuario_password)];
+		var query = "SELECT " + "\n" +
+					"	* " + "\n" +
+					"FROM " + "\n" +
+					"	USUARIO " + "\n" +
+					"WHERE " + "\n" +
+					"	EMAIL=? " + "\n" +
+					"AND " + "\n" +
+					"	USUARIO_PASSWORD=?";
+		var table = [req.params.usuario_email,
+					md5(req.params.usuario_password)];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err, rows) {
@@ -161,6 +176,7 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 					"Message": "Error executing MySQL query"
 				});
 			} else {
+				console.info('Success MySQL query');
 				res.json({
 					"Message": "Success",
 					"Users": rows
@@ -195,6 +211,7 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 					"Message": "Error executing MySQL query"
 				});
 			} else {
+				console.info('Success MySQL query');
 				res.json({
 					"Error": false,
 					"Message": "OK"
@@ -225,6 +242,7 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 					"Message": "Error executing MySQL query"
 				});
 			} else {
+				console.info('Success MySQL query');
 				res.json({
 					"Error": false,
 					"Message": "OK"
