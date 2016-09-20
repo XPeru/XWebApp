@@ -92,7 +92,7 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 			ctrl.modeDetalle = true;
 			ctrl.switchModeDetalle = function() {
 				ctrl.modeDetalle = !ctrl.modeDetalle;
-				$rootScope.toLeft = !$rootScope.toLeft;
+				$rootScope.toLeft = false;
 			};
 
 			ctrl.cancelModeDetalle = function() {
