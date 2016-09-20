@@ -11,7 +11,6 @@ function printRequest(data) {
 	dateGenerator.printInfo(daoName + "\n" + data);
 }
 
-
 ingresoDAO.prototype.handleRoutes = function(router, connection) {
 	var urlBase = "/ingreso";
 	router.get(urlBase + "list", function(req, res) {
@@ -160,6 +159,50 @@ ingresoDAO.prototype.handleRoutes = function(router, connection) {
 				res.json({
 					"Error": false,
 					"Message": "Categoria deleted: " + req.params.id_ingreso
+				});
+			}
+		});
+	});
+
+	var urlBaseDetalle = urlBase + "detalle";
+	router.get(urlBaseDetalle + "list" + "/:id_ingreso", function(req, res) {
+		printRequest(urlBase + "detallelist" + "/:id_ingreso");
+		var query ="SELECT " + "\n" +
+					"	ding.ID_DETALLE_INGRESO, " + "\n" +
+					"	ding.CANTIDAD, " + "\n" +
+					"	ding.PRECIO, " + "\n" +
+					"	ding.FK_ARTICULO, " + "\n" +
+					"	art.CODIGO, " + "\n" +
+					"	art.PRECIO_UNITARIO, " + "\n" +
+					"	art.IMAGEN, " + "\n" +
+					"	ding.FK_ALMACEN, " + "\n" +
+					"	alm.CODIGO" + "\n" +
+					"FROM " + "\n" +
+					"	DETALLE_INGRESO ding " + "\n" +
+					"INNER JOIN ARTICULO art ON " + "\n" +
+					"	art.ID_ARTICULO = ding.FK_ARTICULO " + "\n" +
+					"INNER JOIN ALMACEN alm ON " + "\n" +
+					"	alm.ID_ALMACEN = ding.FK_ALMACEN " + "\n" +
+					"WHERE" + "\n" +
+					"	ding.FK_INGRESO = ? AND" + "\n" +
+					"	ding.IS_ACTIVE = 1";
+		var table = [req.params.id_ingreso];
+		query = mysql.format(query, table);
+		printRequest(query);
+		connection.query(query, function(err, rows) {
+			if (err) {
+				console.info('Error executing MySQL query:' + query);
+				console.info(err.message);
+				res.json({
+					"Error": true,
+					"Message": "Error executing MySQL query"
+				});
+			} else {
+				console.info('Success MySQL query');
+				res.json({
+					"Error": false,
+					"Message": "Success",
+					"DetalleIngreso": rows
 				});
 			}
 		});

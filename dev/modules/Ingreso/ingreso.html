@@ -1,49 +1,99 @@
-<div class="panel panel-default panel-primary">
-	<div class="panel-heading clearfix">
-		<h2 class="panel-title">
-			Ingresos
-			<button ng-click="ingresoCtrl.switchTableMode()" class="pull-right btn btn-small btn-danger btn_separate">
-				 <i ng-if="ingresoCtrl.tableMode" class="fa fa-print" aria-hidden="true"></i> <i ng-if="ingresoCtrl.tableMode" class="fa fa-file-pdf-o" aria-hidden="true"></i> <i ng-if="!ingresoCtrl.tableMode" class="fa fa-long-arrow-left" aria-hidden="true"></i>
-			</button>
-			<button ng-click="ingresoCtrl.openModalIngreso('create', null)" class="btn_separate pull-right btn btn-small btn-success">
-				Nuevo <span><i class="glyphicon glyphicon-plus"></i></span>
-			</button>
-		</h2>
-	</div>
-	<div class="panel-body">
-		<div class="table-responsive" ng-if="ingresoCtrl.tableMode">
-			<table class="table table-striped" ng-table="ingresoCtrl.ingresoTable">
-				<tr ng-repeat="ingreso in $data track by ingreso.ID_INGRESO"
-					ng-click="ingresoCtrl.setSelected(ingreso.ID_INGRESO)"
-					ng-class="{info: ingreso.ID_INGRESO === ingresoCtrl.idSelectedIngreso}">					
-					<!-- <td data-title="'ID'" filter="{ID_INGRESO: 'text'}" sortable="'ID_INGRESO'">{{ingreso.ID_INGRESO}}</td> -->
-					<td data-title="'Codigo de Ingreso'" filter="{CODE_INGRESO: 'text'}" sortable="'CODE_INGRESO'">{{ingreso.CODE_INGRESO}}</td>
-					<td data-title="'Costo Total'" filter="{COSTO_TOTAL: 'text'}" sortable="'COSTO_TOTAL'">{{ingreso.COSTO_TOTAL}}</td>
-					<td data-title="'Usuario creador'" filter="{CREATE_USUARIO: 'text'}" sortable="'CREATE_USUARIO'">{{ingreso.CREATE_USUARIO}}</td>
-					<td data-title="'Fecha de creacion'" filter="{CREATE_TIME: 'text'}" sortable="'CREATE_TIME'">{{ingreso.CREATE_TIME | date: 'dd-MM-yyyy HH:mm'}}</td>
-					<td data-title="'Usuario update'" filter="{UPDATE_USUARIO: 'text'}" sortable="'UPDATE_USUARIO'">{{ingreso.UPDATE_USUARIO | date: 'dd-MM-yyyy HH:mm'}}</td>
-					<td data-title="'Proveedor'" filter="{NOMBRE_PROVEEDOR: 'text'}" sortable="'NOMBRE_PROVEEDOR'">{{ingreso.NOMBRE_PROVEEDOR}}</td>
-					<td data-title="'Tipo de documento'" filter="{DESCRIPCION: 'text'}" sortable="'DESCRIPCION'">{{ingreso.DESCRIPCION}}</td>
-					<td style="width:60px">
-						<button ng-if="ingreso.ID_INGRESO === ingresoCtrl.idSelectedIngreso"
-							ng-click="ingresoCtrl.openModalIngreso('edit', ingreso)"
-							class="btn btn-small btn-primary">
-							<i class="glyphicon glyphicon-pencil"></i>
-						</button>
-					</td>
-					<td style="width:60px">
-						<button ng-if="ingreso.ID_INGRESO === ingresoCtrl.idSelectedIngreso"
-							ng-click="ingresoCtrl.openModalIngreso('delete', ingreso)"
-							class="btn btn-small btn-danger">
-							<i class="glyphicon glyphicon-remove"></i>
-						</button>
-					</td>
-				</tr>
-			</table>
-		</div>
-		<div ng-if="!ingresoCtrl.tableMode" id="gridIngreso" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid">
-		</div>
-	</div>
-</div>
 
+	<div class="panel panel-default panel-primary">
+		<div class="panel-heading clearfix">
+			<h2 class="panel-title">
+				Ingresos
+				<button ng-click="ingresoCtrl.switchTableMode()" class="pull-right btn btn-small btn-danger btn_separate">
+					 <i ng-if="ingresoCtrl.tableMode" class="fa fa-print" aria-hidden="true"></i> <i ng-if="ingresoCtrl.tableMode" class="fa fa-file-pdf-o" aria-hidden="true"></i> <i ng-if="!ingresoCtrl.tableMode" class="fa fa-long-arrow-left" aria-hidden="true"></i>
+				</button>
+				<button ng-click="ingresoCtrl.openModalIngreso('create', null)" class="btn_separate pull-right btn btn-small btn-success">
+					Nuevo <span><i class="glyphicon glyphicon-plus"></i></span>
+				</button>
+			</h2>
+		</div>
+		<div class="panel-body">
+			<div class="table-responsive" ng-if="ingresoCtrl.tableMode">
+				<table class="table table-striped" ng-table="ingresoCtrl.ingresoTable">
+					<tr ng-repeat="ingreso in $data track by ingreso.ID_INGRESO"
+						ng-click="ingresoCtrl.setSelected(ingreso.ID_INGRESO)"
+						ng-class="{info: ingreso.ID_INGRESO === ingresoCtrl.idSelectedIngreso}">					
+						<!-- <td data-title="'ID'" filter="{ID_INGRESO: 'text'}" sortable="'ID_INGRESO'">{{ingreso.ID_INGRESO}}</td> -->
+						<td data-title="'Codigo de Ingreso'" filter="{CODE_INGRESO: 'text'}" sortable="'CODE_INGRESO'">{{ingreso.CODE_INGRESO}}</td>
+						<td data-title="'Costo Total'" filter="{COSTO_TOTAL: 'text'}" sortable="'COSTO_TOTAL'">{{ingreso.COSTO_TOTAL}}</td>
+						<td data-title="'Usuario creador'" filter="{CREATE_USUARIO: 'text'}" sortable="'CREATE_USUARIO'">{{ingreso.CREATE_USUARIO}}</td>
+						<td data-title="'Fecha de creacion'" filter="{CREATE_TIME: 'text'}" sortable="'CREATE_TIME'">{{ingreso.CREATE_TIME | date: 'dd-MM-yyyy HH:mm'}}</td>
+						<td data-title="'Usuario update'" filter="{UPDATE_USUARIO: 'text'}" sortable="'UPDATE_USUARIO'">{{ingreso.UPDATE_USUARIO | date: 'dd-MM-yyyy HH:mm'}}</td>
+						<td data-title="'Proveedor'" filter="{NOMBRE_PROVEEDOR: 'text'}" sortable="'NOMBRE_PROVEEDOR'">{{ingreso.NOMBRE_PROVEEDOR}}</td>
+						<td data-title="'Tipo de documento'" filter="{DESCRIPCION: 'text'}" sortable="'DESCRIPCION'">{{ingreso.DESCRIPCION}}</td>
+						<td style="width:60px">
+							<button ng-if="ingreso.ID_INGRESO === ingresoCtrl.idSelectedIngreso"
+								ng-click="ingresoCtrl.openModalIngreso('edit', ingreso)"
+								class="btn btn-small btn-primary">
+								<i class="glyphicon glyphicon-pencil"></i>
+							</button>
+						</td>
+						<td style="width:60px">
+							<button ng-if="ingreso.ID_INGRESO === ingresoCtrl.idSelectedIngreso"
+								ng-click="ingresoCtrl.openModalIngreso('delete', ingreso)"
+								class="btn btn-small btn-danger">
+								<i class="glyphicon glyphicon-remove"></i>
+							</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div ng-if="!ingresoCtrl.tableMode" id="gridIngreso" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid">
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid" ng-class="{'col-xs-6': !ingresoCtrl.modeDetalle}" ng-if="!ingresoCtrl.modeDetalle">
+		<div class="panel panel-default panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Articulos
+				</h3>
+			</div>
+			<div class="panel-body">
+				<div class="table-responsive">
+					<table class="table table-striped" ng-table="articulosCtrl.articlesTable" show-filter="true">
+						<tr ng-repeat="articulo in $data track by articulo.ID_ARTICULO"
+							ng-click="articulosCtrl.setSelected(articulo.ID_ARTICULO)"
+							ng-class="{info: articulo.ID_ARTICULO === articulosCtrl.idSelectedArticulo}">
+							<td data-title="'Imagen'"><img class="img-thumbnail" ng-src={{articulo.IMAGEN}} width="100" height="100"></td>
+							<td data-title="'Codigo'" filter="{CODIGO: 'text'}" sortable="'CODIGO'">{{articulo.CODIGO}}</td>
+							<td data-title="'Unidad'" filter="{UNIDAD: 'text'}" sortable="'UNIDAD'">{{articulo.UNIDAD}}</td>
+							<td data-title="'Categoria'" filter="{CATEGORIA: 'text'}" sortable="'CATEGORIA'">{{articulo.CATEGORIA}}</td>
+						</tr>
+
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div ng-class="{'col-xs-6': !ingresoCtrl.modeDetalle}">
+		<div class="panel panel-default panel-primary"
+				ng-if="ingresoCtrl.idSelectedIngreso">
+			<div class="panel-heading clearfix">
+				<h2 class="panel-title">
+					Detalles del ingreso
+					<button ng-if="!ingresoCtrl.modeDetalle" ng-click="ingresoCtrl.cancelModeDetalle()" class="btn_separate pull-right btn btn-small btn-danger">
+						<span><i class="fa fa-times" aria-hidden="true"></i></span>
+					</button>
+					<button ng-click="ingresoCtrl.switchModeDetalle()" class="pull-right btn btn-small btn-success btn_separate">
+						 <i ng-if="ingresoCtrl.modeDetalle" class="fa fa-pencil-square-o" aria-hidden="true"></i><i ng-if="!ingresoCtrl.modeDetalle" class="fa fa-check" aria-hidden="true"></i>
+					</button>
+				</h2>
+			</div>
+			<div class="panel-body">
+				<div class="table-responsive" ng-if="ingresoCtrl.modeDetalle">
+					<table class="table table-striped" ng-table="ingresoCtrl.ingresoTable">
+						<tr ng-repeat="detalleIngreso in $data track by detalleIngreso.ID_DETALLE_INGRESO">
+							<td data-title="'Codigo de Ingreso'" filter="{CODE_INGRESO: 'text'}" sortable="'CODE_INGRESO'">{{ingreso.CODE_INGRESO}}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 

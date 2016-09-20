@@ -10,9 +10,9 @@
 	</div>
 	<ul class="nav navbar-top-links navbar-left buttonhide">
 		<li class="dropdown" aria-expanded="true">
-			<a class="dropdown-toggle" data-toggle="dropdown" ng-click="topbarCtrl.showLateralMenu()">
-				<i ng-if="!topbarCtrl.lateralMenu"class="glyphicon glyphicon-resize-full"></i>
-				<i ng-if="topbarCtrl.lateralMenu"class="glyphicon glyphicon-resize-small"></i>
+			<a class="dropdown-toggle" data-toggle="dropdown" ng-click="topbarCtrl.showLateralMenu()"><!--toLeft is a variable in $rootScope-->
+				<i ng-if="!toLeft"class="glyphicon glyphicon-resize-full"></i>
+				<i ng-if="toLeft"class="glyphicon glyphicon-resize-small"></i>
 			</a>
 		</li>
 	</ul>
@@ -103,8 +103,8 @@
 		</li>
 		<!-- /.dropdown -->
 	</ul>
-
-	<div ng-show="topbarCtrl.lateralMenu" class="navbar-default sidebar navbar-inverse" role="navigation">
+	<!--toLeft is a variable in $rootScope-->
+	<div ng-show="toLeft" class="navbar-default sidebar navbar-inverse" role="navigation">
 		<div class="sidebar-nav navbar-collapse collapse" aria-expanded="false" id="leftbarToCollapse">
 			<ul class="nav in" id="menu">
 				<li class="sidebar-search">

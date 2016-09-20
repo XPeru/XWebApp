@@ -5,6 +5,7 @@ angular.module('ingresoService', ['ngResource'])
 		function($http) {
 			var service = {};
 			var urlBase = '/api/ingreso';
+			var urlBaseDetalle = urlBase + "detalle";
 
 			service.getAllIngreso = function() {
 				return $http.get(urlBase + 'list');
@@ -24,6 +25,10 @@ angular.module('ingresoService', ['ngResource'])
 
 			service.deleteIngreso = function(id_ingreso) {
 				return $http.delete(urlBase + '/' + id_ingreso);
+			};
+
+			service.getDetalleIngreso = function(id_ingreso) {
+				return $http.get(urlBaseDetalle + 'list' + '/' + id_ingreso);
 			};
 
 			return service;

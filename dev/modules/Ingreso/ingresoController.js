@@ -2,16 +2,17 @@
 
 angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.grid.selection'])
 	.controller('ingresoController', ['$scope',
-													'$location',
-													'$http',
-													'$uibModal',
-													'$timeout',
-													'IngresoServiceFactory',
-													'TipoDocumentoServiceFactory',
-													'ProveedorServiceFactory',
-													'NgTableParams',
-													'i18nService',
-		function($scope, $location, $http, $uibModal, $timeout, IngresoServiceFactory, TipoDocumentoServiceFactory, ProveedorServiceFactory, NgTableParams, i18nService) {
+									'$rootScope',
+									'$location',
+									'$http',
+									'$uibModal',
+									'$timeout',
+									'IngresoServiceFactory',
+									'TipoDocumentoServiceFactory',
+									'ProveedorServiceFactory',
+									'NgTableParams',
+									'i18nService',
+		function($scope, $rootScope, $location, $http, $uibModal, $timeout, IngresoServiceFactory, TipoDocumentoServiceFactory, ProveedorServiceFactory, NgTableParams, i18nService) {
 			var ctrl = this;
 			ctrl.tableMode = true;
 			ctrl.switchTableMode = function() {
@@ -75,9 +76,34 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 			};
 			ctrl.callGetAllIngreso();
 
+			ctrl.detalleIngresoData = [{}];
+			ctrl.callGetDetalleIngreso = function(id_ingreso) {
+				IngresoServiceFactory.getDetalleIngreso(id_ingreso).then(function(response) {
+					ctrl.detalleIngresoData = response.data.DetalleIngreso;
+					ctrl.detalleIngresoTable = new NgTableParams({
+						page: 1,
+						count: 10
+					}, {
+						data: ctrl.detalleIngresoData
+					});
+				});
+			};
+
+			ctrl.modeDetalle = true;
+			ctrl.switchModeDetalle = function() {
+				ctrl.modeDetalle = !ctrl.modeDetalle;
+				$rootScope.toLeft = !$rootScope.toLeft;
+			};
+
+			ctrl.cancelModeDetalle = function() {
+				ctrl.modeDetalle = true;
+				$rootScope.toLeft = true;
+			};
+
 			ctrl.idSelectedIngreso = null;
 			ctrl.setSelected = function(idSelectedIngreso) {
 				ctrl.idSelectedIngreso = idSelectedIngreso;
+				ctrl.callGetDetalleIngreso(idSelectedIngreso);
 			};
 
 			ctrl.openModalIngreso = function(selected_modal, selectedIngreso) {
