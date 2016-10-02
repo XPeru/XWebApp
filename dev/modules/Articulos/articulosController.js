@@ -46,16 +46,16 @@ angular.module('Articulos', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.g
 				}
 			};
 
-		ctrl.articlesData = [{}];
+		ctrl.articulosData = [{}];
 		ctrl.callGetArticuloList = function() {
 			ArticulosServiceFactory.getArticuloList().then(function(response) {
-				ctrl.articlesData = response.data.Articulos;
+				ctrl.articulosData = response.data.Articulos;
 				$scope.gridOptions.data = response.data.Articulos;
 				ctrl.articlesTable = new NgTableParams({
 					page: 1,
 					count: 10
 				}, {
-					data : ctrl.articlesData
+					data : ctrl.articulosData
 				});
 			});
 		};

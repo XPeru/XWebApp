@@ -10,9 +10,10 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 									'IngresoServiceFactory',
 									'TipoDocumentoServiceFactory',
 									'ProveedorServiceFactory',
+									'ArticulosServiceFactory',
 									'NgTableParams',
 									'i18nService',
-		function($scope, $rootScope, $location, $http, $uibModal, $timeout, IngresoServiceFactory, TipoDocumentoServiceFactory, ProveedorServiceFactory, NgTableParams, i18nService) {
+		function($scope, $rootScope, $location, $http, $uibModal, $timeout, IngresoServiceFactory, TipoDocumentoServiceFactory, ProveedorServiceFactory, ArticulosServiceFactory, NgTableParams, i18nService) {
 			var ctrl = this;
 			ctrl.tableMode = true;
 			ctrl.switchTableMode = function() {
@@ -89,6 +90,28 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 				});
 			};
 
+			ctrl.articuloData = [{}];
+			ctrl.callGetArticuloList = function() {
+				ArticulosServiceFactory.getArticuloList().then(function(response) {
+					ctrl.articuloData = response.data.Articulos;
+					ctrl.articuloTable = new NgTableParams({
+						page: 1,
+						count: 10
+					}, {
+						data : ctrl.articuloData
+					});
+				});
+			};
+			ctrl.callGetArticuloList();
+
+			ctrl.detalleIngresoEditData = [];
+			ctrl.detalleIngresoEditTable = new NgTableParams({
+				page: 1,
+				count: 10
+			}, {
+				data : ctrl.detalleIngresoEditData
+			});
+
 			ctrl.modeDetalle = true;
 			ctrl.switchModeDetalle = function() {
 				ctrl.modeDetalle = !ctrl.modeDetalle;
@@ -98,12 +121,30 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 			ctrl.cancelModeDetalle = function() {
 				ctrl.modeDetalle = true;
 				$rootScope.toLeft = true;
+				ctrl.callGetArticuloList();
+				ctrl.detalleIngresoEditData.splice(0, ctrl.detalleIngresoEditData.length);
+				ctrl.detalleIngresoEditTable.reload();
 			};
 
 			ctrl.idSelectedIngreso = null;
 			ctrl.setSelected = function(idSelectedIngreso) {
 				ctrl.idSelectedIngreso = idSelectedIngreso;
 				ctrl.callGetDetalleIngreso(idSelectedIngreso);
+			};
+
+			ctrl.idSelectedArticulo = null;
+			ctrl.setSelectedArticulo = function(idSelectedArticulo) {
+				ctrl.idSelectedArticulo = idSelectedArticulo;
+			};
+
+			ctrl.insertIntoDetalleTable = function(articulo) {
+				var index = ctrl.articuloData.indexOf(articulo);
+				if (index > -1) {
+					ctrl.articuloData.splice(index, 1);
+				}
+				ctrl.articuloTable.reload();
+				ctrl.detalleIngresoEditData.push(articulo);
+				ctrl.detalleIngresoEditTable.reload();
 			};
 
 			ctrl.openModalIngreso = function(selected_modal, selectedIngreso) {

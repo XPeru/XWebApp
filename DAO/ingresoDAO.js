@@ -172,11 +172,11 @@ ingresoDAO.prototype.handleRoutes = function(router, connection) {
 					"	ding.CANTIDAD, " + "\n" +
 					"	ding.PRECIO, " + "\n" +
 					"	ding.FK_ARTICULO, " + "\n" +
-					"	art.CODIGO, " + "\n" +
+					"	art.CODIGO AS CODIGO_ARTICULO, " + "\n" +
 					"	art.PRECIO_UNITARIO, " + "\n" +
 					"	art.IMAGEN, " + "\n" +
 					"	ding.FK_ALMACEN, " + "\n" +
-					"	alm.CODIGO" + "\n" +
+					"	alm.CODIGO AS CODIGO_ALMACEN" + "\n" +
 					"FROM " + "\n" +
 					"	DETALLE_INGRESO ding " + "\n" +
 					"INNER JOIN ARTICULO art ON " + "\n" +
