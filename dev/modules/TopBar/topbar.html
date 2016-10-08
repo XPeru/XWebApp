@@ -11,8 +11,8 @@
 	<ul class="nav navbar-top-links navbar-left buttonhide">
 		<li class="dropdown" aria-expanded="true">
 			<a class="dropdown-toggle" data-toggle="dropdown" ng-click="topbarCtrl.showLateralMenu()"><!--toLeft is a variable in $rootScope-->
-				<i ng-if="!toLeft"class="glyphicon glyphicon-resize-full"></i>
-				<i ng-if="toLeft"class="glyphicon glyphicon-resize-small"></i>
+				<big><i ng-if="!toLeft"class="glyphicon glyphicon-resize-full"></i>
+				<i ng-if="toLeft"class="glyphicon glyphicon-resize-small"></i></big>
 			</a>
 		</li>
 	</ul>
@@ -244,14 +244,14 @@
 								ng-click="topbarCtrl.setSelectedMenu('tipopersona')"
 								ng-class="{active: topbarCtrl.selectedMenu === 'tipopersona'}"
 								href='tipopersona'>
-								<i class="glyphicon glyphicon-cog"></i> Tipos de Persona
+								<big><i class="glyphicon glyphicon-cog"></i></big> Tipos de Persona
 							</a>
 						</li>
 					</ul>
 					<!-- /.nav-second-level -->
 				</li>
 				<li>
-					<a><i class="glyphicon glyphicon-transfer"></i> Movimientos<span class="fa arrow"></span></a>
+					<a><big><big><i class="glyphicon glyphicon-transfer"></i> Movimientos</big></big><span class="fa arrow"></span></a>
 					<ul class="nav nav-second-level">
 						<li>
 							<a ui-sref="app.ingreso"
