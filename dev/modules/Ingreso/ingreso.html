@@ -1,5 +1,5 @@
 
-<div class="panel panel-default panel-primary">
+<div class="panel panel-default" ng-class="{'panel-primary': !ingresoCtrl.modeEditDetalle, 'panel-warning': ingresoCtrl.modeEditDetalle}">
 	<div class="panel-heading clearfix">
 		<h2 class="panel-title">
 			Ingresos
@@ -27,15 +27,17 @@
 					<td data-title="'Tipo de documento'" filter="{DESCRIPCION: 'text'}" sortable="'DESCRIPCION'">{{ingreso.DESCRIPCION}}</td>
 					<td style="width:60px">
 						<button ng-if="ingreso.ID_INGRESO === ingresoCtrl.idSelectedIngreso"
-							ng-click="ingresoCtrl.openModalIngreso('edit', ingreso)"
-							class="btn btn-small btn-primary">
+								ng-click="ingresoCtrl.openModalIngreso('edit', ingreso)"
+								ng-disabled="ingresoCtrl.modeEditDetalle"
+								class="btn btn-small btn-primary">
 							<i class="glyphicon glyphicon-pencil"></i>
 						</button>
 					</td>
 					<td style="width:60px">
 						<button ng-if="ingreso.ID_INGRESO === ingresoCtrl.idSelectedIngreso"
-							ng-click="ingresoCtrl.openModalIngreso('delete', ingreso)"
-							class="btn btn-small btn-danger">
+								ng-click="ingresoCtrl.openModalIngreso('delete', ingreso)"
+								ng-disabled="ingresoCtrl.modeEditDetalle"
+								class="btn btn-small btn-danger">
 							<i class="glyphicon glyphicon-remove"></i>
 						</button>
 					</td>
@@ -78,11 +80,11 @@
 		<div class="panel-heading clearfix">
 			<h2 class="panel-title">
 				Detalles del ingreso
-				<button ng-if="!ingresoCtrl.modeEditDetalle" ng-click="ingresoCtrl.cancelModeDetalle()" class="btn_separate pull-right btn btn-small btn-danger">
+				<button ng-if="ingresoCtrl.modeEditDetalle" ng-click="ingresoCtrl.cancelModeDetalle()" class="btn_separate pull-right btn btn-small btn-danger">
 					<span><i class="fa fa-times" aria-hidden="true"></i></span>
 				</button>
 				<button ng-click="ingresoCtrl.switchModeDetalle()" class="pull-right btn btn-small btn-success btn_separate">
-					 <i ng-if="ingresoCtrl.modeEditDetalle" class="fa fa-pencil-square-o" aria-hidden="true"></i><i ng-if="!ingresoCtrl.modeEditDetalle" class="fa fa-check" aria-hidden="true"></i>
+					 <i ng-if="!ingresoCtrl.modeEditDetalle" class="fa fa-pencil-square-o" aria-hidden="true"></i><i ng-if="ingresoCtrl.modeEditDetalle" class="fa fa-check" aria-hidden="true"></i>
 				</button>
 			</h2>
 		</div>
