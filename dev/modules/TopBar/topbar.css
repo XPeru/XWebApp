@@ -65,12 +65,10 @@
 	padding: 15px;
 }
 
-.sidebar ul li {
-	border-bottom: 1px solid #000000;
-}
 
 .sidebar ul li a.active {
-	background-color: #000000;
+	/*background-color: #141617;*/
+	background-image: -webkit-gradient(linear, left 0%, left 100%, from(#9fd4ef), to(#73c1e8));
 }
 .sidebar ul li .accordion-toogle .collapsed { 
 	font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
@@ -120,7 +118,7 @@
 
 .sidebar {
 	min-height: 100%;
-	color: #aaa;
+	/*color: #aaa;*/
 }
 
 .sidebar.ng-hide-add, .sidebar.ng-hide-remove {
