@@ -112,14 +112,21 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 				data : ctrl.detalleIngresoEditData
 			});
 
-			ctrl.modeDetalle = true;
+			ctrl.modeEditDetalle = false;
 			ctrl.switchModeDetalle = function() {
-				ctrl.modeDetalle = !ctrl.modeDetalle;
+				ctrl.modeEditDetalle = !ctrl.modeEditDetalle;
 				$rootScope.toLeft = false;
+				// La copia de abajo no funciona
+				//ctrl.detalleIngresoEditData = ctrl.detalleIngresoData.slice(0);
+				var temporal = ctrl.detalleIngresoData.map(function(detIng) { 
+					ctrl.detalleIngresoEditData.push(detIng);
+					return detIng; 
+				});
+				ctrl.detalleIngresoEditTable.reload();
 			};
 
 			ctrl.cancelModeDetalle = function() {
-				ctrl.modeDetalle = true;
+				ctrl.modeEditDetalle = false;
 				$rootScope.toLeft = true;
 				ctrl.callGetArticuloList();
 				ctrl.detalleIngresoEditData.splice(0, ctrl.detalleIngresoEditData.length);
@@ -128,8 +135,10 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 
 			ctrl.idSelectedIngreso = null;
 			ctrl.setSelected = function(idSelectedIngreso) {
-				ctrl.idSelectedIngreso = idSelectedIngreso;
-				ctrl.callGetDetalleIngreso(idSelectedIngreso);
+				if(!ctrl.modeEditDetalle) {
+					ctrl.idSelectedIngreso = idSelectedIngreso;
+					ctrl.callGetDetalleIngreso(idSelectedIngreso);	
+				}
 			};
 
 			ctrl.idSelectedArticulo = null;
