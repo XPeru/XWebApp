@@ -1,8 +1,8 @@
 
 <div class="panel panel-default" ng-class="{'panel-primary': !ingresoCtrl.modeEditDetalle, 'panel-warning': ingresoCtrl.modeEditDetalle}">
 	<div class="panel-heading clearfix">
-		<h2 class="panel-title">
-			Ingresos
+		<h1 class="panel-title">
+			<b><big>Ingresos</big></b>
 			<button ng-click="ingresoCtrl.switchTableMode()" class="pull-right btn btn-small btn-danger btn_separate" ng-disabled="ingresoCtrl.modeEditDetalle">
 				 <i ng-if="ingresoCtrl.tableMode" class="fa fa-print" aria-hidden="true"></i> <i ng-if="ingresoCtrl.tableMode" class="fa fa-file-pdf-o" aria-hidden="true"></i> <i ng-if="!ingresoCtrl.tableMode" class="fa fa-long-arrow-left" aria-hidden="true"></i>
 			</button>
@@ -46,6 +46,10 @@
 		</div>
 		<div ng-if="!ingresoCtrl.tableMode" id="gridIngreso" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid">
 		</div>
+	</div>
+	<div class="panel-footer">
+		.
+		<div class="pull-right">Numero de lineas a mostrar <i class="fa fa-level-up" aria-hidden="true"></i></div>
 	</div>
 </div>
 
