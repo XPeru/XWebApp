@@ -46,7 +46,13 @@
 					ng-options="obj.ID_PROVEEDOR_CLIENTE as obj.NOMBRE for obj in modalIngresoCtrl.proveedorList">
 			</select>
 		</div>
+		
 
+		
+		<div class="form-group">
+			<label for="fechaIngreso"> Fecha de ingreso</label>
+			<div uib-datepicker ng-model="modalIngresoCtrl.createdIngreso.FECHA_INGRESO" class="well well-sm" datepicker-options="options"></div>
+		</div>
 
 
 		<div class="form-group">

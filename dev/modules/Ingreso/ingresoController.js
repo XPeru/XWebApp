@@ -38,6 +38,7 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 			i18nService.setCurrentLang('es');
 			$scope.columns = [{ field: 'CODE_INGRESO', headerCellClass: 'blue'},
 								{ field: 'COSTO_TOTAL', headerCellClass: 'blue'},
+								{ field: 'FECHA_INGRESO', headerCellClass: 'blue'},
 								{ field: 'CREATE_USUARIO', headerCellClass: 'blue'},
 								{ field: 'CREATE_TIME', headerCellClass: 'blue'},
 								{ field: 'UPDATE_USUARIO', headerCellClass: 'blue'},
@@ -46,11 +47,12 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 
 			$scope.columns[0].displayName = 'Codigo de Ingreso';
 			$scope.columns[1].displayName = 'Costo Total';
-			$scope.columns[2].displayName = 'Usuario creador';
-			$scope.columns[3].displayName = 'Fecha de creacion';
-			$scope.columns[4].displayName = 'Usuario update';
-			$scope.columns[5].displayName = 'Proveedor';
-			$scope.columns[6].displayName = 'Tipo de documento';
+			$scope.columns[2].displayName = 'Fecha de Ingreso';
+			$scope.columns[3].displayName = 'Usuario creador';
+			$scope.columns[4].displayName = 'Fecha de creacion';
+			$scope.columns[5].displayName = 'Usuario update';
+			$scope.columns[6].displayName = 'Proveedor';
+			$scope.columns[7].displayName = 'Tipo de documento';
 			$scope.gridOptions = {
 				exporterMenuCsv: false,
 				enableGridMenu: true,

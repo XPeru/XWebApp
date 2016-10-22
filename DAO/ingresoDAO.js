@@ -28,7 +28,8 @@ ingresoDAO.prototype.handleRoutes = function(router, connection) {
 					"	ing.FK_PROVEEDOR, " + "\n" +
 					"	cp.NOMBRE AS NOMBRE_PROVEEDOR, " + "\n" +
 					"	ing.FK_TIPO_DOCUMENTO, " + "\n" +
-					"	tdoc.DESCRIPCION" + "\n" +
+					"	tdoc.DESCRIPCION," + "\n" +
+					"	ing.FECHA_INGRESO" + "\n" +
 					"FROM " + "\n" +
 					"	INGRESO ing " + "\n" +
 					"INNER JOIN USUARIO us ON " + "\n" +
@@ -70,22 +71,25 @@ ingresoDAO.prototype.handleRoutes = function(router, connection) {
 					"		FK_CREATE_USUARIO," + "\n" +
 					"		CREATE_TIME," + "\n" +
 					"		FK_PROVEEDOR," + "\n" +
-					"		FK_TIPO_DOCUMENTO" + "\n" +
+					"		FK_TIPO_DOCUMENTO," + "\n" +
+					"		FECHA_INGRESO" + "\n" +
 					"	)" + "\n" + 
 					"VALUES (" + "\n" +
 					"	?," + "\n" +
 					"	?," + "\n" +
 					"	?," + "\n" +
-					"	CURRENT_TIMESTAMP," + "\n" +
+					"	CURRENT_TIMESTAMP," + "\n" + // use CURDATE() for current date
 					"	?," + "\n" +
-					"	?" + "\n" +
+					"	?," + "\n" +
+					"	SUBSTR(?, 1, 10)" + "\n" + // TODO fix this!!
 					")";
 		var table = [
 					req.body.CODE_INGRESO,
 					0,
 					1, // here should be req.body.FK_CREATE_USUARIO
 					req.body.FK_PROVEEDOR,
-					req.body.FK_TIPO_DOCUMENTO];
+					req.body.FK_TIPO_DOCUMENTO,
+					req.body.FECHA_INGRESO];
 		query = mysql.format(query, table);
 		printRequest(query);
 		connection.query(query, function(err) {
@@ -111,11 +115,14 @@ ingresoDAO.prototype.handleRoutes = function(router, connection) {
 		var query = "UPDATE " + "\n" +
 					"	INGRESO " + "\n" +
 					"SET " + "\n" +
-					"	COSTO_TOTAL = ?" + "\n" +
+					"	COSTO_TOTAL = ?," + "\n" +
+					"	FECHA_INGRESO = ?," + "\n" +
+					"	UPDATE_TIME = CURRENT_TIMESTAMP," + "\n" +
 					"WHERE" + "\n" +
 					"	ID_INGRESO = ?";
 		var table = [
 					req.body.COSTO_TOTAL, 
+					req.body.FECHA_INGRESO,
 					req.body.ID_INGRESO];
 		query = mysql.format(query, table);
 		printRequest(query);

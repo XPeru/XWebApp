@@ -17,9 +17,9 @@
 				<tr ng-repeat="ingreso in $data track by ingreso.ID_INGRESO"
 					ng-click="ingresoCtrl.setSelected(ingreso.ID_INGRESO)"
 					ng-class="{info: ingreso.ID_INGRESO === ingresoCtrl.idSelectedIngreso}">					
-					<!-- <td data-title="'ID'" filter="{ID_INGRESO: 'text'}" sortable="'ID_INGRESO'">{{ingreso.ID_INGRESO}}</td> -->
 					<td data-title="'Codigo de Ingreso'" filter="{CODE_INGRESO: 'text'}" sortable="'CODE_INGRESO'">{{ingreso.CODE_INGRESO}}</td>
 					<td data-title="'Costo Total'" filter="{COSTO_TOTAL: 'text'}" sortable="'COSTO_TOTAL'">{{ingreso.COSTO_TOTAL}}</td>
+					<td data-title="'Fecha de ingreso'" filter="{FECHA_INGRESO: 'text'}" sortable="'FECHA_INGRESO'">{{ingreso.FECHA_INGRESO | date: 'dd-MM-yyyy'}}</td>
 					<td data-title="'Usuario creador'" filter="{CREATE_USUARIO: 'text'}" sortable="'CREATE_USUARIO'">{{ingreso.CREATE_USUARIO}}</td>
 					<td data-title="'Fecha de creacion'" filter="{CREATE_TIME: 'text'}" sortable="'CREATE_TIME'">{{ingreso.CREATE_TIME | date: 'dd-MM-yyyy HH:mm'}}</td>
 					<td data-title="'Usuario update'" filter="{UPDATE_USUARIO: 'text'}" sortable="'UPDATE_USUARIO'">{{ingreso.UPDATE_USUARIO | date: 'dd-MM-yyyy HH:mm'}}</td>
