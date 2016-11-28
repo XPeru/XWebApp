@@ -7,6 +7,8 @@ AngularJS es el framework lado cliente de moda de los ultimos años, simplifica 
 
 Boostrap es la libreria mas conocida para Responsive Design, ademas de esto contiene componentes dinamicos practicos y faciles de integrar, esta libreria tambien tiene modulos desarrollados por la comunidad para trabajar con AngularJS.
 
+Este readme supone ser una guia para instalar todas las herramientas necesarias para el proyecto, en un futuro tambien desarrollaremos un script que instale todas las herramientas de un tiro.
+
 ## MySQL
 A pesar de ser una base de datos Open Source, tiene versiones comerciales (bastante caras), pero asi como se indica en su sitio web, existe una version gratuita, MySQL Community Edition. Pero existen varios productos:
 * MySQL Community Server 
@@ -16,19 +18,30 @@ A pesar de ser una base de datos Open Source, tiene versiones comerciales (basta
 * MySQL Workbench
 * MySQL Proxy
 * http://dev.mysql.com/downloads/mysql/
-De estos solo vamos a utilizar dos, el MySQL Community Server que es la base de datos (si, la base de datos en si misma, es un servidor) y el MySQL Workbench que es un software que permite conectarse a la base de datos, ejecutar queries, y ademas permite diseñar de manera grafica las tablas de la base de datos.
+* De estos solo vamos a utilizar dos, el MySQL Community Server que es la base de datos (si, la base de datos en si misma, es un servidor) y el MySQL Workbench que es un software que permite conectarse a la base de datos, ejecutar queries, y ademas permite diseñar de manera grafica las tablas de la base de datos.
 
-### Instalador Windows de todas las herramientas:
+### Instalador Windows de todas las herramientas MySQL:
 Basta con seleccionar las versiones de 64 bits de ambos productos mencionados arriba.
 http://dev.mysql.com/downloads/windows/installer/5.6.html
 
+## Node.js
+Es necesario instalar Node.js para que podamos arrancar nuestro servidor en local, node viene con una herramienta llamada npm, que funciona como un gestor de librerias, permite descargarlas automaticamente, usa un archivo llamado package.json para guardar cuales son las librerias a descargar.
+* Tutorial
+* https://www.youtube.com/watch?v=EY9uY1rxazk&list=PL6gx4Cwl9DGBMdkKFn3HasZnnAqVjzHn_&index=18
+* Instalar node y npm https://docs.npmjs.com/getting-started/installing-node
+
+## Git
+GitHub esta basado en git para la gestion de versiones, por lo tanto es necesario instalarlo antes. Es importante tambien manejar los comandos gits.
+* https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+
+## Bower
+Bower tambien es un gestor de librerias al igual que npm, decidimos usar ambos para mantener separadas las librerias de la parte cliente de la parte servidor. Este funciona de manera similar a npm, utiliza un archivo llamado bower.json para saber cuales son las librerias a instalar. Bower se instala via un comando en npm. Bower va a manejar las librerias de la parte cliente, es decir AngularJS, Bootstrap y demas modulos cliente.
+* https://bower.io/
+
 ## Conectando Node.js y MySQL
+Este es el tutorial que utilizamos para que comnuniquen NodeJS y MySQL, basta leer el archivo server.js para entender su uso dentro del proyecto.
 https://codeforgeek.com/2015/01/nodejs-mysql-tutorial/
 
-## Tutorial sobre Node.js
-https://www.youtube.com/watch?v=EY9uY1rxazk&list=PL6gx4Cwl9DGBMdkKFn3HasZnnAqVjzHn_&index=18
+## Herramientas para el futuro
+Este proyecto aun esta en formacion, aun nos faltan muchas herramientas por integrar, tales como Grunt.js para la minifizacion, uglyfizacion de los archivos javascript,css y generar la version comercial de la aplicacion. Jasmine para los test automatizados de angularjs, Less o Sass para simplificar la escritura del codigo css, Yeoman para el uso de scripts generadores de codigo.
 
-## Instalacion From Scratch
-* Instalar node y npm https://docs.npmjs.com/getting-started/installing-node
-* Instalar bower http://bower.io/#install-bower
-* Instalar un mysql community server y mysql workbench
