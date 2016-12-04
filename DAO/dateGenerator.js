@@ -1,7 +1,7 @@
 
 
-
-exports.printInfo = function(text) {
+var colors = require("colors");
+exports.printInfo = function(text, color) {
     var objToday = new Date(),
                 weekday = new Array('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'),
                 dayOfWeek = weekday[objToday.getDay()],
@@ -15,7 +15,20 @@ exports.printInfo = function(text) {
                 curSeconds = objToday.getSeconds() < 10 ? "0" + objToday.getSeconds() : objToday.getSeconds(),
                 curMeridiem = objToday.getHours() > 12 ? "PM" : "AM";
     var today = curHour + ":" + curMinute + "." + curSeconds + curMeridiem + " " + dayOfWeek + " " + dayOfMonth + " of " + curMonth + ", " + curYear;
-   return console.info(today + " " + text);
+    var res = today + " " + text;
+    switch(color) {
+        case "yellow":
+            return console.info(colors.yellow(res));
+        case "red":
+            return console.info(colors.red(res));
+        case "magenta":
+            return console.info(colors.magenta(res));
+        case "cyan":
+            return console.info(colors.cyan(res));
+        default:
+            return console.info(colors.green(res));
+    }
+   
 };
 
 

@@ -8,6 +8,8 @@ var bodyParser = require("body-parser");
 var favicon = require("serve-favicon");
 // I don't know :)
 var md5 = require('MD5');
+
+var colors = require('colors');
 // The rest.js contains all the routes for the server, it should be composed by many others files
 // One file per application service
 var restUsuarios = require("./DAO/usuariosDAO.js");
@@ -79,12 +81,12 @@ REST.prototype.configureExpress = function(connection) {
 
 REST.prototype.startServer = function() {
     app.listen(8071, function() {
-        console.log("All right ! I am alive at Port 8071.");
+        console.log(colors.green("All right ! I am alive at Port 8071."));
     });
 };
 
 REST.prototype.stop = function(err) {
-    console.log("ISSUE WITH MYSQL \n" + err);
+    console.log(colors.red("ISSUE WITH MYSQL \n" + err));
     process.exit(1);
 };
 

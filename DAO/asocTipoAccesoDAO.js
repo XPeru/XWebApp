@@ -8,16 +8,15 @@ function assocTipoAccesoDAO(router, connection) {
 	dateGenerator.printInfo(daoName + " agregado correctamente");
 }
 
-function printRequest(data) {
-	dateGenerator.printInfo(daoName + "\n" + data);
+function printRequest(data, color) {
+	dateGenerator.printInfo(daoName + "\n" + data, color);
 }
 
 assocTipoAccesoDAO.prototype.handleRoutes = function(router, connection) {
-	var tableName = "ASOC_TIPO_ACCESO";
 	var urlBase = "/asoctipoacceso";
 
 	router.get(urlBase + "/:id_tipo_usuario", function(req, res) {
-		printRequest(urlBase + "/:id_tipo_usuario", " GET");
+		printRequest(urlBase + "/:id_tipo_usuario" + " GET", "cyan");
 		var query = "SELECT " + "\n" +
 					"	acc.ID_ACCESO_USUARIO, " + "\n" +
 					"	acc.DESCRIPCION" + "\n" +
@@ -29,16 +28,17 @@ assocTipoAccesoDAO.prototype.handleRoutes = function(router, connection) {
 					"	asso.FK_TIPO_USUARIO = ?";
 		var table = [req.params.id_tipo_usuario];
 		query = mysql.format(query, table);
-		printRequest(query);
+		printRequest(query, "cyan");
 		connection.query(query, function(err, rows) {
 			if (err) {
-				console.info('Error executing MySQL query:' + query);
-				console.info(err.message);
+				printRequest('Error executing MySQL query:' + query, "red");
+				printRequest(err.message, "red");
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
 				});
 			} else {
+				printRequest('Success MySQL query');
 				res.json({
 					"Error": false,
 					"Message": "Success",
@@ -49,23 +49,24 @@ assocTipoAccesoDAO.prototype.handleRoutes = function(router, connection) {
 	});
 
 	router.delete(urlBase +  "/:id_tipo_usuario", function(req, res) {
-		printRequest(urlBase + "/:id_tipo_usuario", " delete");
+		printRequest(urlBase + "/:id_tipo_usuario" + " delete", "yellow");
 		var query = "DELETE FROM" + "\n" +
 					"	ASOC_TIPO_ACCESO" + "\n" +
 					"WHERE " + "\n" +
 					"	FK_TIPO_USUARIO = ?";
 		var table = [req.params.id_tipo_usuario];
 		query = mysql.format(query, table);
-		printRequest(query);
+		printRequest(query, "yellow");
 		connection.query(query, function(err) {
 			if (err) {
-				console.info('Error executing MySQL query:' + query);
-				console.info(err.message);
+				printRequest('Error executing MySQL query:' + query, "red");
+				printRequest(err.message, "red");
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
 				});
 			} else {
+				printRequest('Success MySQL query');
 				res.json({
 					"Error": false,
 					"Message": "Success"
@@ -75,7 +76,7 @@ assocTipoAccesoDAO.prototype.handleRoutes = function(router, connection) {
 	});
 
 	router.post(urlBase, function(req, res) {
-		printRequest(urlBase, " post");
+		printRequest(urlBase + " post", "magenta");
 		var query = "INSERT INTO " + "\n" +
 					"	ASOC_TIPO_ACCESO (" + "\n" +
 					"		FK_TIPO_USUARIO, " + "\n" +
@@ -95,16 +96,17 @@ assocTipoAccesoDAO.prototype.handleRoutes = function(router, connection) {
 			table.push(idTipoUsuario, req.body.LIST[i].ID_ACCESO_USUARIO, 1);
 		}
 		query = mysql.format(query, table);
-		printRequest(query);
+		printRequest(query, "magenta");
 		connection.query(query, function(err) {
 			if (err) {
-				console.info('Error executing MySQL query:' + query);
-				console.info(err.message);
+				printRequest('Error executing MySQL query:' + query, "red");
+				printRequest(err.message, "red");
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
 				});
 			} else {
+				printRequest('Success MySQL query');
 				res.json({
 					"Error": false,
 					"Message": "Article Added !"

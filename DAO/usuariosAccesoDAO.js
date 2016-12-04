@@ -7,34 +7,33 @@ function usuariosAccesoDAO(router, connection) {
     dateGenerator.printInfo(daoName + " agregado correctamente");
 }
 
-function printRequest(data) {
-    dateGenerator.printInfo(daoName + "\n" + data);
+function printRequest(data, color) {
+    dateGenerator.printInfo(daoName + "\n" + data, color);
 }
 
 
 usuariosAccesoDAO.prototype.handleRoutes = function(router, connection) {
-	var tableName = "ACCESO_USUARIO";
 	var urlBase = "/accesousuario";
 
 	router.get(urlBase + "list", function(req, res) {
-		printRequest(urlBase + "list" + " get");
+		printRequest(urlBase + "list" + " get", "cyan");
         var query = "SELECT " + "\n" +
                     "   * " + "\n" +
                     "FROM " + "\n" +
                     "   ACCESO_USUARIO";
         var table = [];
         query = mysql.format(query, table);
-        printRequest(query);
+        printRequest(query, "cyan");
         connection.query(query, function(err, rows) {
             if (err) {
-                console.info('Error executing MySQL query:' + query);
-                console.info(err.message);
+                printRequest('Error executing MySQL query:' + query, "red");
+                printRequest(err.message, "red");
                 res.json({
                     "Error": true,
                     "Message": "Error executing MySQL query"
                 });
             } else {
-				console.info('Success MySQL query');
+				printRequest('Success MySQL query');
 				res.json({
 					"Error": false,
                     "Message": "Success",
@@ -45,7 +44,7 @@ usuariosAccesoDAO.prototype.handleRoutes = function(router, connection) {
     });
 
     router.post(urlBase, function(req, res) {
-		printRequest(urlBase, " post");
+		printRequest(urlBase, " post", "magenta");
         var query = "INSERT INTO " + "\n" +
                     "   ACCESO_USUARIO (" + "\n" +
                     "       DESCRIPCION" + "\n" +
@@ -54,17 +53,17 @@ usuariosAccesoDAO.prototype.handleRoutes = function(router, connection) {
                     "   )";
         var table = [req.body.DESCRIPCION];
         query = mysql.format(query, table);
-        printRequest(query);
+        printRequest(query, "magenta");
         connection.query(query, function(err) {
             if (err) {
-                console.info('Error executing MySQL query:' + query);
-                console.info(err.message);
+                printRequest('Error executing MySQL query:' + query, "red");
+                printRequest(err.message, "red");
                 res.json({
                     "Error": true,
                     "Message": "Error executing MySQL query"
                 });
             } else {
-				console.info('Success MySQL query');
+				printRequest('Success MySQL query');
 				res.json({
 					"Error": false,
                     "Message": "Acceso Usuario Agregado"
@@ -74,7 +73,7 @@ usuariosAccesoDAO.prototype.handleRoutes = function(router, connection) {
     });
 
     router.put(urlBase, function(req, res) {
-        printRequest(urlBase, " put");
+        printRequest(urlBase + " put", "magenta");
         var query = "UPDATE " + "\n" +
                     "   ACCESO_USUARIO " + "\n" +
                     "SET " + "\n" +
@@ -83,17 +82,17 @@ usuariosAccesoDAO.prototype.handleRoutes = function(router, connection) {
                     "   ID_ACCESO_USUARIO = ?";
         var table = [req.body.DESCRIPCION, req.body.ID_ACCESO_USUARIO];
         query = mysql.format(query, table);
-        printRequest(query);
+        printRequest(query, "magenta");
         connection.query(query, function(err) {
             if (err) {
-                console.info('Error executing MySQL query:' + query);
-                console.info(err.message);
+                printRequest('Error executing MySQL query:' + query, "red");
+                printRequest(err.message, "red");
                 res.json({
                     "Error": true,
                     "Message": "Error executing MySQL query"
                 });
             } else {
-				console.info('Success MySQL query');
+				printRequest('Success MySQL query');
 				res.json({
 					"Error": false,
                     "Message": "Tipo Usuario modificado"
@@ -103,7 +102,7 @@ usuariosAccesoDAO.prototype.handleRoutes = function(router, connection) {
     });
 
     router.get(urlBase + "/:id_acceso_usuario", function(req, res) {
-		printRequest(urlBase + "/:id_acceso_usuario", " get");
+		printRequest(urlBase + "/:id_acceso_usuario" + " get", "cyan");
         var query = "SELECT " + "\n" +
                     "   * " + "\n" +
                     "FROM " + "\n" +
@@ -112,17 +111,17 @@ usuariosAccesoDAO.prototype.handleRoutes = function(router, connection) {
                     "   ID_ACCESO_USUARIO=?";
         var table = [req.params.id_acceso_usuario];
         query = mysql.format(query, table);
-        printRequest(query);
+        printRequest(query, "cyan");
         connection.query(query, function(err, rows) {
             if (err) {
-                console.info('Error executing MySQL query:' + query);
-                console.info(err.message);
+                printRequest('Error executing MySQL query:' + query, "red");
+                printRequest(err.message, "red");
                 res.json({
                     "Error": true,
                     "Message": "Error executing MySQL query"
                 });
             } else {
-				console.info('Success MySQL query');
+				printRequest('Success MySQL query');
 				res.json({
 					"Error": false,
                     "Message": "Success",
@@ -133,24 +132,24 @@ usuariosAccesoDAO.prototype.handleRoutes = function(router, connection) {
     });
 
 	router.delete(urlBase + "/:id_acceso_usuario", function(req, res) {
-		printRequest(urlBase + "/:id_acceso_usuario", " delete");
+		printRequest(urlBase + "/:id_acceso_usuario" + " delete", "yellow");
         var query = "DELETE FROM " + "\n" +
                     "   ACCESO_USUARIO " + "\n" +
                     "WHERE " + "\n" +
                     "   ID_ACCESO_USUARIO=?";
         var table = [req.params.id_acceso_usuario];
         query = mysql.format(query, table);
-        printRequest(query);
+        printRequest(query, "yellow");
         connection.query(query, function(err) {
             if (err) {
-                console.info('Error executing MySQL query:' + query);
-                console.info(err.message);
+                printRequest('Error executing MySQL query:' + query, "red");
+                printRequest(err.message, "red");
                 res.json({
                     "Error": true,
                     "Message": "Error executing MySQL query"
                 });
             } else {
-				console.info('Success MySQL query');
+				printRequest('Success MySQL query');
 				res.json({
 					"Error": false,
                     "Message": "Deleted the user with id_acceso_usuario " + req.params.id_acceso_usuario

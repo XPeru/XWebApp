@@ -7,14 +7,14 @@ function ingresoDAO(router, connection) {
 	dateGenerator.printInfo(daoName + " agregado correctamente");
 }
 
-function printRequest(data) {
-	dateGenerator.printInfo(daoName + "\n" + data);
+function printRequest(data, color) {
+	dateGenerator.printInfo(daoName + "\n" + data, color);
 }
 
 ingresoDAO.prototype.handleRoutes = function(router, connection) {
 	var urlBase = "/ingreso";
 	router.get(urlBase + "list", function(req, res) {
-		printRequest(urlBase + "list" + " get");
+		printRequest(urlBase + "list" + " get", "cyan");
 		var query ="SELECT " + "\n" +
 					"	ing.ID_INGRESO, " + "\n" +
 					"	ing.CODE_INGRESO, " + "\n" +
@@ -42,17 +42,17 @@ ingresoDAO.prototype.handleRoutes = function(router, connection) {
 					"	tdoc.ID_TIPO_DOCUMENTO = ing.FK_TIPO_DOCUMENTO";
 		var table = [];
 		query = mysql.format(query, table);
-		printRequest(query);
+		printRequest(query, "cyan");
 		connection.query(query, function(err, rows) {
 			if (err) {
-				console.info('Error executing MySQL query:' + query);
-				console.info(err.message);
+				printRequest('Error executing MySQL query:' + query, "red");
+				printRequest(err.message, "red");
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				console.info('Success MySQL query');
+				printRequest('Success MySQL query');
 				res.json({
 					"Error": false,
 					"Message": "Success",
@@ -63,7 +63,7 @@ ingresoDAO.prototype.handleRoutes = function(router, connection) {
 	});
 
 	router.post(urlBase, function(req, res) {
-		printRequest(urlBase + " post");
+		printRequest(urlBase + " post", "magenta");
 		var query = "INSERT INTO " + "\n" +
 					"	INGRESO (" + "\n" +
 					"		CODE_INGRESO," + "\n" +
@@ -91,17 +91,17 @@ ingresoDAO.prototype.handleRoutes = function(router, connection) {
 					req.body.FK_TIPO_DOCUMENTO,
 					req.body.FECHA_INGRESO];
 		query = mysql.format(query, table);
-		printRequest(query);
+		printRequest(query, "magenta");
 		connection.query(query, function(err) {
 			if (err) {
-				console.info('Error executing MySQL query:' + query);
-				console.info(err.message);
+				printRequest('Error executing MySQL query:' + query, "red");
+				printRequest(err.message, "red");
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				console.info('Success MySQL query');
+				printRequest('Success MySQL query');
 				res.json({
 					"Error": false,
 					"Message": "Categoria Added !"
@@ -111,7 +111,7 @@ ingresoDAO.prototype.handleRoutes = function(router, connection) {
 	});
 
 	router.put(urlBase, function(req, res) {
-		printRequest(urlBase + " put");
+		printRequest(urlBase + " put", "magenta");
 		var query = "UPDATE " + "\n" +
 					"	INGRESO " + "\n" +
 					"SET " + "\n" +
@@ -125,17 +125,17 @@ ingresoDAO.prototype.handleRoutes = function(router, connection) {
 					req.body.FECHA_INGRESO,
 					req.body.ID_INGRESO];
 		query = mysql.format(query, table);
-		printRequest(query);
+		printRequest(query, "magenta");
 		connection.query(query, function(err) {
 			if (err) {
-				console.info('Error executing MySQL query:' + query);
-				console.info(err.message);
+				printRequest('Error executing MySQL query:' + query, "red");
+				printRequest(err.message, "red");
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				console.info('Success MySQL query');
+				printRequest('Success MySQL query');
 				res.json({
 					"Error": false,
 					"Message": "Categoria detalle updated !"
@@ -145,24 +145,24 @@ ingresoDAO.prototype.handleRoutes = function(router, connection) {
 	});
 
 	router.delete(urlBase + "/:id_ingreso", function(req, res) {
-		printRequest(urlBase + "/:id_ingreso", " delete");
+		printRequest(urlBase + "/:id_ingreso" + " delete", "yellow");
 		var query = "DELETE FROM" + "\n" +
 					"	INGRESO" + "\n" +
 					"WHERE " + "\n" +
 					"	ID_INGRESO = ?";
 		var table = [req.params.id_ingreso];
 		query = mysql.format(query, table);
-		printRequest(query);
+		printRequest(query, "yellow");
 		connection.query(query, function(err) {
 			if (err) {
-				console.info('Error executing MySQL query:' + query);
-				console.info(err.message);
+				printRequest('Error executing MySQL query:' + query, "red");
+				printRequest(err.message, "red");
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				console.info('Success MySQL query');
+				printRequest('Success MySQL query');
 				res.json({
 					"Error": false,
 					"Message": "Categoria deleted: " + req.params.id_ingreso
@@ -173,7 +173,7 @@ ingresoDAO.prototype.handleRoutes = function(router, connection) {
 
 	var urlBaseDetalle = urlBase + "detalle";
 	router.get(urlBaseDetalle + "list" + "/:id_ingreso", function(req, res) {
-		printRequest(urlBase + "detallelist" + "/:id_ingreso");
+		printRequest(urlBase + "detallelist" + "/:id_ingreso", "cyan");
 		var query ="SELECT " + "\n" +
 					"	ding.ID_DETALLE_INGRESO, " + "\n" +
 					"	ding.CANTIDAD, " + "\n" +
@@ -195,17 +195,17 @@ ingresoDAO.prototype.handleRoutes = function(router, connection) {
 					"	ding.IS_ACTIVE = 1";
 		var table = [req.params.id_ingreso];
 		query = mysql.format(query, table);
-		printRequest(query);
+		printRequest(query, "cyan");
 		connection.query(query, function(err, rows) {
 			if (err) {
-				console.info('Error executing MySQL query:' + query);
-				console.info(err.message);
+				printRequest('Error executing MySQL query:' + query, "red");
+				printRequest(err.message, "red");
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				console.info('Success MySQL query');
+				printRequest('Success MySQL query');
 				res.json({
 					"Error": false,
 					"Message": "Success",
