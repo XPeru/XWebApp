@@ -16,7 +16,7 @@ angular.module('ingresoService', ['ngResource'])
 			};
 
 			service.createIngreso = function(newIngreso) {
-				newIngreso.FECHA_INGRESO = newIngreso.FECHA_INGRESO.toLocaleDateString('us', {year:"numeric", month:"2-digit", day:"2-digit"});
+				newIngreso.FECHA_INGRESO = newIngreso.FECHA_INGRESO.toLocaleDateString('en-us', {year:"numeric", month:"2-digit", day:"2-digit"});
 				return $http.post(urlBase, newIngreso);
 			};
 
