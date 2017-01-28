@@ -81,7 +81,7 @@ ingresoDAO.prototype.handleRoutes = function(router, connection) {
 					"	CURRENT_TIMESTAMP," + "\n" + // use CURDATE() for current date
 					"	?," + "\n" +
 					"	?," + "\n" +
-					"	SUBSTR(?, 1, 10)" + "\n" + // TODO fix this!!
+					"	STR_TO_DATE(?, '%m/%d/%Y')" + "\n" +
 					")";
 		var table = [
 					req.body.CODE_INGRESO,
