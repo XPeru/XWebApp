@@ -1,18 +1,20 @@
 <div class="modal-header">
-	<h3 class="modal-title">Eliminando PONER TITULO</h3>
+	<h3 class="modal-title">Eliminando ingreso</h3>
 </div>
 <div class="modal-body">
-	<p>Realmente desea eliminar COMPLETAR ?</p>
+	<p>Realmente desea eliminar el ingreso : {{modalIngresoCtrl.selectedIngreso.CODE_INGRESO}}</p>
 </div>
 <div class="modal-footer">
-	<button class="btn btn-primary"
+	<button class="btn btn-success"
 			type="button"
-			ng-click="modalIngresoCtrl.deleteIngreso(modalIngresoCtrl.selectedIngreso.ID_)">
-		Si
+			ng-click="modalIngresoCtrl.deleteIngreso(modalIngresoCtrl.selectedIngreso.ID_INGRESO)">
+			<i class="fa fa-check" aria-hidden="true"></i>
+			Si
 	</button>
 	<button class="btn btn-danger"
 			type="button"
-			ng-click="modalTipoPersonaCtrl.cancel()">
-		No
+			ng-click="modalIngresoCtrl.cancel()">
+			<i class="fa fa-times" aria-hidden="true"></i>
+			No
 	</button>
 </div>
