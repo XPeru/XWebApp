@@ -116,8 +116,8 @@ ingresoDAO.prototype.handleRoutes = function(router, connection) {
 					"	INGRESO " + "\n" +
 					"SET " + "\n" +
 					"	COSTO_TOTAL = ?," + "\n" +
-					"	FECHA_INGRESO = ?," + "\n" +
-					"	UPDATE_TIME = CURRENT_TIMESTAMP," + "\n" +
+					"	FECHA_INGRESO = STR_TO_DATE(?, '%m/%d/%Y')," + "\n" +
+					"	UPDATE_TIME = CURRENT_TIMESTAMP" + "\n" +
 					"WHERE" + "\n" +
 					"	ID_INGRESO = ?";
 		var table = [

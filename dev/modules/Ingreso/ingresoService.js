@@ -21,6 +21,7 @@ angular.module('ingresoService', ['ngResource'])
 			};
 
 			service.updateIngreso = function(updIngreso) {
+				updIngreso.FECHA_INGRESO = updIngreso.FECHA_INGRESO.toLocaleDateString('en-us', {year:"numeric", month:"2-digit", day:"2-digit"});
 				return $http.put(urlBase, updIngreso);
 			};
 

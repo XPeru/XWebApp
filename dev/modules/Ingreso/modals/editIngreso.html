@@ -27,6 +27,11 @@
 		</div>
 
 		<div class="form-group">
+			<label for="fechaIngreso"> Fecha de ingreso</label>
+			<div uib-datepicker ng-model="modalIngresoCtrl.selectedIngreso.FECHA_INGRESO" class="well well-sm" datepicker-options="options"></div>
+		</div>
+
+		<div class="form-group">
 			<button type="submit" class="btn btn-success" ng-disabled="formEditIngreso.$invalid">
 				<i class="fa fa-check" aria-hidden="true"></i>
 			</button>
