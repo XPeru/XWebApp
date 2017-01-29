@@ -124,12 +124,7 @@ articulosDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.get(urlBase + "/:id_articulo", function(req, res) {
 		printRequest(urlBase + " :id_articulo" + " get", "cyan");
-		var query = "SELECT " + "\n" +
-					"	* " + "\n" +
-					"FROM " + "\n" +
-					"	ARTICULO" + "\n" +
-					"WHERE" + "\n" +
-					"	ID_ARTICULO = ?";
+		var query = "CALL SP_SEARCH('ARTICULO','ID_ARTICULO',?)";
 		var table = [req.params.id_articulo];
 		query = mysql.format(query, table);
 		printRequest(query, "cyan");
@@ -146,7 +141,7 @@ articulosDAO.prototype.handleRoutes = function(router, connection) {
 				res.json({
 					"Error": false,
 					"Message": "Success",
-					"Articulos": rows
+					"Articulos": rows[0]
 				});
 			}
 		});

@@ -20,10 +20,7 @@ usuariosTipoDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.get(urlBase + "list", function(req, res) {
 		printRequest(urlBase + "list" + " get", "cyan");
-        var query = "SELECT " + "\n" +
-                    "   * " + "\n" +
-                    "FROM " + "\n" +
-                    "   TIPO_USUARIO";
+        var query = "CALL SP_SEARCH_ALL('TIPO_USUARIO')";
         var table = [];
         query = mysql.format(query, table);
         printRequest(query, "cyan");
@@ -40,7 +37,7 @@ usuariosTipoDAO.prototype.handleRoutes = function(router, connection) {
 				res.json({
 					"Error": false,
                     "Message": "Success",
-                    "TiposUsuario": rows
+                    "TiposUsuario": rows[0]
                 });
             }
         });
@@ -106,12 +103,7 @@ usuariosTipoDAO.prototype.handleRoutes = function(router, connection) {
 
     router.get(urlBase + "/:id_tipo_usuario", function(req, res) {
 		printRequest(urlBase + "/:id_tipo_usuario" + " get", "cyan");
-        var query = "SELECT " + "\n" +
-                    "   * " + "\n" +
-                    "FROM " + "\n" +
-                    "   TIPO_USUARIO " + "\n" +
-                    "WHERE " + "\n" +
-                    "   ID_TIPO_USUARIO=?";
+        var query = "CALL SP_SEARCH('TIPO_USUARIO','ID_TIPO_USUARIO',?)";
         var table = [req.params.id_tipo_usuario];
         query = mysql.format(query, table);
         printRequest(query, "cyan");
@@ -128,7 +120,7 @@ usuariosTipoDAO.prototype.handleRoutes = function(router, connection) {
 				res.json({
 					"Error": false,
                     "Message": "Success",
-                    "TipoUsuario": rows
+                    "TipoUsuario": rows[0]
                 });
             }
         });

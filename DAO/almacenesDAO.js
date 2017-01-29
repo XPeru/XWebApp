@@ -15,10 +15,7 @@ almacenesDAO.prototype.handleRoutes = function(router, connection) {
 	var urlBase = "/almacen";
 	router.get(urlBase + "list", function(req, res) {
 		printRequest(urlBase + "list" + " get", "cyan");
-		var query = "SELECT " + "\n" +
-					"	* " + "\n" +
-					"FROM " + "\n" +
-					"	ALMACEN";
+		var query = "CALL SP_SEARCH_ALL('ALMACEN')";
 		var table = [];
 		query = mysql.format(query, table);
 		printRequest(query, "cyan");
@@ -35,7 +32,7 @@ almacenesDAO.prototype.handleRoutes = function(router, connection) {
 				res.json({
 					"Error": false,
 					"Message": "Success",
-					"Almacenes": rows
+					"Almacenes": rows[0]
 				});
 			}
 		});

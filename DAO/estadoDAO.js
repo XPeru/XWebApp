@@ -16,10 +16,7 @@ estadoDAO.prototype.handleRoutes = function(router, connection) {
 	var urlBase = "/estado";
 	router.get(urlBase + "list", function(req, res) {
 		printRequest(urlBase + "list" + " get", "cyan");
-		var query = "SELECT " + "\n" +
-					"	* " + "\n" +
-					"FROM " + "\n" +
-					"	ESTADO";
+		var query = "CALL SP_SEARCH_ALL('ESTADO')";
 		var table = [];
 		query = mysql.format(query, table);
 		printRequest(query, "cyan");
@@ -36,7 +33,7 @@ estadoDAO.prototype.handleRoutes = function(router, connection) {
 				res.json({
 					"Error": false,
 					"Message": "Success",
-					"Estado": rows
+					"Estado": rows[0]
 				});
 			}
 		});

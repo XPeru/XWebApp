@@ -17,10 +17,7 @@ usuariosAccesoDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.get(urlBase + "list", function(req, res) {
 		printRequest(urlBase + "list" + " get", "cyan");
-        var query = "SELECT " + "\n" +
-                    "   * " + "\n" +
-                    "FROM " + "\n" +
-                    "   ACCESO_USUARIO";
+        var query = "CALL SP_SEARCH_ALL('ACCESO_USUARIO')";
         var table = [];
         query = mysql.format(query, table);
         printRequest(query, "cyan");
@@ -37,7 +34,7 @@ usuariosAccesoDAO.prototype.handleRoutes = function(router, connection) {
 				res.json({
 					"Error": false,
                     "Message": "Success",
-                    "AccesosUsuario": rows
+                    "AccesosUsuario": rows[0]
                 });
             }
         });
@@ -103,12 +100,7 @@ usuariosAccesoDAO.prototype.handleRoutes = function(router, connection) {
 
     router.get(urlBase + "/:id_acceso_usuario", function(req, res) {
 		printRequest(urlBase + "/:id_acceso_usuario" + " get", "cyan");
-        var query = "SELECT " + "\n" +
-                    "   * " + "\n" +
-                    "FROM " + "\n" +
-                    "   ACCESO_USUARIO " + "\n" +
-                    "WHERE " + "\n" +
-                    "   ID_ACCESO_USUARIO=?";
+        var query = "CALL SP_SEARCH('ACCESO_USUARIO','ID_ACCESO_USUARIO',?)";
         var table = [req.params.id_acceso_usuario];
         query = mysql.format(query, table);
         printRequest(query, "cyan");
@@ -125,7 +117,7 @@ usuariosAccesoDAO.prototype.handleRoutes = function(router, connection) {
 				res.json({
 					"Error": false,
                     "Message": "Success",
-                    "AccesoUsuario": rows
+                    "AccesoUsuario": rows[0]
                 });
             }
         });

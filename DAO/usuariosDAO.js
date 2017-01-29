@@ -125,12 +125,7 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 
 	router.get(urlBase + "/:id_usuario", function(req, res) {
 		printRequest(urlBase + " :id_usuario" + " get", "cyan");
-		var query = "SELECT " + "\n" +
-					"	* " + "\n" +
-					"FROM " + "\n" +
-					"	USUARIO " + "\n" +
-					"WHERE " + "\n" +
-					"	ID_USUARIO=?";
+		var query = "CALL SP_SEARCH('USUARIO','ID_USUARIO',?)";
 		var table = [req.params.id_usuario];
 		query = mysql.format(query, table);
 		printRequest(query, "cyan");
@@ -147,7 +142,7 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 				res.json({
 					"Error": false,
 					"Message": "Success",
-					"Users": rows
+					"Users": rows[0]
 				});
 			}
 		});

@@ -16,10 +16,7 @@ tipoPersonaDAO.prototype.handleRoutes = function(router, connection) {
 	var urlBase = "/tipopersona";
 	router.get(urlBase + "list", function(req, res) {
 		printRequest(urlBase + "list" + " get");
-		var query = "SELECT " + "\n" +
-					"	* " + "\n" +
-					"FROM " + "\n" +
-					"	TIPO_PERSONA";
+		var query = "CALL SP_SEARCH_ALL('TIPO_PERSONA')";
 		var table = [];
 		query = mysql.format(query, table);
 		printRequest(query);
@@ -36,7 +33,7 @@ tipoPersonaDAO.prototype.handleRoutes = function(router, connection) {
 				res.json({
 					"Error": false,
 					"Message": "Success",
-					"TipoPersona": rows
+					"TipoPersona": rows[0]
 				});
 			}
 		});
@@ -44,12 +41,7 @@ tipoPersonaDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.get(urlBase + "/:desc", function(req, res) {
 		printRequest(urlBase + " get", "cyan");
-		var query = "SELECT " + "\n" +
-					"	* " + "\n" +
-					"FROM " + "\n" +
-					"	TIPO_PERSONA" + "\n" +
-					"WHERE" + "\n" +
-					"	DESCRIPCION = ?";
+		var query = "CALL SP_SEARCH('TIPO_PERSONA','DESCRIPCION',?)";
 		var table = [req.params.desc];
 		query = mysql.format(query, table);
 		printRequest(query, "cyan");
@@ -66,7 +58,7 @@ tipoPersonaDAO.prototype.handleRoutes = function(router, connection) {
 				res.json({
 					"Error": false,
 					"Message": "Success",
-					"TipoPersona": rows
+					"TipoPersona": rows[0]
 				});
 			}
 		});

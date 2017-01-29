@@ -15,10 +15,7 @@ articulosCategoriaDAO.prototype.handleRoutes = function(router, connection) {
 	var urlBase = "/categoria";
 	router.get(urlBase + "list", function(req, res) {
 		printRequest(urlBase + "list" + " get", "cyan");
-		var query = "SELECT " + "\n" +
-					"	* " + "\n" +
-					"FROM " + "\n" +
-					"	CATEGORIA";
+		var query = "CALL SP_SEARCH_ALL('CATEGORIA')";
 		var table = [];
 		query = mysql.format(query, table);
 		printRequest(query, "cyan");
@@ -35,7 +32,7 @@ articulosCategoriaDAO.prototype.handleRoutes = function(router, connection) {
 				res.json({
 					"Error": false,
 					"Message": "Success",
-					"Categorias": rows
+					"Categorias": rows[0]
 				});
 			}
 		});

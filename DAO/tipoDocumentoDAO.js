@@ -16,10 +16,7 @@ tipoDocumentoDAO.prototype.handleRoutes = function(router, connection) {
 	var urlBase = "/tipodocumento";
 	router.get(urlBase + "list", function(req, res) {
 		printRequest(urlBase + "list" + " get", "cyan");
-		var query = "SELECT " + "\n" +
-					"	* " + "\n" +
-					"FROM " + "\n" +
-					"	TIPO_DOCUMENTO";
+		var query = "CALL SP_SEARCH_ALL('TIPO_DOCUMENTO')";
 		var table = [];
 		query = mysql.format(query, table);
 		printRequest(query, "cyan");
@@ -36,7 +33,7 @@ tipoDocumentoDAO.prototype.handleRoutes = function(router, connection) {
 				res.json({
 					"Error": false,
 					"Message": "Success",
-					"TipoDocumento": rows
+					"TipoDocumento": rows[0]
 				});
 			}
 		});
