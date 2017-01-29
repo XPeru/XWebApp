@@ -2,9 +2,19 @@
 	<h3 class="modal-title">Eliminando proveedor</h3>
 </div>
 <div class="modal-body">
-	<p>Realmente desea eliminar al proveedor?</p>
+	<p>Realmente desea eliminar al proveedor {{modalProveedorCtrl.selectedProveedor.NOMBRE}} ?</p>
 </div>
 <div class="modal-footer">
-	<button class="btn btn-primary" type="button" ng-click="modalProveedorCtrl.deleteProveedor(modalProveedorCtrl.selectedProveedor.ID_PROVEEDOR_CLIENTE)">Si</button>
-	<button class="btn btn-danger" type="button" ng-click="modalProveedorCtrl.cancel()">No</button>
+	<button class="btn btn-success"
+			type="button"
+			ng-click="modalProveedorCtrl.deleteProveedor(modalProveedorCtrl.selectedProveedor.ID_PROVEEDOR_CLIENTE)">
+			<i class="fa fa-check" aria-hidden="true"></i>
+			Si
+	</button>
+	<button class="btn btn-danger"
+			type="button"
+			ng-click="modalProveedorCtrl.cancel()">
+			<i class="fa fa-times" aria-hidden="true"></i>
+			No
+	</button>
 </div>

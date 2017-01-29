@@ -2,17 +2,19 @@
 	<h3 class="modal-title">Eliminando categoria</h3>
 </div>
 <div class="modal-body">
-	<p>Realmente desea eliminar la categoria?</p>
+	<p>Realmente desea eliminar la categoria: {{modalCategoriaCtrl.selected_categoria.DESCRIPCION}} ?</p>
 </div>
 <div class="modal-footer">
-	<button class="btn btn-primary"
+	<button class="btn btn-success"
 			ype="button"
 			ng-click="modalCategoriaCtrl.deleteCategoria(modalCategoriaCtrl.selected_categoria)">
-		Si
+			<i class="fa fa-check" aria-hidden="true"></i>
+			Si
 	</button>
 	<button class="btn btn-danger"
 			ype="button"
 			ng-click="modalCategoriaCtrl.cancel()">
-		No
+			<i class="fa fa-times" aria-hidden="true"></i>
+			No
 	</button>
 </div>

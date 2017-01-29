@@ -2,17 +2,19 @@
 	<h3 class="modal-title">Eliminando Tipo Usuario</h3>
 </div>
 <div class="modal-body">
-	<p>Realmente desea eliminar este tipo de usuario?</p>
+	<p>Realmente desea eliminar EL tipo de usuario {{modalUsuarioTipoCtrl.selected_tipo_usuario.TIPO}}?</p>
 </div>
 <div class="modal-footer">
-	<button class="btn btn-primary"
+	<button class="btn btn-success"
 			type="button"
 			ng-click="modalUsuarioTipoCtrl.deleteTipoUsuario(modalUsuarioTipoCtrl.selected_tipo_usuario)">
-		Si
+			<i class="fa fa-check" aria-hidden="true"></i>
+			Si
 	</button>
 	<button class="btn btn-danger"
 			type="button"
 			ng-click="modalUsuarioTipoCtrl.cancel()">
-		No
+			<i class="fa fa-times" aria-hidden="true"></i>
+			No
 	</button>
 </div>

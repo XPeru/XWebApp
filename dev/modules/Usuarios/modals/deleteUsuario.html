@@ -6,6 +6,16 @@
 	<p>{{modalUsuarioCtrl.selected_user.NOMBRE}} {{modalUsuarioCtrl.selected_user.APELLIDOS}}</p>
 </div>
 <div class="modal-footer">
-	<button class="btn btn-primary" type="button" ng-click="modalUsuarioCtrl.deleteUsuario(modalUsuarioCtrl.selected_user)">Si</button>
-	<button class="btn btn-danger" type="button" ng-click="modalUsuarioCtrl.cancel()">No</button>
+	<button class="btn btn-success"
+			type="button"
+			ng-click="modalUsuarioCtrl.deleteUsuario(modalUsuarioCtrl.selected_user)">
+			<i class="fa fa-check" aria-hidden="true"></i>
+			Si
+	</button>
+	<button class="btn btn-danger"
+			type="button"
+			ng-click="modalUsuarioCtrl.cancel()">
+			<i class="fa fa-times" aria-hidden="true"></i>
+			No
+	</button>
 </div>
