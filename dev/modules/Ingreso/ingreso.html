@@ -244,17 +244,19 @@
 										required>
 							</td>
 
-							<td data-title="'Precio'">
+							<td data-title="'Precio'"
+								ng-model="detalleIngreso.PRECIO">
 								{{detalleIngreso.PRECIO_UNITARIO | currency}}
 							</td>
 
-							<td data-title="'Subtotal'">
+							<td data-title="'Subtotal'"
+								ng-model="detalleIngreso.SUBTOTAL">
 								{{detalleIngreso.CANTIDAD * detalleIngreso.PRECIO_UNITARIO | currency}}
 							</td>
 
 							<td data-title="'Codigo Almacen'">
 								<select class="form-control"
-										ng-model="detalleIngreso.FK_ALMACEN"
+										ng-model="detalleIngreso.ID_ALMACEN"
 										name="obj"
 										ng-options="obj.ID_ALMACEN as obj.CODIGO for obj in ingresoCtrl.almacenList"
 										required>
