@@ -11,9 +11,10 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 									'TipoDocumentoServiceFactory',
 									'ProveedorServiceFactory',
 									'ArticulosServiceFactory',
+									'AlmacenesGestionServiceFactory',
 									'NgTableParams',
 									'i18nService',
-		function ($scope, $rootScope, $location, $http, $uibModal, $timeout, IngresoServiceFactory, TipoDocumentoServiceFactory, ProveedorServiceFactory, ArticulosServiceFactory, NgTableParams, i18nService) {
+		function ($scope, $rootScope, $location, $http, $uibModal, $timeout, IngresoServiceFactory, TipoDocumentoServiceFactory, ProveedorServiceFactory, ArticulosServiceFactory, AlmacenesGestionServiceFactory, NgTableParams, i18nService) {
 			var ctrl = this;
 			ctrl.tableMode = true;
 			ctrl.switchTableMode = function() {
@@ -34,6 +35,14 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 				});
 			};
 			ctrl.callGetAllProveedor();
+
+			ctrl.callGetAllAlmacen = function() {
+				AlmacenesGestionServiceFactory.getAllAlmacenes().then(function(response) {
+					ctrl.almacenList = response.data.Almacenes;
+				});
+			};
+
+			ctrl.callGetAllAlmacen();
 
 			i18nService.setCurrentLang('es');
 			$scope.columns = [{ field: 'CODE_INGRESO', headerCellClass: 'blue'},
