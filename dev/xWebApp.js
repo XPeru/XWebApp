@@ -232,6 +232,7 @@
 	'ngTable',
 	'ngCookies',
 	'ngAnimate',
+	'ui.utils.masks',
 	'Footer',
 	'Login',
 	'TopBar',

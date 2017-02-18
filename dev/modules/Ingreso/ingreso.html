@@ -84,11 +84,26 @@
 		<div class="panel-heading clearfix">
 			<h2 class="panel-title">
 				Detalles del ingreso
-				<button ng-if="ingresoCtrl.modeEditDetalle" ng-click="ingresoCtrl.cancelModeDetalle()" class="btn_separate pull-right btn btn-small btn-danger">
-					<span><i class="fa fa-times" aria-hidden="true"></i></span>
+				<button ng-if="ingresoCtrl.modeEditDetalle"
+						ng-click="ingresoCtrl.cancelModeDetalle()"
+						class="btn_separate pull-right btn btn-small btn-danger">
+						<i class="fa fa-times"
+							aria-hidden="true">
+						</i>
 				</button>
-				<button ng-click="ingresoCtrl.switchModeDetalle()" class="pull-right btn btn-small btn-success btn_separate">
-					 <i ng-if="!ingresoCtrl.modeEditDetalle" class="fa fa-pencil-square-o" aria-hidden="true"></i><i ng-if="ingresoCtrl.modeEditDetalle" class="fa fa-check" aria-hidden="true"></i>
+				<button ng-if="ingresoCtrl.modeEditDetalle"
+						ng-click="ingresoCtrl.validateDetalleIngreso()"
+						class="pull-right btn btn-small btn-success btn_separate">
+						<i class="fa fa-check"
+					 		aria-hidden="true">
+					 	</i>
+				</button>
+				<button ng-if="!ingresoCtrl.modeEditDetalle"
+						ng-click="ingresoCtrl.switchModeDetalle()"
+						class="pull-right btn btn-small btn-success btn_separate">
+						<i class="fa fa-pencil-square-o"
+					 		aria-hidden="true">
+					 	</i>
 				</button>
 			</h2>
 		</div>

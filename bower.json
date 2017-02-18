@@ -34,7 +34,8 @@
     "angular-ui-grid": "^3.2.1",
     "angular-i18n": "^1.5.8",
     "pdfmake": "^0.1.20",
-    "angular-animate": "^1.5.8"
+    "angular-animate": "^1.5.8",
+    "angular-input-masks": "^2.5.0"
   },
   "resolutions": {
     "webcomponentsjs": "^0.6.0",

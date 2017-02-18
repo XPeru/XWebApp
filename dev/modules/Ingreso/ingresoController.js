@@ -13,7 +13,7 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 									'ArticulosServiceFactory',
 									'NgTableParams',
 									'i18nService',
-		function($scope, $rootScope, $location, $http, $uibModal, $timeout, IngresoServiceFactory, TipoDocumentoServiceFactory, ProveedorServiceFactory, ArticulosServiceFactory, NgTableParams, i18nService) {
+		function ($scope, $rootScope, $location, $http, $uibModal, $timeout, IngresoServiceFactory, TipoDocumentoServiceFactory, ProveedorServiceFactory, ArticulosServiceFactory, NgTableParams, i18nService) {
 			var ctrl = this;
 			ctrl.tableMode = true;
 			ctrl.switchTableMode = function() {
@@ -120,7 +120,7 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 				$rootScope.toLeft = false;
 				// La copia de abajo no funciona
 				//ctrl.detalleIngresoEditData = ctrl.detalleIngresoData.slice(0);
-				var temporal = ctrl.detalleIngresoData.map(function(detIng) { 
+				ctrl.detalleIngresoData.map(function(detIng) {
 					ctrl.detalleIngresoEditData.push(detIng);
 					return detIng; 
 				});
@@ -156,6 +156,10 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 				ctrl.articuloTable.reload();
 				ctrl.detalleIngresoEditData.push(articulo);
 				ctrl.detalleIngresoEditTable.reload();
+			};
+
+			ctrl.validateDetalleIngreso = function() {
+				
 			};
 
 			ctrl.openModalIngreso = function(selected_modal, selectedIngreso) {
