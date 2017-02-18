@@ -13,11 +13,38 @@ function printRequest(data, color) {
 
 ingresoDetalleDAO.prototype.handleRoutes = function(router, connection) {
 	var urlBase = "/ingresodetalle";
+
+	router.delete(urlBase +  "/:id_ingreso", function(req, res) {
+		printRequest(urlBase + "/:id_ingreso" + " delete", "yellow");
+		var query = "DELETE FROM" + "\n" +
+					"	DETALLE_INGRESO" + "\n" +
+					"WHERE " + "\n" +
+					"	FK_INGRESO = ?";
+		var table = [req.params.id_ingreso];
+		query = mysql.format(query, table);
+		printRequest(query, "yellow");
+		connection.query(query, function(err) {
+			if (err) {
+				printRequest('Error executing MySQL query:' + query, "red");
+				printRequest(err.message, "red");
+				res.json({
+					"Error": true,
+					"Message": "Error executing MySQL query"
+				});
+			} else {
+				printRequest('Success MySQL query');
+				res.json({
+					"Error": false,
+					"Message": "Success"
+				});
+			}
+		});
+	});
+
 	router.post(urlBase, function(req, res) {
 		printRequest(urlBase + " post", "magenta");
 		var query = "INSERT INTO " + "\n" +
 					"	DETALLE_INGRESO (" + "\n" +
-					"		ID_DETALLE_INGRESO, " + "\n" +
 					"		CANTIDAD, " + "\n" +
 					"		PRECIO, " + "\n" +
 					"		IS_ACTIVE, " + "\n" +
@@ -25,15 +52,14 @@ ingresoDetalleDAO.prototype.handleRoutes = function(router, connection) {
 					"		FK_ARTICULO, " + "\n" +
 					"		FK_ALMACEN " + "\n" +
 					"	) VALUES";
-		var idDetalleIngreso = req.body.ID_DETALLE_INGRESO;
-		var end_query = "\n" + " (?, ?, ?, ?, ?, ?, ?)";
+		var idIngreso = req.body.ID_INGRESO;
+		var end_query = "\n" + " (?, ?, ?, ?, ?, ?)";
 		var table = req.body.LIST.reduce(function(tabla, record){
 											query = query + end_query + ",";
-											tabla.push(idDetalleIngreso,
-														record.CANTIDAD,
-														record.PRECIO,
-														record.IS_ACTIVE,
-														record.ID_INGRESO,
+											tabla.push(record.CANTIDAD,
+														record.PRECIO_UNITARIO,
+														1,
+														idIngreso,
 														record.ID_ARTICULO,
 														record.ID_ALMACEN);
 											return tabla;

@@ -33,6 +33,14 @@ angular.module('ingresoService', ['ngResource'])
 				return $http.get(urlBaseDetalle + 'list' + '/' + id_ingreso);
 			};
 
+			service.updateIngresoDetalle = function(updated_ingreso_detalle) {
+				return $http.post(urlBase + 'detalle', updated_ingreso_detalle);
+			};
+
+			service.deleteIngresoDetalle = function(id_ingreso) {
+				return $http.delete(urlBase + 'detalle/' + id_ingreso);
+			};
+
 			return service;
 		}
 );

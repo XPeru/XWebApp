@@ -168,7 +168,12 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 			};
 
 			ctrl.validateDetalleIngreso = function() {
-				
+				var updated_detalle_ingreso = { ID_INGRESO: ctrl.idSelectedIngreso, LIST: ctrl.detalleIngresoEditData};
+				IngresoServiceFactory.deleteIngresoDetalle(ctrl.idSelectedIngreso).then(function(){
+					IngresoServiceFactory.updateIngresoDetalle(updated_detalle_ingreso);
+				}).then(function(){
+					ctrl.switchModeDetalle();
+				});
 			};
 
 			ctrl.openModalIngreso = function(selected_modal, selectedIngreso) {
