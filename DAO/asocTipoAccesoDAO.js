@@ -83,19 +83,14 @@ assocTipoAccesoDAO.prototype.handleRoutes = function(router, connection) {
 					"		FK_ACCESO_USUARIO, " + "\n" +
 					"		IS_ACTIVE" + "\n" +
 					"	) VALUES";
-		var table = [];
 		var idTipoUsuario = req.body.ID_TIPO_USUARIO;
 		var end_query = "\n" + " (?, ?, ?)";
-		var length = req.body.LIST.length;
-		for(var i = 0; i < length; i++) {
-			if(i === length - 1) {
-				query = query + end_query;
-			} else {
-				query = query + end_query + ",";
-			}
-			table.push(idTipoUsuario, req.body.LIST[i].ID_ACCESO_USUARIO, 1);
-		}
-		query = mysql.format(query, table);
+		var table = req.body.LIST.reduce(function(tabla, record){
+											query = query + end_query + ",";
+											tabla.push(idTipoUsuario, record.ID_ACCESO_USUARIO, 1);
+											return tabla;
+										}, []);
+		query = mysql.format(query.slice(0,-1), table);
 		printRequest(query, "magenta");
 		connection.query(query, function(err) {
 			if (err) {
