@@ -1,5 +1,6 @@
 
-<div class="panel panel-default" ng-class="{'panel-primary': !ingresoCtrl.modeEditDetalle, 'panel-danger': ingresoCtrl.modeEditDetalle}">
+<div class="panel panel-default"
+		ng-class="{'panel-primary': !ingresoCtrl.modeEditDetalle, 'panel-danger': ingresoCtrl.modeEditDetalle}">
 	<div class="panel-heading clearfix">
 		<h1 class="panel-title">
 			<b><big>Ingresos</big></b>
@@ -113,8 +114,7 @@
 <div ng-class="{'col-xs-6': ingresoCtrl.modeEditDetalle}" ng-if="ingresoCtrl.modeEditDetalle">
 	<div class="panel panel-default panel-primary">
 		<div class="panel-heading">
-			<h3 class="panel-title">Articulos
-			</h3>
+			<h3 class="panel-title">Articulos</h3>
 		</div>
 		<div class="panel-body">
 			<div class="table-responsive">
@@ -154,10 +154,10 @@
 </div>
 
 <div ng-class="{'col-xs-6': ingresoCtrl.modeEditDetalle}">
-	<form role="form"
+	<!-- <form role="form"
 				name="formDetalleIngreso"
 				ng-submit="ingresoCtrl.validateDetalleIngreso()"
-				novalidate>
+				novalidate> -->
 		<div class="panel panel-default panel-primary"
 				ng-if="ingresoCtrl.idSelectedIngreso">
 			<div class="panel-heading clearfix">
@@ -171,8 +171,8 @@
 							</i>
 					</button>
 					<button ng-if="ingresoCtrl.modeEditDetalle"
-							type="submit"
-							ng-disabled="formDetalleIngreso.$invalid"
+							ng-click="ingresoCtrl.validateDetalleIngreso()"
+							ng-disabled="ingresoCtrl.checkDetalleIngresoList()"
 							class="pull-right btn btn-small btn-success btn_separate">
 							<i class="fa fa-check"
 						 		aria-hidden="true">
@@ -267,7 +267,7 @@
 				</div>
 			</div>
 		</div>
-	</form>
+	<!-- </form> -->
 </div>
 
 

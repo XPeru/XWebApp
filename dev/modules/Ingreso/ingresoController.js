@@ -172,9 +172,32 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 				IngresoServiceFactory.deleteIngresoDetalle(ctrl.idSelectedIngreso).then(function(){
 					IngresoServiceFactory.updateIngresoDetalle(updated_detalle_ingreso);
 				}).then(function(){
-					ctrl.switchModeDetalle();
+					//ctrl.switchModeDetalle();
 				});
 			};
+
+			ctrl.checkDetalleIngresoList = function() {
+				if (ctrl.detalleIngresoEditData.length === 0) {
+					return true;
+				} else {
+					var res = ctrl.detalleIngresoEditData.reduce(function(acc, element) {
+																var test_c = isNullOrUndefined(element.CANTIDAD);
+																var test_id = isNullOrUndefined(element.ID_ALMACEN);
+																return acc || (test_c || test_id);
+															}, false);
+					return res;
+				}
+				
+			};
+
+			function isNullOrUndefined(element) {
+				if (element === null) {
+					return true;
+				} else if (element === undefined) {
+					return true;
+				}
+				return false;
+			}
 
 			ctrl.openModalIngreso = function(selected_modal, selectedIngreso) {
 				var modalInstance = $uibModal.open({
