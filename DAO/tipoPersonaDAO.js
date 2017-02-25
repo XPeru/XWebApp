@@ -41,7 +41,7 @@ tipoPersonaDAO.prototype.handleRoutes = function(router, connection) {
 
 	router.get(urlBase + "/:desc", function(req, res) {
 		printRequest(urlBase + " get", "cyan");
-		var query = "CALL SP_SEARCH('TIPO_PERSONA','DESCRIPCION',?)";
+		var query = "CALL SP_SEARCH_STRING('TIPO_PERSONA','DESCRIPCION',?)";
 		var table = [req.params.desc];
 		query = mysql.format(query, table);
 		printRequest(query, "cyan");
