@@ -212,6 +212,13 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 				return false;
 			}
 
+			ctrl.total = function (){
+				return ctrl.detalleIngresoEditData.reduce(function(sum,e){
+					if(isNullOrUndefined(e.CANTIDAD)) return sum;
+					else return sum+e.PRECIO_UNITARIO*e.CANTIDAD;
+				},0);
+			}
+
 			ctrl.openModalIngreso = function(selected_modal, selectedIngreso) {
 				var modalInstance = $uibModal.open({
 					templateUrl: function() {
