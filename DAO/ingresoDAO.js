@@ -178,11 +178,11 @@ ingresoDAO.prototype.handleRoutes = function(router, connection) {
 					"	ding.ID_DETALLE_INGRESO, " + "\n" +
 					"	ding.CANTIDAD, " + "\n" +
 					"	ding.PRECIO, " + "\n" +
-					"	ding.FK_ARTICULO, " + "\n" +
+					"	ding.FK_ARTICULO AS ID_ARTICULO, " + "\n" +
 					"	art.CODIGO AS CODIGO_ARTICULO, " + "\n" +
 					"	art.PRECIO_UNITARIO, " + "\n" +
 					"	art.IMAGEN, " + "\n" +
-					"	ding.FK_ALMACEN, " + "\n" +
+					"	ding.FK_ALMACEN AS ID_ALMACEN, " + "\n" +
 					"	alm.CODIGO AS CODIGO_ALMACEN" + "\n" +
 					"FROM " + "\n" +
 					"	DETALLE_INGRESO ding " + "\n" +

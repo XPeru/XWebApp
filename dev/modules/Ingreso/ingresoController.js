@@ -26,15 +26,12 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 				ctrl.tipoDocumentoList = response.data.TipoDocumento;
 				});
 			};
-			ctrl.callGetAllTipoDocumento();
 
-			
 			ctrl.callGetAllProveedor = function() {
 				ProveedorServiceFactory.getAllProveedor().then(function(response) {
 					ctrl.proveedorList = response.data.Persona;
 				});
 			};
-			ctrl.callGetAllProveedor();
 
 			ctrl.callGetAllAlmacen = function() {
 				AlmacenesGestionServiceFactory.getAllAlmacenes().then(function(response) {
@@ -42,7 +39,51 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 				});
 			};
 
+			ctrl.ingresoData = [{}];
+			ctrl.callGetAllIngreso = function() {
+				IngresoServiceFactory.getAllIngreso().then(function(response) {
+					ctrl.ingresoData = response.data.Ingreso;
+					$scope.gridOptions.data = response.data.Ingreso;
+					ctrl.ingresoTable = new NgTableParams({
+						page: 1,
+						count: 10
+					}, {
+						data: ctrl.ingresoData
+					});
+				});
+			};
+
+			ctrl.detalleIngresoData = [{}];
+			ctrl.callGetDetalleIngreso = function(id_ingreso) {
+				IngresoServiceFactory.getDetalleIngreso(id_ingreso).then(function(response) {
+					ctrl.detalleIngresoData = response.data.DetalleIngreso;
+					ctrl.detalleIngresoTable = new NgTableParams({
+						page: 1,
+						count: 10
+					}, {
+						data: ctrl.detalleIngresoData
+					});
+				});
+			};
+
+			ctrl.articuloData = [{}];
+			ctrl.callGetArticuloList = function() {
+				ArticulosServiceFactory.getArticuloList().then(function(response) {
+					ctrl.articuloData = response.data.Articulos;
+					ctrl.articuloTable = new NgTableParams({
+						page: 1,
+						count: 10
+					}, {
+						data : ctrl.articuloData
+					});
+				});
+			};
+
+			ctrl.callGetAllTipoDocumento();
+			ctrl.callGetAllProveedor();
+			ctrl.callGetArticuloList();
 			ctrl.callGetAllAlmacen();
+			ctrl.callGetAllIngreso();
 
 			i18nService.setCurrentLang('es');
 			$scope.columns = [{ field: 'CODE_INGRESO', headerCellClass: 'blue'},
@@ -73,47 +114,7 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 				}
 			};
 
-			ctrl.ingresoData = [{}];
-			ctrl.callGetAllIngreso = function() {
-				IngresoServiceFactory.getAllIngreso().then(function(response) {
-					ctrl.ingresoData = response.data.Ingreso;
-					$scope.gridOptions.data = response.data.Ingreso;
-					ctrl.ingresoTable = new NgTableParams({
-						page: 1,
-						count: 10
-					}, {
-						data: ctrl.ingresoData
-					});
-				});
-			};
-			ctrl.callGetAllIngreso();
-
-			ctrl.detalleIngresoData = [{}];
-			ctrl.callGetDetalleIngreso = function(id_ingreso) {
-				IngresoServiceFactory.getDetalleIngreso(id_ingreso).then(function(response) {
-					ctrl.detalleIngresoData = response.data.DetalleIngreso;
-					ctrl.detalleIngresoTable = new NgTableParams({
-						page: 1,
-						count: 10
-					}, {
-						data: ctrl.detalleIngresoData
-					});
-				});
-			};
-
-			ctrl.articuloData = [{}];
-			ctrl.callGetArticuloList = function() {
-				ArticulosServiceFactory.getArticuloList().then(function(response) {
-					ctrl.articuloData = response.data.Articulos;
-					ctrl.articuloTable = new NgTableParams({
-						page: 1,
-						count: 10
-					}, {
-						data : ctrl.articuloData
-					});
-				});
-			};
-			ctrl.callGetArticuloList();
+			
 
 			ctrl.detalleIngresoEditData = [];
 			ctrl.detalleIngresoEditTable = new NgTableParams({
@@ -131,7 +132,7 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 				//ctrl.detalleIngresoEditData = ctrl.detalleIngresoData.slice(0);
 				ctrl.detalleIngresoData.map(function(detIng) {
 					ctrl.detalleIngresoEditData.push(detIng);
-					return detIng; 
+					return detIng;
 				});
 				ctrl.detalleIngresoEditTable.reload();
 			};
@@ -168,12 +169,24 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 			};
 
 			ctrl.validateDetalleIngreso = function() {
-				var updated_detalle_ingreso = { ID_INGRESO: ctrl.idSelectedIngreso, LIST: ctrl.detalleIngresoEditData};
+				var updated_detalle_ingreso = {
+												ID_INGRESO: ctrl.idSelectedIngreso,
+												LIST: ctrl.detalleIngresoEditData
+											};
+
 				IngresoServiceFactory.deleteIngresoDetalle(ctrl.idSelectedIngreso).then(function(){
 					IngresoServiceFactory.updateIngresoDetalle(updated_detalle_ingreso);
-				}).then(function(){
-					//ctrl.switchModeDetalle();
+				}).then(function() {
+					ctrl.backTo();
 				});
+			};
+
+			ctrl.backTo = function() {
+				ctrl.modeEditDetalle = !ctrl.modeEditDetalle;
+				$rootScope.toLeft = false;
+				ctrl.detalleIngresoEditData.splice(0, ctrl.detalleIngresoEditData.length);
+				ctrl.callGetDetalleIngreso(ctrl.idSelectedIngreso);
+				ctrl.detalleIngresoData.reload();
 			};
 
 			ctrl.checkDetalleIngresoList = function() {

@@ -50,7 +50,7 @@ ingresoDetalleDAO.prototype.handleRoutes = function(router, connection) {
 					"		IS_ACTIVE, " + "\n" +
 					"		FK_INGRESO, " + "\n" +
 					"		FK_ARTICULO, " + "\n" +
-					"		FK_ALMACEN " + "\n" +
+					"		FK_ALMACEN" + "\n" +
 					"	) VALUES";
 		var idIngreso = req.body.ID_INGRESO;
 		var end_query = "\n" + " (?, ?, ?, ?, ?, ?)";
