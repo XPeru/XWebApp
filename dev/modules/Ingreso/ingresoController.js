@@ -63,7 +63,21 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 					}, {
 						data: ctrl.detalleIngresoData
 					});
-				});
+				}).then(
+						function(){
+							var temp = ctrl.detalleIngresoData.reduce(function(list,e){
+								list.push(e.ID_ARTICULO);
+								return list;
+							},[]);
+							ctrl.articuloData = ctrl.articuloData.reduce(function(tab,e){ 
+								if(temp.indexOf(e.ID_ARTICULO) > -1) return tab;
+								else {
+									tab.push(e);
+									return tab;
+								}
+							},[]);
+						}
+					).then(function(){ctrl.articuloTable.reload();});
 			};
 
 			ctrl.articuloData = [{}];
@@ -135,6 +149,22 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 					return detIng;
 				});
 				ctrl.detalleIngresoEditTable.reload();
+
+				var temp = ctrl.detalleIngresoData.reduce(function(list,e){
+								list.push(e.ID_ARTICULO);
+								return list;
+							},[]);
+							ctrl.articuloData = ctrl.articuloData.reduce(function(tab,e){ 
+								if(temp.indexOf(e.ID_ARTICULO) > -1) return tab;
+								else {
+									tab.push(e);
+									return tab;
+								}
+							},[]);
+							ctrl.articuloTable.reload();
+
+
+
 			};
 
 			ctrl.cancelModeDetalle = function() {
