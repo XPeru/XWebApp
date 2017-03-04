@@ -42,14 +42,14 @@ almacenesDAO.prototype.handleRoutes = function(router, connection) {
 		printRequest(urlBase + " post", "magenta");
 		var query = "INSERT INTO " + "\n" +
 					"	ALMACEN (" + "\n" +
-					"		CODIGO," + "\n" +
+					"		CODIGO_ALMACEN," + "\n" +
 					"		UBICACION" + "\n" +
 					"	)" + "\n" +
 					"VALUES (" + "\n" +
 					"	?, " + "\n" +
 					"	?" + "\n" +
 					")";
-		var table = [req.body.CODIGO,
+		var table = [req.body.CODIGO_ALMACEN,
 					req.body.UBICACION];
 		query = mysql.format(query, table);
 		printRequest(query, "magenta");
@@ -76,11 +76,11 @@ almacenesDAO.prototype.handleRoutes = function(router, connection) {
 		var query = "UPDATE" + "\n" +
 					"	ALMACEN " + "\n" +
 					"SET" + "\n" +
-					"	CODIGO = ?, " + "\n" +
+					"	CODIGO_ALMACEN = ?, " + "\n" +
 					"	UBICACION = ? " + "\n" +
 					"WHERE " + "\n" +
 					"	ID_ALMACEN = ?";
-		var table = [req.body.CODIGO, req.body.UBICACION, req.body.ID_ALMACEN];
+		var table = [req.body.CODIGO_ALMACEN, req.body.UBICACION, req.body.ID_ALMACEN];
 		query = mysql.format(query, table);
 		printRequest(query, "magenta");
 		connection.query(query, function(err) {

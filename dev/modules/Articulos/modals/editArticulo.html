@@ -9,13 +9,13 @@
 
         <div class="form-group"
                 ng-class="{'has-error':formUpdateArticulo.codigoF.$error.required && !formUpdateArticulo.codigoF.$pristine}">
-            <label for="codigo">Codigo</label>
+            <label for="codigoArticulo">Codigo articulo</label>
             <input type="text"
                     class="form-control"
-                    id="codigo"
+                    id="codigoArticulo"
                     name="codigoF"
-                    ng-model="modalArticuloCtrl.selected_article.CODIGO"
-                    placeholder="Codigo"
+                    ng-model="modalArticuloCtrl.selected_article.CODIGO_ARTICULO"
+                    placeholder="Codigo articulo"
                     required>
             <span ng-show="formUpdateArticulo.codigoF.$error.required && !formUpdateArticulo.codigoF.$pristine"
                     class="help-block">Codigo es un campo obligatorio.</span>

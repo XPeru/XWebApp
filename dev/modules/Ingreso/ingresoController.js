@@ -139,7 +139,7 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 
 				var temp2 = ctrl.articuloData.reduce(function(list, e) {
 					var index = temp.indexOf(e.ID_ARTICULO);
-					if ( index == -1 ) {
+					if ( index === -1 ) {
 						list.push(e);
 					} else {
 						temp.splice(index,1);
@@ -185,6 +185,16 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 				ctrl.articuloTable.reload();
 				ctrl.detalleIngresoEditData.push(articulo);
 				ctrl.detalleIngresoEditTable.reload();
+			};
+
+			ctrl.removeDetalleTable = function(articulo) {
+				var index = ctrl.detalleIngresoEditData.indexOf(articulo);
+				if (index > -1) {
+					ctrl.detalleIngresoEditData.splice(index, 1);
+				}
+				ctrl.detalleIngresoEditTable.reload();
+				ctrl.articuloData.push(articulo);
+				ctrl.articuloTable.reload();
 			};
 
 			ctrl.validateDetalleIngreso = function() {

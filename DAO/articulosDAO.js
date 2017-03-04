@@ -40,7 +40,7 @@ articulosDAO.prototype.handleRoutes = function(router, connection) {
 		printRequest(urlBase + "list" + " get", "cyan");
 		var query = "SELECT " + "\n" +
 					"	art.ID_ARTICULO," + "\n" +
-					"	art.CODIGO," + "\n" +
+					"	art.CODIGO_ARTICULO," + "\n" +
 					"	art.DESCRIPCION, " + "\n" +
 					"	art.UNIDAD, " + "\n" +
 					"	art.PRECIO_UNITARIO, " + "\n" +
@@ -78,7 +78,7 @@ articulosDAO.prototype.handleRoutes = function(router, connection) {
 		printRequest(urlBase + " post", "magenta");
 		var query = "INSERT INTO" + "\n" +
 					"	ARTICULO (" + "\n" +
-					"		CODIGO," + "\n" +
+					"		CODIGO_ARTICULO," + "\n" +
 					"		DESCRIPCION," + "\n" +
 					"		UNIDAD," + "\n" +
 					"		PRECIO_UNITARIO," + "\n" +
@@ -95,7 +95,7 @@ articulosDAO.prototype.handleRoutes = function(router, connection) {
 					"	?, " + "\n" +
 					"	?" + "\n" +
 					")";
-		var table = [req.body.CODIGO,
+		var table = [req.body.CODIGO_ARTICULO,
 					req.body.DESCRIPCION,
 					req.body.UNIDAD,
 					req.body.PRECIO_UNITARIO,
@@ -152,7 +152,7 @@ articulosDAO.prototype.handleRoutes = function(router, connection) {
 		var query = "UPDATE" + "\n" +
 					"	ARTICULO" + "\n" +
 					"SET " + "\n" +
-					"	CODIGO = ?, " + "\n" +
+					"	CODIGO_ARTICULO = ?, " + "\n" +
 					"	DESCRIPCION = ?, " + "\n" +
 					"	UNIDAD = ?, " + "\n" +
 					"	PRECIO_UNITARIO = ?, " + "\n" +
@@ -161,7 +161,7 @@ articulosDAO.prototype.handleRoutes = function(router, connection) {
 					"	IMAGEN = ? " + "\n" +
 					"WHERE" + "\n" +
 					"	ID_ARTICULO = ?";
-		var table = [req.body.CODIGO,
+		var table = [req.body.CODIGO_ARTICULO,
 					req.body.DESCRIPCION,
 					req.body.UNIDAD,
 					req.body.PRECIO_UNITARIO,

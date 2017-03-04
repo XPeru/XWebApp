@@ -179,17 +179,21 @@ ingresoDAO.prototype.handleRoutes = function(router, connection) {
 					"	ding.CANTIDAD, " + "\n" +
 					"	ding.PRECIO, " + "\n" +
 					"	ding.FK_ARTICULO AS ID_ARTICULO, " + "\n" +
-					"	art.CODIGO AS CODIGO_ARTICULO, " + "\n" +
+					"	art.CODIGO_ARTICULO, " + "\n" +
 					"	art.PRECIO_UNITARIO, " + "\n" +
 					"	art.IMAGEN, " + "\n" +
+					"	art.UNIDAD, " + "\n" +
+					"	cat.DESCRIPCION as CATEGORIA, " + "\n" +
 					"	ding.FK_ALMACEN AS ID_ALMACEN, " + "\n" +
-					"	alm.CODIGO AS CODIGO_ALMACEN" + "\n" +
+					"	alm.CODIGO_ALMACEN" + "\n" +
 					"FROM " + "\n" +
 					"	DETALLE_INGRESO ding " + "\n" +
 					"INNER JOIN ARTICULO art ON " + "\n" +
 					"	art.ID_ARTICULO = ding.FK_ARTICULO " + "\n" +
 					"INNER JOIN ALMACEN alm ON " + "\n" +
 					"	alm.ID_ALMACEN = ding.FK_ALMACEN " + "\n" +
+					"INNER JOIN CATEGORIA cat ON " + "\n" +
+					"	cat.ID_CATEGORIA = art.FK_CATEGORIA" + "\n" +
 					"WHERE" + "\n" +
 					"	ding.FK_INGRESO = ? AND" + "\n" +
 					"	ding.IS_ACTIVE = 1";

@@ -16,7 +16,7 @@
                     ng-click="almacenesGestionCtrl.setSelected(almacen.ID_ALMACEN)"
                     ng-class="{info: almacen.ID_ALMACEN === almacenesGestionCtrl.idSelectedAlmacen}">
 <!--                     <td data-title="'ID'" filter="{ID_ALMACEN: 'text'}" sortable="'ID_ALMACEN'">{{almacen.ID_ALMACEN}}</td> -->
-                    <td data-title="'CODIGO'" filter="{CODIGO: 'text'}" sortable="'CODIGO'">{{almacen.CODIGO}}</td>
+                    <td data-title="'CODIGO_ALMACEN'" filter="{CODIGO_ALMACEN: 'text'}" sortable="'CODIGO_ALMACEN'">{{almacen.CODIGO_ALMACEN}}</td>
                     <td data-title="'UBICACION'" filter="{UBICACION: 'text'}" sortable="'UBICACION'">{{almacen.UBICACION}}</td>
                     <td style="width:60px">
                         <button ng-if="almacen.ID_ALMACEN === almacenesGestionCtrl.idSelectedAlmacen"
