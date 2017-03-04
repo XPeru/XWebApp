@@ -63,23 +63,6 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 					}, {
 						data: ctrl.detalleIngresoData
 					});
-				}).then(
-					function() {
-						/*var temp = ctrl.detalleIngresoData.reduce(function(list, e) {
-							list.push(e.ID_ARTICULO);
-							return list;
-						}, []);
-						ctrl.articuloData = ctrl.articuloData.reduce(function(tab, e) {
-							if (temp.indexOf(e.ID_ARTICULO) > -1) {
-								return tab;
-							} else {
-								tab.push(e);
-								return tab;
-							}
-						}, []);*/
-					}
-				).then(function() {
-					/*ctrl.articuloTable.reload();*/
 				});
 			};
 
@@ -131,8 +114,6 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 				}
 			};
 
-			
-
 			ctrl.detalleIngresoEditData = [];
 			ctrl.detalleIngresoEditTable = new NgTableParams({
 				page: 1,
@@ -145,8 +126,6 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 			ctrl.switchModeDetalle = function() {
 				ctrl.modeEditDetalle = !ctrl.modeEditDetalle;
 				$rootScope.toLeft = false;
-				// La copia de abajo no funciona
-				//ctrl.detalleIngresoEditData = ctrl.detalleIngresoData.slice(0);
 				ctrl.detalleIngresoData.map(function(detIng) {
 					ctrl.detalleIngresoEditData.push(detIng);
 					return detIng;
@@ -157,25 +136,21 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 					list.push(e.ID_ARTICULO);
 					return list;
 				}, []);
-				/*ctrl.articuloData = ctrl.articuloData.reduce(function(tab, e) {
-					if (temp.indexOf(e.ID_ARTICULO) > -1) {
-						return tab;
-					}
-					else {
-						tab.push(e);
-						return tab;
-					}
-				}, []);*/
+
 				var temp2 = ctrl.articuloData.reduce(function(list, e) {
-					list.push(e.ID_ARTICULO);
+					var index = temp.indexOf(e.ID_ARTICULO);
+					if ( index == -1 ) {
+						list.push(e);
+					} else {
+						temp.splice(index,1);
+					}
 					return list;
 				}, []);
-				for (var i = 0; i < temp2.length; i++) {
-					var index = temp.indexOf(temp2[i]);
-					if (index !== -1) {
-						ctrl.articuloData.splice(index, 1);
-					}
-				}
+
+				ctrl.articuloData.splice(0, ctrl.articuloData.length);
+				temp2.map(function(e){
+					ctrl.articuloData.push(e);
+				});
 				ctrl.articuloTable.reload();
 
 			};
@@ -219,6 +194,8 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 
 				IngresoServiceFactory.deleteIngresoDetalle(ctrl.idSelectedIngreso).then(function(){
 					IngresoServiceFactory.updateIngresoDetalle(updated_detalle_ingreso);
+				}).then(function(){
+					IngresoServiceFactory.updateIngreso(ctrl.selectedIngreso);
 				}).then(function() {
 					ctrl.backTo();
 				});
@@ -231,6 +208,7 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 				ctrl.callGetDetalleIngreso(ctrl.idSelectedIngreso);
 				ctrl.callGetArticuloList();
 				ctrl.detalleIngresoData.reload();
+				ctrl.ingresoData.reload();
 			};
 
 			ctrl.checkDetalleIngresoList = function() {
@@ -262,8 +240,8 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 					}, 0);
 				} else {
 					return ctrl.detalleIngresoData.reduce(function(sum, e) {
-						return sum + e.PRECIO_UNITARIO * e.CANTIDAD;
-					}, 0);
+																return sum + e.PRECIO_UNITARIO * e.CANTIDAD;
+															}, 0);
 				}
 
 			};
