@@ -159,13 +159,8 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 				ctrl.modeEditDetalle = false;
 				$rootScope.toLeft = true;
 				ctrl.callGetArticuloList();
-				// ctrl.callGetDetalleIngreso();
-
 				ctrl.callGetDetalleIngreso(ctrl.idSelectedIngreso);	
-				// ctrl.detalleIngresoTable.reload();
 				ctrl.detalleIngresoEditData.splice(0, ctrl.detalleIngresoEditData.length);
-// dsadsadsadsadsadsad
-
 				ctrl.detalleIngresoEditTable.reload();
 			};
 
