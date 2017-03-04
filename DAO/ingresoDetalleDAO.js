@@ -83,6 +83,38 @@ ingresoDetalleDAO.prototype.handleRoutes = function(router, connection) {
 			}
 		});
 	});
+
+	router.put(urlBase, function(req, res) {
+		printRequest(urlBase + " put", "magenta");
+		var query = "UPDATE " + "\n" +
+					"	INGRESO " + "\n" +
+					"SET " + "\n" +
+					"	COSTO_TOTAL = ?," + "\n" +
+					"	UPDATE_TIME = CURRENT_TIMESTAMP" + "\n" +
+					"WHERE" + "\n" +
+					"	ID_INGRESO = ?";
+		var table = [
+						req.body.COSTO_TOTAL, 
+						req.body.ID_INGRESO];
+		query = mysql.format(query, table);
+		printRequest(query, "magenta");
+		connection.query(query, function(err) {
+			if (err) {
+				printRequest('Error executing MySQL query:' + query, "red");
+				printRequest(err.message, "red");
+				res.json({
+					"Error": true,
+					"Message": "Error executing MySQL query"
+				});
+			} else {
+				printRequest('Success MySQL query');
+				res.json({
+					"Error": false,
+					"Message": "Categoria detalle updated !"
+				});
+			}
+		});
+	});
 };
 
 module.exports = ingresoDetalleDAO;

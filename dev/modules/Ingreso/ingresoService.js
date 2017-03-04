@@ -25,6 +25,10 @@ angular.module('ingresoService', ['ngResource'])
 				return $http.put(urlBase, updIngreso);
 			};
 
+			service.updateCostoIngreso = function(updCostoIngreso) {
+				return $http.put(urlBaseDetalle, updCostoIngreso);
+			};
+
 			service.deleteIngreso = function(id_ingreso) {
 				return $http.delete(urlBase + '/' + id_ingreso);
 			};
