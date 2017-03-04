@@ -159,7 +159,13 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 				ctrl.modeEditDetalle = false;
 				$rootScope.toLeft = true;
 				ctrl.callGetArticuloList();
+				// ctrl.callGetDetalleIngreso();
+
+				ctrl.callGetDetalleIngreso(ctrl.idSelectedIngreso);	
+				// ctrl.detalleIngresoTable.reload();
 				ctrl.detalleIngresoEditData.splice(0, ctrl.detalleIngresoEditData.length);
+// dsadsadsadsadsadsad
+
 				ctrl.detalleIngresoEditTable.reload();
 			};
 
@@ -191,11 +197,15 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 												ID_INGRESO: ctrl.idSelectedIngreso,
 												LIST: ctrl.detalleIngresoEditData
 											};
+				var updated_costo_ingreso = {
+												ID_INGRESO: ctrl.idSelectedIngreso,
+												COSTO_TOTAL: ctrl.total('Edit')
+											};
 
 				IngresoServiceFactory.deleteIngresoDetalle(ctrl.idSelectedIngreso).then(function(){
 					IngresoServiceFactory.updateIngresoDetalle(updated_detalle_ingreso);
 				}).then(function(){
-					IngresoServiceFactory.updateIngreso(ctrl.selectedIngreso);
+					IngresoServiceFactory.updateCostoIngreso(updated_costo_ingreso);
 				}).then(function() {
 					ctrl.backTo();
 				});
@@ -207,8 +217,9 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 				ctrl.detalleIngresoEditData.splice(0, ctrl.detalleIngresoEditData.length);
 				ctrl.callGetDetalleIngreso(ctrl.idSelectedIngreso);
 				ctrl.callGetArticuloList();
-				ctrl.detalleIngresoData.reload();
-				ctrl.ingresoData.reload();
+				ctrl.callGetAllIngreso();
+				ctrl.detalleIngresoTable.reload();
+				ctrl.ingresoTable.reload();
 			};
 
 			ctrl.checkDetalleIngresoList = function() {
