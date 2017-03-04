@@ -25,12 +25,12 @@ angular.module('Articulos', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.g
 		ctrl.callGetAllCategorias();
 
 		i18nService.setCurrentLang('es');
-		$scope.columns = [{ field: 'CODIGO', headerCellClass: 'blue'},
+		$scope.columns = [{ field: 'CODIGO_ARTICULO', headerCellClass: 'blue'},
 							{field: 'DESCRIPCION', headerCellClass : 'blue'},
 							{field: 'UNIDAD', headerCellClass : 'blue'},
 							{field: 'PRECIO_UNITARIO', headerCellClass: 'blue'},
 							{field: 'VALOR_REPOSICION', headerCellClass :' blue'}];
-			$scope.columns[0].displayName = 'Codigo';
+			$scope.columns[0].displayName = 'Codigo articulo';
 			$scope.columns[1].displayName = 'Descripcion';
 			$scope.columns[2].displayName = 'Unidad';
 			$scope.columns[3].displayName = 'Precio unitario';

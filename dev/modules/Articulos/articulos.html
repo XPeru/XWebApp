@@ -16,7 +16,7 @@
 					ng-click="articulosCtrl.setSelected(articulo.ID_ARTICULO)"
 					ng-class="{info: articulo.ID_ARTICULO === articulosCtrl.idSelectedArticulo}">
 					<td data-title="'Imagen'"><img class="img-thumbnail" ng-src={{articulo.IMAGEN}} width="100" height="100"></td>
-					<td data-title="'Codigo'" filter="{CODIGO: 'text'}" sortable="'CODIGO'">{{articulo.CODIGO}}</td>
+					<td data-title="'Codigo articulo'" filter="{CODIGO_ARTICULO: 'text'}" sortable="'CODIGO_ARTICULO'">{{articulo.CODIGO_ARTICULO}}</td>
 					<td data-title="'Descripcion'" filter="{DESCRIPCION: 'text'}" sortable="'DESCRIPCION'">{{articulo.DESCRIPCION}}</td>
 					<td data-title="'Unidad'" filter="{UNIDAD: 'text'}" sortable="'UNIDAD'">{{articulo.UNIDAD}}</td>
 					<td data-title="'Precio Unitario'" filter="{PRECIO_UNITARIO: 'number'}" sortable="'PRECIO_UNITARIO'">{{articulo.PRECIO_UNITARIO |currency}}</td>

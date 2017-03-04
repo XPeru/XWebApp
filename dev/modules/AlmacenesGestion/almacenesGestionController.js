@@ -17,8 +17,8 @@ angular.module('AlmacenesGestion', ['ui.bootstrap', 'ui.grid','ui.grid.exporter'
 
 			i18nService.setCurrentLang('es');
 
-			$scope.columns = [{ field: 'CODIGO', headerCellClass: 'blue'}, {field : 'UBICACION', headerCellClass: 'blue'}];
-			$scope.columns[0].displayName = 'Codigo';
+			$scope.columns = [{ field: 'CODIGO_ALMACEN', headerCellClass: 'blue'}, {field : 'UBICACION', headerCellClass: 'blue'}];
+			$scope.columns[0].displayName = 'Codigo almacen';
 			$scope.columns[1].displayName = 'Ubicacion';
 			$scope.gridOptions = {
 				exporterMenuCsv: false,

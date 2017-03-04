@@ -2,8 +2,8 @@
 	<div class ="row" ng-repeat="almacen in almacenesCtrl.almacenesData.Almacenes" ng-if="$even">
 		<button class="btn btn-success bigButton"
 				type="button"
-				ui-sref="app.almacenesdetalle({id_almacen: almacen.ID_ALMACEN, codigo_almacen: almacen.CODIGO})">
-			{{almacen.CODIGO}}
+				ui-sref="app.almacenesdetalle({id_almacen: almacen.ID_ALMACEN, codigo_almacen: almacen.CODIGO_ALMACEN})">
+			{{almacen.CODIGO_ALMACEN}}
        	</button>
 	</div>
 </div>
@@ -11,8 +11,8 @@
 	<div class ="row" ng-repeat="almacen in almacenesCtrl.almacenesData.Almacenes" ng-if="$odd">
 		<button class="btn btn-info bigButton"
 				type="button"
-				ui-sref="app.almacenesdetalle({id_almacen: almacen.ID_ALMACEN, codigo_almacen: almacen.CODIGO})">
-			{{almacen.CODIGO}}
+				ui-sref="app.almacenesdetalle({id_almacen: almacen.ID_ALMACEN, codigo_almacen: almacen.CODIGO_ALMACEN})">
+			{{almacen.CODIGO_ALMACEN}}
        	</button>
 	</div>
 </div>

@@ -177,11 +177,11 @@
 							<a><i class="fa fa-search-plus" aria-hidden="true"></i> Consultar<span class="fa arrow"></span></a>
 							<ul class="nav nav-third-level">
 								<li ng-repeat="almacen in topbarCtrl.almacenesData.Almacenes">
-									<a ui-sref="app.almacenesdetalle({id_almacen: almacen.ID_ALMACEN, codigo_almacen: almacen.CODIGO})"
-										ng-click="topbarCtrl.setSelectedMenu('almacenesdetalle/'+almacen.ID_ALMACEN+'/'+ almacen.CODIGO+'')"
-										ng-class="{active: topbarCtrl.selectedMenu === 'almacenesdetalle/'+almacen.ID_ALMACEN+'/'+almacen.CODIGO+''}"
-										href="'almacenesdetalle/'+almacen.ID_ALMACEN+'/'+almacen.CODIGO+''">
-										<i class="fa fa-cube" aria-hidden="true"></i> {{almacen.CODIGO}}
+									<a ui-sref="app.almacenesdetalle({id_almacen: almacen.ID_ALMACEN, codigo_almacen: almacen.CODIGO_ALMACEN})"
+										ng-click="topbarCtrl.setSelectedMenu('almacenesdetalle/'+almacen.ID_ALMACEN+'/'+ almacen.CODIGO_ALMACEN+'')"
+										ng-class="{active: topbarCtrl.selectedMenu === 'almacenesdetalle/'+almacen.ID_ALMACEN+'/'+almacen.CODIGO_ALMACEN+''}"
+										href="'almacenesdetalle/'+almacen.ID_ALMACEN+'/'+almacen.CODIGO_ALMACEN+''">
+										<i class="fa fa-cube" aria-hidden="true"></i> {{almacen.CODIGO_ALMACEN}}
 									</a>
 								</li>
 								<li>
