@@ -208,7 +208,11 @@
 							<td data-title="'Precio'"
 								filter="{PRECIO: 'text'}"
 								sortable="'PRECIO'">
-								{{detalleIngreso.PRECIO}}
+								{{detalleIngreso.PRECIO | currency}}
+							</td>
+
+							<td data-title="'Subtotal'">
+								{{detalleIngreso.CANTIDAD * detalleIngreso.PRECIO_UNITARIO | currency}}
 							</td>
 
 							<td data-title="'Codigo Articulo'"
@@ -263,14 +267,16 @@
 								</select>
 							</td>
 						</tr>
-						<tr>
-							Total: {{ingresoCtrl.total()}}
-						</tr>
 					</table>
 				</div>
 			</div>
+			<div class="panel-footer">
+				.
+				<div class="pull-right">Numero de lineas a mostrar <i class="fa fa-level-up" aria-hidden="true"></i></div>
+				<div class="pull-left" ng-if="!ingresoCtrl.modeEditDetalle"><strong>TOTAL: {{ingresoCtrl.total()}}</strong></div>
+				<div class="pull-left" ng-if="ingresoCtrl.modeEditDetalle"><strong>TOTAL: {{ingresoCtrl.total('Edit')}}</strong></div>
+			</div>
 		</div>
-	<!-- </form> -->
 </div>
 
 

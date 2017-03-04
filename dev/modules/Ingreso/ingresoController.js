@@ -64,20 +64,23 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 						data: ctrl.detalleIngresoData
 					});
 				}).then(
-						function(){
-							var temp = ctrl.detalleIngresoData.reduce(function(list,e){
-								list.push(e.ID_ARTICULO);
-								return list;
-							},[]);
-							ctrl.articuloData = ctrl.articuloData.reduce(function(tab,e){ 
-								if(temp.indexOf(e.ID_ARTICULO) > -1) return tab;
-								else {
-									tab.push(e);
-									return tab;
-								}
-							},[]);
-						}
-					).then(function(){ctrl.articuloTable.reload();});
+					function() {
+						/*var temp = ctrl.detalleIngresoData.reduce(function(list, e) {
+							list.push(e.ID_ARTICULO);
+							return list;
+						}, []);
+						ctrl.articuloData = ctrl.articuloData.reduce(function(tab, e) {
+							if (temp.indexOf(e.ID_ARTICULO) > -1) {
+								return tab;
+							} else {
+								tab.push(e);
+								return tab;
+							}
+						}, []);*/
+					}
+				).then(function() {
+					/*ctrl.articuloTable.reload();*/
+				});
 			};
 
 			ctrl.articuloData = [{}];
@@ -150,20 +153,30 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 				});
 				ctrl.detalleIngresoEditTable.reload();
 
-				var temp = ctrl.detalleIngresoData.reduce(function(list,e){
-								list.push(e.ID_ARTICULO);
-								return list;
-							},[]);
-							ctrl.articuloData = ctrl.articuloData.reduce(function(tab,e){ 
-								if(temp.indexOf(e.ID_ARTICULO) > -1) return tab;
-								else {
-									tab.push(e);
-									return tab;
-								}
-							},[]);
-							ctrl.articuloTable.reload();
-
-
+				var temp = ctrl.detalleIngresoData.reduce(function(list, e) {
+					list.push(e.ID_ARTICULO);
+					return list;
+				}, []);
+				/*ctrl.articuloData = ctrl.articuloData.reduce(function(tab, e) {
+					if (temp.indexOf(e.ID_ARTICULO) > -1) {
+						return tab;
+					}
+					else {
+						tab.push(e);
+						return tab;
+					}
+				}, []);*/
+				var temp2 = ctrl.articuloData.reduce(function(list, e) {
+					list.push(e.ID_ARTICULO);
+					return list;
+				}, []);
+				for (var i = 0; i < temp2.length; i++) {
+					var index = temp.indexOf(temp2[i]);
+					if (index !== -1) {
+						ctrl.articuloData.splice(index, 1);
+					}
+				}
+				ctrl.articuloTable.reload();
 
 			};
 
@@ -216,6 +229,7 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 				$rootScope.toLeft = false;
 				ctrl.detalleIngresoEditData.splice(0, ctrl.detalleIngresoEditData.length);
 				ctrl.callGetDetalleIngreso(ctrl.idSelectedIngreso);
+				ctrl.callGetArticuloList();
 				ctrl.detalleIngresoData.reload();
 			};
 
@@ -234,21 +248,25 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 			};
 
 			function isNullOrUndefined(element) {
-				if (element === null) {
-					return true;
-				} else if (element === undefined) {
-					return true;
+				return (element === null || element === undefined);
+			}
+
+			ctrl.total = function(table) {
+				if (table === 'Edit') {
+					return ctrl.detalleIngresoEditData.reduce(function(sum, e) {
+						if (isNullOrUndefined(e.CANTIDAD)) {
+							return sum;
+						} else {
+							return sum + e.PRECIO_UNITARIO * e.CANTIDAD;
+						}
+					}, 0);
+				} else {
+					return ctrl.detalleIngresoData.reduce(function(sum, e) {
+						return sum + e.PRECIO_UNITARIO * e.CANTIDAD;
+					}, 0);
 				}
-				return false;
-			}
 
-			ctrl.total = function (){
-				return ctrl.detalleIngresoEditData.reduce(function(sum,e){
-					if(isNullOrUndefined(e.CANTIDAD)) return sum;
-					else return sum+e.PRECIO_UNITARIO*e.CANTIDAD;
-				},0);
-			}
-
+			};
 			ctrl.openModalIngreso = function(selected_modal, selectedIngreso) {
 				var modalInstance = $uibModal.open({
 					templateUrl: function() {
