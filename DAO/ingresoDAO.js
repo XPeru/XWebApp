@@ -67,7 +67,7 @@ ingresoDAO.prototype.handleRoutes = function(router, connection) {
 		var query = "INSERT INTO " + "\n" +
 					"	INGRESO (" + "\n" +
 					"		CODE_INGRESO," + "\n" +
-					"		COSTO_TOTAL," + "\n" +
+					// "		COSTO_TOTAL," + "\n" +
 					"		FK_CREATE_USUARIO," + "\n" +
 					"		CREATE_TIME," + "\n" +
 					"		FK_PROVEEDOR," + "\n" +
@@ -76,7 +76,7 @@ ingresoDAO.prototype.handleRoutes = function(router, connection) {
 					"	)" + "\n" + 
 					"VALUES (" + "\n" +
 					"	?," + "\n" +
-					"	?," + "\n" +
+					// "	?," + "\n" +
 					"	?," + "\n" +
 					"	CURRENT_TIMESTAMP," + "\n" + // use CURDATE() for current date
 					"	?," + "\n" +
@@ -85,7 +85,7 @@ ingresoDAO.prototype.handleRoutes = function(router, connection) {
 					")";
 		var table = [
 					req.body.CODE_INGRESO,
-					0,
+					// req.body.COSTO_TOTAL,
 					1, // here should be req.body.FK_CREATE_USUARIO
 					req.body.FK_PROVEEDOR,
 					req.body.FK_TIPO_DOCUMENTO,
