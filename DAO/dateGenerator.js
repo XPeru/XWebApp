@@ -25,7 +25,7 @@ function dateGenerator(daoName) {
 
 dateGenerator.prototype.printInfo = function(text, color) {
 	var today = this.today();
-	var res = today + " " + this.daoName + " " + text;
+	var res = today + " " + this.daoName + "\n" + text;
 	switch(color) {
 		case "yellow":
 			return console.info(colors.yellow(res));
@@ -43,7 +43,7 @@ dateGenerator.prototype.printInfo = function(text, color) {
 
 dateGenerator.prototype.printStart = function() {
 	var today = this.today();
-	return console.info(colors.green(today + " " + this.daoName + " added succesfully"));
+	return console.info(colors.green(today + " " + this.daoName + " has been added successfully"));
 };
 
 module.exports = dateGenerator;
