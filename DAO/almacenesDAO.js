@@ -11,21 +11,20 @@ function almacenesDAO(router, connection) {
 almacenesDAO.prototype.handleRoutes = function(router, connection) {
 	var urlBase = "/almacen";
 	router.get(urlBase + "list", function(req, res) {
-		dateGeneratorO.printInfo(urlBase + "list" + " get", "cyan");
+		dateGeneratorO.printSelect(urlBase + "list");
 		var query = "CALL SP_SEARCH_ALL('ALMACEN')";
 		var table = [];
 		query = mysql.format(query, table);
-		dateGeneratorO.printInfo(query, "cyan");
+		dateGeneratorO.printSelect(query);
 		connection.query(query, function(err, rows) {
 			if (err) {
-				dateGeneratorO.printInfo('Error executing MySQL query:' + query, "red");
-				dateGeneratorO.printInfo(err.message, "red");
+				dateGeneratorO.printError(query, err.message);
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				dateGeneratorO.printInfo('Success MySQL query');
+				dateGeneratorO.printSuccess();
 				res.json({
 					"Error": false,
 					"Message": "Success",
@@ -36,7 +35,7 @@ almacenesDAO.prototype.handleRoutes = function(router, connection) {
 	});
 
 	router.post(urlBase, function(req, res) {
-		dateGeneratorO.printInfo(urlBase + " post", "magenta");
+		dateGeneratorO.printInsert(urlBase);
 		var query = "INSERT INTO " + "\n" +
 					"	ALMACEN (" + "\n" +
 					"		CODIGO_ALMACEN," + "\n" +
@@ -49,17 +48,16 @@ almacenesDAO.prototype.handleRoutes = function(router, connection) {
 		var table = [req.body.CODIGO_ALMACEN,
 					req.body.UBICACION];
 		query = mysql.format(query, table);
-		dateGeneratorO.printInfo(query, "magenta");
+		dateGeneratorO.printInsert(query);
 		connection.query(query, function(err) {
 			if (err) {
-				dateGeneratorO.printInfo('Error executing MySQL query:' + query, "red");
-				dateGeneratorO.printInfo(err.message, "red");
+				dateGeneratorO.printError(query, err.message);
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				dateGeneratorO.printInfo('Success MySQL query');
+				dateGeneratorO.printSuccess();
 				res.json({
 					"Error": false,
 					"Message": "Articulo Added !"
@@ -69,7 +67,7 @@ almacenesDAO.prototype.handleRoutes = function(router, connection) {
 	});
 
 	router.put(urlBase, function(req, res) {
-		dateGeneratorO.printInfo(urlBase + " put", "magenta");
+		dateGeneratorO.printUpdate(urlBase);
 		var query = "UPDATE" + "\n" +
 					"	ALMACEN " + "\n" +
 					"SET" + "\n" +
@@ -79,17 +77,16 @@ almacenesDAO.prototype.handleRoutes = function(router, connection) {
 					"	ID_ALMACEN = ?";
 		var table = [req.body.CODIGO_ALMACEN, req.body.UBICACION, req.body.ID_ALMACEN];
 		query = mysql.format(query, table);
-		dateGeneratorO.printInfo(query, "magenta");
+		dateGeneratorO.printUpdate(query);
 		connection.query(query, function(err) {
 			if (err) {
-				dateGeneratorO.printInfo('Error executing MySQL query:' + query, "red");
-				dateGeneratorO.printInfo(err.message, "red");
+				dateGeneratorO.printError(query, err.message);
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				dateGeneratorO.printInfo('Success MySQL query');
+				dateGeneratorO.printSuccess();
 				res.json({
 					"Error": false,
 					"Message": "Almacen detalle updated !"
@@ -99,24 +96,23 @@ almacenesDAO.prototype.handleRoutes = function(router, connection) {
 	});
 
 	router.delete(urlBase + "/:id_almacen", function(req, res) {
-		dateGeneratorO.printInfo(urlBase + "/:id_almacen" + " delete", "yellow");
+		dateGeneratorO.printDelete(urlBase + "/:id_almacen");
 		var query = "DELETE FROM" + "\n" +
 					"	ALMACEN" + "\n" +
 					"WHERE " + "\n" +
 					"	ID_ALMACEN = ?";
 		var table = [req.params.id_almacen];
 		query = mysql.format(query, table);
-		dateGeneratorO.printInfo(query, "yellow");
+		dateGeneratorO.printDelete(query);
 		connection.query(query, function(err) {
 			if (err) {
-				dateGeneratorO.printInfo('Error executing MySQL query:' + query, "red");
-				dateGeneratorO.printInfo(err.message, "red");
+				dateGeneratorO.printError(query, err.message);
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				dateGeneratorO.printInfo('Success MySQL query');
+				dateGeneratorO.printSuccess();
 				res.json({
 					"Error": false,
 					"Message": "Almacen deleted: " + req.params.id_almacen

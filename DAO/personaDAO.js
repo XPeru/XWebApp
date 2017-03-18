@@ -10,7 +10,7 @@ function personaDAO(router, connection) {
 personaDAO.prototype.handleRoutes = function(router, connection) {
 	var urlBase = "/persona";
 	router.get(urlBase + "list" + "/:desc", function(req, res) {
-		dateGeneratorO.printInfo(urlBase + "list" + " get", "cyan");
+		dateGeneratorO.printSelect(urlBase + "list");
 		var query = "SELECT " + "\n" +
 					"	pc.ID_PROVEEDOR_CLIENTE, " + "\n" +
 					"	pc.NOMBRE, " + "\n" +
@@ -31,17 +31,16 @@ personaDAO.prototype.handleRoutes = function(router, connection) {
 					"	tipo.DESCRIPCION = ?";
 		var table = [req.params.desc];
 		query = mysql.format(query, table);
-		dateGeneratorO.printInfo(query, "cyan");
+		dateGeneratorO.printSelect(query);
 		connection.query(query, function(err, rows) {
 			if (err) {
-				dateGeneratorO.printInfo('Error executing MySQL query:' + query, "red");
-				dateGeneratorO.printInfo(err.message, "red");
+				dateGeneratorO.printError(query, err.message);
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				dateGeneratorO.printInfo('Success MySQL query');
+				dateGeneratorO.printSuccess();
 				res.json({
 					"Error": false,
 					"Message": "Success",
@@ -52,7 +51,7 @@ personaDAO.prototype.handleRoutes = function(router, connection) {
 	});
 
 	router.post(urlBase, function(req, res) {
-		dateGeneratorO.printInfo(urlBase + " post", "magenta");
+		dateGeneratorO.printInsert(urlBase);
 		var query = "INSERT INTO " + "\n" +
 					"	PROVEEDOR_CLIENTE (" + "\n" +
 					"		NOMBRE," + "\n" +
@@ -88,17 +87,16 @@ personaDAO.prototype.handleRoutes = function(router, connection) {
 					req.body.TELEFONO,
 					req.body.FK_TIPO_PERSONA];
 		query = mysql.format(query, table);
-		dateGeneratorO.printInfo(query, "magenta");
+		dateGeneratorO.printInsert(query);
 		connection.query(query, function(err) {
 			if (err) {
-				dateGeneratorO.printInfo('Error executing MySQL query:' + query, "red");
-				dateGeneratorO.printInfo(err.message, "red");
+				dateGeneratorO.printError(query, err.message);
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				dateGeneratorO.printInfo('Success MySQL query');
+				dateGeneratorO.printSuccess();
 				res.json({
 					"Error": false,
 					"Message": "Persona Added !"
@@ -108,7 +106,7 @@ personaDAO.prototype.handleRoutes = function(router, connection) {
 	});
 
 	router.put(urlBase, function(req, res) {
-		dateGeneratorO.printInfo(urlBase + " put", "magenta");
+		dateGeneratorO.printUpdate(urlBase);
 		var query = "UPDATE " + "\n" +
 					"	PROVEEDOR_CLIENTE" + "\n" +
 					"SET" + "\n" +
@@ -130,17 +128,16 @@ personaDAO.prototype.handleRoutes = function(router, connection) {
 					req.body.TELEFONO,
 					req.body.ID_PROVEEDOR_CLIENTE];
 		query = mysql.format(query, table);
-		dateGeneratorO.printInfo(query, "magenta");
+		dateGeneratorO.printUpdate(query);
 		connection.query(query, function(err) {
 			if (err) {
-				dateGeneratorO.printInfo('Error executing MySQL query:' + query, "red");
-				dateGeneratorO.printInfo(err.message, "red");
+				dateGeneratorO.printError(query, err.message);
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				dateGeneratorO.printInfo('Success MySQL query');
+				dateGeneratorO.printSuccess();
 				res.json({
 					"Error": false,
 					"Message": "Categoria detalle updated !"
@@ -150,24 +147,23 @@ personaDAO.prototype.handleRoutes = function(router, connection) {
 	});
 
 	router.delete(urlBase + "/:id_proveedor_cliente", function(req, res) {
-		dateGeneratorO.printInfo(urlBase + "/:id_proveedor_cliente" + " delete", "yellow");
+		dateGeneratorO.printDelete(urlBase + "/:id_proveedor_cliente");
 		var query = "DELETE FROM" + "\n" +
 					"	PROVEEDOR_CLIENTE" + "\n" +
 					"WHERE " + "\n" +
 					"	ID_PROVEEDOR_CLIENTE = ?";
 		var table = [req.params.id_proveedor_cliente];
 		query = mysql.format(query, table);
-		dateGeneratorO.printInfo(query, "yellow");
+		dateGeneratorO.printDelete(query);
 		connection.query(query, function(err) {
 			if (err) {
-				dateGeneratorO.printInfo('Error executing MySQL query:' + query, "red");
-				dateGeneratorO.printInfo(err.message, "red");
+				dateGeneratorO.printError(query, err.message);
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				dateGeneratorO.printInfo('Success MySQL query');
+				dateGeneratorO.printSuccess();
 				res.json({
 					"Error": false,
 					"Message": "Categoria deleted: " + req.params.id_proveedor_cliente

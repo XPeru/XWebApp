@@ -10,21 +10,20 @@ function estadoDAO(router, connection) {
 estadoDAO.prototype.handleRoutes = function(router, connection) {
 	var urlBase = "/estado";
 	router.get(urlBase + "list", function(req, res) {
-		dateGeneratorO.printInfo(urlBase + "list" + " get", "cyan");
+		dateGeneratorO.printSelect(urlBase + "list");
 		var query = "CALL SP_SEARCH_ALL('ESTADO')";
 		var table = [];
 		query = mysql.format(query, table);
-		dateGeneratorO.printInfo(query, "cyan");
+		dateGeneratorO.printSelect(query);
 		connection.query(query, function(err, rows) {
 			if (err) {
-				dateGeneratorO.printInfo('Error executing MySQL query:' + query, "red");
-				dateGeneratorO.printInfo(err.message, "red");
+				dateGeneratorO.printError(query, err.message);
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				dateGeneratorO.printInfo('Success MySQL query');
+				dateGeneratorO.printSuccess();
 				res.json({
 					"Error": false,
 					"Message": "Success",
@@ -35,7 +34,7 @@ estadoDAO.prototype.handleRoutes = function(router, connection) {
 	});
 
 	router.post(urlBase, function(req, res) {
-		dateGeneratorO.printInfo(urlBase + " post", "magenta");
+		dateGeneratorO.printInsert(urlBase);
 		var query = "INSERT INTO " + "\n" +
 					"	ESTADO (" + "\n" +
 					"		DESCRIPCION" + "\n" +
@@ -45,17 +44,16 @@ estadoDAO.prototype.handleRoutes = function(router, connection) {
 					"	)";
 		var table = [req.body.DESCRIPCION];
 		query = mysql.format(query, table);
-		dateGeneratorO.printInfo(query, "magenta");
+		dateGeneratorO.printInsert(query);
 		connection.query(query, function(err) {
 			if (err) {
-				dateGeneratorO.printInfo('Error executing MySQL query:' + query, "red");
-				dateGeneratorO.printInfo(err.message, "red");
+				dateGeneratorO.printError(query, err.message);
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				dateGeneratorO.printInfo('Success MySQL query');
+				dateGeneratorO.printSuccess();
 				res.json({
 					"Error": false,
 					"Message": "Categoria Added !"
@@ -65,7 +63,7 @@ estadoDAO.prototype.handleRoutes = function(router, connection) {
 	});
 
 	router.put(urlBase, function(req, res) {
-		dateGeneratorO.printInfo(urlBase + " put", "magenta");
+		dateGeneratorO.printUpdate(urlBase);
 		var query = "UPDATE" + "\n" +
 					"	ESTADO " + "\n" +
 					"SET " + "\n" +
@@ -75,17 +73,16 @@ estadoDAO.prototype.handleRoutes = function(router, connection) {
 		var table = [req.body.DESCRIPCION,
 					req.body.ID_ESTADO];
 		query = mysql.format(query, table);
-		dateGeneratorO.printInfo(query, "magenta");
+		dateGeneratorO.printUpdate(query);
 		connection.query(query, function(err) {
 			if (err) {
-				dateGeneratorO.printInfo('Error executing MySQL query:' + query, "red");
-				dateGeneratorO.printInfo(err.message, "red");
+				dateGeneratorO.printError(query, err.message);
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				dateGeneratorO.printInfo('Success MySQL query');
+				dateGeneratorO.printSuccess();
 				res.json({
 					"Error": false,
 					"Message": "Categoria detalle updated !"
@@ -95,24 +92,23 @@ estadoDAO.prototype.handleRoutes = function(router, connection) {
 	});
 
 	router.delete(urlBase + "/:id_estado", function(req, res) {
-		dateGeneratorO.printInfo(urlBase + "/:id_estado" + " delete", "yellow");
+		dateGeneratorO.printDelete(urlBase + "/:id_estado");
 		var query = "DELETE FROM " + "\n" +
 					"	ESTADO " + "\n" +
 					"WHERE " + "\n" +
 					"	ID_ESTADO = ?";
 		var table = [req.params.id_estado];
 		query = mysql.format(query, table);
-		dateGeneratorO.printInfo(query, "yellow");
+		dateGeneratorO.printDelete(query);
 		connection.query(query, function(err) {
 			if (err) {
-				dateGeneratorO.printInfo('Error executing MySQL query:' + query, "red");
-				dateGeneratorO.printInfo(err.message, "red");
+				dateGeneratorO.printError(query, err.message);
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				dateGeneratorO.printInfo('Success MySQL query');
+				dateGeneratorO.printSuccess();
 				res.json({
 					"Error": false,
 					"Message": "Categoria deleted: " + req.params.id_estado
