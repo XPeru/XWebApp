@@ -2,7 +2,7 @@ var mysql = require("mysql");
 var multer  =   require('multer');
 
 var dateGenerator = require("./dateGenerator.js");
-var daoName = "usuariosDAO";
+var dateGeneratorO = new dateGenerator("usuariosDAO");
 //this path has to exist before running the server
 var pathUpload = "./dev/media/usuarios/";
 var finalNameFile;
@@ -11,11 +11,7 @@ var nameBase = "userPhoto";
 function usuariosDAO(router, connection, md5) {
 	var self = this;
 	self.handleRoutes(router, connection, md5);
-	dateGenerator.printInfo(daoName +" agregado correctamente");
-}
-
-function printRequest(data, color) {
-	dateGenerator.printInfo(daoName + "\n" + data, color);
+	dateGeneratorO.printStart();
 }
 
 var storage = multer.diskStorage({
@@ -38,7 +34,7 @@ var upload = multer({ storage : storage}).single(nameBase);
 usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 	var urlBase = "/usuario";
 	router.get(urlBase + "list", function(req, res) {
-		printRequest(urlBase + "list" + " get", "cyan");
+		dateGeneratorO.printInfo(urlBase + "list" + " get", "cyan");
 		var query = "SELECT " + "\n" +
 					"	us.ID_USUARIO, " + "\n" +
 					"	us.NOMBRE, " + "\n" +
@@ -59,17 +55,17 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 					"	us.IS_ACTIVE = '1'";
 		var table = [];
 		query = mysql.format(query, table);
-		printRequest(query, "cyan");
+		dateGeneratorO.printInfo(query, "cyan");
 		connection.query(query, function(err, rows) {
 			if (err) {
-				printRequest('Error executing MySQL query:' + query, "red");
-                printRequest(err.message, "red");
+				dateGeneratorO.printInfo('Error executing MySQL query:' + query, "red");
+                dateGeneratorO.printInfo(err.message, "red");
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				printRequest('Success MySQL query');
+				dateGeneratorO.printInfo('Success MySQL query');
 				res.json({
 					"Error": false,
 					"Message": "Success",
@@ -80,7 +76,7 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 	});
 
 	router.post(urlBase, function(req, res) {
-		printRequest(urlBase + " post", "magenta");
+		dateGeneratorO.printInfo(urlBase + " post", "magenta");
 		var query = "INSERT INTO " + "\n" +
 					"	USUARIO (" + "\n" +
 					"		NOMBRE," + "\n" +
@@ -104,17 +100,17 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 					req.body.FK_TIPO_USUARIO,
 					req.body.FOTO];
 		query = mysql.format(query, table);
-		printRequest(query, "magenta");
+		dateGeneratorO.printInfo(query, "magenta");
 		connection.query(query, function(err) {
 			if (err) {
-				printRequest('Error executing MySQL query:' + query, "red");
-                printRequest(err.message, "red");
+				dateGeneratorO.printInfo('Error executing MySQL query:' + query, "red");
+                dateGeneratorO.printInfo(err.message, "red");
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				printRequest('Success MySQL query');
+				dateGeneratorO.printInfo('Success MySQL query');
 				res.json({
 					"Error": false,
 					"Message": "User Added !"
@@ -124,21 +120,21 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 	});
 
 	router.get(urlBase + "/:id_usuario", function(req, res) {
-		printRequest(urlBase + " :id_usuario" + " get", "cyan");
+		dateGeneratorO.printInfo(urlBase + " :id_usuario" + " get", "cyan");
 		var query = "CALL SP_SEARCH('USUARIO','ID_USUARIO',?)";
 		var table = [req.params.id_usuario];
 		query = mysql.format(query, table);
-		printRequest(query, "cyan");
+		dateGeneratorO.printInfo(query, "cyan");
 		connection.query(query, function(err, rows) {
 			if (err) {
-				printRequest('Error executing MySQL query:' + query, "red");
-                printRequest(err.message, "red");
+				dateGeneratorO.printInfo('Error executing MySQL query:' + query, "red");
+                dateGeneratorO.printInfo(err.message, "red");
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				printRequest('Success MySQL query');
+				dateGeneratorO.printInfo('Success MySQL query');
 				res.json({
 					"Error": false,
 					"Message": "Success",
@@ -149,7 +145,7 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 	});
 
 	/*router.get("/authentication/:usuario_email/:usuario_password", function(req, res) {
-		printRequest("/authentication/:usuario_email/:usuario_password" + " get", "cyan");
+		dateGeneratorO.printInfo("/authentication/:usuario_email/:usuario_password" + " get", "cyan");
 		var query = "SELECT " + "\n" +
 					"	* " + "\n" +
 					"FROM " + "\n" +
@@ -161,16 +157,16 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 		var table = [req.params.usuario_email,
 					md5(req.params.usuario_password)];
 		query = mysql.format(query, table);
-		printRequest(query, "cyan");
+		dateGeneratorO.printInfo(query, "cyan");
 		connection.query(query, function(err, rows) {
 			if (err) {
-				printRequest('Error executing MySQL query:' + query, "red");
-                printRequest(err.message, "red");
+				dateGeneratorO.printInfo('Error executing MySQL query:' + query, "red");
+                dateGeneratorO.printInfo(err.message, "red");
 				res.json({
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				printRequest('Success MySQL query');
+				dateGeneratorO.printInfo('Success MySQL query');
 				res.json({
 					"Message": "Success",
 					"Users": rows
@@ -180,7 +176,7 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 	});*/
 
 	router.put(urlBase, function(req, res) {
-		printRequest(urlBase + " put", "magenta");
+		dateGeneratorO.printInfo(urlBase + " put", "magenta");
 		var query = "UPDATE " + "\n" +
 					"	USUARIO" + "\n" +
 					"SET" + "\n" +
@@ -195,17 +191,17 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 					req.body.FOTO,
 					req.body.ID_USUARIO];
 		query = mysql.format(query, table);
-		printRequest(query, "magenta");
+		dateGeneratorO.printInfo(query, "magenta");
 		connection.query(query, function(err) {
 			if (err) {
-				printRequest('Error executing MySQL query:' + query, "red");
-                printRequest(err.message, "red");
+				dateGeneratorO.printInfo('Error executing MySQL query:' + query, "red");
+                dateGeneratorO.printInfo(err.message, "red");
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				printRequest('Success MySQL query');
+				dateGeneratorO.printInfo('Success MySQL query');
 				res.json({
 					"Error": false,
 					"Message": "OK"
@@ -215,7 +211,7 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 	});
 
 	router.put(urlBase + "delete", function(req, res) {
-		printRequest(urlBase + "delete" + " put", "magenta");
+		dateGeneratorO.printInfo(urlBase + "delete" + " put", "magenta");
 		var query = "UPDATE" + "\n" +
 					"	USUARIO" + "\n" +
 					"SET" + "\n" +
@@ -226,17 +222,17 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 		var table = [!req.body.IS_ACTIVE,
 					req.body.ID_USUARIO];
 		query = mysql.format(query, table);
-		printRequest(query, "magenta");
+		dateGeneratorO.printInfo(query, "magenta");
 		connection.query(query, function(err) {
 			if (err) {
-				printRequest('Error executing MySQL query:' + query, "red");
-                printRequest(err.message, "red");
+				dateGeneratorO.printInfo('Error executing MySQL query:' + query, "red");
+                dateGeneratorO.printInfo(err.message, "red");
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"
 				});
 			} else {
-				printRequest('Success MySQL query');
+				dateGeneratorO.printInfo('Success MySQL query');
 				res.json({
 					"Error": false,
 					"Message": "OK"
@@ -246,12 +242,12 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 	});
 
 	router.post(urlBase + "photo", function(req, res) {
-		printRequest(urlBase + "photo" + " post", "magenta");
-		printRequest(req, "magenta");
+		dateGeneratorO.printInfo(urlBase + "photo" + " post", "magenta");
+		dateGeneratorO.printInfo(req, "magenta");
 		upload(req, res, function(err) {
 			if(err) {
-				printRequest('Error executing MySQL query:' + req, "red");
-                printRequest(err.message, "red");
+				dateGeneratorO.printInfo('Error executing MySQL query:' + req, "red");
+                dateGeneratorO.printInfo(err.message, "red");
 				return res.end("Error uploading file.");
 			}
 			res.end(completePathFile);
