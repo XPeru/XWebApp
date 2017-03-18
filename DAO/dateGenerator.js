@@ -1,6 +1,6 @@
 var colors = require("colors");
 
-function today() {
+function todayF(text) {
 	var objToday = new Date(),
 				weekday = new Array('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'),
 				dayOfWeek = weekday[objToday.getDay()],
@@ -14,36 +14,60 @@ function today() {
 				curSeconds = objToday.getSeconds() < 10 ? "0" + objToday.getSeconds() : objToday.getSeconds(),
 				curMeridiem = objToday.getHours() > 12 ? "PM" : "AM";
 	var todayR = curHour + ":" + curMinute + "." + curSeconds + curMeridiem + " " + dayOfWeek + " " + dayOfMonth + " of " + curMonth + ", " + curYear;
-	return todayR;
-}
-function dateGenerator(daoName) {
-	this.daoName = daoName;
-	this.today = today;
+	return todayR + " " + text;
 }
 
-
-
-dateGenerator.prototype.printInfo = function(text, color) {
-	var today = this.today();
-	var res = today + " " + this.daoName + "\n" + text;
+function printText(text, color) {
 	switch(color) {
 		case "yellow":
-			return console.info(colors.yellow(res));
+			return console.info(colors.yellow(text));
 		case "red":
-			return console.info(colors.red(res));
+			return console.info(colors.red(text));
 		case "magenta":
-			return console.info(colors.magenta(res));
+			return console.info(colors.magenta(text));
 		case "cyan":
-			return console.info(colors.cyan(res));
+			return console.info(colors.cyan(text));
 		default:
-			return console.info(colors.green(res));
+			return console.info(colors.green(text));
 	}
+}
 
-};
+function dateGenerator(daoName) {
+	this.daoName = daoName;
+}
+
 
 dateGenerator.prototype.printStart = function() {
-	var today = this.today();
-	return console.info(colors.green(today + " " + this.daoName + " has been added successfully"));
+	printText(todayF(this.daoName) + " has been added successfully");
+};
+
+dateGenerator.prototype.printGreen = function(text) {
+	printText(todayF(this.daoName) + "\n" + text);
+};
+
+dateGenerator.prototype.printSuccess = function() {
+	printText(todayF(this.daoName) + 'Success MySQL query');
+};
+
+dateGenerator.prototype.printError = function(query, message) {
+	printText(todayF(this.daoName) + "\n" + 'Error executing MySQL query:' + query, "red");
+	printText(todayF(this.daoName) + "\n" + message, "red");
+};
+
+dateGenerator.prototype.printDelete = function(text) {
+	printText(todayF(this.daoName) + "\n" + text, "yellow");
+};
+
+dateGenerator.prototype.printUpdate = function(text) {
+	printText(todayF(this.daoName) + "\n" + text, "magenta");
+};
+
+dateGenerator.prototype.printSelect = function(text) {
+	printText(todayF(this.daoName) + "\n" + text, "cyan");
+};
+
+dateGenerator.prototype.printInsert = function(text) {
+	printText(todayF(this.daoName) + "\n" + text, "magenta");
 };
 
 module.exports = dateGenerator;
