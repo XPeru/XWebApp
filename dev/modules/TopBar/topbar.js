@@ -6,8 +6,9 @@ angular.module('TopBar', [])
 									'$rootScope',
 									'$timeout',
 									'AlmacenesGestionServiceFactory',
+									'LoginServiceFactory',
 									//'$stateParams',
-			function ($scope, $rootScope, $timeout, AlmacenesGestionServiceFactory) {
+			function ($scope, $rootScope, $timeout, AlmacenesGestionServiceFactory, LoginServiceFactory) {
 				var ctrl = this;
 				var url = window.location.href;
 				ctrl.selectedMenu = url.substring(24);
@@ -61,6 +62,10 @@ angular.module('TopBar', [])
 				$rootScope.toLeft = true;
 				ctrl.showLateralMenu = function() {
 					$rootScope.toLeft = !$rootScope.toLeft;
+				};
+
+				ctrl.logout = function() {
+					LoginServiceFactory.clearCredentials();
 				};
 
 			}
