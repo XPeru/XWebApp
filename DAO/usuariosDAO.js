@@ -141,7 +141,7 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 		});
 	});
 
-	/*router.get("/authentication/:usuario_email/:usuario_password", function(req, res) {
+	router.get("/authentication/:usuario_email/:usuario_password", function(req, res) {
 		dateGeneratorO.printSelect("/authentication/:usuario_email/:usuario_password");
 		var query = "SELECT " + "\n" +
 					"	* " + "\n" +
@@ -150,7 +150,7 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 					"WHERE " + "\n" +
 					"	EMAIL=? " + "\n" +
 					"AND " + "\n" +
-					"	USUARIO_PASSWORD=?";
+					"	PASSWORD=?";
 		var table = [req.params.usuario_email,
 					md5(req.params.usuario_password)];
 		query = mysql.format(query, table);
@@ -169,7 +169,7 @@ usuariosDAO.prototype.handleRoutes = function(router, connection, md5) {
 				});
 			}
 		});
-	});*/
+	});
 
 	router.put(urlBase, function(req, res) {
 		dateGeneratorO.printUpdate(urlBase);

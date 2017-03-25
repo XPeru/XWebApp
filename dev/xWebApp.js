@@ -1,6 +1,50 @@
-(function () {
-	
-    function config($stateProvider, $urlRouterProvider) {
+/*global $*/
+
+    angular.module('xWebApp', [
+    'ui.grid',
+	'ngTable',
+	'ngCookies',
+	'ngAnimate',
+	'ui.utils.masks',
+	'Footer',
+	'Login',
+	'TopBar',
+	'NavBar',
+	'LeftBar',
+	'Home',
+	'Usuarios',
+	'UsuariosTipo',
+	'UsuariosAcceso',
+	'Articulos',
+	'ArticulosCategoria',
+	'Almacenes',
+	'AlmacenesGestion',
+	'AlmacenesDetalle',
+	'Ingreso',
+	'usuariosService',
+	'usuariosTipoService',
+	'usuariosAccesoService',
+	'articulosService',
+	'ArticulosCategoriaService',
+	'almacenesGestionService',
+	'almacenesDetalleService',
+	'TipoPersona',
+	'tipoPersonaService',
+	'Cliente',
+	'clienteService',
+	'ingresoService',
+	'Proveedor',
+	'proveedorService',
+	'TipoDocumento',
+	'tipoDocumentoService',
+	'Estado',
+	'estadoService',
+	'loginService',
+	'ngRoute',
+	'ui.router',
+	'ui.bootstrap'
+	])
+	.config(['$stateProvider', '$urlRouterProvider', function config($stateProvider, $urlRouterProvider) {
 
 		$stateProvider
 			.state('app', {
@@ -177,13 +221,7 @@
 				}
 			})
 
-			;
-
-
-
 			/*
-			
-
 			.state('footer', {
 				url: '/footer',
 				controller: 'footerController',
@@ -191,89 +229,36 @@
 				hideMenus: true,
 				data: {},
 				reloadOnSearch: false
-			})
-			.state('login', {
-				url: '/login',
-				controller: 'loginController',
-				templateUrl: 'dev/modules/Login/login.html',
-				hideMenus: true,
-				data: {},
-				reloadOnSearch: false
-			})
-			
-			;*/
+			})*/
+			.state('app.login', {
+				url: 'login',
+				views : {
+					'topbar@' : {
+						
+					},
+					'content@': {
+						controller: 'loginController',
+						templateUrl: 'dev/modules/login/login.html'
+					}
+				}
+			});
 
 		$urlRouterProvider.otherwise('/');
-	}
-	/*
-	
-    function run($rootScope, $location, $cookieStore, $http) {
+	}])
+    .run(['$rootScope', '$location', '$cookieStore', '$http', function run($rootScope, $location, $cookieStore, $http) {
         // keep user logged in after page refresh
         
         $rootScope.globals = $cookieStore.get('globals') || {};
         if ($rootScope.globals.currentUser) {
-            $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
+            $http.defaults.headers.common.Authorization = 'Basic ' + $rootScope.globals.currentUser.authdata;
         }
  
-        $rootScope.$on('$locationChangeStart', function (event, next, current) {
+        $rootScope.$on('$locationChangeStart', function () {
             // redirect to login page if not logged in and trying to access a restricted page
-            var restrictedPage = $.inArray($location.path(), ['/login', '/register']) === -1;
+            var restrictedPage = $.inArray($location.path(), ['/login']) === -1;
             var loggedIn = $rootScope.globals.currentUser;
             if (restrictedPage && !loggedIn) {
                 $location.path('/login');
             }
         });
-    }*/
-    config.$inject = ['$stateProvider', '$urlRouterProvider'];
-    //run.$inject = ['$rootScope', '$location', '$cookieStore', '$http'];
-
-    angular.module('xWebApp', [
-    'ui.grid',
-	'ngTable',
-	'ngCookies',
-	'ngAnimate',
-	'ui.utils.masks',
-	'Footer',
-	'Login',
-	'TopBar',
-	'NavBar',
-	'LeftBar',
-	'Home',
-	'Usuarios',
-	'UsuariosTipo',
-	'UsuariosAcceso',
-	'Articulos',
-	'ArticulosCategoria',
-	'Almacenes',
-	'AlmacenesGestion',
-	'AlmacenesDetalle',
-	'Ingreso',
-	'usuariosService',
-	'usuariosTipoService',
-	'usuariosAccesoService',
-	'articulosService',
-	'ArticulosCategoriaService',
-	'almacenesGestionService',
-	'almacenesDetalleService',
-	'TipoPersona',
-	'tipoPersonaService',
-	'Cliente',
-	'clienteService',
-	'ingresoService',
-	'Proveedor',
-	'proveedorService',
-	'TipoDocumento',
-	'tipoDocumentoService',
-	'Estado',
-	'estadoService',
-	//'loginService',
-	'ngRoute',
-	'ui.router',
-	'ui.bootstrap'
-	])
-	.config(config);
-    //.run(run);
-    
-
-
-})();
+    }]);
