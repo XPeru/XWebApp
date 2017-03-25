@@ -11,6 +11,7 @@ BEGIN
 	SET @query = CONCAT ('SELECT * FROM ',tab_name);
     PREPARE stmt FROM @query;
     EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
 END$$
 DELIMITER ;
 
