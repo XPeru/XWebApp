@@ -89,13 +89,16 @@ angular
 		'UsuariosServiceFactory',
 		function LoginServiceFactory($http, $cookieStore, $rootScope, $timeout, UsuariosServiceFactory) {
 			var service = {};
-			var urlBase = '/api';
+		/*	var urlBase = '/api';*/
 
 			function Login(email, password, callback) {
-				$http.get(urlBase + '/authentication/' + email + '/' + password)
+				UsuariosServiceFactory.authenticate(email, password).success(function(response) {
+					callback(response);
+				});
+				/*$http.get(urlBase + '/authentication/' + email + '/' + password)
 					.success(function(response) {
 						callback(response);
-					});
+					});*/
 
 			}
 
