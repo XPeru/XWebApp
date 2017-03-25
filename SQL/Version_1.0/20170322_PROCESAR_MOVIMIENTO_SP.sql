@@ -2,7 +2,7 @@ USE testdb;
 DROP PROCEDURE IF EXISTS SP_PROCESS_MVMT;
 
 DELIMITER $$
-CREATE PROCEDURE SP_PROCESS_MVMT (IN mvmt_type varchar(20), IN mvmt_id int(11))
+CREATE PROCEDURE SP_PROCESS_MVMT (IN process_type varchar(5), IN mvmt_type varchar(20), IN mvmt_id int(11))
 BEGIN
     DECLARE `_rollback` BOOL DEFAULT 0;
     DECLARE `_done` INT DEFAULT FALSE;
@@ -29,7 +29,8 @@ BEGIN
     PREPARE ins_stmt FROM @ins_str;
     read_loop: LOOP
         FETCH cursor_i INTO cursor_ID_ALM, cursor_ID_ART, cursor_VAL;
-        IF (mvmt_type = 'SALIDA') THEN SET @a = -cursor_VAL;
+        IF ((process_type = 'DEL'  AND mvmt_type = 'INGRESO') OR (process_type = 'ADD' AND mvmt_type = 'SALIDA')) THEN 
+            SET @a = -cursor_VAL;
         ELSE SET @a = cursor_VAL;
         END IF;
         SET @b = cursor_ID_ALM;
