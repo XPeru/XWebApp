@@ -10,7 +10,7 @@ function ingresoDetalleDAO(router, connection) {
 ingresoDetalleDAO.prototype.handleRoutes = function(router, connection) {
 	var urlBase = "/ingresodetalle";
 
-	router.delete(urlBase +  "/:id_ingreso", function(req, res) {
+	/*router.delete(urlBase +  "/:id_ingreso", function(req, res) {
 		dateGeneratorO.printDelete(urlBase + "/:id_ingreso");
 		var query = "DELETE FROM" + "\n" +
 					"	DETALLE_INGRESO" + "\n" +
@@ -34,7 +34,7 @@ ingresoDetalleDAO.prototype.handleRoutes = function(router, connection) {
 				});
 			}
 		});
-	});
+	});*/
 
 	router.post(urlBase, function(req, res) {
 		dateGeneratorO.printInsert(urlBase);
