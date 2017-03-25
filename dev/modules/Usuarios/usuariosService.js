@@ -26,6 +26,10 @@ angular.module('usuariosService', ['ngResource'])
 				return $http.put(urlBase + 'delete', usuario);
 			};
 
+			service.authenticate = function(email, password) {
+				return $http.get('/api'+ '/authentication/' + email + '/' + password);
+			};
+
 			service.uploadPhotoUsuario = function(file) {
 				var fd = new FormData();
 				fd.append('userPhoto', file);
