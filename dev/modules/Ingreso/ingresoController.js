@@ -207,13 +207,13 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 												COSTO_TOTAL: ctrl.total('Edit')
 											};
 
-				/*IngresoServiceFactory.deleteIngresoDetalle(ctrl.idSelectedIngreso).then(function(){
+				IngresoServiceFactory.deleteIngresoDetalle(ctrl.idSelectedIngreso).then(function() {
 					IngresoServiceFactory.updateIngresoDetalle(updated_detalle_ingreso);
-				}).then(function(){
+				}).then(function() {
 					IngresoServiceFactory.updateCostoIngreso(updated_costo_ingreso);
 				}).then(function() {
 					ctrl.backTo();
-				});*/
+				});
 			};
 
 			ctrl.backTo = function() {

@@ -10,14 +10,9 @@ function ingresoDetalleDAO(router, connection) {
 ingresoDetalleDAO.prototype.handleRoutes = function(router, connection) {
 	var urlBase = "/ingresodetalle";
 
-	/*router.delete(urlBase +  "/:id_ingreso", function(req, res) {
+	router.delete(urlBase +  "/:id_ingreso", function(req, res) {
 		dateGeneratorO.printDelete(urlBase + "/:id_ingreso");
-		var query = "DELETE FROM" + "\n" +
-					"	DETALLE_INGRESO" + "\n" +
-					"WHERE " + "\n" +
-					"	FK_INGRESO = ?";
-		var table = [req.params.id_ingreso];
-		query = mysql.format(query, table);
+		var query = "CALL SP_DELETE_DETALLE('INGRESO'," + req.params.id_ingreso + ")";
 		dateGeneratorO.printDelete(query);
 		connection.query(query, function(err) {
 			if (err) {
@@ -34,7 +29,7 @@ ingresoDetalleDAO.prototype.handleRoutes = function(router, connection) {
 				});
 			}
 		});
-	});*/
+	});
 
 	router.post(urlBase, function(req, res) {
 		dateGeneratorO.printInsert(urlBase);
@@ -61,9 +56,12 @@ ingresoDetalleDAO.prototype.handleRoutes = function(router, connection) {
 										}, []);
 		query = mysql.format(query.slice(0, -1), table);
 		dateGeneratorO.printInsert(query);
-		connection.query(query, function(err) {
+
+		var final_query = "CALL SP_INSERT_DETALLE('" + query + "', 'INGRESO', " + idIngreso + ")";
+		dateGeneratorO.printInsert(final_query);
+		connection.query(final_query, function(err) {
 			if (err) {
-				dateGeneratorO.printError(query, err.message);
+				dateGeneratorO.printError(final_query, err.message);
 				res.json({
 					"Error": true,
 					"Message": "Error executing MySQL query"

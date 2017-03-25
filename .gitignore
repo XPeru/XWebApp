@@ -3,3 +3,4 @@ node_modules/
 bower_components/
 dev/media/usuarios/
 dev/media/articulos/
+daemon/
