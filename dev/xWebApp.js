@@ -238,6 +238,7 @@
 					},
 					'content@': {
 						controller: 'loginController',
+						controllerAs: 'loginCtrl',
 						templateUrl: 'dev/modules/login/login.html'
 					}
 				}
