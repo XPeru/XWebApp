@@ -41,9 +41,9 @@ angular.module('ingresoService', ['ngResource'])
 				return $http.post(urlBase + 'detalle', updated_ingreso_detalle);
 			};
 
-/*			service.deleteIngresoDetalle = function(id_ingreso) {
+			service.deleteIngresoDetalle = function(id_ingreso) {
 				return $http.delete(urlBase + 'detalle/' + id_ingreso);
-			};*/
+			};
 
 			return service;
 		}

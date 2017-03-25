@@ -1,0 +1,28 @@
+USE testdb;
+DROP PROCEDURE IF EXISTS SP_DELETE_DETALLE;
+
+DELIMITER $$
+CREATE PROCEDURE SP_DELETE_DETALLE (IN mvmt_type varchar(31), IN mvmt_id int(11))
+BEGIN
+    DECLARE `_rollback` BOOL DEFAULT 0;
+    DECLARE done INT DEFAULT FALSE;
+
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET `_rollback` = 1;
+	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+	SET @id = mvmt_id;
+    SET @mvmt_type = mvmt_type;
+	SET @v = CONCAT('DELETE FROM DETALLE_', @mvmt_type, ' WHERE FK_', @mvmt_type, '=', @id);
+	PREPARE stmt FROM @v;
+    CALL SP_PROCESS_MVMT('DEL', @mvmt_type, @id);
+    -- AQUI GESTIONAR EL ERROR EN LA LLAMADA A SP
+    START TRANSACTION;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+    IF `_rollback` THEN
+        ROLLBACK;
+    ELSE
+        COMMIT;
+    END IF;
+END$$
+DELIMITER ;
