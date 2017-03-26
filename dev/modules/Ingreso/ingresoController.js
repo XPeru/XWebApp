@@ -227,6 +227,10 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 				ctrl.ingresoTable.reload();
 			};
 
+			function isNullOrUndefined(element) {
+				return (element === null || element === undefined);
+			}
+
 			ctrl.checkDetalleIngresoList = function() {
 				if (ctrl.detalleIngresoEditData.length === 0) {
 					return true;
@@ -240,10 +244,6 @@ angular.module('Ingreso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gri
 				}
 				
 			};
-
-			function isNullOrUndefined(element) {
-				return (element === null || element === undefined);
-			}
 
 			ctrl.total = function(table) {
 				if (table === 'Edit') {
