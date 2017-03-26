@@ -1,5 +1,5 @@
 {
-	"bitwise" : true,
+	"bitwise" : false,
 	"browser" : true,
 	"curly" : true,
 	"eqeqeq" : true,
@@ -10,6 +10,7 @@
 	"undef" : true,
 	"unused" : true,
 	"globals": {
-		"angular" : false
+		"angular" : false,
+		"$" : false
 	}
 }

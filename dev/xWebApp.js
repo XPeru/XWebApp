@@ -1,6 +1,4 @@
-/*global $*/
-
-    angular.module('xWebApp', [
+angular.module('xWebApp', [
     'ui.grid',
 	'ngTable',
 	'ngCookies',
