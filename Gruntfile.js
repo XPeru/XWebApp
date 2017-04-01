@@ -52,6 +52,9 @@ module.exports = function(grunt) {
 		},
 
 		uglify: {
+			options : {
+				mangle : false
+			},
 			// dist configuration is provided by useminPrepare
 			dist: {}
 		},
@@ -59,22 +62,36 @@ module.exports = function(grunt) {
 		copy: {
 			dist: {
 				cwd: '',
-				src: ['dev/**', '!dev/modules/**/*.js', '!dev/modules/**/*.css', 'index.html', 'server.js', '!dev/main.css', '!dev/xWebApp.js', '!dev/button_circle.css'],
+				src: ['dev/**',
+						'!dev/modules/**/*.js',
+						'!dev/modules/**/*.css',
+						'index.html', 'server.js',
+						'!dev/main.css',
+						'!dev/xWebApp.js',
+						'!dev/button_circle.css',
+						'DAO/*.js'],
 				dest: 'dist',
 				expand: true
-			}//,
-			// fonts: {
-			// 	files: [
-			// 		{
-			// 			//for bootstrap fonts
-			// 			expand: true,
-			// 			dot: true,
-			// 			cwd: 'bower_components/bootstrap',
-			// 			src: ['fonts/*.*'],
-			// 			dest: 'dist'
-			// 		}
-			// 	]
-			// }
+			},
+			fonts: {
+				files: [{
+					//for bootstrap fonts
+					expand: true,
+					dot: true,
+					cwd: 'bower_components/bootstrap/dist',
+					src: ['fonts/*.*'],
+					dest: 'dist'
+				}]
+			},
+			serve : {
+				files : [{
+					expand: true,
+					dot: true,
+					cwd: '',
+					src: ['bower_components/components-font-awesome/{,*/}*.*'],
+					dest: 'dist'
+				}]
+			}
 		},
 
 
@@ -90,8 +107,7 @@ module.exports = function(grunt) {
 				files: [{
 					src: [
 						'dist/scripts/*.js',
-						'dist/styles/*.css',
-						'dist/dev/media/**'
+						'dist/styles/*.css'
 					]
 				}]
 			}
@@ -122,4 +138,6 @@ module.exports = function(grunt) {
 	]);
 
 	grunt.registerTask('default', ['build']);
+
+
 };
