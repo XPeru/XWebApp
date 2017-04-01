@@ -91,6 +91,15 @@ module.exports = function(grunt) {
 					src: ['bower_components/components-font-awesome/{,*/}*.*'],
 					dest: 'dist'
 				}]
+			},
+			uigrid : {
+				files : [{
+					expand: true,
+					dot: true,
+					cwd: 'bower_components/angular-ui-grid',
+					src : ['ui-grid.ttf', 'ui-grid.woff'],
+					dest : 'dist/styles'
+				}]
 			}
 		},
 
