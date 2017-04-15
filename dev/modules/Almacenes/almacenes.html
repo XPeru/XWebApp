@@ -1,18 +1,34 @@
-<div class="col-xs-6">
+
+<div class="col-xs-5">
 	<div class ="row" ng-repeat="almacen in almacenesCtrl.almacenesData.Almacenes" ng-if="$even">
-		<button class="btn btn-success bigButton"
+		<button class="btn btn-success btn-lg btn-block"
 				type="button"
 				ui-sref="app.almacenesdetalle({id_almacen: almacen.ID_ALMACEN, codigo_almacen: almacen.CODIGO_ALMACEN})">
+			</br>
+			</br>
 			{{almacen.CODIGO_ALMACEN}}
-       	</button>
+			</br>
+			</br>
+			</br>
+		</button>
+		</br>
 	</div>
 </div>
-<div class="col-xs-6">
+<div class="col-xs-2">
+</div>
+<div class="col-xs-5">
 	<div class ="row" ng-repeat="almacen in almacenesCtrl.almacenesData.Almacenes" ng-if="$odd">
-		<button class="btn btn-info bigButton"
+		<button class="btn btn-info btn-lg btn-block"
 				type="button"
 				ui-sref="app.almacenesdetalle({id_almacen: almacen.ID_ALMACEN, codigo_almacen: almacen.CODIGO_ALMACEN})">
+			</br>
+			</br>
 			{{almacen.CODIGO_ALMACEN}}
-       	</button>
+			</br>
+			</br>
+			</br>
+		</button>
+	</br>
 	</div>
+
 </div>
