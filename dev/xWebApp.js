@@ -192,7 +192,7 @@ angular.module('xWebApp', [
 					'content@': {
 						controller: 'tipoDocumentoController',
 						controllerAs: 'tipoDocumentoCtrl',
-						templateUrl: 'dev/modules/tipoDocumento/tipodocumento.html'
+						templateUrl: 'dev/modules/TipoDocumento/tipodocumento.html'
 					}
 				}
 			})
@@ -203,7 +203,7 @@ angular.module('xWebApp', [
 					'content@': {
 						controller: 'estadoController',
 						controllerAs: 'estadoCtrl',
-						templateUrl: 'dev/modules/estado/estado.html'
+						templateUrl: 'dev/modules/Estado/estado.html'
 					}
 				}
 			})
@@ -214,7 +214,7 @@ angular.module('xWebApp', [
 					'content@': {
 						controller: 'ingresoController',
 						controllerAs: 'ingresoCtrl',
-						templateUrl: 'dev/modules/ingreso/ingreso.html'
+						templateUrl: 'dev/modules/Ingreso/ingreso.html'
 					}
 				}
 			})
@@ -237,7 +237,7 @@ angular.module('xWebApp', [
 					'content@': {
 						controller: 'loginController',
 						controllerAs: 'loginCtrl',
-						templateUrl: 'dev/modules/login/login.html'
+						templateUrl: 'dev/modules/Login/login.html'
 					}
 				}
 			});
@@ -254,10 +254,10 @@ angular.module('xWebApp', [
  
         $rootScope.$on('$locationChangeStart', function () {
             // redirect to login page if not logged in and trying to access a restricted page
-            var restrictedPage = $.inArray($location.path(), ['/login']) === -1;
+           /* var restrictedPage = $.inArray($location.path(), ['/login']) === -1;
             var loggedIn = $rootScope.globals.currentUser;
             if (restrictedPage && !loggedIn) {
                 $location.path('/login');
-            }
+            }*/
         });
     }]);
