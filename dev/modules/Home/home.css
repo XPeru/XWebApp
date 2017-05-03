@@ -1,0 +1,89 @@
+
+ol, ul {
+list-style: none;
+}
+
+.gi-2x{font-size: 2em;}
+.gi-3x{font-size: 3em;}
+.gi-4x{font-size: 4em;}
+.gi-5x{font-size: 5em;}
+
+.center-icon {
+    /*el padre debe tener position relative*/
+    position: absolute;
+    /*esto permite centrar el glyphicon*/
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    font-size: 7em;
+}
+
+.img-menu-principal {
+    /*el padre debe tener position relative*/
+    position: absolute;
+     top:50%;
+    left:50%;
+     transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    display: block;
+    width: 60%;
+    height: auto;    
+}
+
+.container-image-menu {
+    position:relative;
+    height: 180px;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: #008CBA;
+  /*muestra al glyphicon de color blanco*/
+  color:white;
+
+}
+
+.container-image-menu:hover .overlay {
+  opacity: 0.85;
+}
+
+.pie-image-menu {
+    height:180px;
+
+}
+
+.pie-image-menu h2 {
+    text-align: center;
+      background-color: #008CBA;
+  /*muestra al glyphicon de color blanco*/
+  color:white;
+   position: absolute;
+   width: 90%;
+   height: 10%;
+   top:50%;
+    left:50%;
+     transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+
+}
+
+.pie-image-menu p {
+    text-align: center;
+     position: absolute;
+   width: 50%;
+   height: 50%;
+   top:90%;
+    left:50%;
+     transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    
+}
