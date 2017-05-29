@@ -5,77 +5,128 @@
 	<div class="col-xs-3">
 		<div class="container-image-menu">
 			<img class="img-menu-principal img-circle" src="./dev/media/dashboard_test.jpeg" alt="Dashboard"/>
-			<div class="overlay img-circle">
+			<div class="overlay back-skyblue img-circle">
 				<i class="fa fa-area-chart center-icon" aria-hidden="true"></i>
 			</div>
 		</div>
-		<div class="pie-image-menu">
+		<div class="pie-image-menu-skyblue">
 			<h2>DASHBOARD</h2>
-			<p>Muestra las graficas de compras, ventas, entradas y salidas por periodos definidos por el usuario</p>
+			<p>Muestra las graficas de compras, ventas, entradas y salidas por periodos.</p>
 		</div>
 	</div>
 	<div class="col-xs-3">
-		<div class="container-image-menu">
+		<div class="container-image-menu" ng-click="homeCtrl.switchUserMenu()">
 			<img class="img-menu-principal img-circle" src="./dev/media/usuarios.jpg" alt="Usuarios"/>
-			<div class="overlay img-circle">
+			<div class="overlay back-red img-circle">
 				<i class="glyphicon glyphicon-user center-icon"></i>
 			</div>
 		</div>
-		<div class="pie-image-menu">
+		<div class="pie-image-menu-red">
 			<h2>USUARIOS</h2>
-			<p>Esto es una prueba para ver que sucede cuando hay demasiado texto en este parrafo</p>
+			<p>Funcionalidades asociadas a los usuarios, creacion, edicion y permisos asociados.</p>
 		</div>
 	</div>
+	
 	<div class="col-xs-3">
 		<div class="container-image-menu">
 			<img class="img-menu-principal img-circle" src="./dev/media/almacenes.jpg" alt="Almacenes"/>
-			<div class="overlay img-circle">
+			<div class="overlay back-green img-circle">
 				<i class="fa fa-cubes  center-icon" aria-hidden="true"></i>
 			</div>
 		</div>
-		<div class="pie-image-menu">
+		<div class="pie-image-menu-green">
 			<h2>ALMACENES</h2>
-			<p>Esto es una prueba para ver que sucede cuando hay demasiado texto en este parrafo</p>
+			<p>Creacion, edicion de almacenes.</p>
 		</div>
 	</div>
 	<div class="col-xs-3">
 		<div class="container-image-menu">
 			<img class="img-menu-principal img-circle" src="./dev/media/articulos.jpg" alt="Articulos"/>
-			<div class="overlay img-circle">
+			<div class="overlay back-blue img-circle">
 				<i class="glyphicon glyphicon-th-list center-icon"></i>
 			</div>
 		</div>
-		<div class="pie-image-menu">
+		<div class="pie-image-menu-blue">
 			<h2>ARTICULOS</h2>
-			<p>Esto es una prueba para ver que sucede cuando hay demasiado texto en este parrafo</p>
+			<p>Creacion y edicion de articulos en la aplicacion.</p>
 		</div>
 	</div>
 </div>
+
+<div ng-if="homeCtrl.showUserMenu" class="back-red">
+	</br>
+	</br>
+	<div class="row">
+		<div class="col-md-1">
+		</div>
+		<div class="col-md-3">
+			<div class="container-image-menu">
+				<img class="img-menu-principal img-circle" src="./dev/media/derechosacceso.jpg" alt="Derechos de acceso"/>
+				<div class="overlay back-red img-circle">
+					<i class="glyphicon glyphicon-log-in center-icon"></i>
+				</div>
+			</div>
+			<div class="pie-image-menu-red">
+				<h2>DERECHOS DE ACCESO</h2>
+				<p>Creacion, edicion de almacenes.</p>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="container-image-menu">
+				<img class="img-menu-principal img-circle" src="./dev/media/tipousuario.jpg" alt="Tipos de usuario"/>
+				<div class="overlay back-red img-circle">
+					<i class="glyphicon glyphicon-pawn center-icon"></i>
+				</div>
+			</div>
+			<div class="pie-image-menu-red">
+				<h2>TIPOS DE USUARIO</h2>
+				<p>Creacion y edicion de articulos en la aplicacion.</p>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="container-image-menu">
+				<img class="img-menu-principal img-circle" src="./dev/media/gestionusuario.jpg" alt="Gestion de usuarios"/>
+				<div class="overlay back-red img-circle">
+					<i class="glyphicon glyphicon-cog center-icon"></i>
+				</div>
+			</div>
+			<div class="pie-image-menu-red">
+				<h2>GESTION DE USUARIO</h2>
+				<p>Creacion y edicion de articulos en la aplicacion.</p>
+			</div>
+		</div>
+	</div>
+</div>
+
 </br>
 </br>
 <div class ="row">
+	<div class="col-xs-2">
+	</div>
 	<div class="col-xs-3">
 		<div class="container-image-menu">
 			<img class="img-menu-principal img-circle" src="./dev/media/personas.jpg" alt="Clientes y Proveedores"/>
-			<div class="overlay img-circle">
+			<div class="overlay back-purple img-circle">
 				<i class="glyphicon glyphicon-globe  center-icon"></i>
 			</div>
 		</div>
-		<div class="pie-image-menu">
+		<div class="pie-image-menu-purple">
 			<h2>CLIENTES Y PROVEEDORES</h2>
 			<p>Creacion, edicion y supresion de clientes y proveedores.</p>
 		</div>
 	</div>
+	<div class="col-xs-2">
+	</div>
 	<div class="col-xs-3">
 		<div class="container-image-menu">
 			<img class="img-menu-principal img-circle" src="./dev/media/movimientos.jpg" alt="Movimientos"/>
-			<div class="overlay img-circle">
+			<div class="overlay back-orange img-circle">
 				<i class="glyphicon glyphicon-transfer center-icon"></i>
 			</div>
 		</div>
-		<div class="pie-image-menu">
+		<div class="pie-image-menu-orange">
 			<h2>MOVIMENTOS</h2>
-			<p>Esto es una prueba para ver que sucede cuando hay demasiado texto en este parrafo</p>
+			<p>Ingresos y salidas</p>
 		</div>
 	</div>
 	

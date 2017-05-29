@@ -43,8 +43,12 @@ angular.module('UsuariosTipo')
 
 			ctrl.updateAsso = function () {
 				ctrl.selectedAssos = $scope.gridApi.selection.getSelectedRows();
-				var req_json = { ID_TIPO_USUARIO: selectedTipoUsuario.ID_TIPO_USUARIO, LIST: ctrl.selectedAssos};
-				UsuariosTipoServiceFactory.deleteAssosTipoAcceso(selectedTipoUsuario.ID_TIPO_USUARIO).then(function(){
+				var req_json = {
+						ID_TIPO_USUARIO: selectedTipoUsuario.ID_TIPO_USUARIO,
+						LIST: ctrl.selectedAssos
+				};
+				UsuariosTipoServiceFactory.deleteAssosTipoAcceso(selectedTipoUsuario.ID_TIPO_USUARIO)
+				.then(function() {
 					UsuariosTipoServiceFactory.updateAssosTipoAcceso(req_json);
 				}).then(function() {
 					$uibModalInstance.close();
