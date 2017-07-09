@@ -486,3 +486,173 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+START TRANSACTION;
+ALTER TABLE INGRESO ADD FECHA_INGRESO DATE AFTER COSTO_TOTAL;
+COMMIT;
+
+START TRANSACTION;
+ALTER TABLE SALIDA ADD FECHA_SALIDA DATE AFTER COSTO_TOTAL;
+COMMIT;
+
+USE testdb;
+DROP PROCEDURE IF EXISTS `SP_SEARCH_ALL`;
+USE testdb;
+DROP PROCEDURE IF EXISTS `SP_SEARCH`;
+USE testdb;
+DROP PROCEDURE IF EXISTS `SP_SEARCH_STRING`;
+DELIMITER $$
+USE testdb$$
+CREATE PROCEDURE `SP_SEARCH_ALL` (IN tab_name varchar(100))
+BEGIN
+	SET @query = CONCAT ('SELECT * FROM ',tab_name);
+    PREPARE stmt FROM @query;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+USE testdb$$
+CREATE PROCEDURE `SP_SEARCH` (IN tab_name varchar(100), IN col_name varchar(50), IN col_value varchar(50))
+BEGIN
+	SET @query = CONCAT ('SELECT * FROM ',tab_name,' WHERE ',col_name,' = ',col_value);
+    PREPARE stmt FROM @query;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+USE testdb$$
+CREATE PROCEDURE `SP_SEARCH_STRING` (IN tab_name varchar(100), IN col_name varchar(50), IN col_value varchar(50))
+BEGIN
+	SET @query = CONCAT ('SELECT * FROM ',tab_name,' WHERE ',col_name,' = "',col_value,'"');
+    PREPARE stmt FROM @query;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+END$$
+DELIMITER ;
+
+ALTER TABLE `ARTICULO` CHANGE COLUMN `CODIGO` `CODIGO_ARTICULO` VARCHAR(20) NOT NULL;
+ALTER TABLE `ALMACEN` CHANGE COLUMN `CODIGO` `CODIGO_ALMACEN` VARCHAR(20) NOT NULL;
+
+ALTER TABLE `testdb`.`INGRESO`
+CHANGE COLUMN `COSTO_TOTAL` `COSTO_TOTAL` DECIMAL(10,2) NOT NULL DEFAULT 0 ;
+
+USE testdb;
+DROP PROCEDURE IF EXISTS SP_PROCESS_MVMT;
+
+DELIMITER $$
+CREATE PROCEDURE SP_PROCESS_MVMT (IN process_type varchar(5), IN mvmt_type varchar(20), IN mvmt_id int(11))
+BEGIN
+    DECLARE `_rollback` BOOL DEFAULT 0;
+    DECLARE `_done` INT DEFAULT FALSE;
+    DECLARE cursor_ID_ALM INT;
+    DECLARE cursor_ID_ART INT;
+    DECLARE cursor_VAL INT;
+    DECLARE cursor_i CURSOR FOR SELECT * FROM temporal;
+    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET `_rollback` = 1;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET `_done` = TRUE;
+
+    SET @table = mvmt_type;
+    SET @id_table = CONCAT('ID_',@table);
+    SET @table_detail = CONCAT('DETALLE_',@table);
+    SET @fk_id_table = CONCAT('FK_',@table);
+    SET @tmp_str = CONCAT('CREATE TEMPORARY TABLE temporal AS ', 'SELECT TD.FK_ALMACEN AS ID_ALM, TD.FK_ARTICULO AS ID_ART, TD.CANTIDAD AS VAL FROM ',@table,' T, ',@table_detail,' TD WHERE T.',@id_table,' = TD.',@fk_id_table,' AND T.',@id_table,' = ',mvmt_id);
+    PREPARE tmp_stmt FROM @tmp_str;
+    DROP TEMPORARY TABLE IF EXISTS temporal;
+    EXECUTE tmp_stmt;
+    DEALLOCATE PREPARE tmp_stmt;
+
+    START TRANSACTION;
+    OPEN cursor_i;
+    SET @ins_str = 'INSERT INTO DETALLE_ALMACEN (CANTIDAD,IS_ACTIVE,FK_ALMACEN,FK_ARTICULO) VALUES (?,1,?,?) ON DUPLICATE KEY UPDATE CANTIDAD = CANTIDAD + ?';
+    PREPARE ins_stmt FROM @ins_str;
+    read_loop: LOOP
+        FETCH cursor_i INTO cursor_ID_ALM, cursor_ID_ART, cursor_VAL;
+        IF ((process_type = 'DEL'  AND mvmt_type = 'INGRESO') OR (process_type = 'ADD' AND mvmt_type = 'SALIDA')) THEN
+            SET @a = -cursor_VAL;
+        ELSE SET @a = cursor_VAL;
+        END IF;
+        SET @b = cursor_ID_ALM;
+        SET @c = cursor_ID_ART;
+        IF `_done` THEN
+            LEAVE read_loop;
+        END IF;
+        EXECUTE ins_stmt USING @a, @b, @c, @a;
+    END LOOP;
+    CLOSE cursor_i;
+    DEALLOCATE PREPARE ins_stmt;
+    IF `_rollback` THEN
+        ROLLBACK;
+    ELSE
+        COMMIT;
+    END IF;
+END$$
+DELIMITER ;
+
+USE testdb;
+DROP PROCEDURE IF EXISTS SP_DELETE_DETALLE;
+
+DELIMITER $$
+CREATE PROCEDURE SP_DELETE_DETALLE (IN mvmt_type varchar(31), IN mvmt_id int(11))
+BEGIN
+    DECLARE `_rollback` BOOL DEFAULT 0;
+    DECLARE done INT DEFAULT FALSE;
+
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET `_rollback` = 1;
+	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+	SET @id = mvmt_id;
+    SET @mvmt_type = mvmt_type;
+	SET @v = CONCAT('DELETE FROM DETALLE_', @mvmt_type, ' WHERE FK_', @mvmt_type, '=', @id);
+	PREPARE stmt FROM @v;
+    CALL SP_PROCESS_MVMT('DEL', @mvmt_type, @id);
+    -- AQUI GESTIONAR EL ERROR EN LA LLAMADA A SP
+    START TRANSACTION;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+    IF `_rollback` THEN
+        ROLLBACK;
+    ELSE
+        COMMIT;
+    END IF;
+END$$
+DELIMITER ;
+
+USE testdb;
+DROP PROCEDURE IF EXISTS SP_INSERT_DETALLE;
+
+DELIMITER $$
+CREATE PROCEDURE SP_INSERT_DETALLE (IN query varchar(8000), IN mvmt_type varchar(31), IN mvmt_id int(11))
+BEGIN
+    DECLARE `_rollback` BOOL DEFAULT 0;
+    DECLARE done INT DEFAULT FALSE;
+
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET `_rollback` = 1;
+	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+	SET @v = query;
+	PREPARE stmt FROM @v;
+    START TRANSACTION;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+
+    CALL SP_PROCESS_MVMT('ADD', mvmt_type, mvmt_id);
+    IF `_rollback` THEN
+        ROLLBACK;
+    ELSE
+        COMMIT;
+    END IF;
+END$$
+DELIMITER ;
+
+ALTER TABLE `testdb`.`DETALLE_ALMACEN`
+ADD UNIQUE INDEX `UQ_ALMACEN_ARTICULO` (`FK_ALMACEN` ASC, `FK_ARTICULO` ASC);
+
+
+ALTER TABLE `testdb`.`DETALLE_INGRESO`
+ADD UNIQUE INDEX `UQ_ING_ALM_ART` (`FK_INGRESO` ASC, `FK_ALMACEN` ASC, `FK_ARTICULO` ASC);
+
+ALTER TABLE `testdb`.`DETALLE_SALIDA`
+ADD UNIQUE INDEX `UQ_SLD_ALM_ART` (`FK_SALIDA` ASC, `FK_ALMACEN` ASC, `FK_ARTICULO` ASC);
