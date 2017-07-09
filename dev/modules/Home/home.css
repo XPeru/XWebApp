@@ -1,0 +1,180 @@
+/*
+ol, ul {
+  list-style: none;
+}
+
+.gi-2x{font-size: 2em;}
+.gi-3x{font-size: 3em;}
+.gi-4x{font-size: 4em;}
+.gi-5x{font-size: 5em;}
+*/
+.center-icon {
+  /*el padre debe tener position relative*/
+  position: absolute;
+  /*esto permite centrar el glyphicon*/
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  font-size: 7em;
+}
+
+.img-menu-principal {
+  /*el padre debe tener position relative*/
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  display: block;
+  width: 60%;
+  height: auto;
+}
+
+.container-image-menu {
+  position:relative;
+  height: 180px;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: #008CBA;
+  color:white;
+
+}
+
+.back-red {
+    background-color: #d9534f;
+}
+
+.back-green {
+    background-color: #5cb85c;
+}
+
+.back-blue {
+    background-color: #428bca;
+}
+
+.back-skyblue {
+    background-color: #5bc0de;
+}
+
+.back-purple {
+    background-color: #aaafec;
+}
+
+.back-orange {
+    background-color: #fe6b40;
+}
+
+.container-image-menu:hover .overlay {
+  opacity: 0.85;
+}
+
+.pie-image-menu-red, .pie-image-menu-green, .pie-image-menu-blue, .pie-image-menu-skyblue, .pie-image-menu-purple, .pie-image-menu-orange {
+  height:180px;
+}
+
+.pie-image-menu-skyblue h2 {
+  text-align: center;
+  background-color: #5bc0de;
+  /*muestra al glyphicon de color blanco*/
+  color:white;
+  position: absolute;
+  width: 90%;
+  height: 10%;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+.pie-image-menu-green h2 {
+  text-align: center;
+  background-color:  #5cb85c;
+  /*muestra al glyphicon de color blanco*/
+  color:white;
+  position: absolute;
+  width: 90%;
+  height: 10%;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+.pie-image-menu-blue h2 {
+  text-align: center;
+  background-color: #428bca;
+  /*muestra al glyphicon de color blanco*/
+  color:white;
+  position: absolute;
+  width: 90%;
+  height: 10%;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+.pie-image-menu-red h2 {
+  text-align: center;
+  background-color: #d9534f;
+  /*muestra al glyphicon de color blanco*/
+  color:white;
+  position: absolute;
+  width: 90%;
+  height: 10%;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+.pie-image-menu-purple h2 {
+  text-align: center;
+  background-color: #aaafec;
+  /*muestra al glyphicon de color blanco*/
+  color:white;
+  position: absolute;
+  width: 90%;
+  height: 10%;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+.pie-image-menu-orange h2 {
+  text-align: center;
+  background-color: #fe6b40;
+  /*muestra al glyphicon de color blanco*/
+  color:white;
+  position: absolute;
+  width: 90%;
+  height: 10%;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+.pie-image-menu-red p, .pie-image-menu-green p, .pie-image-menu-blue p, .pie-image-menu-skyblue p, .pie-image-menu-purple p, .pie-image-menu-orange p {
+  text-align: center;
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  top:90%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+
+}

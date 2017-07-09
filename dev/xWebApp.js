@@ -58,6 +58,7 @@ angular.module('xWebApp', [
 					},
 					'content' : {
 						controller: 'homeController',
+						controllerAs: 'homeCtrl',
 						templateUrl: 'dev/modules/Home/home.html'
 					}
 				}
