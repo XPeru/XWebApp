@@ -21,6 +21,7 @@
 	<link rel="stylesheet" type="text/css" href="./bower_components/angular-ui-grid/ui-grid.min.css">
 	<link rel="stylesheet" type="text/css" href="./dev/modules/Almacenes/almacenes.css">
 	<link rel="stylesheet" type="text/css" href="./dev/modules/TopBar/topbar.css">
+	<link rel="stylesheet" type="text/css" href="./dev/modules/Home/home.css">
 	<link rel="stylesheet" type="text/css" href="./dev/main.css">
 	<!--endbuild-->
 	
@@ -35,10 +36,10 @@
 	<body>
 		<div ui-view="topbar">
 		</div>
-		<div class="container-fluid underheader">
+		<div class="container-fluid underheader" style="background-color:#A0A7B2">
 			<div class="row">
 				<div class="col-xs-12 col-md-12">
-					<div class="underheader" ng-class="{leftmargin : toLeft}">
+					<div class="underheader">
 						<div ui-view="content"></div>
 					</div>
 				</div>
