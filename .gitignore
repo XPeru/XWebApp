@@ -5,3 +5,4 @@ dev/media/usuarios/
 dev/media/articulos/
 daemon/
 dist/
+.DS_Store
