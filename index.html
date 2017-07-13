@@ -9,10 +9,10 @@
 	<!--
 	<link rel="stylesheet" type="text/css" href="./dev/modules/NavBar/nav.css">
 	<link rel="stylesheet" type="text/css" href="./dev/modules/LeftBar/leftbar.css">-->
-	
+
 	<link rel="stylesheet" type="text/css" href="./bower_components/components-font-awesome/css/font-awesome.min.css">
 	<!--build:css styles/main.css-->
-	
+
 	<link rel="stylesheet" type="text/css" href="./dev/button_circle.css">
 	<link rel="stylesheet" type="text/css" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="./bower_components/metisMenu/dist/metisMenu.min.css">
@@ -24,9 +24,9 @@
 	<link rel="stylesheet" type="text/css" href="./dev/modules/Home/home.css">
 	<link rel="stylesheet" type="text/css" href="./dev/main.css">
 	<!--endbuild-->
-	
-	
-	
+
+
+
 	<head lang="en">
 		<title>XWebApplication</title>
 		<meta charset="UTF-8">
@@ -34,18 +34,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 	<body>
-		<div ui-view="topbar">
-		</div>
-		<div class="container-fluid underheader" style="background-color:#A0A7B2">
-			<div class="row">
-				<div class="col-xs-12 col-md-12">
-					<div class="underheader">
-						<div ui-view="content"></div>
-					</div>
-				</div>
-			</div>
-		</div>
-		
+		<div ui-view="topbar"></div>
+		<div ui-view="content" class="underheader"></div>
 		<!--build:js scripts/main.js-->
 		<script src="./bower_components/angular/angular.js"></script>
 		<script src="./bower_components/angular-route/angular-route.js"></script>
@@ -63,13 +53,13 @@
 		<script src="./bower_components/angular-input-masks/angular-input-masks-standalone.js"></script>
 		<script src="./bower_components/pdfmake/build/pdfmake.js"></script>
 		<script src="./bower_components/pdfmake/build/vfs_fonts.js"></script>
-		
+
 		<script src="./dev/xWebApp.js"></script>
 
 		<script src="./dev/modules/NavBar/nav.js"></script>
 		<script src="./dev/modules/Footer/footer.js"></script>
 		<script src="./dev/modules/Home/home.js"></script>
-		
+
 		<script src="./dev/modules/Articulos/articulosService.js"></script>
 		<script src="./dev/modules/Articulos/articulosController.js"></script>
 		<script src="./dev/modules/Articulos/modals/modalArticuloController.js"></script>
@@ -131,7 +121,7 @@
 
 		<script src="./dev/modules/LeftBar/leftbar.js"></script>
 
-		
+
 		<!-- endbuild -->
 		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script> -->
 		<!--UI Boostrap library -> bower install angular-bootstrap  -->
