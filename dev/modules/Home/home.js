@@ -5,15 +5,19 @@ angular.module('Home', [])
 		var ctrl = this;
 		ctrl.comment ="this is usless";
 		$rootScope.comment2 ="this is usless";
-		ctrl.showUserMenu = false;
-		ctrl.showArticulosMenu = false;
-		ctrl.showCliProvMenu = false;
-		ctrl.showAlmacenesMenu = false;
+		ctrl.keys = ["usuario", "almacen", "articulo", "cliprov", "movimiento"];
+		ctrl.show = {
+			usuario: false,
+			almacen: false,
+			articulo: false,
+			cliprov: false,
+			movimiento: false
+		}
 
-		ctrl.switchUserMenu = function() {
-			ctrl.showUserMenu = !ctrl.showUserMenu;
-			ctrl.showArticulosMenu = false;
-			ctrl.showCliProvMenu = false;
-			ctrl.showAlmacenesMenu = false;
+
+		ctrl.showHideMenu = function(menu) {
+			angular.forEach(ctrl.keys, function(value) {
+				ctrl.show[value] = value === menu ? !ctrl.show[value] : false;
+			});
 		};
 	}]);

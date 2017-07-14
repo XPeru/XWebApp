@@ -27,7 +27,7 @@
 }
 
 .underheader {
-	margin-top: 30px;
+	margin-top: 70px;
 }
 
 .leftmargin {
@@ -49,7 +49,7 @@
 	}
 
 	.underheader {
-		margin-top: 55px;
+		margin-top: 110px;
 	}
 }
 .list_home {
@@ -70,20 +70,20 @@
 	width: 100%;
 	height: 80%;
 }
- 
+
 .my-custom-menu {
 	position: absolute;
 }
- 
+
 .my-custom-menu .ui-grid-menu {
 	padding: 0px;
 }
- 
+
 .my-custom-menu .ui-grid-menu-inner {
 	-webkit-box-shadow: none;
 	box-shadow: none;
 }
- 
+
 .rotated {
 	transform: rotate(180deg);
 	-webkit-transform: rotate(180deg);
@@ -105,4 +105,3 @@
 	opacity: 0;
 	padding: 0 10px;
 }
-
