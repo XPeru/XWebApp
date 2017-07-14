@@ -35,7 +35,10 @@
 	</head>
 	<body>
 		<div ui-view="topbar"></div>
-		<div ui-view="content" class="underheader"></div>
+		<div class="container-fluid">
+			<div ui-view="content" class="underheader"></div>
+		</div>
+
 		<!--build:js scripts/main.js-->
 		<script src="./bower_components/angular/angular.js"></script>
 		<script src="./bower_components/angular-route/angular-route.js"></script>
