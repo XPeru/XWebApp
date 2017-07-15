@@ -1,53 +1,9 @@
 
 <div class ="row">
-	<div class="col-md-3 col-md-offset-0 col-sm-6 col-sm-offset-0 col-xs-8 col-xs-offset-2">
-		<div class="container-image-menu">
-			<img class="img-menu-principal img-circle" src="./dev/media/dashboard_test.jpeg" alt="Dashboard"/>
-			<div class="overlay back-skyblue img-circle">
-				<i class="fa fa-area-chart center-icon" aria-hidden="true"></i>
-			</div>
-		</div>
-		<div class="pie-image-menu-skyblue">
-			<h2>Dashboard</h2>
-			<p>Muestra las graficas de compras, ventas, entradas y salidas por periodos.</p>
-		</div>
-	</div>
-	<div class="col-md-3 col-md-offset-0 col-sm-6 col-sm-offset-0 col-xs-8 col-xs-offset-2">
-		<div class="container-image-menu" ng-click="homeCtrl.showHideMenu('usuario')">
-			<img class="img-menu-principal img-circle" src="./dev/media/usuarios.jpg" alt="Usuarios"/>
-			<div class="overlay back-red img-circle">
-				<i class="glyphicon glyphicon-user center-icon"></i>
-			</div>
-		</div>
-		<div class="pie-image-menu-red">
-			<h2>Usuarios</h2>
-			<p>Funcionalidades asociadas a los usuarios, creacion, edicion y permisos asociados.</p>
-		</div>
-	</div>
-	<div class="col-md-3 col-md-offset-0 col-sm-6 col-sm-offset-0 col-xs-8 col-xs-offset-2">
-		<div class="container-image-menu" ng-click="homeCtrl.showHideMenu('almacen')">
-			<img class="img-menu-principal img-circle" src="./dev/media/almacenes.jpg" alt="Almacenes"/>
-			<div class="overlay back-green img-circle">
-				<i class="fa fa-cubes center-icon" aria-hidden="true"></i>
-			</div>
-		</div>
-		<div class="pie-image-menu-green">
-			<h2>Almacenes</h2>
-			<p>Creacion, edicion de almacenes.</p>
-		</div>
-	</div>
-	<div class="col-md-3 col-md-offset-0 col-sm-6 col-sm-offset-0 col-xs-8 col-xs-offset-2">
-		<div class="container-image-menu" ng-click="homeCtrl.showHideMenu('articulo')">
-			<img class="img-menu-principal img-circle" src="./dev/media/articulos.jpg" alt="Articulos"/>
-			<div class="overlay back-blue img-circle">
-				<i class="glyphicon glyphicon-th-list center-icon"></i>
-			</div>
-		</div>
-		<div class="pie-image-menu-blue">
-			<h2>Articulos</h2>
-			<p>Creacion y edicion de articulos en la aplicacion.</p>
-		</div>
-	</div>
+	<div menu-home menu-data="homeCtrl.menu.dashboard"></div>
+	<div menu-home menu-data="homeCtrl.menu.usuario"></div>
+	<div menu-home menu-data="homeCtrl.menu.almacen"></div>
+	<div menu-home menu-data="homeCtrl.menu.articulo"></div>
 </div>
 
 <div ng-if="homeCtrl.show.usuario" class="back-red">
@@ -243,69 +199,6 @@
 </div>
 
 <div class ="row">
-	<div class="col-md-3 col-md-offset-0 col-sm-6 col-sm-offset-0 col-xs-8 col-xs-offset-2">
-		<div class="container-image-menu" ng-click="homeCtrl.showHideMenu('cliprov')">
-			<img class="img-menu-principal img-circle" src="./dev/media/personas.jpg" alt="Clientes y Proveedores"/>
-			<div class="overlay back-purple img-circle">
-				<i class="glyphicon glyphicon-globe center-icon"></i>
-			</div>
-		</div>
-		<div class="pie-image-menu-purple">
-			<h2>Clientes y Proveedores</h2>
-			<p>Creacion, edicion y supresion de clientes y proveedores.</p>
-		</div>
-	</div>
-	<div class="col-md-3 col-md-offset-0 col-sm-6 col-sm-offset-0 col-xs-8 col-xs-offset-2">
-		<div class="container-image-menu" ng-click="homeCtrl.showHideMenu('movimiento')">
-			<img class="img-menu-principal img-circle" src="./dev/media/movimientos.jpg" alt="Movimientos"/>
-			<div class="overlay back-orange img-circle">
-				<i class="glyphicon glyphicon-transfer center-icon"></i>
-			</div>
-		</div>
-		<div class="pie-image-menu-orange">
-			<h2>Movimientos</h2>
-			<p>Ingresos y salidas</p>
-		</div>
-	</div>
+	<div menu-home menu-data="homeCtrl.menu.cliprov"></div>
+	<div menu-home menu-data="homeCtrl.menu.movimiento"></div>
 </div>
-<!--
-
--->
-
-<!--
-</br>
-</br>
-<div class ="row">
-	<div class="col-xs-3">
-		<ul class="demo-2 effect">
-		    <li>
-		       <h2 class="zero">Tipos de documento</h2>
-		    </li>
-		    <li><img class="top" src="./dev/media/tipodocumento.jpg" alt="tipos de documentos"/></li>
-		</ul>
-	</div>
-	<div class="col-xs-3">
-		<ul class="demo-2 effect">
-		    <li>
-		       <h2 class="zero">Gestion de articulos</h2>
-		    </li>
-		    <li><img class="top" src="./dev/media/gestionarticulo.jpg" alt="gestion de articulos"/></li>
-		</ul>
-	</div>
-	<div class="col-xs-3">
-		<ul class="demo-2 effect">
-		    <li>
-		       <h2 class="zero">Ingresos</h2>
-		    </li>
-		    <li><img class="top" src="./dev/media/ingreso.jpg" alt="Ingresos"/></li>
-		</ul>
-	</div>
-	<div class="col-xs-3">
-		<ul class="demo-2 effect">
-		    <li>
-		       <h2 class="zero">Salidas</h2>
-		    </li>
-		    <li><img class="top" src="./dev/media/salida.jpg" alt="Salidas"/></li>
-		</ul>
-	</div>
-</div> -->
