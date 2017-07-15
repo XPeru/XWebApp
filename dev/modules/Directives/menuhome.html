@@ -1,0 +1,16 @@
+<div class="col-md-3 col-md-offset-0 col-sm-6 col-sm-offset-0 col-xs-8 col-xs-offset-2">
+    <div class="container-image-menu"
+        ng-click="$parent.homeCtrl.showHideMenu(menuHomeCtrl.data.stringMenu)">
+        <img class="img-menu-principal img-circle"
+            ng-src="{{menuHomeCtrl.data.src}}"
+            alt="menuHomeCtrl.data.alt"/>
+        <div class="overlay img-circle"
+            ng-class="menuHomeCtrl.data.background">
+            <i class="{{menuHomeCtrl.data.classIcon}}"></i>
+        </div>
+    </div>
+    <div ng-class="menuHomeCtrl.data.color">
+        <h2>{{menuHomeCtrl.data.title}}</h2>
+        <p>{{menuHomeCtrl.data.subtitle}}</p>
+    </div>
+</div>

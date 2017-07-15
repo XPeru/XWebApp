@@ -40,7 +40,8 @@ angular.module('xWebApp', [
 	'loginService',
 	'ngRoute',
 	'ui.router',
-	'ui.bootstrap'
+	'ui.bootstrap',
+    'MenuHome'
 	])
 	.config(['$stateProvider', '$urlRouterProvider', function config($stateProvider, $urlRouterProvider) {
 
@@ -84,7 +85,7 @@ angular.module('xWebApp', [
 						templateUrl: 'dev/modules/AlmacenesGestion/almacenesGestion.html'
 					}
 				}
-				
+
 			})
 
 			.state('app.almacenesdetalle', {
@@ -118,7 +119,7 @@ angular.module('xWebApp', [
 						templateUrl: 'dev/modules/UsuariosTipo/usuariosTipo.html'
 					}
 				}
-				
+
 			})
 
 			.state('app.usuariosacceso', {
@@ -233,7 +234,7 @@ angular.module('xWebApp', [
 				url: 'login',
 				views : {
 					'topbar@' : {
-						
+
 					},
 					'content@': {
 						controller: 'loginController',
@@ -247,12 +248,12 @@ angular.module('xWebApp', [
 	}])
     .run(['$rootScope', '$location', '$cookieStore', '$http', function run($rootScope, $location, $cookieStore, $http) {
         // keep user logged in after page refresh
-        
+
         $rootScope.globals = $cookieStore.get('globals') || {};
         if ($rootScope.globals.currentUser) {
             $http.defaults.headers.common.Authorization = 'Basic ' + $rootScope.globals.currentUser.authdata;
         }
- 
+
         $rootScope.$on('$locationChangeStart', function () {
             // redirect to login page if not logged in and trying to access a restricted page
            /* var restrictedPage = $.inArray($location.path(), ['/login']) === -1;
