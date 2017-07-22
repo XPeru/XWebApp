@@ -15,11 +15,11 @@ angular.module('AlmacenesGestion', ['ui.bootstrap', 'ui.grid','ui.grid.exporter'
 				ctrl.tableMode = !ctrl.tableMode;
 			};
 
-			ctrl.callGetAllAlmacenes = function() {
+			ctrl.callGetAll = function() {
 				AlmacenesGestionServiceFactory.getAllAlmacenes().then(function(response) {
 					ctrl.almacenesData = response.data.Almacenes;
 					$scope.gridOptions.data = response.data.Almacenes;
-					ctrl.almacenesTable = new NgTableParams({
+					ctrl.table = new NgTableParams({
 						page: 1,
 						count: 10
 					}, {
@@ -32,48 +32,42 @@ angular.module('AlmacenesGestion', ['ui.bootstrap', 'ui.grid','ui.grid.exporter'
 				ctrl.idSelectedAlmacen = idSelectedAlmacen;
 			};
 
-			ctrl.openModal = function(selected_modal, selected_almacen) {
-				var modalInstance = $uibModal.open({
-					templateUrl: function() {
-						var template;
-						switch(selected_modal) {
-							case "create":
-								template = 'dev/modules/AlmacenesGestion/modals/createAlmacen.html';
-								break;
-							case "edit":
-								template = 'dev/modules/AlmacenesGestion/modals/editAlmacen.html';
-								break;
-							case "delete":
-								template = 'dev/modules/AlmacenesGestion/modals/deleteAlmacen.html';
-								break;
-						}
-						return template;
-					},
-					controller: 'modalAlmacenController',
-					controllerAs: 'modalAlmacenCtrl',
-					resolve : {
-						selected_almacen : function() {
-							return selected_almacen;
-						}
-					}
-				});
-
-				modalInstance.result.then(function() {
-					ctrl.callGetAllAlmacenes();
-					ctrl.almacenesTable.reload();
-
-				}, function() {
-					ctrl.callGetAllAlmacenes();
-					ctrl.almacenesTable.reload();
-				});
+			ctrl.modal = {
+				url: {
+					create : 'dev/modules/AlmacenesGestion/modals/createAlmacen.html',
+					edit: 'dev/modules/AlmacenesGestion/modals/editAlmacen.html',
+					delete: 'dev/modules/AlmacenesGestion/modals/deleteAlmacen.html'
+				},
+				controller: 'modalAlmacenController',
+				controllerAs: 'modalAlmacenCtrl',
+				id: 'ID_ALMACEN'
 			};
+
+			ctrl.modalCreate = Object.assign({}, ctrl.modal, {
+				mode: 'create',
+				buttonClass: 'pull-right btn btn-small btn-success btn_separate',
+				iconClass: 'glyphicon glyphicon-plus',
+				text: 'Nuevo '
+			});
+
+			ctrl.modalEdit = Object.assign({}, ctrl.modal, {
+				mode: 'edit',
+				buttonClass: 'btn btn-small btn-primary',
+				iconClass: 'glyphicon glyphicon-pencil'
+			});
+
+			ctrl.modalDelete = Object.assign({}, ctrl.modal, {
+				mode: 'delete',
+				buttonClass: 'btn btn-small btn-danger',
+				iconClass: 'glyphicon glyphicon-remove'
+			});
 
 			i18nService.setCurrentLang('es');
 			ctrl.tableMode = true;
 			ctrl.almacenesData = [];
 			ctrl.modal_not_finished = true;
 			ctrl.idSelectedAlmacen = null;
-			ctrl.callGetAllAlmacenes();
+			ctrl.callGetAll();
 
 			var column0 = {
 				displayName: 'Codigo almacen',
