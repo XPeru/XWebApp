@@ -4,6 +4,7 @@ module.controller('modalDirectiveController', ['$scope', '$rootScope', '$uibModa
         var ctrl = this;
         ctrl.modalData = $scope.modalData;
         ctrl.modalSelectedData = $scope.modalSelectedData;
+        ctrl.modalExtraData = $scope.modalExtraData;
 
         ctrl.openModal = function () {
             var modalInstance = $uibModal.open({
@@ -12,9 +13,12 @@ module.controller('modalDirectiveController', ['$scope', '$rootScope', '$uibModa
                 },
                 controller: ctrl.modalData.controller,
                 controllerAs: ctrl.modalData.controllerAs,
-                resolve : {
-                    selectedData : function () {
+                resolve: {
+                    selectedData: function () {
                          return  ctrl.modalSelectedData;
+                    },
+                    extraData: function () {
+                        return $scope.modalExtraData;
                     }
                 }
             });
@@ -37,10 +41,11 @@ module.directive('modalDirective',function() {
 		restrict: 'A',
 		controller: 'modalDirectiveController',
         controllerAs: 'modalDirectiveCtrl',
-		templateUrl:'dev/modules/Directives/modal.html',
+		templateUrl: 'dev/modules/Directives/modal.html',
 		scope: {
-            modalData:'=',
-            modalSelectedData:'='
+            modalData: '=',
+            modalSelectedData: '=',
+            modalExtraData: '='
         }
 	};
 });

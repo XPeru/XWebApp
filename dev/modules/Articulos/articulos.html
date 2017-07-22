@@ -4,14 +4,14 @@
 			<button ng-click="articulosCtrl.switchTableMode()" class="pull-right btn btn-small btn-danger btn_separate">
 				 <i ng-if="articulosCtrl.tableMode" class="fa fa-print" aria-hidden="true"></i> <i ng-if="articulosCtrl.tableMode" class="fa fa-file-pdf-o" aria-hidden="true"></i> <i ng-if="!articulosCtrl.tableMode" class="fa fa-long-arrow-left" aria-hidden="true"></i>
 			</button>
-			<button ng-click="articulosCtrl.openModalArticulo('create', null)" class="btn_separate pull-right btn btn-small btn-success">
-				Nuevo <span><i class="glyphicon glyphicon-plus"></i></span>
-			</button>
+			<span modal-directive
+					modal-data="articulosCtrl.modalCreate"
+					modal-extra-data="articulosCtrl.categoriaList"></span>
 		</h3>
 	</div>
 	<div class="panel-body">
 		<div class="table-responsive" ng-if="articulosCtrl.tableMode">
-			<table class="table table-striped" ng-table="articulosCtrl.articlesTable" show-filter="true">
+			<table class="table table-striped" ng-table="articulosCtrl.table" show-filter="true">
 				<tr ng-repeat="articulo in $data track by articulo.ID_ARTICULO"
 					ng-click="articulosCtrl.setSelected(articulo.ID_ARTICULO)"
 					ng-class="{info: articulo.ID_ARTICULO === articulosCtrl.idSelectedArticulo}">
@@ -23,11 +23,13 @@
 					<td data-title="'Valor de reposicion'" filter="{VALOR_REPOSICION: 'number'}" sortable="'VALOR_REPOSICION'">{{articulo.VALOR_REPOSICION}}</td>
 					<td data-title="'Categoria'" filter="{CATEGORIA: 'text'}" sortable="'CATEGORIA'">{{articulo.CATEGORIA}}</td>
 					<td style="width:60px">
-						<button ng-if="articulo.ID_ARTICULO === articulosCtrl.idSelectedArticulo"
-							ng-click="articulosCtrl.openModalArticulo('edit', articulo)"
-							class="btn btn-small btn-primary">
-							<i class="glyphicon glyphicon-pencil"></i>
-						</button>
+						<div ng-if="articulo.ID_ARTICULO === articulosCtrl.idSelectedArticulo">
+                            <div modal-directive
+                                modal-data="articulosCtrl.modalEdit"
+                                modal-selected-data="articulo"
+								modal-extra-data="articulosCtrl.categoriaList">
+                            </div>
+                        </div>
 					</td>
 				</tr>
 

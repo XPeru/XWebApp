@@ -4,7 +4,7 @@ angular.module('Articulos', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.g
 	.controller('articulosController', ['$scope',
 										'$location',
 										'$http',
-										'$uibModal', 
+										'$uibModal',
 										'$timeout',
 										'ArticulosServiceFactory',
 										'NgTableParams',
@@ -12,9 +12,14 @@ angular.module('Articulos', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.g
 										'i18nService',
 	function($scope, $location, $http, $uibModal, $timeout, ArticulosServiceFactory, NgTableParams, ArticulosCategoriaServiceFactory, i18nService) {
 		var ctrl = this;
-		ctrl.tableMode = true;
+		i18nService.setCurrentLang('es');
+
 		ctrl.switchTableMode = function() {
 			ctrl.tableMode = !ctrl.tableMode;
+		};
+
+		ctrl.setSelected = function(idSelectedArticulo) {
+			ctrl.idSelectedArticulo = idSelectedArticulo;
 		};
 
 		ctrl.callGetAllCategorias = function() {
@@ -22,36 +27,12 @@ angular.module('Articulos', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.g
 				ctrl.categoriaList = response.data.Categorias;
 			});
 		};
-		ctrl.callGetAllCategorias();
 
-		i18nService.setCurrentLang('es');
-		$scope.columns = [{ field: 'CODIGO_ARTICULO', headerCellClass: 'blue'},
-							{field: 'DESCRIPCION', headerCellClass : 'blue'},
-							{field: 'UNIDAD', headerCellClass : 'blue'},
-							{field: 'PRECIO_UNITARIO', headerCellClass: 'blue'},
-							{field: 'VALOR_REPOSICION', headerCellClass :' blue'}];
-			$scope.columns[0].displayName = 'Codigo articulo';
-			$scope.columns[1].displayName = 'Descripcion';
-			$scope.columns[2].displayName = 'Unidad';
-			$scope.columns[3].displayName = 'Precio unitario';
-			$scope.columns[4].displayName = 'Valor de reposicion';
-			$scope.gridOptions = {
-				exporterMenuCsv: false,
-				enableGridMenu: true,
-				enableSorting: true,
-				enableFiltering: true,
-				columnDefs: $scope.columns,
-				onRegisterApi: function(gridApi) {
-					$scope.gridApi = gridApi;
-				}
-			};
-
-		ctrl.articulosData = [{}];
-		ctrl.callGetArticuloList = function() {
+		ctrl.callGetAll = function() {
 			ArticulosServiceFactory.getArticuloList().then(function(response) {
 				ctrl.articulosData = response.data.Articulos;
 				$scope.gridOptions.data = response.data.Articulos;
-				ctrl.articlesTable = new NgTableParams({
+				ctrl.table = new NgTableParams({
 					page: 1,
 					count: 10
 				}, {
@@ -59,52 +40,86 @@ angular.module('Articulos', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.g
 				});
 			});
 		};
-		ctrl.callGetArticuloList();
 
+		ctrl.articulosData = [];
 		ctrl.idSelectedArticulo = null;
-		ctrl.setSelected = function(idSelectedArticulo) {
-			ctrl.idSelectedArticulo = idSelectedArticulo;
+		ctrl.tableMode = true;
+		ctrl.callGetAll();
+		ctrl.callGetAllCategorias();
+
+		ctrl.modal = {
+			url: {
+				create : 'dev/modules/Articulos/modals/createArticulo.html',
+				edit: 'dev/modules/Articulos/modals/editArticulo.html',
+				delete: 'dev/modules/Articulos/modals/deleteArticulo.html'
+			},
+			controller: 'modalArticuloController',
+			controllerAs: 'modalArticuloCtrl',
+			id: 'ID_ARTICULO',
+			ctrlParent: ctrl
 		};
 
-		ctrl.openModalArticulo = function(selected_modal, selected_article) {
-			var modalInstance = $uibModal.open({
-				templateUrl: function() {
-					var template;
-					switch(selected_modal) {
-						case "create":
-							template = 'dev/modules/Articulos/modals/createArticulo.html';
-							break;
-						case "edit":
-							template = 'dev/modules/Articulos/modals/editArticulo.html';
-							break;
-						case "delete":
-							template = 'dev/modules/Articulos/modals/deleteArticulo.html';
-							break;
-					}
-					return template;
-				},
-				controller: 'modalArticuloController',
-				controllerAs: 'modalArticuloCtrl',
-				resolve : {
-					selected_article : function() {
-						return selected_article;
-					},
-					categoriaList : function() {
-						return ctrl.categoriaList;
-					}
-				}
-			});
+		ctrl.modalCreate = Object.assign({}, ctrl.modal, {
+			mode: 'create',
+			buttonClass: 'pull-right btn btn-small btn-success btn_separate',
+			iconClass: 'glyphicon glyphicon-plus',
+			text: 'Nuevo '
+		});
 
-			modalInstance.result.then(function() {
-				ctrl.callGetArticuloList();
-				ctrl.articlesTable.reload();
-				
-			}, function() {
-				ctrl.callGetArticuloList();
-				ctrl.articlesTable.reload();
-			});
+		ctrl.modalEdit = Object.assign({}, ctrl.modal, {
+			mode: 'edit',
+			buttonClass: 'btn btn-small btn-primary',
+			iconClass: 'glyphicon glyphicon-pencil'
+		});
+
+		ctrl.modalDelete = Object.assign({}, ctrl.modal, {
+			mode: 'delete',
+			buttonClass: 'btn btn-small btn-danger',
+			iconClass: 'glyphicon glyphicon-remove'
+		});
+
+		$scope.columns = [];
+
+		$scope.columns[0] = {
+			displayName: 'Codigo articulo',
+			field: 'CODIGO_ARTICULO',
+			headerCellClass: 'blue'
+		};
+
+		$scope.columns[1] = {
+			displayName: 'Descripcion',
+			field: 'DESCRIPCION',
+			headerCellClass: 'blue'
+		};
+
+		$scope.columns[2] = {
+			displayName: 'Unidad',
+			field: 'UNIDAD',
+			headerCellClass: 'blue'
+		};
+
+		$scope.columns[3] = {
+			displayName: 'Precio unitario',
+			field: 'PRECIO_UNITARIO',
+			headerCellClass: 'blue'
+		};
+
+		$scope.columns[4] = {
+			displayName: 'Valor de reposicion',
+			field: 'VALOR_REPOSICION',
+			headerCellClass: 'blue'
+		};
+
+		$scope.gridOptions = {
+			exporterMenuCsv: false,
+			enableGridMenu: true,
+			enableSorting: true,
+			enableFiltering: true,
+			columnDefs: $scope.columns,
+			onRegisterApi: function(gridApi) {
+				$scope.gridApi = gridApi;
+			}
 		};
 
 	}
 ]);
-

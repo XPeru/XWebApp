@@ -10,6 +10,7 @@ angular.module('AlmacenesGestion', ['ui.bootstrap', 'ui.grid','ui.grid.exporter'
 												'i18nService',
 		function ($scope, $location, $http, $uibModal, $timeout, AlmacenesGestionServiceFactory, NgTableParams, i18nService) {
 			var ctrl = this;
+			i18nService.setCurrentLang('es');
 
 			ctrl.switchTableMode = function() {
 				ctrl.tableMode = !ctrl.tableMode;
@@ -63,27 +64,24 @@ angular.module('AlmacenesGestion', ['ui.bootstrap', 'ui.grid','ui.grid.exporter'
 				iconClass: 'glyphicon glyphicon-remove'
 			});
 
-			i18nService.setCurrentLang('es');
 			ctrl.tableMode = true;
 			ctrl.almacenesData = [];
 			ctrl.modal_not_finished = true;
 			ctrl.idSelectedAlmacen = null;
 			ctrl.callGetAll();
 
-			var column0 = {
+			$scope.columns = [];
+			$scope.columns[0] = {
 				displayName: 'Codigo almacen',
 				field: 'CODIGO_ALMACEN',
 				headerCellClass: 'blue'
 			};
 
-			var column1 = {
+			$scope.columns[1] = {
 				displayName: 'Ubicacion',
 				field: 'UBICACION',
 				headerCellClass: 'blue'
 			};
-			$scope.columns = [];
-			$scope.columns.push(column0);
-			$scope.columns.push(column1);
 
 			$scope.gridOptions = {
 				exporterMenuCsv: false,
