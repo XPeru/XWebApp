@@ -1,8 +1,8 @@
-angular.module('Articulos').controller('modalArticuloController', function($scope, $http, $timeout, $uibModalInstance, selected_article, ArticulosServiceFactory, categoriaList) {
+angular.module('Articulos').controller('modalArticuloController', function($scope, $http, $timeout, $uibModalInstance, selectedData, extraData, ArticulosServiceFactory) {
 	//TODO comprobar si esto es realmente necesario o no
 	var ctrl = this;
-	ctrl.selected_article = selected_article;
-	ctrl.categoriaList = categoriaList;
+	ctrl.selected_article = selectedData;
+	ctrl.categoriaList = extraData;
 	ctrl.deleteArticulo = function(article_to_delete) {
 		ArticulosServiceFactory.deleteArticulo(function() {
 			$timeout(function() {

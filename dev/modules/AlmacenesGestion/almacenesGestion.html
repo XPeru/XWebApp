@@ -4,7 +4,7 @@
             <button ng-click="almacenesGestionCtrl.switchTableMode()" class="pull-right btn btn-small btn-danger btn_separate">
                  <i ng-if="almacenesGestionCtrl.tableMode" class="fa fa-print" aria-hidden="true"></i> <i ng-if="almacenesGestionCtrl.tableMode" class="fa fa-file-pdf-o" aria-hidden="true"></i> <i ng-if="!almacenesGestionCtrl.tableMode" class="fa fa-long-arrow-left" aria-hidden="true"></i>
             </button>
-            <span modal-directive modal-data="almacenesGestionCtrl.modalCreate" modal-selected-data="almacen"></span>
+            <span modal-directive modal-data="almacenesGestionCtrl.modalCreate"></span>
         </h2>
     </div>
     <div class="panel-body">
@@ -18,12 +18,18 @@
                     <td data-title="'UBICACION'" filter="{UBICACION: 'text'}" sortable="'UBICACION'">{{almacen.UBICACION}}</td>
                     <td style="width:60px">
                         <div ng-if="almacen.ID_ALMACEN === almacenesGestionCtrl.idSelectedAlmacen">
-                            <div modal-directive modal-data="almacenesGestionCtrl.modalEdit" modal-selected-data="almacen"></div>
+                            <div modal-directive
+                                modal-data="almacenesGestionCtrl.modalEdit"
+                                modal-selected-data="almacen">
+                            </div>
                         </div>
                     </td>
                     <td style="width:60px">
                         <div ng-if="almacen.ID_ALMACEN === almacenesGestionCtrl.idSelectedAlmacen">
-                            <div modal-directive modal-data="almacenesGestionCtrl.modalDelete" modal-selected-data="almacen"></div>
+                            <div modal-directive
+                                modal-data="almacenesGestionCtrl.modalDelete"
+                                modal-selected-data="almacen">
+                            </div>
                         </div>
                     </td>
                 </tr>
