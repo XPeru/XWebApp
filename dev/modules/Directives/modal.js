@@ -2,7 +2,6 @@ var module = angular.module('ModalDirective', []);
 
 module.controller('modalDirectiveController', ['$scope', '$rootScope', '$uibModal', function ($scope, $rootScope, $uibModal) {
         var ctrl = this;
-        $rootScope.comment = "this is usless";
         ctrl.modalData = $scope.modalData;
         ctrl.modalSelectedData = $scope.modalSelectedData;
 
@@ -21,12 +20,12 @@ module.controller('modalDirectiveController', ['$scope', '$rootScope', '$uibModa
             });
 
             modalInstance.result.then(function() {
-                //$parent.callGetAll();
-                //$parent.table.reload();
+                ctrl.modalData.ctrlParent.callGetAll();
+                ctrl.modalData.ctrlParent.table.reload();
 
             }, function() {
-                //$parent.callGetAll();
-                //$parent.table.reload();
+                ctrl.modalData.ctrlParent.callGetAll();
+                ctrl.modalData.ctrlParent.table.reload();
             });
         };
 

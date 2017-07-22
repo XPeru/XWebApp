@@ -40,7 +40,8 @@ angular.module('AlmacenesGestion', ['ui.bootstrap', 'ui.grid','ui.grid.exporter'
 				},
 				controller: 'modalAlmacenController',
 				controllerAs: 'modalAlmacenCtrl',
-				id: 'ID_ALMACEN'
+				id: 'ID_ALMACEN',
+				ctrlParent: ctrl
 			};
 
 			ctrl.modalCreate = Object.assign({}, ctrl.modal, {
