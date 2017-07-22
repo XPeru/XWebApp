@@ -41,7 +41,8 @@ angular.module('xWebApp', [
 	'ngRoute',
 	'ui.router',
 	'ui.bootstrap',
-    'MenuHome'
+    'MenuHome',
+    'ModalDirective'
 	])
 	.config(['$stateProvider', '$urlRouterProvider', function config($stateProvider, $urlRouterProvider) {
 

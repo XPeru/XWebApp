@@ -4,14 +4,12 @@
             <button ng-click="almacenesGestionCtrl.switchTableMode()" class="pull-right btn btn-small btn-danger btn_separate">
                  <i ng-if="almacenesGestionCtrl.tableMode" class="fa fa-print" aria-hidden="true"></i> <i ng-if="almacenesGestionCtrl.tableMode" class="fa fa-file-pdf-o" aria-hidden="true"></i> <i ng-if="!almacenesGestionCtrl.tableMode" class="fa fa-long-arrow-left" aria-hidden="true"></i>
             </button>
-            <button ng-click="almacenesGestionCtrl.openModal('create', null)" class="btn_separate pull-right btn btn-small btn-success">
-                Nuevo <span><i class="glyphicon glyphicon-plus"></i></span>
-            </button>
+            <span modal-directive modal-data="almacenesGestionCtrl.modalCreate" modal-selected-data="almacen"></span>
         </h2>
     </div>
     <div class="panel-body">
         <div class="table-responsive" ng-if="almacenesGestionCtrl.tableMode">
-            <table class="table table-striped" ng-table="almacenesGestionCtrl.almacenesTable" show-filter="true">
+            <table class="table table-striped" ng-table="almacenesGestionCtrl.table" show-filter="true">
                 <tr ng-repeat="almacen in $data track by almacen.ID_ALMACEN"
                     ng-click="almacenesGestionCtrl.setSelected(almacen.ID_ALMACEN)"
                     ng-class="{info: almacen.ID_ALMACEN === almacenesGestionCtrl.idSelectedAlmacen}">
@@ -19,18 +17,14 @@
                     <td data-title="'CODIGO_ALMACEN'" filter="{CODIGO_ALMACEN: 'text'}" sortable="'CODIGO_ALMACEN'">{{almacen.CODIGO_ALMACEN}}</td>
                     <td data-title="'UBICACION'" filter="{UBICACION: 'text'}" sortable="'UBICACION'">{{almacen.UBICACION}}</td>
                     <td style="width:60px">
-                        <button ng-if="almacen.ID_ALMACEN === almacenesGestionCtrl.idSelectedAlmacen"
-                            ng-click="almacenesGestionCtrl.openModal('edit', almacen)"
-                            class="btn btn-small btn-primary">
-                            <i class="glyphicon glyphicon-pencil"></i>
-                        </button>
+                        <div ng-if="almacen.ID_ALMACEN === almacenesGestionCtrl.idSelectedAlmacen">
+                            <div modal-directive modal-data="almacenesGestionCtrl.modalEdit" modal-selected-data="almacen"></div>
+                        </div>
                     </td>
                     <td style="width:60px">
-                        <button ng-if="almacen.ID_ALMACEN === almacenesGestionCtrl.idSelectedAlmacen"
-                            ng-click="almacenesGestionCtrl.openModal('delete', almacen)"
-                            class="btn btn-small btn-danger">
-                            <i class="glyphicon glyphicon-remove"></i>
-                        </button>
+                        <div ng-if="almacen.ID_ALMACEN === almacenesGestionCtrl.idSelectedAlmacen">
+                            <div modal-directive modal-data="almacenesGestionCtrl.modalDelete" modal-selected-data="almacen"></div>
+                        </div>
                     </td>
                 </tr>
             </table>

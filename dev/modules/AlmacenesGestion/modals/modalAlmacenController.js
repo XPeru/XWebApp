@@ -1,7 +1,7 @@
 angular.module('AlmacenesGestion').controller('modalAlmacenController',
-	function($scope, $http, $timeout, $uibModalInstance, selected_almacen, AlmacenesGestionServiceFactory) {
+	function($scope, $http, $timeout, $uibModalInstance, selectedData, AlmacenesGestionServiceFactory) {
 		var ctrl = this;
-		ctrl.selected_almacen = selected_almacen;
+		ctrl.selected_almacen = selectedData;
 
 		ctrl.deleteAlmacen = function(almacen_deleted) {
 			AlmacenesGestionServiceFactory.deleteAlmacen(almacen_deleted).then(function() {

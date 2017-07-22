@@ -18,4 +18,4 @@ module.directive('menuHome',function() {
             menuData:'='
         }
 	};
-})
+});
