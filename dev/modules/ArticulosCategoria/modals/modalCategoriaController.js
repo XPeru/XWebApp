@@ -1,7 +1,7 @@
 angular.module('ArticulosCategoria').controller('modalCategoriaController',
-		function($scope, $http, $timeout, $uibModalInstance, selected_categoria, ArticulosCategoriaServiceFactory) {
+		function($scope, $http, $timeout, $uibModalInstance, selectedData, ArticulosCategoriaServiceFactory) {
 			var ctrl = this;
-			ctrl.selected_categoria = selected_categoria;
+			ctrl.selected_categoria = selectedData;
 
 			ctrl.deleteCategoria = function(categoria_deleted) {
 				ArticulosCategoriaServiceFactory.deleteCategoria(categoria_deleted).then(function() {
