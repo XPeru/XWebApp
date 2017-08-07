@@ -33,6 +33,21 @@ angular.module('AlmacenesGestion', ['ui.bootstrap', 'ui.grid','ui.grid.exporter'
 				ctrl.idSelectedAlmacen = idSelectedAlmacen;
 			};
 
+			ctrl.labels = [
+				{
+					title:	 	"CODIGO_ALMACEN",
+					filter:		{
+						CODIGO_ALMACEN: 'text'
+					}
+				},
+				{
+					title:	 	"UBICACION",
+					filter:		{
+						UBICACION: 'text'
+					}
+				}
+			];
+
 			ctrl.modal = {
 				url: {
 					create : 'dev/modules/AlmacenesGestion/modals/createAlmacen.html',
