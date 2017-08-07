@@ -14,8 +14,17 @@
                     ng-click="almacenesGestionCtrl.setSelected(almacen.ID_ALMACEN)"
                     ng-class="{info: almacen.ID_ALMACEN === almacenesGestionCtrl.idSelectedAlmacen}">
 <!--                     <td data-title="'ID'" filter="{ID_ALMACEN: 'text'}" sortable="'ID_ALMACEN'">{{almacen.ID_ALMACEN}}</td> -->
-                    <td data-title="'CODIGO_ALMACEN'" filter="{CODIGO_ALMACEN: 'text'}" sortable="'CODIGO_ALMACEN'">{{almacen.CODIGO_ALMACEN}}</td>
-                    <td data-title="'UBICACION'" filter="{UBICACION: 'text'}" sortable="'UBICACION'">{{almacen.UBICACION}}</td>
+                    <!-- <td data-title="'CODIGO_ALMACEN'" filter="{CODIGO_ALMACEN: 'text'}" sortable="'CODIGO_ALMACEN'">{{almacen.CODIGO_ALMACEN}}</td>
+                    <td data-title="'UBICACION'" filter="{UBICACION: 'text'}" sortable="'UBICACION'">{{almacen.UBICACION}}</td> -->
+                    <!-- <td data-title=almacenesGestionCtrl.labels[0].title
+                        filter=almacenesGestionCtrl.labels[0].filter
+                        sortable=almacenesGestionCtrl.labels[0].title>{{almacen[almacenesGestionCtrl.labels[0].title]}}
+                    </td> -->
+                    <td ng-repeat="label in almacenesGestionCtrl.labels"
+                        data-title=label.title
+                        filter=label.filter
+                        sortable=label.title>{{almacen[label.title]}}
+                    </td>
                     <td style="width:60px">
                         <div ng-if="almacen.ID_ALMACEN === almacenesGestionCtrl.idSelectedAlmacen">
                             <div modal-directive
