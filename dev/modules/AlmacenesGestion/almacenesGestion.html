@@ -14,7 +14,7 @@
                     ng-click="almacenesGestionCtrl.setSelected(almacen.ID_ALMACEN)"
                     ng-class="{info: almacen.ID_ALMACEN === almacenesGestionCtrl.idSelectedAlmacen}">
 <!--                     <td data-title="'ID'" filter="{ID_ALMACEN: 'text'}" sortable="'ID_ALMACEN'">{{almacen.ID_ALMACEN}}</td> -->
-                    <td ng-repeat="col in columns">
+                    <td ng-repeat="col in columns" ng-class="{nena: col.field=='BUTTONS'}">
                       {{almacen[col.field]}}
                       <div ng-if="almacen.ID_ALMACEN === almacenesGestionCtrl.idSelectedAlmacen && col.field=='BUTTONS'">
                         <span modal-directive
