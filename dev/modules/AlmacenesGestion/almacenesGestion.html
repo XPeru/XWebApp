@@ -9,23 +9,25 @@
     </div>
     <div class="panel-body">
         <div class="table-responsive" ng-if="almacenesGestionCtrl.tableMode">
-            <table class="table table-striped" ng-table="almacenesGestionCtrl.table" show-filter="true">
+            <table class="table table-striped" ng-table-dynamic="almacenesGestionCtrl.table with columns" show-filter="true">
                 <tr ng-repeat="almacen in $data track by almacen.ID_ALMACEN"
                     ng-click="almacenesGestionCtrl.setSelected(almacen.ID_ALMACEN)"
                     ng-class="{info: almacen.ID_ALMACEN === almacenesGestionCtrl.idSelectedAlmacen}">
 <!--                     <td data-title="'ID'" filter="{ID_ALMACEN: 'text'}" sortable="'ID_ALMACEN'">{{almacen.ID_ALMACEN}}</td> -->
-                    <!-- <td data-title="'CODIGO_ALMACEN'" filter="{CODIGO_ALMACEN: 'text'}" sortable="'CODIGO_ALMACEN'">{{almacen.CODIGO_ALMACEN}}</td>
-                    <td data-title="'UBICACION'" filter="{UBICACION: 'text'}" sortable="'UBICACION'">{{almacen.UBICACION}}</td> -->
-                    <!-- <td data-title=almacenesGestionCtrl.labels[0].title
-                        filter=almacenesGestionCtrl.labels[0].filter
-                        sortable=almacenesGestionCtrl.labels[0].title>{{almacen[almacenesGestionCtrl.labels[0].title]}}
-                    </td> -->
-                    <td ng-repeat="label in almacenesGestionCtrl.labels"
-                        data-title=label.title
-                        filter=label.filter
-                        sortable=label.title>{{almacen[label.title]}}
+                    <td ng-repeat="col in columns">
+                      {{almacen[col.field]}}
+                      <div ng-if="almacen.ID_ALMACEN === almacenesGestionCtrl.idSelectedAlmacen && col.field=='BUTTONS'">
+                        <span modal-directive
+                            modal-data="almacenesGestionCtrl.modalEdit"
+                            modal-selected-data="almacen">
+                        </span>
+                        <span modal-directive
+                            modal-data="almacenesGestionCtrl.modalDelete"
+                            modal-selected-data="almacen">
+                        </span>
+                      </div>
                     </td>
-                    <td style="width:60px">
+                    <!-- <td style="width:60px">
                         <div ng-if="almacen.ID_ALMACEN === almacenesGestionCtrl.idSelectedAlmacen">
                             <div modal-directive
                                 modal-data="almacenesGestionCtrl.modalEdit"
@@ -40,7 +42,7 @@
                                 modal-selected-data="almacen">
                             </div>
                         </div>
-                    </td>
+                    </td> -->
                 </tr>
             </table>
         </div>

@@ -33,21 +33,6 @@ angular.module('AlmacenesGestion', ['ui.bootstrap', 'ui.grid','ui.grid.exporter'
 				ctrl.idSelectedAlmacen = idSelectedAlmacen;
 			};
 
-			ctrl.labels = [
-				{
-					title:	 	"CODIGO_ALMACEN",
-					filter:		{
-						CODIGO_ALMACEN: 'text'
-					}
-				},
-				{
-					title:	 	"UBICACION",
-					filter:		{
-						UBICACION: 'text'
-					}
-				}
-			];
-
 			ctrl.modal = {
 				url: {
 					create : 'dev/modules/AlmacenesGestion/modals/createAlmacen.html',
@@ -85,18 +70,30 @@ angular.module('AlmacenesGestion', ['ui.bootstrap', 'ui.grid','ui.grid.exporter'
 			ctrl.idSelectedAlmacen = null;
 			ctrl.callGetAll();
 
-			$scope.columns = [];
-			$scope.columns[0] = {
-				displayName: 'Codigo almacen',
-				field: 'CODIGO_ALMACEN',
-				headerCellClass: 'blue'
+			function prep_column(nam, fld, color, filt){
+				var obj = {
+					title:	nam,
+					displayName:	nam,
+					field:	fld,
+					filter: {},
+					headerCellClass:	color,
+					sortable:	fld
+				};
+				obj.filter[fld] = filt;
+				return obj;
+			};
+			function prep_buttons(){
+				return {
+					// style:	"width: 30px",
+					field: "BUTTONS"
+				}
 			};
 
-			$scope.columns[1] = {
-				displayName: 'Ubicacion',
-				field: 'UBICACION',
-				headerCellClass: 'blue'
-			};
+			$scope.columns = [
+				prep_column('Codigo almacen','CODIGO_ALMACEN','blue','text'),
+				prep_column('Ubicacion','UBICACION','blue','text'),
+				prep_buttons()
+			];
 
 			$scope.gridOptions = {
 				exporterMenuCsv: false,
