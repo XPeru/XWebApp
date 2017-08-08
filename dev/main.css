@@ -35,6 +35,10 @@
 	margin-right: 0;
 }
 
+.nena {
+	width: 120px;
+}
+
 
 @media (max-width: 767px) {
 	.leftmargin {
