@@ -1,4 +1,5 @@
 angular.module('xWebApp', [
+    'nvd3',
     'ui.grid',
 	'ngTable',
 	'ngCookies',
@@ -42,7 +43,8 @@ angular.module('xWebApp', [
 	'ui.router',
 	'ui.bootstrap',
     'MenuHome',
-    'ModalDirective'
+    'ModalDirective',
+    'Dashboard'
 	])
 	.config(['$stateProvider', '$urlRouterProvider', function config($stateProvider, $urlRouterProvider) {
 
@@ -218,6 +220,16 @@ angular.module('xWebApp', [
 						controller: 'ingresoController',
 						controllerAs: 'ingresoCtrl',
 						templateUrl: 'dev/modules/Ingreso/ingreso.html'
+					}
+				}
+			})
+            .state('app.dashboard', {
+				url: 'dashboard',
+				views : {
+					'content@': {
+						controller: 'dashboardController',
+						controllerAs: 'dashboardCtrl',
+						templateUrl: 'dev/modules/Dashboard/dashboard.html'
 					}
 				}
 			})
