@@ -27,7 +27,7 @@ angular.module('Home', [])
 			alt: "Dashboard",
 			title: "Dashboard",
 			subtitle: "Muestra las graficas de compras, ventas, entradas y salidas por periodos.",
-			stringMenu: '',
+			stringMenu: 'dashboard',
 			color: 'pie-image-menu-skyblue',
 			src: './dev/media/dashboard_test.jpeg',
 			background: 'back-skyblue',
