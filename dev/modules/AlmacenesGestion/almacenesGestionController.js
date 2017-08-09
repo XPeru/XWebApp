@@ -84,9 +84,8 @@ angular.module('AlmacenesGestion', ['ui.bootstrap', 'ui.grid','ui.grid.exporter'
 			};
 			function prep_buttons(){
 				return {
-					// style:	"width: 30px",
 					field: "BUTTONS"
-				}
+				};
 			};
 
 			$scope.columns = [
