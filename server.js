@@ -6,27 +6,10 @@ const mysql = require("mysql");
 const bodyParser = require("body-parser");
 // npm install serve-favicon
 const favicon = require("serve-favicon");
-// For hash encryption, used for passwords
-const md5 = require('MD5');
 const colors = require('colors');
 const path = require("path");
+const fileSystem = require("graceful-fs");
 
-// The rest.js contains all the routes for the server, it should be composed by many others files
-// One file per application service
-var restUsuarios = require("./DAO/usuariosDAO.js");
-var restArticulos = require("./DAO/articulosDAO.js");
-var restArticulosCategoria = require("./DAO/articulosCategoriaDAO.js");
-var restAlmacenes = require("./DAO/almacenesDAO.js");
-var restUsuariosTipo = require("./DAO/usuariosTipoDAO.js");
-var restUsuariosAcceso = require("./DAO/usuariosAccesoDAO.js");
-var restAsocTipoAcceso = require("./DAO/asocTipoAccesoDAO.js");
-var restTipoPersona = require("./DAO/tipoPersonaDAO.js");
-var restPersona = require("./DAO/personaDAO.js");
-var restTipoDocumento = require("./DAO/tipoDocumentoDAO.js");
-var restEstado = require("./DAO/estadoDAO.js");
-var restIngreso = require("./DAO/ingresoDAO.js");
-var restIngresoDetalle = require("./DAO/ingresoDetalleDAO.js");
-// We execute the express
 var app = express();
 app.use(favicon(path.join(__dirname, '/dev/media/favicon.ico')));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -37,7 +20,7 @@ app.use('/api', router);
 // the __dirname directory becames "public"
 // __dirname is the current directory
 app.use(express.static(__dirname));
-
+global.mysql = mysql;
 const startServer = function () {
     app.listen(8071, function () {
         console.log(colors.green("All right ! I am alive at Port 8071."));
@@ -49,25 +32,24 @@ const stop = function (err) {
     process.exit(1);
 };
 
-const configureExpress = function (router, connection, md5) {
-    // Adding all the routes to our server
-    new restUsuarios(router, connection, md5);
-    new restArticulos(router, connection);
-    new restArticulosCategoria(router, connection);
-    new restAlmacenes(router, connection);
-    new restUsuariosTipo(router, connection);
-    new restUsuariosAcceso(router, connection);
-    new restAsocTipoAcceso(router, connection);
-    new restTipoPersona(router, connection);
-    new restPersona(router, connection);
-    new restTipoDocumento(router, connection);
-    new restEstado(router, connection);
-    new restIngreso(router, connection);
-    new restIngresoDetalle(router, connection);
-    startServer();
+const loadModule = function () {
+    return function (file) {
+        // avoiding IDE's files
+        if (file.charAt(0) === ".") {
+            return;
+        }
+        const format = file.slice(-6, -3);
+        const mod = require("./DAO/" + file);
+        // only DAO files for routes
+        if (format === "DAO") {
+            const path = file.slice(0, -6);
+            app.use("/api/" + path, mod.router);
+        }
+    };
 };
+fileSystem.readdirSync("./DAO").forEach(loadModule());
 
-const connectMysql = function (mysql, router, md5) {
+const connectMysql = function () {
     var pool = mysql.createPool({
         connectionLimit: 100,
         host: 'localhost',
@@ -77,16 +59,17 @@ const connectMysql = function (mysql, router, md5) {
         database: 'testdb',
         debug: false
     });
-    pool.getConnection(function(err, connection) {
+    pool.getConnection(function (err, connection) {
         if (err) {
             stop(err);
         } else {
-            configureExpress(router, connection, md5);
+            global.mysqlConnection = connection;
+            startServer();
         }
     });
 };
 
-connectMysql(mysql, router, md5);
+connectMysql();
 
 // var PDFDocument = require("pdfkit");
 // var blobStream  = require("blob-stream");
