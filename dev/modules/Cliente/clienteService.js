@@ -6,20 +6,20 @@ angular.module('clienteService', ['ngResource'])
 			var service = {};
 			var urlBase = '/api/persona';
 
-			service.getAllCliente = function() {
-				return $http.get(urlBase + 'list' + '/Cliente');
+			service.getAllCliente = function () {
+				return $http.get(urlBase + '/list' + '/Cliente');
 			};
 
-			service.createCliente = function(newCliente) {
-				return $http.post(urlBase, newCliente);
+			service.createCliente = function (cliente) {
+				return $http.post(urlBase, cliente);
 			};
 
-			service.updateCliente = function(updCliente) {
-				return $http.put(urlBase, updCliente);
+			service.updateCliente = function (cliente) {
+				return $http.put(urlBase, cliente);
 			};
 
-			service.deleteCliente = function(id_cliente) {
-				return $http.delete(urlBase + '/' + id_cliente);
+			service.deleteCliente = function(id) {
+				return $http.delete(urlBase + '/' + id);
 			};
 
 			return service;

@@ -7,19 +7,19 @@ angular.module('proveedorService', ['ngResource'])
 			var urlBase = '/api/persona';
 
 			service.getAllProveedor = function() {
-				return $http.get(urlBase + 'list' + '/Proveedor');
+				return $http.get(urlBase + '/list' + '/Proveedor');
 			};
 
-			service.createProveedor = function(newProveedor) {
-				return $http.post(urlBase, newProveedor);
+			service.createProveedor = function (proveedor) {
+				return $http.post(urlBase, proveedor);
 			};
 
-			service.updateProveedor = function(updProveedor) {
-				return $http.put(urlBase, updProveedor);
+			service.updateProveedor = function (proveedor) {
+				return $http.put(urlBase, proveedor);
 			};
 
-			service.deleteProveedor = function(id_proveedor) {
-				return $http.delete(urlBase + '/' + id_proveedor);
+			service.deleteProveedor = function (id) {
+				return $http.delete(urlBase + '/' + id);
 			};
 
 			return service;

@@ -87,11 +87,11 @@ angular
 		'$rootScope',
 		'$timeout',
 		'UsuariosServiceFactory',
-		function LoginServiceFactory($http, $cookieStore, $rootScope, $timeout, UsuariosServiceFactory) {
+		function LoginServiceFactory ($http, $cookieStore, $rootScope, $timeout, UsuariosServiceFactory) {
 			var service = {};
 		/*	var urlBase = '/api';*/
 
-			function Login(email, password, callback) {
+			function Login (email, password, callback) {
 				UsuariosServiceFactory.authenticate(email, password).success(function(response) {
 					callback(response);
 				});
@@ -102,7 +102,7 @@ angular
 
 			}
 
-			function SetCredentials(username, password) {
+			function SetCredentials (username, password) {
 				var authdata = Base64.encode(username + ':' + password);
 
 				$rootScope.globals = {
@@ -116,7 +116,7 @@ angular
 				$cookieStore.put('globals', $rootScope.globals);
 			}
 
-			function ClearCredentials() {
+			function ClearCredentials () {
 				$rootScope.globals = {};
 				$cookieStore.remove('globals');
 				$http.defaults.headers.common.Authorization = 'Basic';

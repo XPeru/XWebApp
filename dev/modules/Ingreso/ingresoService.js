@@ -7,42 +7,42 @@ angular.module('ingresoService', ['ngResource'])
 			var urlBase = '/api/ingreso';
 			var urlBaseDetalle = urlBase + "detalle";
 
-			service.getAllIngreso = function() {
-				return $http.get(urlBase + 'list');
+			service.getAllIngreso = function () {
+				return $http.get(urlBase + '/list');
 			};
 
-			service.getIngresoById = function(id_ingreso) {
-				return $http.get(urlBase + id_ingreso);
+			service.getIngresoById = function (id) {
+				return $http.get(urlBase + id);
 			};
 
-			service.createIngreso = function(newIngreso) {
-				newIngreso.FECHA_INGRESO = newIngreso.FECHA_INGRESO.toLocaleDateString('en-us', {year:"numeric", month:"2-digit", day:"2-digit"});
-				return $http.post(urlBase, newIngreso);
+			service.createIngreso = function (ingreso) {
+				ingreso.FECHA_INGRESO = ingreso.FECHA_INGRESO.toLocaleDateString('en-us', {year:"numeric", month:"2-digit", day:"2-digit"});
+				return $http.post(urlBase, ingreso);
 			};
 
-			service.updateIngreso = function(updIngreso) {
-				updIngreso.FECHA_INGRESO = updIngreso.FECHA_INGRESO.toLocaleDateString('en-us', {year:"numeric", month:"2-digit", day:"2-digit"});
-				return $http.put(urlBase, updIngreso);
+			service.updateIngreso = function (ingreso) {
+				ingreso.FECHA_INGRESO = ingreso.FECHA_INGRESO.toLocaleDateString('en-us', {year:"numeric", month:"2-digit", day:"2-digit"});
+				return $http.put(urlBase, ingreso);
 			};
 
-			service.updateCostoIngreso = function(updCostoIngreso) {
-				return $http.put(urlBaseDetalle, updCostoIngreso);
+			service.deleteIngreso = function (id) {
+				return $http.delete(urlBase + '/' + id);
 			};
 
-			service.deleteIngreso = function(id_ingreso) {
-				return $http.delete(urlBase + '/' + id_ingreso);
+			service.updateCostoIngreso = function (ingreso) {
+				return $http.put(urlBaseDetalle, ingreso);
 			};
 
-			service.getDetalleIngreso = function(id_ingreso) {
-				return $http.get(urlBaseDetalle + 'list' + '/' + id_ingreso);
+			service.getDetalleIngreso = function (id) {
+				return $http.get(urlBaseDetalle + '/list/' + id);
 			};
 
-			service.updateIngresoDetalle = function(updated_ingreso_detalle) {
-				return $http.post(urlBase + 'detalle', updated_ingreso_detalle);
+			service.updateIngresoDetalle = function (ingreso) {
+				return $http.post(urlBaseDetalle, ingreso);
 			};
 
-			service.deleteIngresoDetalle = function(id_ingreso) {
-				return $http.delete(urlBase + 'detalle/' + id_ingreso);
+			service.deleteIngresoDetalle = function (id) {
+				return $http.delete(urlBaseDetalle + '/' + id);
 			};
 
 			return service;

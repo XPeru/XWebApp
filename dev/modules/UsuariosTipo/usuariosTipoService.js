@@ -1,46 +1,46 @@
 "use strict";
 var usuariosTipoService = angular.module('usuariosTipoService', ['ngResource']);
 
-usuariosTipoService.factory('UsuariosTipoServiceFactory', function($http) {
+usuariosTipoService.factory('UsuariosTipoServiceFactory', function ($http) {
 	var service = {};
-	var urlBase = '/api/';
-	var urlBaseTipo = urlBase + 'tipousuario';
+	var urlTipo = '/api/tipousuario';
+	var urlAsso = '/api/asoctipoacceso';
 
-	service.getAllTipoUsuario = function() {
-		return $http.get(urlBaseTipo + 'list');
+	service.getAllTipoUsuario = function () {
+		return $http.get(urlTipo + '/list');
 	};
 
-	service.getTipoUsuarioById = function(id_tipo_usuario) {
-		return $http.get(urlBaseTipo +'/' + id_tipo_usuario);
+	service.getTipoUsuarioById = function (id) {
+		return $http.get(urlTipo +'/' + id);
 	};
 
-	service.createTipoUsuario = function(new_tipo_usuario) {
-		return $http.post(urlBaseTipo, new_tipo_usuario);
+	service.createTipoUsuario = function (tipo) {
+		return $http.post(urlTipo, tipo);
 	};
 
-	service.updateTipoUsuario = function(updated_tipo_usuario) {
-		return $http.put(urlBaseTipo, updated_tipo_usuario);
+	service.updateTipoUsuario = function (tipo) {
+		return $http.put(urlTipo, tipo);
 	};
 
-	service.deleteTipoUsuario = function(id_tipo_usuario) {
-		return $http.delete(urlBaseTipo + '/' + id_tipo_usuario);
+	service.deleteTipoUsuario = function (id) {
+		return $http.delete(urlTipo + '/' + id);
 	};
 
-	service.getAssosTipoAccesosByIdTipoUsuario = function(id_tipo_usuario) {
-		return $http.get(urlBase + 'asoctipoacceso/' + id_tipo_usuario);
+	service.getAssosTipoAccesosByIdTipoUsuario = function (id) {
+		return $http.get(urlAsso + '/' + id);
 	};
 
-	service.updateAssosTipoAcceso = function(updated_assos_tipo_acceso) {
-		return $http.post(urlBase + 'asoctipoacceso', updated_assos_tipo_acceso);
+	service.updateAssosTipoAcceso = function (asso) {
+		return $http.post(urlAsso, asso);
 	};
 
-	service.deleteAssosTipoAcceso = function(id_tipo_usuario) {
-		return $http.delete(urlBase + 'asoctipoacceso/' + id_tipo_usuario);
+	service.deleteAssosTipoAcceso = function (id) {
+		return $http.delete(urlAsso + '/' + id);
 	};
 
-	service.getPDF = function(callback) {
-		$http.get(urlBaseTipo + 'topdf')
-			.success(function(response) {
+	service.getPDF = function (callback) {
+		$http.get(urlTipo + '/topdf')
+			.success(function (response) {
 				callback(response);
 			});
 	};

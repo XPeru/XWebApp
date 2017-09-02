@@ -7,19 +7,19 @@ angular.module('estadoService', ['ngResource'])
 			var urlBase = '/api/estado';
 
 			service.getAllEstado = function() {
-				return $http.get(urlBase + 'list');
+				return $http.get(urlBase + '/list');
 			};
 
-			service.createEstado = function(newEstado) {
-				return $http.post(urlBase, newEstado);
+			service.createEstado = function (estado) {
+				return $http.post(urlBase, estado);
 			};
 
-			service.updateEstado = function(updEstado) {
-				return $http.put(urlBase, updEstado);
+			service.updateEstado = function (estado) {
+				return $http.put(urlBase, estado);
 			};
 
-			service.deleteEstado = function(id_estado) {
-				return $http.delete(urlBase + '/' + id_estado);
+			service.deleteEstado = function (id) {
+				return $http.delete(urlBase + '/' + id);
 			};
 
 			return service;
