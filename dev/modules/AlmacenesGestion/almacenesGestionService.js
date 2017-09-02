@@ -7,19 +7,19 @@ angular.module('almacenesGestionService', ['ngResource'])
 			var urlBase = '/api/almacen';
 
 			service.getAllAlmacenes = function() {
-				return $http.get(urlBase + 'list');
+				return $http.get(urlBase + '/list');
 			};
 
-			service.createAlmacen = function(almacen_created) {
-				return $http.post(urlBase, almacen_created);
+			service.createAlmacen = function (almacen) {
+				return $http.post(urlBase, almacen);
 			};
 
-			service.editAlmacen = function(almacen_edited) {
-				return $http.put(urlBase, almacen_edited);
+			service.editAlmacen = function (almacen) {
+				return $http.put(urlBase, almacen);
 			};
 
-			service.deleteAlmacen = function(almacen_deleted) {
-				return $http.delete(urlBase + '/' + almacen_deleted.ID_ALMACEN);
+			service.deleteAlmacen = function (almacen) {
+				return $http.delete(urlBase + '/' + almacen.ID_ALMACEN);
 			};
 
 			return service;

@@ -6,24 +6,24 @@ angular.module('tipoPersonaService', ['ngResource'])
 			var service = {};
 			var urlBase = '/api/tipopersona';
 
-			service.getAllTipoPersona = function() {
-				return $http.get(urlBase + 'list');
+			service.getAllTipoPersona = function () {
+				return $http.get(urlBase + '/list');
 			};
 
-			service.getTipoPersonaByDesc = function(desc) {
+			service.getTipoPersonaByDesc = function (desc) {
 				return $http.get(urlBase + '/' + desc);
 			};
 
-			service.createTipoPersona = function(newTipoPersona) {
-				return $http.post(urlBase, newTipoPersona);
+			service.createTipoPersona = function (persona) {
+				return $http.post(urlBase, persona);
 			};
 
-			service.updateTipoPersona = function(updTipoPersona) {
-				return $http.put(urlBase, updTipoPersona);
+			service.updateTipoPersona = function (persona) {
+				return $http.put(urlBase, persona);
 			};
 
-			service.deleteTipoPersona = function(id_tipopersona) {
-				return $http.delete(urlBase + '/' + id_tipopersona);
+			service.deleteTipoPersona = function (id) {
+				return $http.delete(urlBase + '/' + id);
 			};
 
 			return service;

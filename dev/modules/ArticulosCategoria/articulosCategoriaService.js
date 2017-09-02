@@ -7,19 +7,19 @@ angular.module('ArticulosCategoriaService', ['ngResource'])
 			var urlBase = '/api/categoria';
 
 			service.getAllCategorias = function() {
-				return $http.get(urlBase + 'list');
+				return $http.get(urlBase + '/list');
 			};
 
-			service.createCategoria = function(categoria_created) {
-				return $http.post(urlBase, categoria_created);
+			service.createCategoria = function(categoria) {
+				return $http.post(urlBase, categoria);
 			};
 
-			service.editCategoria = function(categoria_edited) {
-				return $http.put(urlBase, categoria_edited);
+			service.editCategoria = function(categoria) {
+				return $http.put(urlBase, categoria);
 			};
 
-			service.deleteCategoria = function(categoria_deleted) {
-				return $http.delete(urlBase + '/' + categoria_deleted.ID_CATEGORIA);
+			service.deleteCategoria = function(categoria) {
+				return $http.delete(urlBase + '/' + categoria.ID_CATEGORIA);
 			};
 
 			return service;
