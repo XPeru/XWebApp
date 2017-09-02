@@ -1,13 +1,13 @@
 /* global mysqlConnection, mysql */
 var dateGenerator = require("./dateGenerator.js");
-var dateGeneratorO = new dateGenerator("tipoPersonaDAO");
+var dateGeneratorO = new dateGenerator("almacenDAO");
 var router = require("express").Router();
 
 dateGeneratorO.printStart();
 
 router.get("/list", function (req, res) {
-	dateGeneratorO.printSelect("list" + " get");
-	var query = "CALL SP_SEARCH_ALL('TIPO_PERSONA')";
+	dateGeneratorO.printSelect("list");
+	var query = "CALL SP_SEARCH_ALL('ALMACEN')";
 	var table = [];
 	query = mysql.format(query, table);
 	dateGeneratorO.printSelect(query);
@@ -23,49 +23,28 @@ router.get("/list", function (req, res) {
 			res.json({
 				"Error": false,
 				"Message": "Success",
-				"TipoPersona": rows[0]
+				"Almacenes": rows[0]
 			});
 		}
 	});
 });
 
-router.get("/:desc", function (req, res) {
-	dateGeneratorO.printSelect("");
-	var query = "CALL SP_SEARCH_STRING('TIPO_PERSONA','DESCRIPCION',?)";
-	var table = [req.params.desc];
-	query = mysql.format(query, table);
-	dateGeneratorO.printSelect(query);
-	mysqlConnection.query(query, function (err, rows) {
-		if (err) {
-			dateGeneratorO.printError(query, err.message);
-			res.json({
-				"Error": true,
-				"Message": "Error executing MySQL query"
-			});
-		} else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-				"Message": "Success",
-				"TipoPersona": rows[0]
-			});
-		}
-	});
-});
-
-router.post("/", function(req, res) {
-	dateGeneratorO.printInsert("/");
+router.post("/", function (req, res) {
+	dateGeneratorO.printInsert();
 	var query = "INSERT INTO " + "\n" +
-				"	TIPO_PERSONA (" + "\n" +
-				"		DESCRIPCION" + "\n" +
+				"	ALMACEN (" + "\n" +
+				"		CODIGO_ALMACEN," + "\n" +
+				"		UBICACION" + "\n" +
 				"	)" + "\n" +
 				"VALUES (" + "\n" +
+				"	?, " + "\n" +
 				"	?" + "\n" +
 				")";
-	var table = [req.body.DESCRIPCION];
+	var table = [req.body.CODIGO_ALMACEN,
+				req.body.UBICACION];
 	query = mysql.format(query, table);
 	dateGeneratorO.printInsert(query);
-	mysqlConnection.query(query, function(err) {
+	mysqlConnection.query(query, function (err) {
 		if (err) {
 			dateGeneratorO.printError(query, err.message);
 			res.json({
@@ -76,22 +55,22 @@ router.post("/", function(req, res) {
 			dateGeneratorO.printSuccess();
 			res.json({
 				"Error": false,
-				"Message": "Categoria Added !"
+				"Message": "Articulo Added !"
 			});
 		}
 	});
 });
 
-router.put("/", function(req, res) {
-	dateGeneratorO.printUpdate("/");
+router.put("/", function (req, res) {
+	dateGeneratorO.printUpdate();
 	var query = "UPDATE" + "\n" +
-				"	TIPO_PERSONA " + "\n" +
+				"	ALMACEN " + "\n" +
 				"SET" + "\n" +
-				"	DESCRIPCION = ? " + "\n" +
+				"	CODIGO_ALMACEN = ?, " + "\n" +
+				"	UBICACION = ? " + "\n" +
 				"WHERE " + "\n" +
-				"	ID_TIPO_PERSONA = ?";
-	var table = [req.body.DESCRIPCION,
-				req.body.ID_TIPO_PERSONA];
+				"	ID_ALMACEN = ?";
+	var table = [req.body.CODIGO_ALMACEN, req.body.UBICACION, req.body.ID_ALMACEN];
 	query = mysql.format(query, table);
 	dateGeneratorO.printUpdate(query);
 	mysqlConnection.query(query, function(err) {
@@ -105,19 +84,19 @@ router.put("/", function(req, res) {
 			dateGeneratorO.printSuccess();
 			res.json({
 				"Error": false,
-				"Message": "Categoria detalle updated !"
+				"Message": "Almacen detalle updated !"
 			});
 		}
 	});
 });
 
-router.delete("/:id_tipopersona", function(req, res) {
-	dateGeneratorO.printDelete("/:id_tipopersona");
+router.delete("/:id_almacen", function(req, res) {
+	dateGeneratorO.printDelete("/:id_almacen");
 	var query = "DELETE FROM" + "\n" +
-				"	TIPO_PERSONA" + "\n" +
+				"	ALMACEN" + "\n" +
 				"WHERE " + "\n" +
-				"	ID_TIPO_PERSONA = ?";
-	var table = [req.params.id_tipopersona];
+				"	ID_ALMACEN = ?";
+	var table = [req.params.id_almacen];
 	query = mysql.format(query, table);
 	dateGeneratorO.printDelete(query);
 	mysqlConnection.query(query, function(err) {
@@ -131,7 +110,7 @@ router.delete("/:id_tipopersona", function(req, res) {
 			dateGeneratorO.printSuccess();
 			res.json({
 				"Error": false,
-				"Message": "Categoria deleted: " + req.params.id_tipopersona
+				"Message": "Almacen deleted: " + req.params.id_almacen
 			});
 		}
 	});
