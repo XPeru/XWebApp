@@ -1,4 +1,4 @@
-/* global mysqlConnection, mysql */
+/* global mySqlPool, mysql */
 var dateGenerator = require("./dateGenerator.js");
 var dateGeneratorO = new dateGenerator("personaDAO");
 var router = require("express").Router();
@@ -28,21 +28,25 @@ router.get("/list/:desc", function (req, res) {
 	var table = [req.params.desc];
 	query = mysql.format(query, table);
 	dateGeneratorO.printSelect(query);
-	mysqlConnection.query(query, function (err, rows) {
-		if (err) {
-			dateGeneratorO.printError(query, err.message);
-			res.json({
-				"Error": true,
-				"Message": "Error executing MySQL query"
-			});
-		} else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-				"Message": "Success",
-				"Persona": rows
-			});
-		}
+
+	mySqlPool.getConnection(function (err, connection) {
+		connection.query(query, function (error, rows) {
+			if (error) {
+				dateGeneratorO.printError(query, error.message);
+				res.json({
+					"Error": true,
+					"Message": "Error executing MySQL query"
+				});
+			} else {
+				dateGeneratorO.printSuccess();
+				res.json({
+					"Error": false,
+					"Message": "Success",
+					"Persona": rows
+				});
+			}
+			connection.release();
+		});
 	});
 });
 
@@ -84,20 +88,23 @@ router.post("/", function(req, res) {
 				req.body.FK_TIPO_PERSONA];
 	query = mysql.format(query, table);
 	dateGeneratorO.printInsert(query);
-	mysqlConnection.query(query, function (err) {
-		if (err) {
-			dateGeneratorO.printError(query, err.message);
-			res.json({
-				"Error": true,
-				"Message": "Error executing MySQL query"
-			});
-		} else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-				"Message": "Persona Added !"
-			});
-		}
+	mySqlPool.getConnection(function (err, connection) {
+		connection.query(query, function (error) {
+			if (error) {
+				dateGeneratorO.printError(query, error.message);
+				res.json({
+					"Error": true,
+					"Message": "Error executing MySQL query"
+				});
+			} else {
+				dateGeneratorO.printSuccess();
+				res.json({
+					"Error": false,
+					"Message": "Persona Added !"
+				});
+			}
+			connection.release();
+		});
 	});
 });
 
@@ -125,20 +132,23 @@ router.put("/", function(req, res) {
 				req.body.ID_PROVEEDOR_CLIENTE];
 	query = mysql.format(query, table);
 	dateGeneratorO.printUpdate(query);
-	mysqlConnection.query(query, function(err) {
-		if (err) {
-			dateGeneratorO.printError(query, err.message);
-			res.json({
-				"Error": true,
-				"Message": "Error executing MySQL query"
-			});
-		} else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-				"Message": "Categoria detalle updated !"
-			});
-		}
+	mySqlPool.getConnection(function (err, connection) {
+		connection.query(query, function(error) {
+			if (error) {
+				dateGeneratorO.printError(query, error.message);
+				res.json({
+					"Error": true,
+					"Message": "Error executing MySQL query"
+				});
+			} else {
+				dateGeneratorO.printSuccess();
+				res.json({
+					"Error": false,
+					"Message": "Categoria detalle updated !"
+				});
+			}
+			connection.release();
+		});
 	});
 });
 
@@ -151,20 +161,23 @@ router.delete("/:id_proveedor_cliente", function (req, res) {
 	var table = [req.params.id_proveedor_cliente];
 	query = mysql.format(query, table);
 	dateGeneratorO.printDelete(query);
-	mysqlConnection.query(query, function (err) {
-		if (err) {
-			dateGeneratorO.printError(query, err.message);
-			res.json({
-				"Error": true,
-				"Message": "Error executing MySQL query"
-			});
-		} else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-				"Message": "Categoria deleted: " + req.params.id_proveedor_cliente
-			});
-		}
+	mySqlPool.getConnection(function (err, connection) {
+		connection.query(query, function (error) {
+			if (error) {
+				dateGeneratorO.printError(query, error.message);
+				res.json({
+					"Error": true,
+					"Message": "Error executing MySQL query"
+				});
+			} else {
+				dateGeneratorO.printSuccess();
+				res.json({
+					"Error": false,
+					"Message": "Categoria deleted: " + req.params.id_proveedor_cliente
+				});
+			}
+			connection.release();
+		});
 	});
 });
 

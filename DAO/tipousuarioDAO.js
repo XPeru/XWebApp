@@ -1,4 +1,4 @@
-/* global mysqlConnection, mysql */
+/* global mySqlPool, mysql */
 var dateGenerator = require("./dateGenerator.js");
 var dateGeneratorO = new dateGenerator("tipousuarioDAO");
 var fs = require('fs');
@@ -14,22 +14,25 @@ router.get("/list", function (req, res) {
     var table = [];
     query = mysql.format(query, table);
     dateGeneratorO.printSelect(query);
-    mysqlConnection.query(query, function (err, rows) {
-        if (err) {
-            dateGeneratorO.printError(query, err.message);
-            res.json({
-                "Error": true,
-                "Message": "Error executing MySQL query"
-            });
-        } else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-                "Message": "Success",
-                "TiposUsuario": rows[0]
-            });
-        }
-    });
+	mySqlPool.getConnection(function (err, connection) {
+	    connection.query(query, function (error, rows) {
+	        if (error) {
+	            dateGeneratorO.printError(query, error.message);
+	            res.json({
+	                "Error": true,
+	                "Message": "Error executing MySQL query"
+	            });
+	        } else {
+				dateGeneratorO.printSuccess();
+				res.json({
+					"Error": false,
+	                "Message": "Success",
+	                "TiposUsuario": rows[0]
+	            });
+	        }
+			connection.release();
+	    });
+	});
 });
 
 router.post("/", function (req, res) {
@@ -43,21 +46,24 @@ router.post("/", function (req, res) {
     var table = [req.body.TIPO];
     query = mysql.format(query, table);
     dateGeneratorO.printInsert(query);
-    mysqlConnection.query(query, function (err) {
-        if (err) {
-            dateGeneratorO.printError(query, err.message);
-            res.json({
-                "Error": true,
-                "Message": "Error executing MySQL query"
-            });
-        } else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-                "Message": "Tipo Usuario Agregado"
-            });
-        }
-    });
+	mySqlPool.getConnection(function (err, connection) {
+	    connection.query(query, function (error) {
+	        if (error) {
+	            dateGeneratorO.printError(query, error.message);
+	            res.json({
+	                "Error": true,
+	                "Message": "Error executing MySQL query"
+	            });
+	        } else {
+				dateGeneratorO.printSuccess();
+				res.json({
+					"Error": false,
+	                "Message": "Tipo Usuario Agregado"
+	            });
+	        }
+			connection.release();
+	    });
+	});
 });
 
 router.put("/", function (req, res) {
@@ -71,21 +77,24 @@ router.put("/", function (req, res) {
     var table = [req.body.TIPO, req.body.ID_TIPO_USUARIO];
     query = mysql.format(query, table);
     dateGeneratorO.printUpdate(query);
-    mysqlConnection.query(query, function (err) {
-        if (err) {
-            dateGeneratorO.printError(query, err.message);
-            res.json({
-                "Error": true,
-                "Message": "Error executing MySQL query"
-            });
-        } else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-                "Message": "Tipo Usuario modificado"
-            });
-        }
-    });
+	mySqlPool.getConnection(function (err, connection) {
+	    connection.query(query, function (error) {
+	        if (error) {
+	            dateGeneratorO.printError(query, error.message);
+	            res.json({
+	                "Error": true,
+	                "Message": "Error executing MySQL query"
+	            });
+	        } else {
+				dateGeneratorO.printSuccess();
+				res.json({
+					"Error": false,
+	                "Message": "Tipo Usuario modificado"
+	            });
+	        }
+			connection.release();
+	    });
+	});
 });
 
 router.get("/:id_tipo_usuario", function (req, res) {
@@ -94,22 +103,25 @@ router.get("/:id_tipo_usuario", function (req, res) {
     var table = [req.params.id_tipo_usuario];
     query = mysql.format(query, table);
     dateGeneratorO.printSelect(query);
-    mysqlConnection.query(query, function (err, rows) {
-        if (err) {
-            dateGeneratorO.printError(query, err.message);
-            res.json({
-                "Error": true,
-                "Message": "Error executing MySQL query"
-            });
-        } else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-                "Message": "Success",
-                "TipoUsuario": rows[0]
-            });
-        }
-    });
+	mySqlPool.getConnection(function (err, connection) {
+	    connection.query(query, function (error, rows) {
+	        if (error) {
+	            dateGeneratorO.printError(query, error.message);
+	            res.json({
+	                "Error": true,
+	                "Message": "Error executing MySQL query"
+	            });
+	        } else {
+				dateGeneratorO.printSuccess();
+				res.json({
+					"Error": false,
+	                "Message": "Success",
+	                "TipoUsuario": rows[0]
+	            });
+	        }
+			connection.release();
+	    });
+	});
 });
 
 router.delete("/:id_tipo_usuario", function (req, res) {
@@ -121,21 +133,24 @@ router.delete("/:id_tipo_usuario", function (req, res) {
     var table = [req.params.id_tipo_usuario];
     query = mysql.format(query, table);
     dateGeneratorO.printDelete(query);
-    mysqlConnection.query(query, function (err) {
-        if (err) {
-            dateGeneratorO.printError(query, err.message);
-            res.json({
-                "Error": true,
-                "Message": "Error executing MySQL query"
-            });
-        } else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-                "Message": "Deleted the user with id_tipo_usuario " + req.params.id_tipo_usuario
-            });
-        }
-    });
+	mySqlPool.getConnection(function (err, connection) {
+	    connection.query(query, function (error) {
+	        if (error) {
+	            dateGeneratorO.printError(query, error.message);
+	            res.json({
+	                "Error": true,
+	                "Message": "Error executing MySQL query"
+	            });
+	        } else {
+				dateGeneratorO.printSuccess();
+				res.json({
+					"Error": false,
+	                "Message": "Deleted the user with id_tipo_usuario " + req.params.id_tipo_usuario
+	            });
+	        }
+			connection.release();
+	    });
+	});
 });
 
 router.get("/topdf", function (req, res) {

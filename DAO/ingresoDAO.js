@@ -1,4 +1,4 @@
-/* global mysqlConnection, mysql */
+/* global mySqlPool, mysql */
 var dateGenerator = require("./dateGenerator.js");
 var dateGeneratorO = new dateGenerator("ingresoDAO");
 var router = require("express").Router();
@@ -35,21 +35,24 @@ router.get("/list", function (req, res) {
 	var table = [];
 	query = mysql.format(query, table);
 	dateGeneratorO.printSelect(query);
-	mysqlConnection.query(query, function(err, rows) {
-		if (err) {
-			dateGeneratorO.printError(query, err.message);
-			res.json({
-				"Error": true,
-				"Message": "Error executing MySQL query"
-			});
-		} else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-				"Message": "Success",
-				"Ingreso": rows
-			});
-		}
+	mySqlPool.getConnection(function (err, connection) {
+		connection.query(query, function(error, rows) {
+			if (error) {
+				dateGeneratorO.printError(query, error.message);
+				res.json({
+					"Error": true,
+					"Message": "Error executing MySQL query"
+				});
+			} else {
+				dateGeneratorO.printSuccess();
+				res.json({
+					"Error": false,
+					"Message": "Success",
+					"Ingreso": rows
+				});
+			}
+			connection.release();
+		});
 	});
 });
 
@@ -83,20 +86,23 @@ router.post("/", function (req, res) {
 				req.body.FECHA_INGRESO];
 	query = mysql.format(query, table);
 	dateGeneratorO.printInsert(query);
-	mysqlConnection.query(query, function (err) {
-		if (err) {
-			dateGeneratorO.printError(query, err.message);
-			res.json({
-				"Error": true,
-				"Message": "Error executing MySQL query"
-			});
-		} else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-				"Message": "Categoria Added !"
-			});
-		}
+	mySqlPool.getConnection(function (err, connection) {
+		connection.query(query, function (error) {
+			if (error) {
+				dateGeneratorO.printError(query, error.message);
+				res.json({
+					"Error": true,
+					"Message": "Error executing MySQL query"
+				});
+			} else {
+				dateGeneratorO.printSuccess();
+				res.json({
+					"Error": false,
+					"Message": "Categoria Added !"
+				});
+			}
+			connection.release();
+		});
 	});
 });
 
@@ -116,20 +122,23 @@ router.put("/", function (req, res) {
 				req.body.ID_INGRESO];
 	query = mysql.format(query, table);
 	dateGeneratorO.printUpdate(query);
-	mysqlConnection.query(query, function(err) {
-		if (err) {
-			dateGeneratorO.printError(query, err.message);
-			res.json({
-				"Error": true,
-				"Message": "Error executing MySQL query"
-			});
-		} else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-				"Message": "Categoria detalle updated !"
-			});
-		}
+	mySqlPool.getConnection(function (err, connection) {
+		connection.query(query, function(error) {
+			if (error) {
+				dateGeneratorO.printError(query, error.message);
+				res.json({
+					"Error": true,
+					"Message": "Error executing MySQL query"
+				});
+			} else {
+				dateGeneratorO.printSuccess();
+				res.json({
+					"Error": false,
+					"Message": "Categoria detalle updated !"
+				});
+			}
+			connection.release();
+		});
 	});
 });
 
@@ -142,20 +151,23 @@ router.delete("/:id_ingreso", function (req, res) {
 	var table = [req.params.id_ingreso];
 	query = mysql.format(query, table);
 	dateGeneratorO.printDelete(query);
-	mysqlConnection.query(query, function(err) {
-		if (err) {
-			dateGeneratorO.printError(query, err.message);
-			res.json({
-				"Error": true,
-				"Message": "Error executing MySQL query"
-			});
-		} else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-				"Message": "Categoria deleted: " + req.params.id_ingreso
-			});
-		}
+	mySqlPool.getConnection(function (err, connection) {
+		connection.query(query, function(error) {
+			if (error) {
+				dateGeneratorO.printError(query, error.message);
+				res.json({
+					"Error": true,
+					"Message": "Error executing MySQL query"
+				});
+			} else {
+				dateGeneratorO.printSuccess();
+				res.json({
+					"Error": false,
+					"Message": "Categoria deleted: " + req.params.id_ingreso
+				});
+			}
+			connection.release();
+		});
 	});
 });
 
