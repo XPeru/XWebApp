@@ -1,4 +1,4 @@
-/* global mysqlConnection, mysql */
+/* global mySqlPool, mysql */
 var dateGenerator = require("./dateGenerator.js");
 var dateGeneratorO = new dateGenerator("ingresoDetalleDAO");
 var router = require("express").Router();
@@ -9,20 +9,23 @@ router.delete("/:id_ingreso", function (req, res) {
 	dateGeneratorO.printDelete("/:id_ingreso");
 	var query = "CALL SP_DELETE_DETALLE('INGRESO'," + req.params.id_ingreso + ")";
 	dateGeneratorO.printDelete(query);
-	mysqlConnection.query(query, function(err) {
-		if (err) {
-			dateGeneratorO.printError(query, err.message);
-			res.json({
-				"Error": true,
-				"Message": "Error executing MySQL query"
-			});
-		} else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-				"Message": "Success"
-			});
-		}
+	mySqlPool.getConnection(function (err, connection) {
+		connection.query(query, function(error) {
+			if (error) {
+				dateGeneratorO.printError(query, error.message);
+				res.json({
+					"Error": true,
+					"Message": "Error executing MySQL query"
+				});
+			} else {
+				dateGeneratorO.printSuccess();
+				res.json({
+					"Error": false,
+					"Message": "Success"
+				});
+			}
+			connection.release();
+		});
 	});
 });
 
@@ -54,20 +57,23 @@ router.post("/", function (req, res) {
 
 	var final_query = "CALL SP_INSERT_DETALLE('" + query + "', 'INGRESO', " + idIngreso + ")";
 	dateGeneratorO.printInsert(final_query);
-	mysqlConnection.query(final_query, function(err) {
-		if (err) {
-			dateGeneratorO.printError(final_query, err.message);
-			res.json({
-				"Error": true,
-				"Message": "Error executing MySQL query"
-			});
-		} else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-				"Message": "Article Added !"
-			});
-		}
+	mySqlPool.getConnection(function (err, connection) {
+		connection.query(final_query, function(error) {
+			if (error) {
+				dateGeneratorO.printError(final_query, error.message);
+				res.json({
+					"Error": true,
+					"Message": "Error executing MySQL query"
+				});
+			} else {
+				dateGeneratorO.printSuccess();
+				res.json({
+					"Error": false,
+					"Message": "Article Added !"
+				});
+			}
+			connection.release();
+		});
 	});
 });
 
@@ -85,20 +91,23 @@ router.put("/", function( req, res) {
 					req.body.ID_INGRESO];
 	query = mysql.format(query, table);
 	dateGeneratorO.printUpdate(query);
-	mysqlConnection.query(query, function(err) {
-		if (err) {
-			dateGeneratorO.printError(query, err.message);
-			res.json({
-				"Error": true,
-				"Message": "Error executing MySQL query"
-			});
-		} else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-				"Message": "Categoria detalle updated !"
-			});
-		}
+	mySqlPool.getConnection(function (err, connection) {
+		connection.query(query, function(error) {
+			if (error) {
+				dateGeneratorO.printError(query, error.message);
+				res.json({
+					"Error": true,
+					"Message": "Error executing MySQL query"
+				});
+			} else {
+				dateGeneratorO.printSuccess();
+				res.json({
+					"Error": false,
+					"Message": "Categoria detalle updated !"
+				});
+			}
+			connection.release();
+		});
 	});
 });
 
@@ -130,21 +139,24 @@ router.get("/list/:id_ingreso", function (req, res) {
 	var table = [req.params.id_ingreso];
 	query = mysql.format(query, table);
 	dateGeneratorO.printSelect(query);
-	mysqlConnection.query(query, function (err, rows) {
-		if (err) {
-			dateGeneratorO.printError(query, err.message);
-			res.json({
-				"Error": true,
-				"Message": "Error executing MySQL query"
-			});
-		} else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-				"Message": "Success",
-				"DetalleIngreso": rows
-			});
-		}
+	mySqlPool.getConnection(function (err, connection) {
+		connection.query(query, function (error, rows) {
+			if (error) {
+				dateGeneratorO.printError(query, error.message);
+				res.json({
+					"Error": true,
+					"Message": "Error executing MySQL query"
+				});
+			} else {
+				dateGeneratorO.printSuccess();
+				res.json({
+					"Error": false,
+					"Message": "Success",
+					"DetalleIngreso": rows
+				});
+			}
+			connection.release();
+		});
 	});
 });
 

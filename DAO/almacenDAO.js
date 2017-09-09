@@ -1,4 +1,4 @@
-/* global mysqlConnection, mysql */
+/* global mySqlPool, mysql */
 var dateGenerator = require("./dateGenerator.js");
 var dateGeneratorO = new dateGenerator("almacenDAO");
 var router = require("express").Router();
@@ -11,21 +11,25 @@ router.get("/list", function (req, res) {
 	var table = [];
 	query = mysql.format(query, table);
 	dateGeneratorO.printSelect(query);
-	mysqlConnection.query(query, function(err, rows) {
-		if (err) {
-			dateGeneratorO.printError(query, err.message);
-			res.json({
-				"Error": true,
-				"Message": "Error executing MySQL query"
-			});
-		} else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-				"Message": "Success",
-				"Almacenes": rows[0]
-			});
-		}
+
+	mySqlPool.getConnection(function (err, connection) {
+		connection.query(query, function(error, rows) {
+			if (error) {
+				dateGeneratorO.printError(query, error.message);
+				res.json({
+					"Error": true,
+					"Message": "Error executing MySQL query"
+				});
+			} else {
+				dateGeneratorO.printSuccess();
+				res.json({
+					"Error": false,
+					"Message": "Success",
+					"Almacenes": rows[0]
+				});
+			}
+			connection.release();
+		});
 	});
 });
 
@@ -44,20 +48,24 @@ router.post("/", function (req, res) {
 				req.body.UBICACION];
 	query = mysql.format(query, table);
 	dateGeneratorO.printInsert(query);
-	mysqlConnection.query(query, function (err) {
-		if (err) {
-			dateGeneratorO.printError(query, err.message);
-			res.json({
-				"Error": true,
-				"Message": "Error executing MySQL query"
-			});
-		} else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-				"Message": "Articulo Added !"
-			});
-		}
+
+	mySqlPool.getConnection(function (err, connection) {
+		connection.query(query, function (error) {
+			if (error) {
+				dateGeneratorO.printError(query, error.message);
+				res.json({
+					"Error": true,
+					"Message": "Error executing MySQL query"
+				});
+			} else {
+				dateGeneratorO.printSuccess();
+				res.json({
+					"Error": false,
+					"Message": "Articulo Added !"
+				});
+			}
+			connection.release();
+		});
 	});
 });
 
@@ -73,20 +81,23 @@ router.put("/", function (req, res) {
 	var table = [req.body.CODIGO_ALMACEN, req.body.UBICACION, req.body.ID_ALMACEN];
 	query = mysql.format(query, table);
 	dateGeneratorO.printUpdate(query);
-	mysqlConnection.query(query, function(err) {
-		if (err) {
-			dateGeneratorO.printError(query, err.message);
-			res.json({
-				"Error": true,
-				"Message": "Error executing MySQL query"
-			});
-		} else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-				"Message": "Almacen detalle updated !"
-			});
-		}
+
+	mySqlPool.getConnection(function (err, connection) {
+		connection.query(query, function(error) {
+			if (error) {
+				dateGeneratorO.printError(query, error.message);
+				res.json({
+					"Error": true,
+					"Message": "Error executing MySQL query"
+				});
+			} else {
+				dateGeneratorO.printSuccess();
+				res.json({
+					"Error": false,
+					"Message": "Almacen detalle updated !"
+				});
+			}
+		});
 	});
 });
 
@@ -99,20 +110,24 @@ router.delete("/:id_almacen", function(req, res) {
 	var table = [req.params.id_almacen];
 	query = mysql.format(query, table);
 	dateGeneratorO.printDelete(query);
-	mysqlConnection.query(query, function(err) {
-		if (err) {
-			dateGeneratorO.printError(query, err.message);
-			res.json({
-				"Error": true,
-				"Message": "Error executing MySQL query"
-			});
-		} else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-				"Message": "Almacen deleted: " + req.params.id_almacen
-			});
-		}
+
+	mySqlPool.getConnection(function (err, connection) {
+		connection.query(query, function(error) {
+			if (error) {
+				dateGeneratorO.printError(query, error.message);
+				res.json({
+					"Error": true,
+					"Message": "Error executing MySQL query"
+				});
+			} else {
+				dateGeneratorO.printSuccess();
+				res.json({
+					"Error": false,
+					"Message": "Almacen deleted: " + req.params.id_almacen
+				});
+			}
+			connection.release();
+		});
 	});
 });
 

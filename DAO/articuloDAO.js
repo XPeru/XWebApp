@@ -1,4 +1,4 @@
-/* global mysqlConnection, mysql */
+/* global mySqlPool, mysql */
 var multer  = require('multer');
 var dateGenerator = require("./dateGenerator.js");
 var dateGeneratorO = new dateGenerator("articuloDAO");
@@ -42,21 +42,24 @@ router.get("/list", function (req, res) {
 	var table = [];
 	query = mysql.format(query, table);
 	dateGeneratorO.printSelect(query);
-	mysqlConnection.query(query, function (err, rows) {
-		if (err) {
-			dateGeneratorO.printError(query, err.message);
-			res.json({
-				"Error": true,
-				"Message": "Error executing MySQL query"
-			});
-		} else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-				"Message": "Success",
-				"Articulos": rows
-			});
-		}
+	mySqlPool.getConnection(function (err, connection) {
+		connection.query(query, function (error, rows) {
+			if (error) {
+				dateGeneratorO.printError(query, error.message);
+				res.json({
+					"Error": true,
+					"Message": "Error executing MySQL query"
+				});
+			} else {
+				dateGeneratorO.printSuccess();
+				res.json({
+					"Error": false,
+					"Message": "Success",
+					"Articulos": rows
+				});
+			}
+			connection.release();
+		});
 	});
 });
 
@@ -90,20 +93,23 @@ router.post("/", function (req, res) {
 				req.body.IMAGEN];
 	query = mysql.format(query, table);
 	dateGeneratorO.printInsert(query);
-	mysqlConnection.query(query, function(err) {
-		if (err) {
-			dateGeneratorO.printError(query, err.message);
-			res.json({
-				"Error": true,
-				"Message": "Error executing MySQL query"
-			});
-		} else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-				"Message": "Article Added !"
-			});
-		}
+	mySqlPool.getConnection(function (err, connection) {
+		connection.query(query, function(error) {
+			if (error) {
+				dateGeneratorO.printError(query, error.message);
+				res.json({
+					"Error": true,
+					"Message": "Error executing MySQL query"
+				});
+			} else {
+				dateGeneratorO.printSuccess();
+				res.json({
+					"Error": false,
+					"Message": "Article Added !"
+				});
+			}
+			connection.release();
+		});
 	});
 });
 
@@ -113,21 +119,24 @@ router.get("/:id_articulo", function (req, res) {
 	var table = [req.params.id_articulo];
 	query = mysql.format(query, table);
 	dateGeneratorO.printSelect(query);
-	mysqlConnection.query(query, function(err, rows) {
-		if (err) {
-			dateGeneratorO.printError(query, err.message);
-			res.json({
-				"Error": true,
-				"Message": "Error executing MySQL query"
-			});
-		} else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-				"Message": "Success",
-				"Articulos": rows[0]
-			});
-		}
+	mySqlPool.getConnection(function (err, connection) {
+		connection.query(query, function(error, rows) {
+			if (error) {
+				dateGeneratorO.printError(query, error.message);
+				res.json({
+					"Error": true,
+					"Message": "Error executing MySQL query"
+				});
+			} else {
+				dateGeneratorO.printSuccess();
+				res.json({
+					"Error": false,
+					"Message": "Success",
+					"Articulos": rows[0]
+				});
+			}
+			connection.release();
+		});
 	});
 });
 
@@ -156,29 +165,32 @@ router.put("/", function (req, res) {
 
 	query = mysql.format(query, table);
 	dateGeneratorO.printUpdate(query);
-	mysqlConnection.query(query, function(err) {
-		if (err) {
-			dateGeneratorO.printError(query, err.message);
-			res.json({
-				"Error": true,
-				"Message": "Error executing MySQL query"
-			});
-		} else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-				"Message": "OK"
-			});
-		}
+	mySqlPool.getConnection(function (err, connection) {
+		connection.query(query, function(error) {
+			if (error) {
+				dateGeneratorO.printError(query, error.message);
+				res.json({
+					"Error": true,
+					"Message": "Error executing MySQL query"
+				});
+			} else {
+				dateGeneratorO.printSuccess();
+				res.json({
+					"Error": false,
+					"Message": "OK"
+				});
+			}
+			connection.release();
+		});
 	});
 });
 
 router.post('image', function (req, res) {
 	dateGeneratorO.printInsert("image");
 	dateGeneratorO.printInsert(req);
-	upload(req, res, function (err) {
-		if (err) {
-			dateGeneratorO.printError(req, err.message);
+	upload(req, res, function (error) {
+		if (error) {
+			dateGeneratorO.printError(req, error.message);
 			return res.end("Error uploading file.");
 		}
 		res.end(completePathFile);

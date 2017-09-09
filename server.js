@@ -1,17 +1,23 @@
 //Express is a minimalist web framework for node.js
 const express = require("express");
-// This module allows our server to connect and dialog with a mysql database
-const mysql = require("mysql");
 // This allows our server to parse JSONs objects
 const bodyParser = require("body-parser");
-// npm install serve-favicon
 const favicon = require("serve-favicon");
 const colors = require('colors');
 const path = require("path");
 const fileSystem = require("graceful-fs");
+const dotenv = require("dotenv");
+const compression = require("compression");
+const errorHandler = require("errorHandler");
+
+const connectMysql = require("./connectMysql.js");
+
+dotenv.config({ path: ".env.dev" });
 
 var app = express();
 app.use(favicon(path.join(__dirname, '/dev/media/favicon.ico')));
+app.use(compression());
+app.use(errorHandler());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 var router = express.Router();
@@ -20,17 +26,6 @@ app.use('/api', router);
 // the __dirname directory becames "public"
 // __dirname is the current directory
 app.use(express.static(__dirname));
-global.mysql = mysql;
-const startServer = function () {
-    app.listen(8071, function () {
-        console.log(colors.green("All right ! I am alive at Port 8071."));
-    });
-};
-
-const stop = function (err) {
-    console.log(colors.red("ISSUE WITH MYSQL \n" + err));
-    process.exit(1);
-};
 
 const loadModule = function () {
     return function (file) {
@@ -48,29 +43,33 @@ const loadModule = function () {
     };
 };
 fileSystem.readdirSync("./DAO").forEach(loadModule());
+connectMysql.createPoolMysql();
 
-const connectMysql = function () {
-    var pool = mysql.createPool({
-        connectionLimit: 100,
-        host: 'localhost',
-        port: 3306,
-        user: 'root',
-        password: 'root',
-        database: 'testdb',
-        debug: false
-    });
-    pool.getConnection(function (err, connection) {
-        if (err) {
-            stop(err);
-        } else {
-            global.mysqlConnection = connection;
-            startServer();
-        }
-    });
+
+const MAX_DEPTH = 10;
+// Delete keys starting by $ to avoid NoSQL injections
+var sanitizeInput = function (body, depth = 0) {
+    if (body instanceof Object) {
+        Object.keys(body).forEach(key => {
+            if (/^\$/.test(key) || depth > MAX_DEPTH) {
+                delete body[key];
+                throw new Error("Body with nested object detected");
+            } else {
+                sanitizeInput(body[key], depth + 1);
+            }
+        });
+    }
 };
 
-connectMysql();
+app.use(function (req, res, next) {
+    sanitizeInput(req.body);
+    sanitizeInput(req.query);
+    next();
+});
 
+app.listen(process.env.PORT, function () {
+    console.log(colors.green("All right ! I am alive at Port " + process.env.PORT));
+});
 // var PDFDocument = require("pdfkit");
 // var blobStream  = require("blob-stream");
 // // create a document and pipe to a blob

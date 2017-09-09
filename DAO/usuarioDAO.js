@@ -1,4 +1,4 @@
-/* global mysqlConnection, mysql */
+/* global mySqlPool, mysql */
 var multer  =   require('multer');
 var dateGenerator = require("./dateGenerator.js");
 var dateGeneratorO = new dateGenerator("usuarioDAO");
@@ -49,22 +49,25 @@ router.get("/list", function (req, res) {
 	var table = [];
 	query = mysql.format(query, table);
 	dateGeneratorO.printSelect(query);
-	mysqlConnection.query(query, function (err, rows) {
-		if (err) {
-			dateGeneratorO.printError(query, err.message);
-			res.json({
-				"Error": true,
-				"Message": "Error executing MySQL query"
-			});
-		} else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-				"Message": "Success",
-				"Usuarios": rows
-			});
-		}
-	});
+    mySqlPool.getConnection(function (err, connection) {
+    	connection.query(query, function (error, rows) {
+    		if (error) {
+    			dateGeneratorO.printError(query, error.message);
+    			res.json({
+    				"Error": true,
+    				"Message": "Error executing MySQL query"
+    			});
+    		} else {
+    			dateGeneratorO.printSuccess();
+    			res.json({
+    				"Error": false,
+    				"Message": "Success",
+    				"Usuarios": rows
+    			});
+    		}
+            connection.release();
+    	});
+    });
 });
 
 router.post("/", function (req, res) {
@@ -93,21 +96,24 @@ router.post("/", function (req, res) {
 				req.body.FOTO];
 	query = mysql.format(query, table);
 	dateGeneratorO.printInsert(query);
-	mysqlConnection.query(query, function (err) {
-		if (err) {
-			dateGeneratorO.printError(query, err.message);
-			res.json({
-				"Error": true,
-				"Message": "Error executing MySQL query"
-			});
-		} else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-				"Message": "User Added !"
-			});
-		}
-	});
+    mySqlPool.getConnection(function (err, connection) {
+    	connection.query(query, function (error) {
+    		if (error) {
+    			dateGeneratorO.printError(query, error.message);
+    			res.json({
+    				"Error": true,
+    				"Message": "Error executing MySQL query"
+    			});
+    		} else {
+    			dateGeneratorO.printSuccess();
+    			res.json({
+    				"Error": false,
+    				"Message": "User Added !"
+    			});
+    		}
+            connection.release();
+    	});
+    });
 });
 
 router.get("/:id_usuario", function (req, res) {
@@ -116,22 +122,25 @@ router.get("/:id_usuario", function (req, res) {
 	var table = [req.params.id_usuario];
 	query = mysql.format(query, table);
 	dateGeneratorO.printSelect(query);
-	mysqlConnection.query(query, function (err, rows) {
-		if (err) {
-			dateGeneratorO.printError(query, err.message);
-			res.json({
-				"Error": true,
-				"Message": "Error executing MySQL query"
-			});
-		} else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-				"Message": "Success",
-				"Users": rows[0]
-			});
-		}
-	});
+    mySqlPool.getConnection(function (err, connection) {
+    	connection.query(query, function (error, rows) {
+    		if (error) {
+    			dateGeneratorO.printError(query, error.message);
+    			res.json({
+    				"Error": true,
+    				"Message": "Error executing MySQL query"
+    			});
+    		} else {
+    			dateGeneratorO.printSuccess();
+    			res.json({
+    				"Error": false,
+    				"Message": "Success",
+    				"Users": rows[0]
+    			});
+    		}
+            connection.release();
+    	});
+    });
 });
 
 router.get("/authentication/:usuario_email/:usuario_password", function (req, res) {
@@ -148,20 +157,23 @@ router.get("/authentication/:usuario_email/:usuario_password", function (req, re
 				md5(req.params.usuario_password)];
 	query = mysql.format(query, table);
 	dateGeneratorO.printSelect(query);
-	mysqlConnection.query(query, function (err, rows) {
-		if (err) {
-			dateGeneratorO.printError(query, err.message);
-			res.json({
-				"Message": "Error executing MySQL query"
-			});
-		} else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Message": "Success",
-				"Users": rows
-			});
-		}
-	});
+    mySqlPool.getConnection(function (err, connection) {
+    	connection.query(query, function (error, rows) {
+    		if (error) {
+    			dateGeneratorO.printError(query, error.message);
+    			res.json({
+    				"Message": "Error executing MySQL query"
+    			});
+    		} else {
+    			dateGeneratorO.printSuccess();
+    			res.json({
+    				"Message": "Success",
+    				"Users": rows
+    			});
+    		}
+            connection.release();
+    	});
+    });
 });
 
 router.put("/", function (req, res) {
@@ -181,21 +193,24 @@ router.put("/", function (req, res) {
 				req.body.ID_USUARIO];
 	query = mysql.format(query, table);
 	dateGeneratorO.printUpdate(query);
-	mysqlConnection.query(query, function (err) {
-		if (err) {
-			dateGeneratorO.printError(query, err.message);
-			res.json({
-				"Error": true,
-				"Message": "Error executing MySQL query"
-			});
-		} else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-				"Message": "OK"
-			});
-		}
-	});
+    mySqlPool.getConnection(function (err, connection) {
+    	connection.query(query, function (error) {
+    		if (error) {
+    			dateGeneratorO.printError(query, error.message);
+    			res.json({
+    				"Error": true,
+    				"Message": "Error executing MySQL query"
+    			});
+    		} else {
+    			dateGeneratorO.printSuccess();
+    			res.json({
+    				"Error": false,
+    				"Message": "OK"
+    			});
+    		}
+            connection.release();
+    	});
+    });
 });
 
 router.put("/delete", function (req, res) {
@@ -211,29 +226,32 @@ router.put("/delete", function (req, res) {
 				req.body.ID_USUARIO];
 	query = mysql.format(query, table);
 	dateGeneratorO.printUpdate(query);
-	mysqlConnection.query(query, function (err) {
-		if (err) {
-			dateGeneratorO.printError(query, err.message);
-			res.json({
-				"Error": true,
-				"Message": "Error executing MySQL query"
-			});
-		} else {
-			dateGeneratorO.printSuccess();
-			res.json({
-				"Error": false,
-				"Message": "OK"
-			});
-		}
-	});
+    mySqlPool.getConnection(function (err, connection) {
+    	connection.query(query, function (error) {
+    		if (error) {
+    			dateGeneratorO.printError(query, error.message);
+    			res.json({
+    				"Error": true,
+    				"Message": "Error executing MySQL query"
+    			});
+    		} else {
+    			dateGeneratorO.printSuccess();
+    			res.json({
+    				"Error": false,
+    				"Message": "OK"
+    			});
+    		}
+            connection.release();
+    	});
+    });
 });
 
 router.post("/photo", function (req, res) {
 	dateGeneratorO.printInsert("photo");
 	dateGeneratorO.printInsert(req);
-	upload(req, res, function (err) {
-		if (err) {
-			dateGeneratorO.printError(req, err.message);
+	upload(req, res, function (error) {
+		if (error) {
+			dateGeneratorO.printError(req, error.message);
 			return res.end("Error uploading file.");
 		}
 		res.end(completePathFile);
