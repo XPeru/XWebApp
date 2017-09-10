@@ -18,8 +18,8 @@ var app = express();
 app.use(favicon(path.join(__dirname, '/dev/media/favicon.ico')));
 app.use(compression());
 app.use(errorHandler());
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ limit: "150mb", extended: true }));
+app.use(bodyParser.json({ limit: "150mb" }));
 var router = express.Router();
 app.use('/api', router);
 // express.static gaves access to a directory from the browser client
