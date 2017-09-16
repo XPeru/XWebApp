@@ -5,6 +5,7 @@ angular.module('xWebApp', [
 	'ngCookies',
 	'ngAnimate',
 	'ui.utils.masks',
+    'commonService',
 	'Footer',
 	'Login',
 	'TopBar',
