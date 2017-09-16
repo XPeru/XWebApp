@@ -48,8 +48,8 @@ angular.module('AlmacenesGestion', ['ui.bootstrap', 'ui.grid','ui.grid.exporter'
 			ctrl.callGetAll();
 
 			$scope.columns = [
-				CommonServiceFactory.formatColumn('Codigo almacen','CODIGO_ALMACEN','blue','text'),
-				CommonServiceFactory.formatColumn('Ubicacion','UBICACION','blue','text'),
+				CommonServiceFactory.formatColumn('Codigo almacen','CODIGO_ALMACEN', 'blue', 'text'),
+				CommonServiceFactory.formatColumn('Ubicacion','UBICACION', 'blue', 'text'),
 				CommonServiceFactory.buttons()
 			];
 
