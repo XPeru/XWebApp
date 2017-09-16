@@ -10,48 +10,16 @@ angular.module('Usuarios', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gr
 										'NgTableParams',
 										'UsuariosTipoServiceFactory',
 										'i18nService',
-	function($scope, $location, $http, $uibModal, $timeout, UsuariosServiceFactory, NgTableParams, UsuariosTipoServiceFactory, i18nService) {
+										'CommonServiceFactory',
+	function($scope, $location, $http, $uibModal, $timeout, UsuariosServiceFactory, NgTableParams, UsuariosTipoServiceFactory, i18nService, CommonServiceFactory) {
 		var ctrl = this;
-		ctrl.tableMode = true;
-		ctrl.switchTableMode = function() {
-			ctrl.tableMode = !ctrl.tableMode;
-		};
-
-		ctrl.callGetAllTipoUsuario = function() {
-			UsuariosTipoServiceFactory.getAllTipoUsuario().then(function(response) {
-				ctrl.tipoUsuarioList = response.data.TiposUsuario;
-			});
-		};
-		ctrl.callGetAllTipoUsuario();
-
 		i18nService.setCurrentLang('es');
-		$scope.columns = [{ field: 'NOMBRE', headerCellClass: 'blue'},
-							{field: 'APELLIDOS', headerCellClass : 'blue'},
-							{field: 'EMAIL', headerCellClass : 'blue'},
-							{field: 'CREATE_TIME', headerCellClass: 'blue'},
-							{field: 'UPDATE_TIME', headerCellClass :' blue'}];
-			$scope.columns[0].displayName = 'Nombre';
-			$scope.columns[1].displayName = 'Apellidos';
-			$scope.columns[2].displayName = 'Email';
-			$scope.columns[3].displayName = 'Fecha de Creacion';
-			$scope.columns[4].displayName = 'Ultima Modificacion';
-			$scope.gridOptions = {
-				exporterMenuCsv: false,
-				enableGridMenu: true,
-				enableSorting: true,
-				enableFiltering: true,
-				columnDefs: $scope.columns,
-				onRegisterApi: function(gridApi) {
-					$scope.gridApi = gridApi;
-				}
-			};
 
-		ctrl.usersData = [{}];
-		ctrl.callGetUsuarioList = function() {
+		ctrl.callGetAll = function() {
 			UsuariosServiceFactory.getUsuarioList().then(function(response) {
 				ctrl.usersData = response.data.Usuarios;
 				$scope.gridOptions.data = response.data.Usuarios;
-				ctrl.usersTable = new NgTableParams({
+				ctrl.table = new NgTableParams({
 					page: 1,
 					count: 10
 				}, {
@@ -59,50 +27,54 @@ angular.module('Usuarios', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.gr
 				});
 			});
 		};
-		ctrl.callGetUsuarioList();
 
-		ctrl.idSelectedUsuario = null;
-		ctrl.setSelected = function(idSelectedUsuario) {
-			ctrl.idSelectedUsuario = idSelectedUsuario;
+		ctrl.callGetAllTipoUsuario = function() {
+			UsuariosTipoServiceFactory.getAllTipoUsuario().then(function(response) {
+				ctrl.tipoUsuarioList = response.data.TiposUsuario;
+			});
 		};
 
-		ctrl.openModalUsuario = function(selected_modal, selected_user) {
-			var modalInstance = $uibModal.open({
-				templateUrl: function() {
-					var template;
-					switch(selected_modal) {
-						case "create":
-							template = 'dev/modules/Usuarios/modals/createUsuario.html';
-							break;
-						case "edit":
-							template = 'dev/modules/Usuarios/modals/editUsuario.html';
-							break;
-						case "delete":
-							template = 'dev/modules/Usuarios/modals/deleteUsuario.html';
-							break;
-					}
-					return template;
-				},
-				controller: 'modalUsuarioController',
-				controllerAs: 'modalUsuarioCtrl',
-				resolve : {
-					selected_user : function() {
-						return selected_user;
-					},
-					tipoUsuarioList : function() {
-						return ctrl.tipoUsuarioList;
-					}
-				}
-			});
+		ctrl.modal = {
+			url: {
+				create : 'dev/modules/Usuarios/modals/createUsuario.html',
+				edit: 'dev/modules/Usuarios/modals/editUsuario.html',
+				delete: 'dev/modules/Usuarios/modals/deleteUsuario.html'
+			},
+			controller: 'modalUsuarioController',
+			controllerAs: 'modalUsuarioCtrl',
+			id: 'ID_USUARIO',
+			ctrlParent: ctrl
+		};
 
-			modalInstance.result.then(function() {
-				ctrl.callGetUsuarioList();
-				ctrl.usersTable.reload();
-				
-			}, function() {
-				ctrl.callGetUsuarioList();
-				ctrl.usersTable.reload();
-			});
+		CommonServiceFactory.modal(ctrl);
+		CommonServiceFactory.switchTableMode(ctrl);
+		CommonServiceFactory.setSelected(ctrl, "idSelectedUsuario");
+
+		ctrl.tableMode = true;
+		ctrl.usersData = [];
+		ctrl.idSelectedUsuario = null;
+		ctrl.callGetAll();
+		ctrl.callGetAllTipoUsuario();
+
+		$scope.columns = [
+			CommonServiceFactory.foto(),
+			CommonServiceFactory.formatColumn('Nombre','NOMBRE','blue','text'),
+			CommonServiceFactory.formatColumn('Apellidos','APELLIDOS','blue','text'),
+			CommonServiceFactory.formatColumn('Email','EMAIL','blue','text'),
+			CommonServiceFactory.formatColumn('Fecha de Creacion','CREATE_TIME','blue','text'),
+			CommonServiceFactory.formatColumn('Ultima Modificacion','UPDATE_TIME','blue','text'),
+			CommonServiceFactory.buttons()
+		];
+
+		$scope.gridOptions = {
+			exporterMenuCsv: false,
+			enableGridMenu: true,
+			enableSorting: true,
+			enableFiltering: true,
+			columnDefs: $scope.columns,
+			onRegisterApi: function(gridApi) {
+				$scope.gridApi = gridApi;
+			}
 		};
 
 	}
