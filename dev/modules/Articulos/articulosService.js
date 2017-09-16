@@ -22,10 +22,6 @@ angular.module('articulosService', ['ngResource'])
 				return $http.put(urlBase, articulo);
 			};
 
-			service.deleteArticulo = function (articulo) {
-				return $http.delete(urlBase + 'delete', articulo);
-			};
-
 			service.uploadImageArticulo = function (file) {
 				var fd = new FormData();
 				fd.append('articleImage', file);
