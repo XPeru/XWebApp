@@ -14,12 +14,12 @@ angular.module('clienteService', ['ngResource'])
 				return $http.post(urlBase, cliente);
 			};
 
-			service.updateCliente = function (cliente) {
+			service.editCliente = function (cliente) {
 				return $http.put(urlBase, cliente);
 			};
 
-			service.deleteCliente = function(id) {
-				return $http.delete(urlBase + '/' + id);
+			service.deleteCliente = function(cliente) {
+				return $http.delete(urlBase + '/' + cliente.ID_PROVEEDOR_CLIENTE);
 			};
 
 			return service;
