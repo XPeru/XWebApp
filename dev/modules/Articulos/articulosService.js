@@ -29,7 +29,7 @@ angular.module('articulosService', ['ngResource'])
 			service.uploadImageArticulo = function (file) {
 				var fd = new FormData();
 				fd.append('articleImage', file);
-				return $http.post(urlBase + 'image', fd, {
+				return $http.post(urlBase + '/image', fd, {
 													transformRequest: angular.identity,
 													headers: {'Content-Type': undefined}
 													});
