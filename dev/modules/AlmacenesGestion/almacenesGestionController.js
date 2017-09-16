@@ -8,7 +8,8 @@ angular.module('AlmacenesGestion', ['ui.bootstrap', 'ui.grid','ui.grid.exporter'
 												'AlmacenesGestionServiceFactory',
 												'NgTableParams',
 												'i18nService',
-		function ($scope, $location, $http, $uibModal, $timeout, AlmacenesGestionServiceFactory, NgTableParams, i18nService) {
+												'CommonServiceFactory',
+		function ($scope, $location, $http, $uibModal, $timeout, AlmacenesGestionServiceFactory, NgTableParams, i18nService, CommonServiceFactory) {
 			var ctrl = this;
 			i18nService.setCurrentLang('es');
 
@@ -70,28 +71,10 @@ angular.module('AlmacenesGestion', ['ui.bootstrap', 'ui.grid','ui.grid.exporter'
 			ctrl.idSelectedAlmacen = null;
 			ctrl.callGetAll();
 
-			function prep_column(nam, fld, color, filt){
-				var obj = {
-					title:	nam,
-					displayName:	nam,
-					field:	fld,
-					filter: {},
-					headerCellClass:	color,
-					sortable:	fld
-				};
-				obj.filter[fld] = filt;
-				return obj;
-			};
-			function prep_buttons(){
-				return {
-					field: "BUTTONS"
-				};
-			};
-
 			$scope.columns = [
-				prep_column('Codigo almacen','CODIGO_ALMACEN','blue','text'),
-				prep_column('Ubicacion','UBICACION','blue','text'),
-				prep_buttons()
+				CommonServiceFactory.formatColumn('Codigo almacen','CODIGO_ALMACEN','blue','text'),
+				CommonServiceFactory.formatColumn('Ubicacion','UBICACION','blue','text'),
+				CommonServiceFactory.buttons()
 			];
 
 			$scope.gridOptions = {
