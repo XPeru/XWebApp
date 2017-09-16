@@ -8,16 +8,50 @@ angular.module('UsuariosAcceso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 
 													'UsuariosAccesoServiceFactory',
 													'NgTableParams',
 													'i18nService',
-		function ($scope, $location, $http, $uibModal, $timeout, UsuariosAccesoServiceFactory, NgTableParams, i18nService) {
+													'CommonServiceFactory',
+		function ($scope, $location, $http, $uibModal, $timeout, UsuariosAccesoServiceFactory, NgTableParams, i18nService, CommonServiceFactory) {
 			var ctrl = this;
-			ctrl.tableMode = true;
-			ctrl.switchTableMode = function() {
-				ctrl.tableMode = !ctrl.tableMode;
+			i18nService.setCurrentLang('es');
+
+			ctrl.callGetAll = function() {
+				UsuariosAccesoServiceFactory.getAllAccesoUsuario().then(function(response) {
+					ctrl.usuariosAccesoData = response.data.AccesosUsuario;
+					$scope.gridOptions.data = response.data.AccesosUsuario;
+					ctrl.table = new NgTableParams({
+						page: 1,
+						count: 10
+					}, {
+						data: ctrl.usuariosAccesoData
+					});
+				});
 			};
 
-			i18nService.setCurrentLang('es');
-			$scope.columns = [{ field: 'DESCRIPCION', headerCellClass: 'blue'}];
-			$scope.columns[0].displayName = 'Descripcion';
+			ctrl.modal = {
+				url: {
+					create : 'dev/modules/UsuariosAcceso/modals/createUsuarioAcceso.html',
+					edit: 'dev/modules/UsuariosAcceso/modals/editUsuarioAcceso.html',
+					delete: 'dev/modules/UsuariosAcceso/modals/deleteUsuarioAcceso.html'
+				},
+				controller: 'modalUsuarioAccesoController',
+				controllerAs: 'modalUsuarioAccesoCtrl',
+				id: 'ID_ACCESO_USUARIO',
+				ctrlParent: ctrl
+			};
+
+			CommonServiceFactory.modal(ctrl);
+			CommonServiceFactory.switchTableMode(ctrl);
+			CommonServiceFactory.setSelected(ctrl, "idSelectedAccesoUsuario");
+
+			ctrl.tableMode = true;
+			ctrl.idSelectedAccesoUsuario = null;
+			ctrl.usuariosAccesoData = [];
+			ctrl.callGetAll();
+
+			$scope.columns = [
+				CommonServiceFactory.formatColumn('Descripcion','DESCRIPCION', 'blue', 'text'),
+				CommonServiceFactory.buttons()
+			];
+
 			$scope.gridOptions = {
 				exporterMenuCsv: false,
 				enableGridMenu: true,
@@ -31,70 +65,5 @@ angular.module('UsuariosAcceso', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 
 					});*/
 				}
 			};
-
-			ctrl.usuariosAccesoData = [{}];
-
-			ctrl.callGetAllAccesoUsuario = function() {
-				UsuariosAccesoServiceFactory.getAllAccesoUsuario().then(function(response) {
-					ctrl.usuariosAccesoData = response.data.AccesosUsuario;
-					$scope.gridOptions.data = response.data.AccesosUsuario;
-					ctrl.usuariosAccesoTable = new NgTableParams({
-						page: 1,
-						count: 10
-					}, {
-						data: ctrl.usuariosAccesoData
-					});
-				});
-			};
-
-			ctrl.callGetAllAccesoUsuario();
-
-			ctrl.idSelectedAccesoUsuario = null;
-			ctrl.setSelected = function(idSelectedAccesoUsuario) {
-				ctrl.idSelectedAccesoUsuario = idSelectedAccesoUsuario;
-			};
-
-			ctrl.openModalAccesoUsuario = function(selected_modal, selected_acceso_usuario) {
-				var modalInstance = $uibModal.open({
-					templateUrl: function() {
-						var template;
-						switch(selected_modal) {
-							case "create":
-								template = 'dev/modules/UsuariosAcceso/modals/createUsuarioAcceso.html';
-								break;
-							case "edit":
-								template = 'dev/modules/UsuariosAcceso/modals/editUsuarioAcceso.html';
-								break;
-							case "delete":
-								template = 'dev/modules/UsuariosAcceso/modals/deleteUsuarioAcceso.html';
-								break;
-						}
-						return template;
-					},
-					controller: 'modalUsuarioAccesoController',
-					controllerAs: 'modalUsuarioAccesoCtrl',
-					resolve : {
-						selected_acceso_usuario : function() {
-							return selected_acceso_usuario;
-						}
-					}
-				});
-
-				modalInstance.result.then(function() {
-					ctrl.callGetAllAccesoUsuario();
-					ctrl.usuariosAccesoTable.reload();
-					
-				}, function() {
-					ctrl.callGetAllAccesoUsuario();
-					ctrl.usuariosAccesoTable.reload();
-				});
-			};
-
 		}
 ]);
-
-	
-
-
-	
- 

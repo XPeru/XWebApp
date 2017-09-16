@@ -1,9 +1,9 @@
 "use strict";
 angular.module('UsuariosAcceso')
 	.controller('modalUsuarioAccesoController',
-		function($scope, $http, $timeout, $uibModalInstance, selected_acceso_usuario, UsuariosAccesoServiceFactory) {
+		function($scope, $http, $timeout, $uibModalInstance, selectedData, UsuariosAccesoServiceFactory) {
 			var ctrl = this;
-			ctrl.selected_acceso_usuario = selected_acceso_usuario;
+			ctrl.selected_acceso_usuario = selectedData;
 
 			ctrl.deleteAccesoUsuario = function(acceso_usuario) {
 				UsuariosAccesoServiceFactory.deleteAccesoUsuario(acceso_usuario.ID_ACCESO_USUARIO).then(function() {
