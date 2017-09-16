@@ -1,9 +1,9 @@
 "use strict";
 angular.module('TipoPersona')
 	.controller('modalTipoPersonaController',
-		function($scope, $http, $timeout, $uibModalInstance, selectedTipoPersona, TipoPersonaServiceFactory) {
+		function($scope, $http, $timeout, $uibModalInstance, selectedData, TipoPersonaServiceFactory) {
 			var ctrl = this;
-			ctrl.selectedTipoPersona = selectedTipoPersona;
+			ctrl.selectedTipoPersona = selectedData;
 
 			ctrl.deleteTipoPersona = function(tipoPersona) {
 				TipoPersonaServiceFactory.deleteTipoPersona(tipoPersona.ID_TIPO_PERSONA).then(function() {
