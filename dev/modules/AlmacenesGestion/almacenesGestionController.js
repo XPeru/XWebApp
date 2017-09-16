@@ -13,10 +13,6 @@ angular.module('AlmacenesGestion', ['ui.bootstrap', 'ui.grid','ui.grid.exporter'
 			var ctrl = this;
 			i18nService.setCurrentLang('es');
 
-			ctrl.switchTableMode = function() {
-				ctrl.tableMode = !ctrl.tableMode;
-			};
-
 			ctrl.callGetAll = function() {
 				AlmacenesGestionServiceFactory.getAllAlmacenes().then(function(response) {
 					ctrl.almacenesData = response.data.Almacenes;
@@ -28,10 +24,6 @@ angular.module('AlmacenesGestion', ['ui.bootstrap', 'ui.grid','ui.grid.exporter'
 						data: ctrl.almacenesData
 					});
 				});
-			};
-
-			ctrl.setSelected = function(idSelectedAlmacen) {
-				ctrl.idSelectedAlmacen = idSelectedAlmacen;
 			};
 
 			ctrl.modal = {
@@ -46,28 +38,12 @@ angular.module('AlmacenesGestion', ['ui.bootstrap', 'ui.grid','ui.grid.exporter'
 				ctrlParent: ctrl
 			};
 
-			ctrl.modalCreate = Object.assign({}, ctrl.modal, {
-				mode: 'create',
-				buttonClass: 'pull-right btn btn-small btn-success btn_separate',
-				iconClass: 'glyphicon glyphicon-plus',
-				text: 'Nuevo '
-			});
-
-			ctrl.modalEdit = Object.assign({}, ctrl.modal, {
-				mode: 'edit',
-				buttonClass: 'btn btn-small btn-primary',
-				iconClass: 'glyphicon glyphicon-pencil'
-			});
-
-			ctrl.modalDelete = Object.assign({}, ctrl.modal, {
-				mode: 'delete',
-				buttonClass: 'btn btn-small btn-danger',
-				iconClass: 'glyphicon glyphicon-remove'
-			});
+			CommonServiceFactory.modal(ctrl);
+			CommonServiceFactory.switchTableMode(ctrl);
+			CommonServiceFactory.setSelected(ctrl, "idSelectedAlmacen");
 
 			ctrl.tableMode = true;
 			ctrl.almacenesData = [];
-			ctrl.modal_not_finished = true;
 			ctrl.idSelectedAlmacen = null;
 			ctrl.callGetAll();
 
