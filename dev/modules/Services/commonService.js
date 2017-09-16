@@ -24,6 +24,41 @@ angular.module('commonService', ['ngResource'])
 				};
 			};
 
+            service.modal = function (ctrl) {
+                ctrl.modalCreate = Object.assign({}, ctrl.modal, {
+    				mode: 'create',
+    				buttonClass: 'pull-right btn btn-small btn-success btn_separate',
+    				iconClass: 'glyphicon glyphicon-plus',
+    				text: 'Nuevo '
+    			});
+
+    			ctrl.modalEdit = Object.assign({}, ctrl.modal, {
+    				mode: 'edit',
+    				buttonClass: 'btn btn-small btn-primary',
+    				iconClass: 'glyphicon glyphicon-pencil'
+    			});
+
+    			ctrl.modalDelete = Object.assign({}, ctrl.modal, {
+    				mode: 'delete',
+    				buttonClass: 'btn btn-small btn-danger',
+    				iconClass: 'glyphicon glyphicon-remove'
+    			});
+            };
+
+            service.switchTableMode = function (ctrl) {
+                ctrl.switchTableMode = function () {
+                    ctrl.tableMode = !ctrl.tableMode;
+                };
+            };
+            
+            service.setSelected = function (ctrl, name) {
+                ctrl.setSelected = function(id) {
+    				ctrl[name] = id;
+    			};
+            };
+
+
+
 			return service;
 		}
 );
