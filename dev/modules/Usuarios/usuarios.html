@@ -4,38 +4,37 @@
             <button ng-click="usuariosCtrl.switchTableMode()" class="pull-right btn btn-small btn-danger btn_separate">
                  <i ng-if="usuariosCtrl.tableMode" class="fa fa-print" aria-hidden="true"></i> <i ng-if="usuariosCtrl.tableMode" class="fa fa-file-pdf-o" aria-hidden="true"></i> <i ng-if="!usuariosCtrl.tableMode" class="fa fa-long-arrow-left" aria-hidden="true"></i>
             </button>
-            <button ng-click="usuariosCtrl.openModalUsuario('create', null)" class="btn_separate pull-right btn btn-small btn-success">
-                Nuevo <span><i class="glyphicon glyphicon-plus"></i></span>
-            </button>
+			<span modal-directive
+					modal-data="usuariosCtrl.modalCreate"
+					modal-extra-data="usuariosCtrl.tipoUsuarioList"></span>
         </h3>
     </div>
     <div class="panel-body">
         <div class="table-responsive" ng-if="usuariosCtrl.tableMode">
-            <table class="table table-striped" ng-table="usuariosCtrl.usersTable" show-filter="true">
+            <table class="table table-striped" ng-table-dynamic="usuariosCtrl.table with columns" show-filter="true">
                 <tr ng-repeat="usuario in $data track by usuario.ID_USUARIO"
                     ng-click="usuariosCtrl.setSelected(usuario.ID_USUARIO)"
                     ng-class="{info: usuario.ID_USUARIO === usuariosCtrl.idSelectedUsuario}">
-                    <td data-title="'Foto'"><img class="img-thumbnail" ng-src={{usuario.FOTO}} width="100" height="100"></td>
-                    <td data-title="'Nombre'" filter="{NOMBRE: 'text'}" sortable="'NOMBRE'">{{usuario.NOMBRE}}</td>
-                    <td data-title="'Apellidos'" filter="{APELLIDOS: 'text'}" sortable="'APELLIDOS'">{{usuario.APELLIDOS}}</td>
-                    <td data-title="'Email'" filter="{EMAIL: 'text'}" sortable="'EMAIL'">{{usuario.EMAIL}}</td>
-                    <td data-title="'Fecha de Creacion'" filter="{CREATE_TIME: 'text'}" sortable="'CREATE_TIME'">{{usuario.CREATE_TIME | date: 'dd-MM-yyyy HH:mm'}}</td>
-                    <td data-title="'Ultima Modificacion'" filter="{UPDATE_TIME: 'text'}" sortable="'UPDATE_TIME'">{{usuario.UPDATE_TIME | date: 'dd-MM-yyyy HH:mm'}}</td>
-                    <td data-title="'Tipo'" filter="{TIPO: 'text'}" sortable="'TIPO'">{{usuario.TIPO}}</td>
-                    <td style="width:60px">
-                        <button ng-if="usuario.ID_USUARIO === usuariosCtrl.idSelectedUsuario"
-                            ng-click="usuariosCtrl.openModalUsuario('edit', usuario)"
-                            class="btn btn-small btn-primary">
-                            <i class="glyphicon glyphicon-pencil"></i>
-                        </button>
-                    </td>
-                    <td style="width:60px">
-                        <button ng-if="usuario.ID_USUARIO === usuariosCtrl.idSelectedUsuario"
-                            ng-click="usuariosCtrl.openModalUsuario('delete', usuario)"
-                            class="btn btn-small btn-danger">
-                            <i class="glyphicon glyphicon-remove"></i>
-                        </button>
-                    </td>
+					<td ng-repeat="col in columns" ng-class="{button_cell: col.field=='BUTTONS'}">
+						<div ng-if="col.field!=='FOTO'">
+							{{usuario[col.field]}}
+						</div>
+						<div ng-if="col.field=='FOTO'">
+							<img class="img-thumbnail" ng-src={{usuario[col.field]}} width="100" height="100">
+						</div>
+						<div ng-if="usuario.ID_USUARIO === usuariosCtrl.idSelectedUsuario && col.field=='BUTTONS'">
+							<span modal-directive
+									modal-data="usuariosCtrl.modalEdit"
+									modal-selected-data="usuario"
+									modal-extra-data="usuariosCtrl.tipoUsuarioList">
+							</span>
+							<span modal-directive
+									modal-data="usuariosCtrl.modalDelete"
+									modal-selected-data="usuario"
+									modal-extra-data="usuariosCtrl.tipoUsuarioList">
+							</span>
+						</div>
+					</td>
                 </tr>
             </table>
         </div>

@@ -1,10 +1,10 @@
-angular.module('Usuarios').controller('modalUsuarioController',  function ($scope, $http, $timeout, $uibModalInstance, selected_user, UsuariosServiceFactory, tipoUsuarioList) {
-	//TODO comprobar si esto es realmente necesario o no
+angular.module('Usuarios').controller('modalUsuarioController',  function ($scope, $http, $timeout, $uibModalInstance, selectedData, UsuariosServiceFactory, extraData) {
 	var ctrl = this;
-	ctrl.selected_user = selected_user;
-	ctrl.tipoUsuarioList = tipoUsuarioList;
-	ctrl.deleteUsuario = function(user_to_delete) {
-		UsuariosServiceFactory.deleteUsuario(user_to_delete).then(function() {
+	ctrl.selected_user = selectedData;
+	ctrl.tipoUsuarioList = extraData;
+
+	ctrl.deleteUsuario = function(user) {
+		UsuariosServiceFactory.deleteUsuario(user).then(function() {
 			$uibModalInstance.close();
 		});
 	};
@@ -47,7 +47,7 @@ angular.module('Usuarios').controller('modalUsuarioController',  function ($scop
         link: function(scope, element, attrs) {
             var model = $parse(attrs.fileModel);
             var modelSetter = model.assign;
-            
+
             element.bind('change', function() {
                 scope.$apply(function(){
                     modelSetter(scope, element[0].files[0]);
