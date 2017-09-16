@@ -9,27 +9,23 @@
 	</div>
 	<div class="panel-body">
 		<div class="table-responsive" ng-if="articulosCategoriaCtrl.tableMode">
-			<table class="table table-striped" ng-table="articulosCategoriaCtrl.table">
+			<table class="table table-striped" ng-table-dynamic="articulosCategoriaCtrl.table with columns" show-filter="true">
 				<tr ng-repeat="categoria in $data track by categoria.ID_CATEGORIA"
-					ng-click="articulosCategoriaCtrl.setSelected(categoria.ID_CATEGORIA)"
-					ng-class="{info: categoria.ID_CATEGORIA === articulosCategoriaCtrl.idSelectedCategoria}">
-					<td data-title="'DESCRIPCION'" filter="{DESCRIPCION: 'text'}" sortable="'DESCRIPCION'">{{categoria.DESCRIPCION}}</td>
-					<td style="width:60px">
-						<div ng-if="categoria.ID_CATEGORIA === articulosCategoriaCtrl.idSelectedCategoria">
-                            <div modal-directive
-                                modal-data="articulosCategoriaCtrl.modalEdit"
-                                modal-selected-data="categoria">
-                            </div>
-                        </div>
-					</td>
-					<td style="width:60px">
-						<div ng-if="categoria.ID_CATEGORIA === articulosCategoriaCtrl.idSelectedCategoria">
-                            <div modal-directive
-                                modal-data="articulosCategoriaCtrl.modalDelete"
-                                modal-selected-data="categoria">
-                            </div>
-                        </div>
-					</td>
+						ng-click="articulosCategoriaCtrl.setSelected(categoria.ID_CATEGORIA)"
+						ng-class="{info: categoria.ID_CATEGORIA === articulosCategoriaCtrl.idSelectedCategoria}">
+						<td ng-repeat="col in columns" ng-class="{button_cell: col.field=='BUTTONS'}">
+							{{categoria[col.field]}}
+							<div ng-if="categoria.ID_CATEGORIA === articulosCategoriaCtrl.idSelectedCategoria && col.field=='BUTTONS'">
+								<span modal-directive
+										modal-data="articulosCategoriaCtrl.modalEdit"
+										modal-selected-data="categoria">
+								</span>
+								<span modal-directive
+										modal-data="articulosCategoriaCtrl.modalDelete"
+										modal-selected-data="categoria">
+								</span>
+							</div>
+						</td>
 				</tr>
 			</table>
 		</div>

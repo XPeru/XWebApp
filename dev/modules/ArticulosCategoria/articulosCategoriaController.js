@@ -9,18 +9,10 @@ angular.module('ArticulosCategoria', ['ui.bootstrap', 'ui.grid','ui.grid.exporte
 													'ArticulosCategoriaServiceFactory',
 													'NgTableParams',
 													'i18nService',
-		function($scope, $location, $http, $uibModal, $timeout, ArticulosCategoriaServiceFactory, NgTableParams, i18nService) {
+													'CommonServiceFactory',
+		function($scope, $location, $http, $uibModal, $timeout, ArticulosCategoriaServiceFactory, NgTableParams, i18nService, CommonServiceFactory) {
 			var ctrl = this;
 			i18nService.setCurrentLang('es');
-
-
-			ctrl.switchTableMode = function() {
-				ctrl.tableMode = !ctrl.tableMode;
-			};
-
-			ctrl.setSelected = function(idSelectedCategoria) {
-				ctrl.idSelectedCategoria = idSelectedCategoria;
-			};
 
 			ctrl.callGetAll = function() {
 				ArticulosCategoriaServiceFactory.getAllCategorias().then(function(response) {
@@ -51,31 +43,13 @@ angular.module('ArticulosCategoria', ['ui.bootstrap', 'ui.grid','ui.grid.exporte
 				ctrlParent: ctrl
 			};
 
-			ctrl.modalCreate = Object.assign({}, ctrl.modal, {
-				mode: 'create',
-				buttonClass: 'pull-right btn btn-small btn-success btn_separate',
-				iconClass: 'glyphicon glyphicon-plus',
-				text: 'Nuevo '
-			});
-
-			ctrl.modalEdit = Object.assign({}, ctrl.modal, {
-				mode: 'edit',
-				buttonClass: 'btn btn-small btn-primary',
-				iconClass: 'glyphicon glyphicon-pencil'
-			});
-
-			ctrl.modalDelete = Object.assign({}, ctrl.modal, {
-				mode: 'delete',
-				buttonClass: 'btn btn-small btn-danger',
-				iconClass: 'glyphicon glyphicon-remove'
-			});
+			CommonServiceFactory.modal(ctrl);
+			CommonServiceFactory.switchTableMode(ctrl);
+			CommonServiceFactory.setSelected(ctrl, "idSelectedCategoria");
 
 			$scope.columns = [
-				{
-					field: 'DESCRIPCION',
-					headerCellClass: 'blue',
-					displayName: 'Descripcion'
-				}
+				CommonServiceFactory.formatColumn('Descripcion','DESCRIPCION','blue','text'),
+				CommonServiceFactory.buttons()
 			];
 
 			$scope.gridOptions = {
