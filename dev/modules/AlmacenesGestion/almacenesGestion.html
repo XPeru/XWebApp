@@ -1,35 +1,35 @@
 <div class="panel panel-default panel-primary">
-    <div class="panel-heading clearfix">
-        <h2 class="panel-title">Almacenes
-            <button ng-click="almacenesGestionCtrl.switchTableMode()" class="pull-right btn btn-small btn-danger btn_separate">
-                 <i ng-if="almacenesGestionCtrl.tableMode" class="fa fa-print" aria-hidden="true"></i> <i ng-if="almacenesGestionCtrl.tableMode" class="fa fa-file-pdf-o" aria-hidden="true"></i> <i ng-if="!almacenesGestionCtrl.tableMode" class="fa fa-long-arrow-left" aria-hidden="true"></i>
-            </button>
-            <span modal-directive modal-data="almacenesGestionCtrl.modalCreate"></span>
-        </h2>
-    </div>
-    <div class="panel-body">
-        <div class="table-responsive" ng-if="almacenesGestionCtrl.tableMode">
-            <table class="table table-striped" ng-table-dynamic="almacenesGestionCtrl.table with columns" show-filter="true">
-                <tr ng-repeat="almacen in $data track by almacen.ID_ALMACEN"
-                    ng-click="almacenesGestionCtrl.setSelected(almacen.ID_ALMACEN)"
-                    ng-class="{info: almacen.ID_ALMACEN === almacenesGestionCtrl.idSelectedAlmacen}">
-                    <td ng-repeat="col in columns" ng-class="{button_cell: col.field=='BUTTONS'}">
-                      {{almacen[col.field]}}
-                      <div ng-if="almacen.ID_ALMACEN === almacenesGestionCtrl.idSelectedAlmacen && col.field=='BUTTONS'">
-                        <span modal-directive
-                            modal-data="almacenesGestionCtrl.modalEdit"
-                            modal-selected-data="almacen">
-                        </span>
-                        <span modal-directive
-                            modal-data="almacenesGestionCtrl.modalDelete"
-                            modal-selected-data="almacen">
-                        </span>
-                      </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div ng-if="!almacenesGestionCtrl.tableMode" id="gridAlmacenesGestion" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid">
-        </div>
-    </div>
+	<div class="panel-heading clearfix">
+		<h2 class="panel-title">Almacenes
+			<button ng-click="almacenesGestionCtrl.switchTableMode()" class="pull-right btn btn-small btn-danger btn_separate">
+				<i ng-if="almacenesGestionCtrl.tableMode" class="fa fa-print" aria-hidden="true"></i> <i ng-if="almacenesGestionCtrl.tableMode" class="fa fa-file-pdf-o" aria-hidden="true"></i> <i ng-if="!almacenesGestionCtrl.tableMode" class="fa fa-long-arrow-left" aria-hidden="true"></i>
+			</button>
+			<span modal-directive modal-data="almacenesGestionCtrl.modalCreate"></span>
+		</h2>
+	</div>
+	<div class="panel-body">
+		<div class="table-responsive" ng-if="almacenesGestionCtrl.tableMode">
+			<table class="table table-striped" ng-table-dynamic="almacenesGestionCtrl.table with columns" show-filter="true">
+				<tr ng-repeat="almacen in $data track by almacen.ID_ALMACEN"
+				ng-click="almacenesGestionCtrl.setSelected(almacen.ID_ALMACEN)"
+				ng-class="{info: almacen.ID_ALMACEN === almacenesGestionCtrl.idSelectedAlmacen}">
+					<td ng-repeat="col in columns" ng-class="{button_cell: col.field=='BUTTONS'}">
+						{{almacen[col.field]}}
+						<div ng-if="almacen.ID_ALMACEN === almacenesGestionCtrl.idSelectedAlmacen && col.field=='BUTTONS'">
+							<span modal-directive
+							modal-data="almacenesGestionCtrl.modalEdit"
+							modal-selected-data="almacen">
+						</span>
+						<span modal-directive
+						modal-data="almacenesGestionCtrl.modalDelete"
+						modal-selected-data="almacen">
+						</span>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div ng-if="!almacenesGestionCtrl.tableMode" id="gridAlmacenesGestion" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid">
+		</div>
+	</div>
 </div>
