@@ -185,7 +185,7 @@ router.put("/", function (req, res) {
 	});
 });
 
-router.post('image', function (req, res) {
+router.post('/image', function (req, res) {
 	dateGeneratorO.printInsert("image");
 	dateGeneratorO.printInsert(req);
 	upload(req, res, function (error) {

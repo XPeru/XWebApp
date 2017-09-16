@@ -56,37 +56,16 @@ angular.module('Articulos', ['ui.bootstrap', 'ui.grid','ui.grid.exporter', 'ui.g
 		CommonServiceFactory.switchTableMode(ctrl);
 		CommonServiceFactory.setSelected(ctrl, "idSelectedArticulo");
 
-		$scope.columns = [];
-
-		$scope.columns[0] = {
-			displayName: 'Codigo articulo',
-			field: 'CODIGO_ARTICULO',
-			headerCellClass: 'blue'
-		};
-
-		$scope.columns[1] = {
-			displayName: 'Descripcion',
-			field: 'DESCRIPCION',
-			headerCellClass: 'blue'
-		};
-
-		$scope.columns[2] = {
-			displayName: 'Unidad',
-			field: 'UNIDAD',
-			headerCellClass: 'blue'
-		};
-
-		$scope.columns[3] = {
-			displayName: 'Precio unitario',
-			field: 'PRECIO_UNITARIO',
-			headerCellClass: 'blue'
-		};
-
-		$scope.columns[4] = {
-			displayName: 'Valor de reposicion',
-			field: 'VALOR_REPOSICION',
-			headerCellClass: 'blue'
-		};
+		$scope.columns = [
+			CommonServiceFactory.image(),
+			CommonServiceFactory.formatColumn('Codigo articulo','CODIGO_ARTICULO','blue','text'),
+			CommonServiceFactory.formatColumn('Descripcion','DESCRIPCION','blue','text'),
+			CommonServiceFactory.formatColumn('Unidad','UNIDAD','blue','text'),
+			CommonServiceFactory.formatColumn('Precio unitario','PRECIO_UNITARIO','blue','number'),
+			CommonServiceFactory.formatColumn('Valor de reposicion','VALOR_REPOSICION','blue','number'),
+			CommonServiceFactory.formatColumn('Categoria','CATEGORIA','blue','text'),
+			CommonServiceFactory.buttons()
+		];
 
 		$scope.gridOptions = {
 			exporterMenuCsv: false,

@@ -5,7 +5,7 @@ angular.module('commonService', ['ngResource'])
 		function() {
 			var service = {};
 
-            service.formatColumn = function (name, field, color, filter) {
+			service.formatColumn = function (name, field, color, filter) {
 				var obj = {
 					title: name,
 					displayName: name,
@@ -18,46 +18,51 @@ angular.module('commonService', ['ngResource'])
 				return obj;
 			};
 
+			service.image = function () {
+				return {
+					title: "Imagen",
+					field: "IMAGEN"
+				};
+			};
+
 			service.buttons = function () {
 				return {
 					field: "BUTTONS"
 				};
 			};
 
-            service.modal = function (ctrl) {
-                ctrl.modalCreate = Object.assign({}, ctrl.modal, {
-    				mode: 'create',
-    				buttonClass: 'pull-right btn btn-small btn-success btn_separate',
-    				iconClass: 'glyphicon glyphicon-plus',
-    				text: 'Nuevo '
-    			});
+			service.modal = function (ctrl) {
+				ctrl.modalCreate = Object.assign({}, ctrl.modal, {
+  				mode: 'create',
+  				buttonClass: 'pull-right btn btn-small btn-success btn_separate',
+  				iconClass: 'glyphicon glyphicon-plus',
+  				text: 'Nuevo '
+  			});
 
-    			ctrl.modalEdit = Object.assign({}, ctrl.modal, {
-    				mode: 'edit',
-    				buttonClass: 'btn btn-small btn-primary',
-    				iconClass: 'glyphicon glyphicon-pencil'
-    			});
+  			ctrl.modalEdit = Object.assign({}, ctrl.modal, {
+  				mode: 'edit',
+  				buttonClass: 'btn btn-small btn-primary',
+  				iconClass: 'glyphicon glyphicon-pencil'
+  			});
 
-    			ctrl.modalDelete = Object.assign({}, ctrl.modal, {
-    				mode: 'delete',
-    				buttonClass: 'btn btn-small btn-danger',
-    				iconClass: 'glyphicon glyphicon-remove'
-    			});
-            };
+  			ctrl.modalDelete = Object.assign({}, ctrl.modal, {
+  				mode: 'delete',
+  				buttonClass: 'btn btn-small btn-danger',
+  				iconClass: 'glyphicon glyphicon-remove'
+  			});
+			};
 
-            service.switchTableMode = function (ctrl) {
-                ctrl.switchTableMode = function () {
-                    ctrl.tableMode = !ctrl.tableMode;
-                };
-            };
-            
-            service.setSelected = function (ctrl, name) {
-                ctrl.setSelected = function(id) {
-    				ctrl[name] = id;
-    			};
-            };
+			service.switchTableMode = function (ctrl) {
+				ctrl.switchTableMode = function () {
+					ctrl.tableMode = !ctrl.tableMode;
+				};
+			};
 
-
+			service.setSelected = function (ctrl, name) {
+				ctrl.setSelected = function(id) {
+  				ctrl[name] = id;
+  			};
+			};
 
 			return service;
 		}
