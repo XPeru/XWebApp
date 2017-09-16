@@ -28,11 +28,11 @@ app.use('/api', router);
 app.use(express.static(__dirname));
 
 const loadModule = function () {
-    return function (file) {
-        // avoiding IDE's files
-        if (file.charAt(0) === ".") {
-            return;
-        }
+	return function (file) {
+		// avoiding IDE's files
+				if (file.charAt(0) === ".") {
+		    	return;
+				}
         const format = file.slice(-6, -3);
         const mod = require("./DAO/" + file);
         // only DAO files for routes
