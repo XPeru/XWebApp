@@ -29,6 +29,14 @@ const createPoolMysql = function () {
         console.log('Connection %d released', connection.threadId);
     });
 
+		pool.query("SELECT 'Testing connection to DB ... OK!' AS test_conn", function(err, rows) {
+		  if(err) {
+				console.log('Testing connection to DB ... Failed!');
+				throw err;
+			}
+		  else console.log(rows[0].test_conn);
+		});
+
     global.mySqlPool = pool;
     global.mysql = mysql;
 };
