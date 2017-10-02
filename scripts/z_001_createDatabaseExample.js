@@ -4,18 +4,21 @@ connection.beginTransaction(function (err) {
 	if (err) {
 		throw err;
 	}
-	console.log('Connection started normally');
+	console.log('Transaction started');
 	var db_name = 'new_schema';
 
 	async function sendTxn() {
-		var req1 = await connection.query('CREATE DATABASE IF NOT EXISTS ' + db_name);
-		var req2 = await connection.commit();
+		var res1 = await new Promise(function(){return connection.query('SELECT * FROM testdb.ALMACEN');});
+		// var res1 =await Promise.reject(new Error('test'));
+		// let res1 = await connection.query('CREATE DATABASE IF NOT EXISTS ' + db_name);
+		console.log(res1);
+		var res2 = await connection.commit();
 		console.log('Database ' + db_name + ' created');
-		var req3 = await connection.end();
+		var res3 = await connection.end();
 		console.log('Connection closed normally');
 	};
 
-	sendTxn();
+	sendTxn();//.catch(() => {});
 	// catch(function(e){
 	// 	connection.rollback();
 	// });
