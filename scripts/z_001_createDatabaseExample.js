@@ -8,7 +8,9 @@ connection.beginTransaction(function (err) {
 	var db_name = 'new_schema';
 
 	async function sendTxn() {
-		var res1 = await new Promise(function(){return connection.query('SELECT * FROM testdb.ALMACEN');});
+		var res1 = await new Promise((resolve, reject) => {
+            resolve(connection.query('SELECT * FROM testdb.ALMACEN'));
+        });
 		// var res1 =await Promise.reject(new Error('test'));
 		// let res1 = await connection.query('CREATE DATABASE IF NOT EXISTS ' + db_name);
 		console.log(res1);
