@@ -1,5 +1,5 @@
 // This module allows our server to connect and dialog with a mysql database
-const mysql = require("mysql");
+const mysql = require("promise-mysql");
 
 const createPoolMysql = function () {
 	var pool = mysql.createPool({
@@ -29,16 +29,22 @@ const createPoolMysql = function () {
 		console.log('Connection %d released', connection.threadId);
 	});
 
-	pool.query("SELECT 'Testing connection to DB ... OK!' AS test_conn", function(err, rows) {
-		if(err) {
-			console.log('Testing connection to DB ... Failed!');
-			throw err;
-		}
-		else console.log(rows[0].test_conn);
+	pool.query("SELECT 'Testing connection to DB ... OK!' AS test_conn")
+        .then(function(rows) {
+        console.log(rows[0].test_conn);
 	});
 
 	global.mySqlPool = pool;
 	global.mysql = mysql;
 };
+
+global.cf = function (asyncFunc) {
+    return function (req, res) {
+        asyncFunc(req).then((val) => {
+            res.json(val)
+        });
+    }
+};
+
 
 exports.createPoolMysql  = createPoolMysql;

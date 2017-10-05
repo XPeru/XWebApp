@@ -1,36 +1,23 @@
-/* global mySqlPool, mysql */
+/* global mySqlPool, mysql, cf */
 var dateGenerator = require("./dateGenerator.js");
 var dateGeneratorO = new dateGenerator("tipoPersonaDAO");
 var router = require("express").Router();
 
 dateGeneratorO.printStart();
 
-router.get("/list", function (req, res) {
-	dateGeneratorO.printSelect("list" + " get");
+router.get("/list", cf( async(req) => {
+    dateGeneratorO.printSelect("list" + " get");
 	var query = "CALL SP_SEARCH_ALL('TIPO_PERSONA')";
 	var table = [];
 	query = mysql.format(query, table);
 	dateGeneratorO.printSelect(query);
-	mySqlPool.getConnection(function (err, connection) {
-		connection.query(query, function(error, rows) {
-			if (error) {
-				dateGeneratorO.printError(query, error.message);
-				res.json({
-					"Error": true,
-					"Message": "Error executing MySQL query"
-				});
-			} else {
-				dateGeneratorO.printSuccess();
-				res.json({
-					"Error": false,
-					"Message": "Success",
-					"TipoPersona": rows[0]
-				});
-			}
-			connection.release();
-		});
-	});
-});
+	var connection = await mySqlPool.getConnection();
+    var rows = await connection.query(query);
+    var result = {
+        TipoPersona: rows[0]
+    };
+    return result;
+}));
 
 router.get("/:desc", function (req, res) {
 	dateGeneratorO.printSelect("");

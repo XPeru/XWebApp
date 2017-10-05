@@ -20,6 +20,7 @@
     "multer": "^1.1.0",
     "mysql": "2.5.4",
     "pdfkit": "^0.7.2",
+    "promise-mysql": "^3.1.0",
     "serve-favicon": "^2.3.0",
     "serve-static": "^1.11.1"
   },

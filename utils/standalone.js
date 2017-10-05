@@ -1,4 +1,4 @@
-var mysql = require('mysql');
+var mysql = require('promise-mysql');
 const dotenv = require("dotenv");
 dotenv.config({ path: "../.env.dev" });
 
