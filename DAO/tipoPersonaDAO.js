@@ -7,46 +7,35 @@ dateGeneratorO.printStart();
 
 router.get("/list", cf( async(req) => {
     dateGeneratorO.printSelect("list" + " get");
-	var query = "CALL SP_SEARCH_ALL('TIPO_PERSONA')";
-	var table = [];
-	query = mysql.format(query, table);
-	dateGeneratorO.printSelect(query);
-	var connection = await mySqlPool.getConnection();
+    var query = "CALL SP_SEARCH_ALL('TIPO_PERSONA')";
+    var table = [];
+    query = mysql.format(query, table);
+    dateGeneratorO.printSelect(query);
+    var connection = await mySqlPool.getConnection();
     var rows = await connection.query(query);
     var result = {
         TipoPersona: rows[0]
     };
+    connection.release();
     return result;
 }));
 
-router.get("/:desc", function (req, res) {
+router.get("/:desc", cf( async(req) => {
 	dateGeneratorO.printSelect("");
 	var query = "CALL SP_SEARCH_STRING('TIPO_PERSONA','DESCRIPCION',?)";
 	var table = [req.params.desc];
 	query = mysql.format(query, table);
 	dateGeneratorO.printSelect(query);
-	mySqlPool.getConnection(function (err, connection) {
-		connection.query(query, function (error, rows) {
-			if (error) {
-				dateGeneratorO.printError(query, error.message);
-				res.json({
-					"Error": true,
-					"Message": "Error executing MySQL query"
-				});
-			} else {
-				dateGeneratorO.printSuccess();
-				res.json({
-					"Error": false,
-					"Message": "Success",
-					"TipoPersona": rows[0]
-				});
-			}
-			connection.release();
-		});
-	});
-});
+	var connection = await mySqlPool.getConnection();
+	var rows = await connection.query(query);
+    var result = {
+        TipoPersona: rows[0]
+    };
+    connection.release();
+    return result;
+}));
 
-router.post("/", function(req, res) {
+router.post("/", cf( async(req) => {
 	dateGeneratorO.printInsert("/");
 	var query = "INSERT INTO " + "\n" +
 				"	TIPO_PERSONA (" + "\n" +
@@ -58,27 +47,16 @@ router.post("/", function(req, res) {
 	var table = [req.body.DESCRIPCION];
 	query = mysql.format(query, table);
 	dateGeneratorO.printInsert(query);
-	mySqlPool.getConnection(function (err, connection) {
-		connection.query(query, function(error) {
-			if (error) {
-				dateGeneratorO.printError(query, error.message);
-				res.json({
-					"Error": true,
-					"Message": "Error executing MySQL query"
-				});
-			} else {
-				dateGeneratorO.printSuccess();
-				res.json({
-					"Error": false,
-					"Message": "Categoria Added !"
-				});
-			}
-			connection.release();
-		});
-	});
-});
+    var connection = await mySqlPool.getConnection();
+    await connection.query(query);
+    var result = {
+        Message: "OK"
+    };
+    connection.release();
+    return result;
+}));
 
-router.put("/", function(req, res) {
+router.put("/", cf( async(req) => {
 	dateGeneratorO.printUpdate("/");
 	var query = "UPDATE" + "\n" +
 				"	TIPO_PERSONA " + "\n" +
@@ -90,27 +68,16 @@ router.put("/", function(req, res) {
 				req.body.ID_TIPO_PERSONA];
 	query = mysql.format(query, table);
 	dateGeneratorO.printUpdate(query);
-	mySqlPool.getConnection(function (err, connection) {
-		connection.query(query, function(error) {
-			if (error) {
-				dateGeneratorO.printError(query, error.message);
-				res.json({
-					"Error": true,
-					"Message": "Error executing MySQL query"
-				});
-			} else {
-				dateGeneratorO.printSuccess();
-				res.json({
-					"Error": false,
-					"Message": "Categoria detalle updated !"
-				});
-			}
-			connection.release();
-		});
-	});
-});
+    var connection = await mySqlPool.getConnection();
+    await connection.query(query);
+    var result = {
+        Message: "OK"
+    };
+    connection.release();
+    return result;
+}));
 
-router.delete("/:id_tipopersona", function(req, res) {
+router.delete("/:id_tipopersona", cf( async(req) => {
 	dateGeneratorO.printDelete("/:id_tipopersona");
 	var query = "DELETE FROM" + "\n" +
 				"	TIPO_PERSONA" + "\n" +
@@ -119,24 +86,13 @@ router.delete("/:id_tipopersona", function(req, res) {
 	var table = [req.params.id_tipopersona];
 	query = mysql.format(query, table);
 	dateGeneratorO.printDelete(query);
-	mySqlPool.getConnection(function (err, connection) {
-		connection.query(query, function (error) {
-			if (error) {
-				dateGeneratorO.printError(query, error.message);
-				res.json({
-					"Error": true,
-					"Message": "Error executing MySQL query"
-				});
-			} else {
-				dateGeneratorO.printSuccess();
-				res.json({
-					"Error": false,
-					"Message": "Categoria deleted: " + req.params.id_tipopersona
-				});
-			}
-			connection.release();
-		});
-	});
-});
+    var connection = await mySqlPool.getConnection();
+    await connection.query(query);
+    var result = {
+        Message: "OK"
+    };
+    connection.release();
+    return result;
+}));
 
 exports.router = router;
