@@ -5,113 +5,7 @@ var router = require("express").Router();
 
 dateGeneratorO.printStart();
 
-router.delete("/:id_ingreso", function (req, res) {
-	dateGeneratorO.printDelete("/:id_ingreso");
-	var query = "CALL SP_DELETE_DETALLE('INGRESO'," + req.params.id_ingreso + ")";
-	dateGeneratorO.printDelete(query);
-	mySqlPool.getConnection(function (err, connection) {
-		connection.query(query, function(error) {
-			if (error) {
-				dateGeneratorO.printError(query, error.message);
-				res.json({
-					"Error": true,
-					"Message": "Error executing MySQL query"
-				});
-			} else {
-				dateGeneratorO.printSuccess();
-				res.json({
-					"Error": false,
-					"Message": "Success"
-				});
-			}
-			connection.release();
-		});
-	});
-});
-
-router.post("/", function (req, res) {
-	dateGeneratorO.printInsert("/");
-	var query = "INSERT INTO " + "\n" +
-				"	DETALLE_INGRESO (" + "\n" +
-				"		CANTIDAD, " + "\n" +
-				"		PRECIO, " + "\n" +
-				"		IS_ACTIVE, " + "\n" +
-				"		FK_INGRESO, " + "\n" +
-				"		FK_ARTICULO, " + "\n" +
-				"		FK_ALMACEN" + "\n" +
-				"	) VALUES";
-	var idIngreso = req.body.ID_INGRESO;
-	var end_query = "\n" + " (?, ?, ?, ?, ?, ?)";
-	var table = req.body.LIST.reduce(function(tabla, record) {
-										query = query + end_query + ",";
-										tabla.push(record.CANTIDAD,
-													record.PRECIO_UNITARIO,
-													1,
-													idIngreso,
-													record.ID_ARTICULO,
-													record.ID_ALMACEN);
-										return tabla;
-									}, []);
-	query = mysql.format(query.slice(0, -1), table);
-	dateGeneratorO.printInsert(query);
-
-	var final_query = "CALL SP_INSERT_DETALLE('" + query + "', 'INGRESO', " + idIngreso + ")";
-	dateGeneratorO.printInsert(final_query);
-	mySqlPool.getConnection(function (err, connection) {
-		connection.query(final_query, function(error) {
-			if (error) {
-				dateGeneratorO.printError(final_query, error.message);
-				res.json({
-					"Error": true,
-					"Message": "Error executing MySQL query"
-				});
-			} else {
-				dateGeneratorO.printSuccess();
-				res.json({
-					"Error": false,
-					"Message": "Article Added !"
-				});
-			}
-			connection.release();
-		});
-	});
-});
-
-router.put("/", function( req, res) {
-	dateGeneratorO.printUpdate("/");
-	var query = "UPDATE " + "\n" +
-				"	INGRESO " + "\n" +
-				"SET " + "\n" +
-				"	COSTO_TOTAL = ?," + "\n" +
-				"	UPDATE_TIME = CURRENT_TIMESTAMP" + "\n" +
-				"WHERE" + "\n" +
-				"	ID_INGRESO = ?";
-	var table = [
-					req.body.COSTO_TOTAL,
-					req.body.ID_INGRESO];
-	query = mysql.format(query, table);
-	dateGeneratorO.printUpdate(query);
-	mySqlPool.getConnection(function (err, connection) {
-		connection.query(query, function(error) {
-			if (error) {
-				dateGeneratorO.printError(query, error.message);
-				res.json({
-					"Error": true,
-					"Message": "Error executing MySQL query"
-				});
-			} else {
-				dateGeneratorO.printSuccess();
-				res.json({
-					"Error": false,
-					"Message": "Categoria detalle updated !"
-				});
-			}
-			connection.release();
-		});
-	});
-});
-
-router.get("/list/:id_ingreso", function (req, res) {
+router.get("/list/:id_ingreso", cf( async(req) => {
 	dateGeneratorO.printSelect("list/:id_ingreso");
 	var query = "SELECT " + "\n" +
 				"	ding.ID_DETALLE_INGRESO, " + "\n" +
@@ -139,25 +33,86 @@ router.get("/list/:id_ingreso", function (req, res) {
 	var table = [req.params.id_ingreso];
 	query = mysql.format(query, table);
 	dateGeneratorO.printSelect(query);
-	mySqlPool.getConnection(function (err, connection) {
-		connection.query(query, function (error, rows) {
-			if (error) {
-				dateGeneratorO.printError(query, error.message);
-				res.json({
-					"Error": true,
-					"Message": "Error executing MySQL query"
-				});
-			} else {
-				dateGeneratorO.printSuccess();
-				res.json({
-					"Error": false,
-					"Message": "Success",
-					"DetalleIngreso": rows
-				});
-			}
-			connection.release();
-		});
-	});
-});
+	var connection = await mySqlPool.getConnection();
+	var rows = await connection.query(query);
+	var result = {
+		DetalleIngreso: rows
+	};
+	connection.release();
+	return result;
+}));
+
+router.post("/", cf( async(req) => {
+	dateGeneratorO.printInsert("/");
+	var query = "INSERT INTO " + "\n" +
+				"	DETALLE_INGRESO (" + "\n" +
+				"		CANTIDAD, " + "\n" +
+				"		PRECIO, " + "\n" +
+				"		IS_ACTIVE, " + "\n" +
+				"		FK_INGRESO, " + "\n" +
+				"		FK_ARTICULO, " + "\n" +
+				"		FK_ALMACEN" + "\n" +
+				"	) VALUES";
+	var idIngreso = req.body.ID_INGRESO;
+	var end_query = "\n" + " (?, ?, ?, ?, ?, ?)";
+	var table = req.body.LIST.reduce(function(tabla, record) {
+										query = query + end_query + ",";
+										tabla.push(record.CANTIDAD,
+													record.PRECIO_UNITARIO,
+													1,
+													idIngreso,
+													record.ID_ARTICULO,
+													record.ID_ALMACEN);
+										return tabla;
+									}, []);
+	query = mysql.format(query.slice(0, -1), table);
+	dateGeneratorO.printInsert(query);
+
+	var final_query = "CALL SP_INSERT_DETALLE('" + query + "', 'INGRESO', " + idIngreso + ")";
+	dateGeneratorO.printInsert(final_query);
+	var connection = await mySqlPool.getConnection();
+	await connection.query(query);
+	var result = {
+			Message: "OK"
+	};
+	connection.release();
+	return result;
+}));
+
+router.put("/", cf( async(req) => {
+	dateGeneratorO.printUpdate("/");
+	var query = "UPDATE " + "\n" +
+				"	INGRESO " + "\n" +
+				"SET " + "\n" +
+				"	COSTO_TOTAL = ?," + "\n" +
+				"	UPDATE_TIME = CURRENT_TIMESTAMP" + "\n" +
+				"WHERE" + "\n" +
+				"	ID_INGRESO = ?";
+	var table = [
+					req.body.COSTO_TOTAL,
+					req.body.ID_INGRESO];
+	query = mysql.format(query, table);
+	dateGeneratorO.printUpdate(query);
+	var connection = await mySqlPool.getConnection();
+	await connection.query(query);
+	var result = {
+			Message: "OK"
+	};
+	connection.release();
+	return result;
+}));
+
+router.delete("/:id_ingreso", cf( async(req) => {
+	dateGeneratorO.printDelete("/:id_ingreso");
+	var query = "CALL SP_DELETE_DETALLE('INGRESO'," + req.params.id_ingreso + ")";
+	dateGeneratorO.printDelete(query);
+	var connection = await mySqlPool.getConnection();
+	await connection.query(query);
+	var result = {
+			Message: "OK"
+	};
+	connection.release();
+	return result;
+}));
 
 exports.router = router;

@@ -5,7 +5,7 @@ var router = require("express").Router();
 
 dateGeneratorO.printStart();
 
-router.get("/list/:desc", function (req, res) {
+router.get("/list/:desc", cf( async(req) => {
 	dateGeneratorO.printSelect("list");
 	var query = "SELECT " + "\n" +
 				"	pc.ID_PROVEEDOR_CLIENTE, " + "\n" +
@@ -28,29 +28,16 @@ router.get("/list/:desc", function (req, res) {
 	var table = [req.params.desc];
 	query = mysql.format(query, table);
 	dateGeneratorO.printSelect(query);
+	var connection = await mySqlPool.getConnection();
+	var rows = await connection.query(query);
+	var result = {
+		Persona: rows
+	};
+	connection.release();
+	return result;
+}));
 
-	mySqlPool.getConnection(function (err, connection) {
-		connection.query(query, function (error, rows) {
-			if (error) {
-				dateGeneratorO.printError(query, error.message);
-				res.json({
-					"Error": true,
-					"Message": "Error executing MySQL query"
-				});
-			} else {
-				dateGeneratorO.printSuccess();
-				res.json({
-					"Error": false,
-					"Message": "Success",
-					"Persona": rows
-				});
-			}
-			connection.release();
-		});
-	});
-});
-
-router.post("/", function(req, res) {
+router.post("/", cf( async(req) => {
 	dateGeneratorO.printInsert("/");
 	var query = "INSERT INTO " + "\n" +
 				"	PROVEEDOR_CLIENTE (" + "\n" +
@@ -88,27 +75,16 @@ router.post("/", function(req, res) {
 				req.body.FK_TIPO_PERSONA];
 	query = mysql.format(query, table);
 	dateGeneratorO.printInsert(query);
-	mySqlPool.getConnection(function (err, connection) {
-		connection.query(query, function (error) {
-			if (error) {
-				dateGeneratorO.printError(query, error.message);
-				res.json({
-					"Error": true,
-					"Message": "Error executing MySQL query"
-				});
-			} else {
-				dateGeneratorO.printSuccess();
-				res.json({
-					"Error": false,
-					"Message": "Persona Added !"
-				});
-			}
-			connection.release();
-		});
-	});
-});
+	var connection = await mySqlPool.getConnection();
+	await connection.query(query);
+	var result = {
+			Message: "OK"
+	};
+	connection.release();
+	return result;
+}));
 
-router.put("/", function(req, res) {
+router.put("/", cf( async(req) => {
 	dateGeneratorO.printUpdate("/");
 	var query = "UPDATE " + "\n" +
 				"	PROVEEDOR_CLIENTE" + "\n" +
@@ -132,27 +108,16 @@ router.put("/", function(req, res) {
 				req.body.ID_PROVEEDOR_CLIENTE];
 	query = mysql.format(query, table);
 	dateGeneratorO.printUpdate(query);
-	mySqlPool.getConnection(function (err, connection) {
-		connection.query(query, function(error) {
-			if (error) {
-				dateGeneratorO.printError(query, error.message);
-				res.json({
-					"Error": true,
-					"Message": "Error executing MySQL query"
-				});
-			} else {
-				dateGeneratorO.printSuccess();
-				res.json({
-					"Error": false,
-					"Message": "Categoria detalle updated !"
-				});
-			}
-			connection.release();
-		});
-	});
-});
+	var connection = await mySqlPool.getConnection();
+	await connection.query(query);
+	var result = {
+			Message: "OK"
+	};
+	connection.release();
+	return result;
+}));
 
-router.delete("/:id_proveedor_cliente", function (req, res) {
+router.delete("/:id_proveedor_cliente", cf( async(req) => {
 	dateGeneratorO.printDelete("/:id_proveedor_cliente");
 	var query = "DELETE FROM" + "\n" +
 				"	PROVEEDOR_CLIENTE" + "\n" +
@@ -161,24 +126,13 @@ router.delete("/:id_proveedor_cliente", function (req, res) {
 	var table = [req.params.id_proveedor_cliente];
 	query = mysql.format(query, table);
 	dateGeneratorO.printDelete(query);
-	mySqlPool.getConnection(function (err, connection) {
-		connection.query(query, function (error) {
-			if (error) {
-				dateGeneratorO.printError(query, error.message);
-				res.json({
-					"Error": true,
-					"Message": "Error executing MySQL query"
-				});
-			} else {
-				dateGeneratorO.printSuccess();
-				res.json({
-					"Error": false,
-					"Message": "Categoria deleted: " + req.params.id_proveedor_cliente
-				});
-			}
-			connection.release();
-		});
-	});
-});
+	var connection = await mySqlPool.getConnection();
+	await connection.query(query);
+	var result = {
+			Message: "OK"
+	};
+	connection.release();
+	return result;
+}));
 
 exports.router = router;

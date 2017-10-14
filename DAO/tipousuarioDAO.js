@@ -8,152 +8,95 @@ var router = require("express").Router();
 
 dateGeneratorO.printStart();
 
-router.get("/list", function (req, res) {
+router.get("/list", cf( async(req) => {
 	dateGeneratorO.printSelect("list");
-    var query = "CALL SP_SEARCH_ALL('TIPO_USUARIO')";
-    var table = [];
-    query = mysql.format(query, table);
-    dateGeneratorO.printSelect(query);
-	mySqlPool.getConnection(function (err, connection) {
-	    connection.query(query, function (error, rows) {
-	        if (error) {
-	            dateGeneratorO.printError(query, error.message);
-	            res.json({
-	                "Error": true,
-	                "Message": "Error executing MySQL query"
-	            });
-	        } else {
-				dateGeneratorO.printSuccess();
-				res.json({
-					"Error": false,
-	                "Message": "Success",
-	                "TiposUsuario": rows[0]
-	            });
-	        }
-			connection.release();
-	    });
-	});
-});
+	var query = "CALL SP_SEARCH_ALL('TIPO_USUARIO')";
+	var table = [];
+	query = mysql.format(query, table);
+	dateGeneratorO.printSelect(query);
+	var connection = await mySqlPool.getConnection();
+	var rows = await connection.query(query);
+	var result = {
+		TiposUsuario: rows[0]
+	};
+	connection.release();
+	return result;
+}));
 
-router.post("/", function (req, res) {
+router.post("/", cf( async(req) => {
 	dateGeneratorO.printInsert("/");
-    var query = "INSERT INTO " + "\n" +
-                "   TIPO_USUARIO(" + "\n" +
-                "       TIPO" + "\n" +
-                "   ) VALUES (" + "\n" +
-                "       ?" + "\n" +
-                "   )";
-    var table = [req.body.TIPO];
-    query = mysql.format(query, table);
-    dateGeneratorO.printInsert(query);
-	mySqlPool.getConnection(function (err, connection) {
-	    connection.query(query, function (error) {
-	        if (error) {
-	            dateGeneratorO.printError(query, error.message);
-	            res.json({
-	                "Error": true,
-	                "Message": "Error executing MySQL query"
-	            });
-	        } else {
-				dateGeneratorO.printSuccess();
-				res.json({
-					"Error": false,
-	                "Message": "Tipo Usuario Agregado"
-	            });
-	        }
-			connection.release();
-	    });
-	});
-});
+	var query = "INSERT INTO " + "\n" +
+	            "   TIPO_USUARIO(" + "\n" +
+	            "       TIPO" + "\n" +
+	            "   ) VALUES (" + "\n" +
+	            "       ?" + "\n" +
+	            "   )";
+	var table = [req.body.TIPO];
+	query = mysql.format(query, table);
+	dateGeneratorO.printInsert(query);
+	var connection = await mySqlPool.getConnection();
+	await connection.query(query);
+	var result = {
+		Message: "OK"
+	};
+	connection.release();
+	return result;
+}));
 
-router.put("/", function (req, res) {
-    dateGeneratorO.printUpdate("/");
-    var query = "UPDATE " + "\n" +
-                "   TIPO_USUARIO " + "\n" +
-                "SET " + "\n" +
-                "   TIPO = ? " + "\n" +
-                "WHERE " + "\n" +
-                "   ID_TIPO_USUARIO = ?";
-    var table = [req.body.TIPO, req.body.ID_TIPO_USUARIO];
-    query = mysql.format(query, table);
-    dateGeneratorO.printUpdate(query);
-	mySqlPool.getConnection(function (err, connection) {
-	    connection.query(query, function (error) {
-	        if (error) {
-	            dateGeneratorO.printError(query, error.message);
-	            res.json({
-	                "Error": true,
-	                "Message": "Error executing MySQL query"
-	            });
-	        } else {
-				dateGeneratorO.printSuccess();
-				res.json({
-					"Error": false,
-	                "Message": "Tipo Usuario modificado"
-	            });
-	        }
-			connection.release();
-	    });
-	});
-});
+router.put("/", cf( async(req) => {
+	dateGeneratorO.printUpdate("/");
+	var query = "UPDATE " + "\n" +
+	            "   TIPO_USUARIO " + "\n" +
+	            "SET " + "\n" +
+	            "   TIPO = ? " + "\n" +
+	            "WHERE " + "\n" +
+	            "   ID_TIPO_USUARIO = ?";
+	var table = [req.body.TIPO, req.body.ID_TIPO_USUARIO];
+	query = mysql.format(query, table);
+	dateGeneratorO.printUpdate(query);
+	var connection = await mySqlPool.getConnection();
+	await connection.query(query);
+	var result = {
+		Message: "OK"
+	};
+	connection.release();
+	return result;
+}));
 
-router.get("/:id_tipo_usuario", function (req, res) {
+router.get("/:id_tipo_usuario", cf( async(req) => {
 	dateGeneratorO.printSelect("/:id_tipo_usuario");
-    var query = "CALL SP_SEARCH('TIPO_USUARIO','ID_TIPO_USUARIO',?)";
-    var table = [req.params.id_tipo_usuario];
-    query = mysql.format(query, table);
-    dateGeneratorO.printSelect(query);
-	mySqlPool.getConnection(function (err, connection) {
-	    connection.query(query, function (error, rows) {
-	        if (error) {
-	            dateGeneratorO.printError(query, error.message);
-	            res.json({
-	                "Error": true,
-	                "Message": "Error executing MySQL query"
-	            });
-	        } else {
-				dateGeneratorO.printSuccess();
-				res.json({
-					"Error": false,
-	                "Message": "Success",
-	                "TipoUsuario": rows[0]
-	            });
-	        }
-			connection.release();
-	    });
-	});
-});
+	var query = "CALL SP_SEARCH('TIPO_USUARIO','ID_TIPO_USUARIO',?)";
+	var table = [req.params.id_tipo_usuario];
+	query = mysql.format(query, table);
+	dateGeneratorO.printSelect(query);
+	var connection = await mySqlPool.getConnection();
+	var rows = await connection.query(query);
+	var result = {
+		TipoUsuario: rows[0]
+	};
+	connection.release();
+	return result;
+}));
 
-router.delete("/:id_tipo_usuario", function (req, res) {
+router.delete("/:id_tipo_usuario", cf( async(req) => {
 	dateGeneratorO.printDelete("/:id_tipo_usuario");
-    var query = "DELETE FROM " + "\n" +
-                "   TIPO_USUARIO " + "\n" +
-                "WHERE " + "\n" +
-                "   ID_TIPO_USUARIO=?";
-    var table = [req.params.id_tipo_usuario];
-    query = mysql.format(query, table);
-    dateGeneratorO.printDelete(query);
-	mySqlPool.getConnection(function (err, connection) {
-	    connection.query(query, function (error) {
-	        if (error) {
-	            dateGeneratorO.printError(query, error.message);
-	            res.json({
-	                "Error": true,
-	                "Message": "Error executing MySQL query"
-	            });
-	        } else {
-				dateGeneratorO.printSuccess();
-				res.json({
-					"Error": false,
-	                "Message": "Deleted the user with id_tipo_usuario " + req.params.id_tipo_usuario
-	            });
-	        }
-			connection.release();
-	    });
-	});
-});
+	var query = "DELETE FROM " + "\n" +
+	            "   TIPO_USUARIO " + "\n" +
+	            "WHERE " + "\n" +
+	            "   ID_TIPO_USUARIO=?";
+	var table = [req.params.id_tipo_usuario];
+	query = mysql.format(query, table);
+	dateGeneratorO.printDelete(query);
+	var connection = await mySqlPool.getConnection();
+	await connection.query(query);
+	var result = {
+		Message: "OK"
+	};
+	connection.release();
+	return result;
+}));
 
-router.get("/topdf", function (req, res) {
+router.get("/topdf", cf( async(req) => {
 
     var doc = new PDFDocument();
 
@@ -189,6 +132,6 @@ router.get("/topdf", function (req, res) {
 
     res.json ({"dataR" : 'output.pdf'});
 
-});
+}));
 
 exports.router = router;

@@ -5,36 +5,22 @@ var router = require("express").Router();
 
 dateGeneratorO.printStart();
 
-router.get("/list", function (req, res) {
+router.get("/list", cf( async(req) => {
 	dateGeneratorO.printSelect("list");
 	var query = "CALL SP_SEARCH_ALL('ACCESO_USUARIO')";
 	var table = [];
 	query = mysql.format(query, table);
 	dateGeneratorO.printSelect(query);
+	var connection = await mySqlPool.getConnection();
+	var rows = await connection.query(query);
+	var result = {
+		AccesosUsuario: rows[0]
+	};
+	connection.release();
+	return result;
+}));
 
-	mySqlPool.getConnection(function (err, connection) {
-		connection.query(query, function (error, rows) {
-			if (error) {
-				dateGeneratorO.printError(query, error.message);
-				res.json({
-					"Error": true,
-					"Message": "Error executing MySQL query"
-				});
-			} else {
-				dateGeneratorO.printSuccess();
-				res.json({
-					"Error": false,
-					"Message": "Success",
-					"AccesosUsuario": rows[0]
-				});
-			}
-			connection.release();
-		});
-	});
-
-});
-
-router.post("/", function (req, res) {
+router.post("/", cf( async(req) => {
 	dateGeneratorO.printInsert("/");
 	var query = "INSERT INTO " + "\n" +
 				"   ACCESO_USUARIO (" + "\n" +
@@ -45,28 +31,16 @@ router.post("/", function (req, res) {
 	var table = [req.body.DESCRIPCION];
 	query = mysql.format(query, table);
 	dateGeneratorO.printInsert(query);
+	var connection = await mySqlPool.getConnection();
+	await connection.query(query);
+	var result = {
+		Message: "OK"
+	};
+	connection.release();
+	return result;
+}));
 
-	mySqlPool.getConnection(function (err, connection) {
-		connection.query(query, function (error) {
-			if (error) {
-				dateGeneratorO.printError(query, error.message);
-				res.json({
-				"Error": true,
-				"Message": "Error executing MySQL query"
-				});
-			} else {
-				dateGeneratorO.printSuccess();
-				res.json({
-				"Error": false,
-				"Message": "Acceso Usuario Agregado"
-				});
-			}
-			connection.release();
-	    });
-	});
-});
-
-router.put("/", function (req, res) {
+router.put("/", cf( async(req) => {
 	dateGeneratorO.printUpdate("/");
 	var query = "UPDATE " + "\n" +
 				"   ACCESO_USUARIO " + "\n" +
@@ -77,56 +51,31 @@ router.put("/", function (req, res) {
 	var table = [req.body.DESCRIPCION, req.body.ID_ACCESO_USUARIO];
 	query = mysql.format(query, table);
 	dateGeneratorO.printUpdate(query);
+	var connection = await mySqlPool.getConnection();
+	await connection.query(query);
+	var result = {
+		Message: "OK"
+	};
+	connection.release();
+	return result;
+}));
 
-	mySqlPool.getConnection(function (err, connection) {
-		connection.query(query, function (error) {
-			if (error) {
-				dateGeneratorO.printError(query, error.message);
-				res.json({
-				"Error": true,
-				"Message": "Error executing MySQL query"
-				});
-			} else {
-				dateGeneratorO.printSuccess();
-				res.json({
-				"Error": false,
-				"Message": "Tipo Usuario modificado"
-				});
-			}
-			connection.release();
-		});
-	});
-});
-
-router.get("/:id_acceso_usuario", function (req, res) {
+router.get("/:id_acceso_usuario", cf( async(req) => {
 	dateGeneratorO.printSelect("/:id_acceso_usuario");
 	var query = "CALL SP_SEARCH('ACCESO_USUARIO','ID_ACCESO_USUARIO',?)";
 	var table = [req.params.id_acceso_usuario];
 	query = mysql.format(query, table);
 	dateGeneratorO.printSelect(query);
+	var connection = await mySqlPool.getConnection();
+	var rows = await connection.query(query);
+	var result = {
+		AccesoUsuario: rows[0]
+	};
+	connection.release();
+	return result;
+}));
 
-	mySqlPool.getConnection(function (err, connection) {
-		connection.query(query, function (error, rows) {
-			if (error) {
-				dateGeneratorO.printError(query, error.message);
-				res.json({
-				"Error": true,
-				"Message": "Error executing MySQL query"
-				});
-			} else {
-				dateGeneratorO.printSuccess();
-				res.json({
-				"Error": false,
-				"Message": "Success",
-				"AccesoUsuario": rows[0]
-				});
-			}
-			connection.release();
-		});
-	});
-});
-
-router.delete("/:id_acceso_usuario", function (req, res) {
+router.delete("/:id_acceso_usuario", cf( async(req) => {
 	dateGeneratorO.printDelete("/:id_acceso_usuario");
 	var query = "DELETE FROM " + "\n" +
 				"   ACCESO_USUARIO " + "\n" +
@@ -135,25 +84,13 @@ router.delete("/:id_acceso_usuario", function (req, res) {
 	var table = [req.params.id_acceso_usuario];
 	query = mysql.format(query, table);
 	dateGeneratorO.printDelete(query);
-
-	mySqlPool.getConnection(function (err, connection) {
-		connection.query(query, function (error) {
-			if (error) {
-				dateGeneratorO.printError(query, error.message);
-				res.json({
-				"Error": true,
-				"Message": "Error executing MySQL query"
-				});
-			} else {
-				dateGeneratorO.printSuccess();
-				res.json({
-				"Error": false,
-				"Message": "Deleted the user with id_acceso_usuario " + req.params.id_acceso_usuario
-				});
-			}
-			connection.release();
-		});
-	});
-});
+	var connection = await mySqlPool.getConnection();
+	await connection.query(query);
+	var result = {
+		Message: "OK"
+	};
+	connection.release();
+	return result;
+}));
 
 exports.router = router;

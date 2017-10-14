@@ -5,7 +5,7 @@ var router = require("express").Router();
 
 dateGeneratorO.printStart();
 
-router.get("/list", function (req, res) {
+router.get("/list", cf( async(req) => {
 	dateGeneratorO.printSelect("list");
 	var query ="SELECT " + "\n" +
 				"	ing.ID_INGRESO, " + "\n" +
@@ -35,28 +35,16 @@ router.get("/list", function (req, res) {
 	var table = [];
 	query = mysql.format(query, table);
 	dateGeneratorO.printSelect(query);
-	mySqlPool.getConnection(function (err, connection) {
-		connection.query(query, function(error, rows) {
-			if (error) {
-				dateGeneratorO.printError(query, error.message);
-				res.json({
-					"Error": true,
-					"Message": "Error executing MySQL query"
-				});
-			} else {
-				dateGeneratorO.printSuccess();
-				res.json({
-					"Error": false,
-					"Message": "Success",
-					"Ingreso": rows
-				});
-			}
-			connection.release();
-		});
-	});
-});
+	var connection = await mySqlPool.getConnection();
+	var rows = await connection.query(query);
+	var result = {
+		Almacenes: rows
+	};
+	connection.release();
+	return result;
+}));
 
-router.post("/", function (req, res) {
+router.post("/", cf( async(req) => {
 	dateGeneratorO.printInsert("/");
 	var query = "INSERT INTO " + "\n" +
 				"	INGRESO (" + "\n" +
@@ -86,27 +74,16 @@ router.post("/", function (req, res) {
 				req.body.FECHA_INGRESO];
 	query = mysql.format(query, table);
 	dateGeneratorO.printInsert(query);
-	mySqlPool.getConnection(function (err, connection) {
-		connection.query(query, function (error) {
-			if (error) {
-				dateGeneratorO.printError(query, error.message);
-				res.json({
-					"Error": true,
-					"Message": "Error executing MySQL query"
-				});
-			} else {
-				dateGeneratorO.printSuccess();
-				res.json({
-					"Error": false,
-					"Message": "Categoria Added !"
-				});
-			}
-			connection.release();
-		});
-	});
-});
+	var connection = await mySqlPool.getConnection();
+	await connection.query(query);
+	var result = {
+		Message: "OK"
+	};
+	connection.release();
+	return result;
+}));
 
-router.put("/", function (req, res) {
+router.put("/", cf( async(req) => {
 	dateGeneratorO.printUpdate("/");
 	var query = "UPDATE " + "\n" +
 				"	INGRESO " + "\n" +
@@ -122,27 +99,16 @@ router.put("/", function (req, res) {
 				req.body.ID_INGRESO];
 	query = mysql.format(query, table);
 	dateGeneratorO.printUpdate(query);
-	mySqlPool.getConnection(function (err, connection) {
-		connection.query(query, function(error) {
-			if (error) {
-				dateGeneratorO.printError(query, error.message);
-				res.json({
-					"Error": true,
-					"Message": "Error executing MySQL query"
-				});
-			} else {
-				dateGeneratorO.printSuccess();
-				res.json({
-					"Error": false,
-					"Message": "Categoria detalle updated !"
-				});
-			}
-			connection.release();
-		});
-	});
-});
+	var connection = await mySqlPool.getConnection();
+	await connection.query(query);
+	var result = {
+		Message: "OK"
+	};
+	connection.release();
+	return result;
+}));
 
-router.delete("/:id_ingreso", function (req, res) {
+router.delete("/:id_ingreso", cf( async(req) => {
 	dateGeneratorO.printDelete("/:id_ingreso");
 	var query = "DELETE FROM" + "\n" +
 				"	INGRESO" + "\n" +
@@ -151,24 +117,13 @@ router.delete("/:id_ingreso", function (req, res) {
 	var table = [req.params.id_ingreso];
 	query = mysql.format(query, table);
 	dateGeneratorO.printDelete(query);
-	mySqlPool.getConnection(function (err, connection) {
-		connection.query(query, function(error) {
-			if (error) {
-				dateGeneratorO.printError(query, error.message);
-				res.json({
-					"Error": true,
-					"Message": "Error executing MySQL query"
-				});
-			} else {
-				dateGeneratorO.printSuccess();
-				res.json({
-					"Error": false,
-					"Message": "Categoria deleted: " + req.params.id_ingreso
-				});
-			}
-			connection.release();
-		});
-	});
-});
+	var connection = await mySqlPool.getConnection();
+	await connection.query(query);
+	var result = {
+		Message: "OK"
+	};
+	connection.release();
+	return result;
+}));
 
 exports.router = router;

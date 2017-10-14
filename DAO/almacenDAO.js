@@ -5,35 +5,22 @@ var router = require("express").Router();
 
 dateGeneratorO.printStart();
 
-router.get("/list", function (req, res) {
+router.get("/list", cf( async(req) => {
 	dateGeneratorO.printSelect("list");
 	var query = "CALL SP_SEARCH_ALL('ALMACEN')";
 	var table = [];
 	query = mysql.format(query, table);
 	dateGeneratorO.printSelect(query);
+	var connection = await mySqlPool.getConnection();
+	var rows = await connection.query(query);
+	var result = {
+		Almacenes: rows[0]
+	};
+	connection.release();
+	return result;
+}));
 
-	mySqlPool.getConnection(function (err, connection) {
-		connection.query(query, function(error, rows) {
-			if (error) {
-				dateGeneratorO.printError(query, error.message);
-				res.json({
-					"Error": true,
-					"Message": "Error executing MySQL query"
-				});
-			} else {
-				dateGeneratorO.printSuccess();
-				res.json({
-					"Error": false,
-					"Message": "Success",
-					"Almacenes": rows[0]
-				});
-			}
-			connection.release();
-		});
-	});
-});
-
-router.post("/", function (req, res) {
+router.post("/", cf( async(req) => {
 	dateGeneratorO.printInsert();
 	var query = "INSERT INTO " + "\n" +
 				"	ALMACEN (" + "\n" +
@@ -48,28 +35,16 @@ router.post("/", function (req, res) {
 				req.body.UBICACION];
 	query = mysql.format(query, table);
 	dateGeneratorO.printInsert(query);
+	var connection = await mySqlPool.getConnection();
+	await connection.query(query);
+	var result = {
+		Message: "OK"
+	};
+	connection.release();
+	return result;
+}));
 
-	mySqlPool.getConnection(function (err, connection) {
-		connection.query(query, function (error) {
-			if (error) {
-				dateGeneratorO.printError(query, error.message);
-				res.json({
-					"Error": true,
-					"Message": "Error executing MySQL query"
-				});
-			} else {
-				dateGeneratorO.printSuccess();
-				res.json({
-					"Error": false,
-					"Message": "Articulo Added !"
-				});
-			}
-			connection.release();
-		});
-	});
-});
-
-router.put("/", function (req, res) {
+router.put("/", cf( async(req) => {
 	dateGeneratorO.printUpdate();
 	var query = "UPDATE" + "\n" +
 				"	ALMACEN " + "\n" +
@@ -81,27 +56,16 @@ router.put("/", function (req, res) {
 	var table = [req.body.CODIGO_ALMACEN, req.body.UBICACION, req.body.ID_ALMACEN];
 	query = mysql.format(query, table);
 	dateGeneratorO.printUpdate(query);
+	var connection = await mySqlPool.getConnection();
+	await connection.query(query);
+	var result = {
+		Message: "OK"
+	};
+	connection.release();
+	return result;
+}));
 
-	mySqlPool.getConnection(function (err, connection) {
-		connection.query(query, function(error) {
-			if (error) {
-				dateGeneratorO.printError(query, error.message);
-				res.json({
-					"Error": true,
-					"Message": "Error executing MySQL query"
-				});
-			} else {
-				dateGeneratorO.printSuccess();
-				res.json({
-					"Error": false,
-					"Message": "Almacen detalle updated !"
-				});
-			}
-		});
-	});
-});
-
-router.delete("/:id_almacen", function(req, res) {
+router.delete("/:id_almacen", cf( async(req) => {
 	dateGeneratorO.printDelete("/:id_almacen");
 	var query = "DELETE FROM" + "\n" +
 				"	ALMACEN" + "\n" +
@@ -110,25 +74,13 @@ router.delete("/:id_almacen", function(req, res) {
 	var table = [req.params.id_almacen];
 	query = mysql.format(query, table);
 	dateGeneratorO.printDelete(query);
-
-	mySqlPool.getConnection(function (err, connection) {
-		connection.query(query, function(error) {
-			if (error) {
-				dateGeneratorO.printError(query, error.message);
-				res.json({
-					"Error": true,
-					"Message": "Error executing MySQL query"
-				});
-			} else {
-				dateGeneratorO.printSuccess();
-				res.json({
-					"Error": false,
-					"Message": "Almacen deleted: " + req.params.id_almacen
-				});
-			}
-			connection.release();
-		});
-	});
-});
+	var connection = await mySqlPool.getConnection();
+	await connection.query(query);
+	var result = {
+		Message: "OK"
+	};
+	connection.release();
+	return result;
+}));
 
 exports.router = router;

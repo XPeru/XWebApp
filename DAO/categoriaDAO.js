@@ -11,13 +11,13 @@ router.get("/list", cf( async(req) => {
 	var table = [];
 	query = mysql.format(query, table);
 	dateGeneratorO.printSelect(query);
-    var connection = await mySqlPool.getConnection();
-    var rows = await connection.query(query);
-    var result = {
-        Categorias: rows[0]
-    };
-    connection.release();
-    return result;
+	var connection = await mySqlPool.getConnection();
+	var rows = await connection.query(query);
+	var result = {
+		Categorias: rows[0]
+	};
+	connection.release();
+	return result;
 }));
 
 router.post("/", cf( async(req) => {
@@ -32,13 +32,13 @@ router.post("/", cf( async(req) => {
 	var table = [req.body.DESCRIPCION];
 	query = mysql.format(query, table);
 	dateGeneratorO.printInsert(query);
-    var connection = await mySqlPool.getConnection();
-    await connection.query(query);
-    var result = {
-        Message: "OK"
-    };
-    connection.release();
-    return result;
+	var connection = await mySqlPool.getConnection();
+	await connection.query(query);
+	var result = {
+		Message: "OK"
+	};
+	connection.release();
+	return result;
 }));
 
 router.put("/", cf( async(req) => {
@@ -53,13 +53,13 @@ router.put("/", cf( async(req) => {
 				req.body.ID_CATEGORIA];
 	query = mysql.format(query, table);
 	dateGeneratorO.printUpdate(query);
-    var connection = await mySqlPool.getConnection();
-    await connection.query(query);
-    var result = {
-        Message: "OK"
-    };
-    connection.release();
-    return result;
+	var connection = await mySqlPool.getConnection();
+	await connection.query(query);
+	var result = {
+	Message: "OK"
+	};
+	connection.release();
+	return result;
 }));
 
 router.delete("/:id_categoria", cf( async(req) => {
@@ -71,13 +71,13 @@ router.delete("/:id_categoria", cf( async(req) => {
 	var table = [req.params.id_categoria];
 	query = mysql.format(query, table);
 	dateGeneratorO.printDelete(query);
-    var connection = await mySqlPool.getConnection();
-    await connection.query(query);
-    var result = {
-        Message: "OK"
-    };
-    connection.release();
-    return result;
+	var connection = await mySqlPool.getConnection();
+	await connection.query(query);
+	var result = {
+		Message: "OK"
+	};
+	connection.release();
+	return result;
 }));
 
 exports.router = router;
